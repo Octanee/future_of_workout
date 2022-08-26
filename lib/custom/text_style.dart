@@ -8,4 +8,10 @@ class AppTextStyle {
     fontWeight: FontWeight.bold,
     color: AppColors.grey,
   );
+
+  static TextStyle textStyleSemiBold16 = GoogleFonts.workSans(
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    color: AppColors.grey,
+  );
 }
