@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:future_of_workout/custom/colors.dart';
+import 'package:future_of_workout/various/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTextStyle {

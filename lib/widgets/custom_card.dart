@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:future_of_workout/custom/colors.dart';
+import '../various/colors.dart';
 
 class CustomCard extends StatelessWidget {
   const CustomCard({

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../custom/colors.dart';
-import '../../custom/text_style.dart';
+import '../../various/colors.dart';
+import '../../various/text_style.dart';
 
 class DiscoverPage extends StatelessWidget {
   const DiscoverPage({Key? key}) : super(key: key);

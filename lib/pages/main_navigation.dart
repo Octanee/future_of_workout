@@ -4,7 +4,7 @@ import 'package:future_of_workout/pages/discover/discover_page.dart';
 import 'package:future_of_workout/pages/settings/settings_page.dart';
 import 'package:future_of_workout/pages/workouts/workouts_page.dart';
 
-import '../custom/colors.dart';
+import '../various/colors.dart';
 
 class MainNavigation extends StatefulWidget {
   const MainNavigation({Key? key}) : super(key: key);

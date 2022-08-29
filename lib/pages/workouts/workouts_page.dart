@@ -5,8 +5,8 @@ import 'package:future_of_workout/pages/workouts/tabs/workouts_saved_tab.dart';
 import 'package:future_of_workout/widgets/custom_tab_bar.dart';
 import 'package:future_of_workout/widgets/custom_tab_bar_view.dart';
 
-import '../../custom/colors.dart';
-import '../../custom/text_style.dart';
+import '../../various/colors.dart';
+import '../../various/text_style.dart';
 
 class WorkoutsPage extends StatelessWidget {
   const WorkoutsPage({Key? key}) : super(key: key);
