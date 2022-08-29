@@ -39,12 +39,30 @@ class _MainNavigationState extends State<MainNavigation> {
             setState(() => selectedIndex = index),
           },
           destinations: const [
-            NavigationDestination(icon: Icon(Icons.home), label: 'Workouts'),
             NavigationDestination(
-                icon: Icon(Icons.sports_gymnastics), label: 'Body'),
-            NavigationDestination(icon: Icon(Icons.search), label: 'Discover'),
+                icon: Icon(
+                  Icons.home,
+                  color: AppColors.grey,
+                ),
+                label: 'Workouts'),
             NavigationDestination(
-                icon: Icon(Icons.settings), label: 'Settings'),
+                icon: Icon(
+                  Icons.sports_gymnastics,
+                  color: AppColors.grey,
+                ),
+                label: 'Body'),
+            NavigationDestination(
+                icon: Icon(
+                  Icons.search,
+                  color: AppColors.grey,
+                ),
+                label: 'Discover'),
+            NavigationDestination(
+                icon: Icon(
+                  Icons.settings,
+                  color: AppColors.grey,
+                ),
+                label: 'Settings'),
           ],
         ),
       ),
