@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:future_of_workout/widgets/custom_card.dart';
-import 'package:future_of_workout/widgets/tab_wrapper.dart';
+
+import '../../../widgets/tab_wrapper.dart';
+import '../widgets/workout_item.dart';
 
 class WorkoutsCreatedTab extends StatelessWidget {
   const WorkoutsCreatedTab({Key? key}) : super(key: key);
@@ -8,24 +9,25 @@ class WorkoutsCreatedTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TabWrapper(
+      hasFloatingActionButton: true,
       onPressedFloatingActionButton: () {},
-      floatingActionButtonIcon: Icons.calendar_month,
+      floatingActionButtonIcon: Icons.add,
       child: _buildContent(),
     );
   }
 
   Widget _buildContent() {
-    return ListView.separated(
-      separatorBuilder: (context, index) => const SizedBox(
-        height: 8,
-      ),
+    return GridView.builder(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       physics: const BouncingScrollPhysics(),
-      itemCount: 10,
-      itemBuilder: (context, index) => const CustomCard(
-        child: SizedBox(
-          height: 250,
-        ),
+      itemCount: 4,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        childAspectRatio: 1.25,
+        crossAxisCount: 2,
+        crossAxisSpacing: 8,
+        mainAxisSpacing: 8,
       ),
+      itemBuilder: (context, index) => const WorkoutItem(),
     );
   }
 }

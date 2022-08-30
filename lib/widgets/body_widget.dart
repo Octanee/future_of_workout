@@ -5,39 +5,29 @@ import '../models/muscle.dart';
 import '../models/body.dart';
 
 class BodyWidget extends StatelessWidget {
-  const BodyWidget({required this.body, Key? key}) : super(key: key);
+  const BodyWidget({required this.body, this.isFront = true, Key? key})
+      : super(key: key);
 
+  final bool isFront;
   final Body body;
 
   @override
   Widget build(BuildContext context) {
-    var isFront = false;
-    return Stack(
-      children: [
-        getFront(isFront),
-        getBack(!isFront),
-      ],
+    return isFront ? getFront() : getBack();
+  }
+
+  Widget getFront() {
+    return generateBody(
+      body: body.getFront(),
+      contourPath: 'assets/body/front/contour.svg',
     );
   }
 
-  Widget getFront(bool visible) {
-    return Visibility(
-      visible: visible,
-      child: generateBody(
-        body: body.getFront(),
-        contourPath: 'assets/body/front/contour.svg',
-      ),
-    );
-  }
-
-  Widget getBack(bool visible) {
-    return Visibility(
-      visible: visible,
-      child: generateBody(
-        body: body.getBack(),
-        contourPath: 'assets/body/back/contour.svg',
-        isFront: false,
-      ),
+  Widget getBack() {
+    return generateBody(
+      body: body.getBack(),
+      contourPath: 'assets/body/back/contour.svg',
+      isFront: false,
     );
   }
 
@@ -70,6 +60,7 @@ class BodyWidget extends StatelessWidget {
 
     return SvgPicture.asset(
       path,
+      fit: BoxFit.scaleDown,
       color: fatigue.color,
     );
   }

@@ -4,7 +4,7 @@ import '../various/colors.dart';
 class TabWrapper extends StatelessWidget {
   const TabWrapper({
     required this.child,
-    this.hasFloatingActionButton = true,
+    this.hasFloatingActionButton = false,
     this.onPressedFloatingActionButton,
     this.floatingActionButtonIcon,
     Key? key,

@@ -1,3 +1,7 @@
+import 'dart:math';
+
+import 'package:future_of_workout/extensions/list.dart';
+
 enum Muscle {
   neck(
     pathFront: 'assets/body/front/neck.svg',
@@ -52,4 +56,8 @@ enum Muscle {
 
   final String? pathFront;
   final String? pathBack;
+
+  static Muscle random() {
+    return Muscle.values.random();
+  }
 }
