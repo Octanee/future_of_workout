@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:future_of_workout/widgets/custom_card.dart';
-import 'package:future_of_workout/widgets/tab_wrapper.dart';
+
+import '../../../widgets/widgets.dart';
+
 
 class WorkoutsRecordsTab extends StatelessWidget {
   const WorkoutsRecordsTab({Key? key}) : super(key: key);
@@ -10,6 +11,7 @@ class WorkoutsRecordsTab extends StatelessWidget {
     return TabWrapper(
       hasFloatingActionButton: false,
       child: ListView.separated(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         separatorBuilder: (context, index) => const SizedBox(
           height: 8,
         ),

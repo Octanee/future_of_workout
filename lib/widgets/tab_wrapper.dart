@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../various/colors.dart';
+import '../various/various.dart';
 
 class TabWrapper extends StatelessWidget {
   const TabWrapper({

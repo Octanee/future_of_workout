@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:future_of_workout/extensions/list.dart';
+import '../../extensions/list.dart';
 
 enum Fatigue {
   fatigue0(color: Color(0xFFf2efe6)),

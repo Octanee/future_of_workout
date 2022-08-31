@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:future_of_workout/pages/body/body_page.dart';
-import 'package:future_of_workout/pages/discover/discover_page.dart';
-import 'package:future_of_workout/pages/settings/settings_page.dart';
-import 'package:future_of_workout/pages/workouts/workouts_page.dart';
+
 
 import '../various/colors.dart';
+import 'body/body_page.dart';
+import 'discover/discover_page.dart';
+import 'settings/settings_page.dart';
+import 'workouts/workouts_page.dart';
 
 class MainNavigation extends StatefulWidget {
   const MainNavigation({Key? key}) : super(key: key);

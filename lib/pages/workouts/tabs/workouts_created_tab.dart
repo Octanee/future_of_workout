@@ -20,9 +20,9 @@ class WorkoutsCreatedTab extends StatelessWidget {
     return GridView.builder(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       physics: const BouncingScrollPhysics(),
-      itemCount: 4,
+      itemCount: 9,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        childAspectRatio: 1.25,
+        childAspectRatio: 1.5,
         crossAxisCount: 2,
         crossAxisSpacing: 8,
         mainAxisSpacing: 8,

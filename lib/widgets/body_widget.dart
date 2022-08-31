@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:future_of_workout/models/fatigue.dart';
-import '../models/muscle.dart';
-import '../models/body.dart';
+
+import '../models/models.dart';
 
 class BodyWidget extends StatelessWidget {
   const BodyWidget({required this.body, this.isFront = true, Key? key})
@@ -32,7 +31,7 @@ class BodyWidget extends StatelessWidget {
   }
 
   Widget generateBody({
-    required Map<Muscle, Fatigue> body,
+    required List<MuscleFatigue> body,
     required String contourPath,
     bool isFront = true,
   }) {
@@ -40,8 +39,12 @@ class BodyWidget extends StatelessWidget {
       SvgPicture.asset(contourPath),
     ];
 
-    body.forEach((key, value) {
-      children.add(getSVG(muscle: key, fatigue: value, isFront: isFront));
+    body.forEach((element) {
+      children.add(getSVG(
+        muscle: element.muscle,
+        fatigue: element.fatigue,
+        isFront: isFront,
+      ));
     });
 
     return Stack(

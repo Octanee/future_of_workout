@@ -1,11 +1,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:future_of_workout/models/fatigue.dart';
-import 'package:future_of_workout/models/muscle.dart';
-import 'package:future_of_workout/various/text_style.dart';
 
 import '../../../models/body.dart';
+import '../../../various/various.dart';
 import '../../../widgets/body_widget.dart';
 import '../../../widgets/custom_card.dart';
 
@@ -25,7 +23,7 @@ class WorkoutItem extends StatelessWidget {
                 alignment: Alignment.centerRight,
                 child: Container(
                   padding: const EdgeInsets.only(right: 8.0),
-                  width: constraints.maxWidth * 0.65,
+                  width: constraints.maxWidth * 0.7,
                   child: Text(
                     'Workout name',
                     style: AppTextStyle.textStyleSemiBold16,
@@ -42,25 +40,13 @@ class WorkoutItem extends StatelessWidget {
   }
 
   Widget getBody(BoxConstraints constraints) => Positioned(
-        left: -90,
-        height: 400,
-        top: -20,
-        width: constraints.maxWidth * 1.15,
+        left: constraints.maxWidth * -0.25,
+        height: constraints.maxHeight * 1.5,
+        top: constraints.maxHeight * 0.1,
+        width: constraints.maxWidth * 0.8,
         child: BodyWidget(
           isFront: Random().nextBool(),
-          body: Body()
-            ..updateMusclesFatique(
-              updates: {
-                Muscle.random(): Fatigue.random(),
-                Muscle.random(): Fatigue.random(),
-                Muscle.random(): Fatigue.random(),
-                Muscle.random(): Fatigue.random(),
-                Muscle.random(): Fatigue.random(),
-                Muscle.random(): Fatigue.random(),
-                Muscle.random(): Fatigue.random(),
-                Muscle.random(): Fatigue.random(),
-              },
-            ),
+          body: Body(),
         ),
       );
 }

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../various/colors.dart';
-import '../various/text_style.dart';
+import '../various/various.dart';
 
 class CustomTabBar extends StatelessWidget {
   const CustomTabBar({
@@ -21,13 +19,7 @@ class CustomTabBar extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(24),
           color: AppColors.white,
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.grey.withOpacity(0.10),
-              blurRadius: 2,
-              offset: const Offset(0, 4),
-            ),
-          ],
+          boxShadow: [AppShadows.shadow15],
         ),
         child: TabBar(
           labelColor: AppColors.grey,

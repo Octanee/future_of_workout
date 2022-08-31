@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:future_of_workout/pages/workouts/tabs/workouts_created_tab.dart';
-import 'package:future_of_workout/pages/workouts/tabs/workouts_records_tab.dart';
-import 'package:future_of_workout/pages/workouts/tabs/workouts_saved_tab.dart';
-import 'package:future_of_workout/widgets/custom_tab_bar.dart';
-import 'package:future_of_workout/widgets/custom_tab_bar_view.dart';
 
 import '../../various/colors.dart';
 import '../../various/text_style.dart';
+import '../../widgets/widgets.dart';
+import 'tabs/tabs.dart';
 
 class WorkoutsPage extends StatelessWidget {
   const WorkoutsPage({Key? key}) : super(key: key);
@@ -52,4 +49,3 @@ class WorkoutsPage extends StatelessWidget {
     );
   }
 }
-

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:future_of_workout/pages/main_navigation.dart';
+import 'pages/main_navigation.dart';
 
 void main() {
   runApp(const FutureOfWorkoutApp());

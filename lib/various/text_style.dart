@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:future_of_workout/various/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'various.dart';
 
 class AppTextStyle {
   static TextStyle textStyleBold28 = GoogleFonts.workSans(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../various/colors.dart';
+
+import '../various/various.dart';
 
 class CustomCard extends StatelessWidget {
   const CustomCard({
@@ -19,11 +20,7 @@ class CustomCard extends StatelessWidget {
         color: AppColors.white,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
-          BoxShadow(
-            color: AppColors.grey.withOpacity(0.10),
-            blurRadius: 4,
-            offset: const Offset(0, 2),
-          ),
+          AppShadows.shadow10,
         ],
       ),
       child: child,
