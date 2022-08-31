@@ -1,19 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'pages/main_navigation.dart';
+import 'src/app.dart';
+import 'src/bloc_observer.dart';
 
 void main() {
+  Bloc.observer = SimpleBlocObserver();
   runApp(const FutureOfWorkoutApp());
-}
-
-class FutureOfWorkoutApp extends StatelessWidget {
-  const FutureOfWorkoutApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: MainNavigation(),
-    );
-  }
 }
