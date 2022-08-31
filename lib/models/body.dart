@@ -30,6 +30,14 @@ class Body {
         .fatigue = muscleFatigue.fatigue;
   }
 
+  void updateMusclesFatiques({
+    required List<MuscleFatigue> musclesFatigue,
+  }) {
+    for (final element in musclesFatigue) {
+      updateMuscleFatiques(muscleFatigue: element);
+    }
+  }
+
   List<MuscleFatigue> getFront() {
     final front = List<MuscleFatigue>.of(_muscleFatigues)
       ..removeWhere((element) => element.muscle.pathFront == null);
