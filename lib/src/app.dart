@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 
-import 'pages/main_navigation.dart';
+import 'presentation/router/app_router.dart';
 
 class FutureOfWorkoutApp extends StatelessWidget {
   const FutureOfWorkoutApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      home: MainNavigation(),
+      routerDelegate: AppRouter.router.routerDelegate,
+      routeInformationParser: AppRouter.router.routeInformationParser,
+      routeInformationProvider: AppRouter.router.routeInformationProvider,
     );
   }
 }

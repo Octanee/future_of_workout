@@ -60,3 +60,4 @@ linter:
     - unrelated_type_equality_checks
     - use_key_in_widget_constructors
     - prefer_relative_imports
+    - sort_constructors_first
