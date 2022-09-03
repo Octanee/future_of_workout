@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../../../../logic/home/home.dart';
-import '../../../../../../../widgets/widgets.dart';
-import 'widgets.dart';
+import '../../../../../../../logic/home/home.dart';
+import '../../../../../../widgets/widgets.dart';
+import 'widgets/widgets.dart';
 
 class WorkoutsCreatedListView extends StatelessWidget {
   const WorkoutsCreatedListView({Key? key}) : super(key: key);
@@ -14,7 +14,7 @@ class WorkoutsCreatedListView extends StatelessWidget {
       hasAppBar: false,
       hasFloatingActionButton: true,
       onPressedFloatingActionButton: () async {
-        //Navigator.push(context, WorkoutDetailsPage.route(workout: workout));
+        await context.read<CreatedListCubit>().createWorkout();
       },
       floatingActionButtonIcon: Icons.add,
       body: _buildContent(),

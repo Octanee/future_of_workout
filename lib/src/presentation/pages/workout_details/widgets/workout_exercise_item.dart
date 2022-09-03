@@ -22,7 +22,7 @@ class WorkoutExerciseItem extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: SvgPicture.asset(
-                  workoutExercise.exercise.base.imagePathStart,
+                  workoutExercise.exercise.imagePathStart,
                   width: 64,
                 ),
               ),
@@ -31,7 +31,7 @@ class WorkoutExerciseItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    workoutExercise.exercise.base.name,
+                    workoutExercise.exercise.name,
                     style: AppTextStyle.bold20,
                   ),
                   Text(

@@ -21,15 +21,26 @@ class CreatedListCubit extends Cubit<CreatedListState> {
     try {
       emit(const CreatedListState.loading());
       await repository.fetchAll();
-    } on Exception {
+    } catch (e) {
       emit(const CreatedListState.failure());
+    }
+  }
+
+  Future<void> createWorkout() async {
+    try {
+      emit(const CreatedListState.adding());
+      final workout = await repository.createWorkout();
+      emit(CreatedListState.added(newWorkout: workout));
+      await fetchList();
+    } catch (e) {
+      const CreatedListState.failure();
     }
   }
 
   void _subscribe() {
     _subscription = repository.workouts.listen(
       (workouts) {
-        emit(CreatedListState.success(workouts: workouts));
+        emit(CreatedListState.loaded(workouts: workouts));
       },
       onError: (error) => emit(const CreatedListState.failure()),
     );

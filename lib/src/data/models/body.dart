@@ -30,20 +30,20 @@ class Body {
 
   final BodyPosition bodyPosition = BodyPosition.frontUp;
 
-  void updateMuscleFatiques({
-    required MuscleFatigue muscleFatigue,
-  }) {
-    muscleFatigues.update(
-      (element) => element.muscle == muscleFatigue.muscle,
-      element: muscleFatigue,
-    );
-  }
+  // void updateMuscleFatiques({
+  //   required MuscleFatigue muscleFatigue,
+  // }) {
+  //   final index = muscleFatigues
+  //       .indexWhere((element) => element.muscle == muscleFatigue.muscle);
 
-  void updateMusclesFatiques({
-    required List<MuscleFatigue> musclesFatigue,
-  }) {
-    for (final element in musclesFatigue) {
-      updateMuscleFatiques(muscleFatigue: element);
-    }
-  }
+  //   muscleFatigues[index] = muscleFatigue;
+  // }
+
+  // void updateMusclesFatiques({
+  //   required List<MuscleFatigue> musclesFatigue,
+  // }) {
+  //   for (final element in musclesFatigue) {
+  //     updateMuscleFatiques(muscleFatigue: element);
+  //   }
+  // }
 }

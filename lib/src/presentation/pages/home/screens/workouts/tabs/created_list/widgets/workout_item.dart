@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../../../../../data/models/models.dart';
 import '../../../../../../../styles/styles.dart';
@@ -7,12 +8,13 @@ import '../../../../../../../widgets/widgets.dart';
 class WorkoutItem extends StatelessWidget {
   const WorkoutItem({required this.workout, Key? key}) : super(key: key);
 
-  final WorkoutBase workout;
+  final Workout workout;
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) => CustomCard(
+        onTap: () => context.go('/workout/${workout.id}'),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(16),
           child: Stack(

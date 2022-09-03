@@ -6,7 +6,7 @@ import '../../models/models.dart';
 import '../repositories.dart';
 
 class FakeWorkoutRepository extends WorkoutRepository {
-  List<WorkoutBase> _workouts = [];
+  List<Workout> _workouts = [];
 
   @override
   Future<void> fetchAll() async {
@@ -16,7 +16,7 @@ class FakeWorkoutRepository extends WorkoutRepository {
         const Duration(seconds: 1),
         () => _workouts = List.generate(
           3,
-          (index) => WorkoutBase(
+          (index) => Workout(
             id: const Uuid().v1(),
             name: 'Workout $index',
             body: const Body(),
@@ -25,12 +25,11 @@ class FakeWorkoutRepository extends WorkoutRepository {
       );
     }
 
-    log('FakeWorkoutRepository _workouts: ${_workouts.length}');
     addToStream(workouts: _workouts);
   }
 
   @override
-  Future<WorkoutBase?> getOne({required String id}) async {
+  Future<Workout?> getOne({required String id}) async {
     if (_workouts.isEmpty) {
       await fetchAll();
     }
@@ -43,7 +42,7 @@ class FakeWorkoutRepository extends WorkoutRepository {
   }
 
   @override
-  Future<WorkoutBase?> toggleFavorite({required String id}) async {
+  Future<Workout?> toggleFavorite({required String id}) async {
     final item = await getOne(id: id);
     if (item == null) {
       return null;
@@ -58,18 +57,22 @@ class FakeWorkoutRepository extends WorkoutRepository {
   }
 
   @override
-  Future<WorkoutBase> createWorkout() async {
-    final workout = WorkoutBase(
-      id: const Uuid().v1(),
-      name: 'Workout',
-      body: const Body(),
-    );
+  Future<Workout> createWorkout() async {
+    try {
+      final workout = Workout(
+        id: const Uuid().v1(),
+        name: 'Workout',
+        body: const Body(),
+      );
 
-    _workouts.add(workout);
+      _workouts.add(workout);
 
-    addToStream(workouts: _workouts);
+      addToStream(workouts: _workouts);
 
-    return workout;
+      return workout;
+    } catch (e) {
+      throw Exception(e.toString());
+    }
   }
 
   @override
@@ -82,7 +85,7 @@ class FakeWorkoutRepository extends WorkoutRepository {
     addToStream(workouts: _workouts);
   }
 
-  void _updateWorkoutsWith({required WorkoutBase workout}) {
+  void _updateWorkoutsWith({required Workout workout}) {
     final index = _workouts.indexWhere((element) => element.id == workout.id);
     if (index != -1) {
       _workouts[index] = workout;

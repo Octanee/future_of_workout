@@ -1,26 +1,44 @@
-import 'workout_base.dart';
-import 'workout_details.dart';
+import 'dart:convert';
 
-class Workout {
-  const Workout({
+import 'package:collection/collection.dart';
+import 'package:equatable/equatable.dart';
+import 'package:uuid/uuid.dart';
+
+import 'models.dart';
+
+class Workout extends Equatable {
+  Workout({
     required this.id,
-    required this.base,
-    required this.details,
+    required this.name,
+    required this.body,
+    this.isFavorite = false,
+    this.workoutExercises = const [],
   });
 
   final String id;
-  final WorkoutBase base;
-  final WorkoutDetails details;
+
+  final String name;
+  final bool isFavorite;
+  final Body body;
+
+  final List<WorkoutExercise> workoutExercises;
 
   Workout copyWith({
     String? id,
-    WorkoutBase? base,
-    WorkoutDetails? details,
+    String? name,
+    bool? isFavorite,
+    Body? body,
+    List<WorkoutExercise>? workoutExercises,
   }) {
     return Workout(
       id: id ?? this.id,
-      base: base ?? this.base,
-      details: details ?? this.details,
+      name: name ?? this.name,
+      isFavorite: isFavorite ?? this.isFavorite,
+      body: body ?? this.body,
+      workoutExercises: workoutExercises ?? this.workoutExercises,
     );
   }
+
+  @override
+  List<Object?> get props => throw UnimplementedError();
 }
