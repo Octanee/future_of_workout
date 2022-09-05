@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../data/models/models.dart';
-import '../../../data/repositories/repositories.dart';
+import '../../../../data/models/models.dart';
+import '../../../repositories/repositories.dart';
 
 part 'workout_details_event.dart';
 part 'workout_details_state.dart';
@@ -20,7 +20,7 @@ class WorkoutDetailsBloc
     on<WorkoutDetailsDelete>(_onDelete);
   }
 
-  final WorkoutRepository repository;
+  final BaseWorkoutRepository repository;
 
   Future<void> _onNameChanged(
     WorkoutDetailsNameChanged event,

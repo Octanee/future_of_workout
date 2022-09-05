@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../data/models/models.dart';
-import '../../../data/repositories/repositories.dart';
-import '../../../logic/workout_exercises_list/workout_exercises_list.dart';
+
+import '../../../logic/repositories/repositories.dart';
+import '../../../logic/state_management/state_management.dart';
 import 'view.dart';
 
 class WorkoutExercisesListPage extends StatelessWidget {
@@ -19,7 +20,7 @@ class WorkoutExercisesListPage extends StatelessWidget {
       create: (context) => WorkoutExercisesListCubit(
         workout: workout,
         workoutRepository: context.read<FakeWorkoutRepository>(),
-        exerciseRepository: context.read<ExerciseRepository>(),
+        exerciseRepository: context.read<BaseExerciseRepository>(),
       ),
       child: const WorkoutExercisesListView(),
     );

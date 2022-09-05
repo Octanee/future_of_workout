@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'data/repositories/repositories.dart';
+import 'logic/repositories/repositories.dart';
 import 'presentation/router/app_router.dart';
 
 class FutureOfWorkoutApp extends StatelessWidget {
@@ -19,6 +19,4 @@ class FutureOfWorkoutApp extends StatelessWidget {
       ),
     );
   }
-
-  
 }

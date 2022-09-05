@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../data/repositories/repositories.dart';
-import '../../../logic/home/home.dart';
+import '../../../logic/repositories/repositories.dart';
+import '../../../logic/state_management/state_management.dart';
 import 'view.dart';
 
 class HomePage extends StatelessWidget {
@@ -14,7 +14,6 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        
         BlocProvider(
           create: (context) => NavigationCubit(),
         ),

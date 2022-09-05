@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import '../../models/exercise.dart';
+import '../../../data/models/models.dart';
 
-abstract class ExerciseRepository {
+abstract class BaseExerciseRepository {
   final _controller = StreamController<List<Exercise>>();
 
   Stream<List<Exercise>> get exercises => _controller.stream;
@@ -11,7 +11,9 @@ abstract class ExerciseRepository {
     _controller.sink.add(exerises);
   }
 
-  
+  Future<void> fetchAll();
+  Future<Exercise?> getById({required String id});
+  Future<Exercise?> getByName({required String name});
 
   void dispose() {
     _controller.close();

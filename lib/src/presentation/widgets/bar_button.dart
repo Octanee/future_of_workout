@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../styles/styles.dart';
+import 'widgets.dart';
 
 class BarButton extends StatelessWidget {
   const BarButton({
@@ -16,20 +17,10 @@ class BarButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return CustomBar(
+      padding: const EdgeInsets.fromLTRB(16, 8, 8, 8),
       onTap: onTap,
-      borderRadius: BorderRadius.circular(100.0),
-      child: Ink(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(100.0),
-          color: AppColors.white,
-          boxShadow: [AppShadows.shadow15],
-        ),
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 8, 8, 8),
-          child: _getContent(),
-        ),
-      ),
+      child: _getContent(),
     );
   }
 

@@ -1,9 +1,9 @@
 import 'package:uuid/uuid.dart';
 
-import '../../models/models.dart';
+import '../../../data/models/models.dart';
 import '../repositories.dart';
 
-class FakeWorkoutRepository extends WorkoutRepository {
+class FakeWorkoutRepository extends BaseWorkoutRepository {
   List<Workout> _workouts = [];
 
   @override

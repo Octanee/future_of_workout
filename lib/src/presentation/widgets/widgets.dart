@@ -5,3 +5,4 @@ export 'custom_tab_bar.dart';
 export 'custom_tab_bar_view.dart';
 export 'bar_button.dart';
 export 'floating_action_button.dart';
+export 'custom_bar.dart';

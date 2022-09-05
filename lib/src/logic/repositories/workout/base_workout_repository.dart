@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:developer';
 
-import '../../models/models.dart';
+import '../../../data/models/models.dart';
 
-abstract class WorkoutRepository {
+abstract class BaseWorkoutRepository {
   final _controller = StreamController<List<Workout>>();
 
   Stream<List<Workout>> get workouts => _controller.stream;

@@ -13,7 +13,10 @@ class CustomTabBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
+      padding: const EdgeInsets.symmetric(
+        vertical: 8.0,
+        horizontal: 16,
+      ),
       child: Container(
         height: 48,
         padding: const EdgeInsets.all(8.0),

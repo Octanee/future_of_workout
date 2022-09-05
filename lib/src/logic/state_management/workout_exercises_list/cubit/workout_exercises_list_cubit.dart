@@ -1,9 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../data/models/workout.dart';
-import '../../../data/repositories/exercise/exercise_repository.dart';
-import '../../../data/repositories/workout/fake_workout_repository.dart';
+import '../../../../data/models/models.dart';
+import '../../../repositories/repositories.dart';
 
 part 'workout_exercises_list_state.dart';
 
@@ -14,6 +13,6 @@ class WorkoutExercisesListCubit extends Cubit<WorkoutExercisesListState> {
     required this.workoutRepository,
   }) : super(WorkoutExercisesListInitial());
 
-  final ExerciseRepository exerciseRepository;
+  final BaseExerciseRepository exerciseRepository;
   final FakeWorkoutRepository workoutRepository;
 }
