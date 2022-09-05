@@ -20,6 +20,7 @@ class CustomCard extends StatelessWidget {
       onTap: onTap,
       borderRadius: BorderRadius.circular(16.0),
       child: Ink(
+        padding: padding,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16.0),
           color: AppColors.white,

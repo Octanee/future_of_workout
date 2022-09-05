@@ -1,7 +1,8 @@
-import '../../core/extensions/extensions.dart';
+import 'package:equatable/equatable.dart';
+
 import 'models.dart';
 
-class Body {
+class Body extends Equatable {
   const Body({
     this.muscleFatigues = const [
       MuscleFatigue(muscle: Muscle.neck),
@@ -28,22 +29,6 @@ class Body {
 
   final List<MuscleFatigue> muscleFatigues;
 
-  final BodyPosition bodyPosition = BodyPosition.frontUp;
-
-  // void updateMuscleFatiques({
-  //   required MuscleFatigue muscleFatigue,
-  // }) {
-  //   final index = muscleFatigues
-  //       .indexWhere((element) => element.muscle == muscleFatigue.muscle);
-
-  //   muscleFatigues[index] = muscleFatigue;
-  // }
-
-  // void updateMusclesFatiques({
-  //   required List<MuscleFatigue> musclesFatigue,
-  // }) {
-  //   for (final element in musclesFatigue) {
-  //     updateMuscleFatiques(muscleFatigue: element);
-  //   }
-  // }
+  @override
+  List<Object?> get props => [muscleFatigues];
 }

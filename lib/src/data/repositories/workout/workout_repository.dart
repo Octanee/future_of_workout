@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import '../../models/models.dart';
 
@@ -7,14 +8,16 @@ abstract class WorkoutRepository {
 
   Stream<List<Workout>> get workouts => _controller.stream;
 
-  void addToStream({required List<Workout> workouts}) =>
-      _controller.sink.add(workouts);
+  void addToStream({required List<Workout> workouts}) {
+    log('WorkoutRepository: addToStream { ${workouts.length} }');
+    _controller.sink.add(workouts);
+  }
 
   Future<void> fetchAll();
   Future<Workout> createWorkout();
   Future<void> removeWorkout({required String id});
   Future<Workout?> getOne({required String id});
-  Future<Workout?> toggleFavorite({required String id});
+  Future<void> updateWorkout({required Workout workout});
 
   void dispose() {
     _controller.close();

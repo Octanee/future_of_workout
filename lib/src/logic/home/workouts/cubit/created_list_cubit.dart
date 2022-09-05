@@ -37,6 +37,15 @@ class CreatedListCubit extends Cubit<CreatedListState> {
     }
   }
 
+  Future<void> toggleFavorite({required Workout workout}) async {
+    try {
+      final temp = workout.copyWith(isFavorite: !workout.isFavorite);
+      await repository.updateWorkout(workout: temp);
+      emit(CreatedListState.toggleFavorite(workout: temp));
+      await fetchList();
+    } catch (e) {}
+  }
+
   void _subscribe() {
     _subscription = repository.workouts.listen(
       (workouts) {

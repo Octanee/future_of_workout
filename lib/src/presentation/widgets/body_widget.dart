@@ -10,16 +10,16 @@ class BodyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return isFront() ? getFront() : getBack();
+    return getFront();
   }
 
-  bool isFront() {
-    return [
-      BodyPosition.front,
-      BodyPosition.frontUp,
-      BodyPosition.frontDown,
-    ].any((element) => element == body.bodyPosition);
-  }
+  // bool isFront() {
+  //   return [
+  //     BodyPosition.front,
+  //     BodyPosition.frontUp,
+  //     BodyPosition.frontDown,
+  //   ].any((element) => element == body.bodyPosition);
+  // }
 
   Widget getFront() {
     return generateBody(

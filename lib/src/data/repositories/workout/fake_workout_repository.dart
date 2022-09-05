@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:uuid/uuid.dart';
 
 import '../../models/models.dart';
@@ -11,7 +9,6 @@ class FakeWorkoutRepository extends WorkoutRepository {
   @override
   Future<void> fetchAll() async {
     if (_workouts.isEmpty) {
-      log('FakeWorkoutRepository empty list');
       await Future.delayed(
         const Duration(seconds: 1),
         () => _workouts = List.generate(
@@ -29,7 +26,7 @@ class FakeWorkoutRepository extends WorkoutRepository {
   }
 
   @override
-  Future<Workout?> getOne({required String id}) async {
+  Future<Workout> getOne({required String id}) async {
     if (_workouts.isEmpty) {
       await fetchAll();
     }
@@ -37,23 +34,15 @@ class FakeWorkoutRepository extends WorkoutRepository {
     try {
       return _workouts.firstWhere((item) => item.id == id);
     } catch (e) {
-      return null;
+      throw Exception(e.toString());
     }
   }
 
   @override
-  Future<Workout?> toggleFavorite({required String id}) async {
-    final item = await getOne(id: id);
-    if (item == null) {
-      return null;
-    }
-
-    final toggledWorkout = item.copyWith(isFavorite: !item.isFavorite);
-    _updateWorkoutsWith(workout: toggledWorkout);
+  Future<void> updateWorkout({required Workout workout}) async {
+    _updateWorkoutsWith(workout: workout);
 
     addToStream(workouts: _workouts);
-
-    return toggledWorkout;
   }
 
   @override

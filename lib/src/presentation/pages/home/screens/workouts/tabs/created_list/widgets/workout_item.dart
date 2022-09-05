@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../../../../data/models/models.dart';
+import '../../../../../../../../logic/home/home.dart';
 import '../../../../../../../styles/styles.dart';
 import '../../../../../../../widgets/widgets.dart';
 
@@ -14,25 +16,14 @@ class WorkoutItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) => CustomCard(
-        onTap: () => context.go('/workout/${workout.id}'),
+        onTap: () => context.go('/workout', extra: workout),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(16),
           child: Stack(
             children: [
-              getBody(constraints),
-              Align(
-                alignment: Alignment.centerRight,
-                child: Container(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  width: constraints.maxWidth * 0.7,
-                  child: Text(
-                    workout.name,
-                    style: AppTextStyle.semiBold16,
-                    softWrap: true,
-                    textAlign: TextAlign.right,
-                  ),
-                ),
-              ),
+              _getFavorit(constraints, context),
+              _getBody(constraints),
+              _getName(constraints),
             ],
           ),
         ),
@@ -40,7 +31,37 @@ class WorkoutItem extends StatelessWidget {
     );
   }
 
-  Widget getBody(BoxConstraints constraints) => Positioned(
+  Widget _getFavorit(BoxConstraints constraints, BuildContext context) {
+    return Align(
+      alignment: Alignment.topRight,
+      child: IconButton(
+        onPressed: () {
+          context.read<CreatedListCubit>().toggleFavorite(workout: workout);
+        },
+        icon: workout.isFavorite
+            ? const Icon(Icons.star, color: AppColors.yellow)
+            : const Icon(Icons.star_border, color: AppColors.grey),
+      ),
+    );
+  }
+
+  Widget _getName(BoxConstraints constraints) {
+    return Align(
+      alignment: Alignment.centerRight,
+      child: Container(
+        padding: const EdgeInsets.only(right: 8.0),
+        width: constraints.maxWidth * 0.7,
+        child: Text(
+          workout.name,
+          style: AppTextStyle.semiBold16,
+          softWrap: true,
+          textAlign: TextAlign.right,
+        ),
+      ),
+    );
+  }
+
+  Widget _getBody(BoxConstraints constraints) => Positioned(
         left: constraints.maxWidth * -0.25,
         height: constraints.maxHeight * 1.5,
         top: constraints.maxHeight * 0.1,

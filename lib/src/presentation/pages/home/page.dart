@@ -10,21 +10,18 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider(
-      create: (context) => FakeWorkoutRepository(),
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (context) => NavigationCubit(),
-          ),
-          BlocProvider(
-            create: (context) => CreatedListCubit(
-                repository: context.read<FakeWorkoutRepository>())
-              ..fetchList(),
-          ),
-        ],
-        child: const HomeView(),
-      ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => NavigationCubit(),
+        ),
+        BlocProvider(
+          create: (context) => CreatedListCubit(
+              repository: context.read<FakeWorkoutRepository>())
+            ..fetchList(),
+        ),
+      ],
+      child: const HomeView(),
     );
   }
 }

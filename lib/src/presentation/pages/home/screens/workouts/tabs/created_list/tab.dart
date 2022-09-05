@@ -6,7 +6,6 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../../../../logic/home/home.dart';
 import '../../../../../../styles/styles.dart';
-import '../../../../../workout_details/page.dart';
 import 'view.dart';
 
 class WorkoutsCreatedListTab extends StatelessWidget {
@@ -18,9 +17,9 @@ class WorkoutsCreatedListTab extends StatelessWidget {
       listener: (context, state) {
         if (state.status == CreatedListStatus.added) {
           log('Navigate to workout details');
-          final workout = state.newWorkout;
+          final workout = state.workout;
           if (workout != null) {
-            context.go('/workout/${workout.id}');
+            context.go('/workout', extra: workout);
           }
         }
       },
