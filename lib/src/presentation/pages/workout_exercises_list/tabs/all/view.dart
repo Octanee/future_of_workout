@@ -14,6 +14,7 @@ class WorkoutExercisesListAllView extends StatelessWidget {
       child: Column(
         children: [
           _searchBar(),
+          // TODO Exercise GridView 
         ],
       ),
     );
