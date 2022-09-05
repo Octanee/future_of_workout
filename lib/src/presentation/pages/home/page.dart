@@ -8,10 +8,13 @@ import 'view.dart';
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
+  static String name = 'home';
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        
         BlocProvider(
           create: (context) => NavigationCubit(),
         ),

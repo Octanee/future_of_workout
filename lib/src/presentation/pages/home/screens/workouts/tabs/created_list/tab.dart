@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../../../../logic/home/home.dart';
 import '../../../../../../styles/styles.dart';
+import '../../../../../workout_details/page.dart';
 import 'view.dart';
 
 class WorkoutsCreatedListTab extends StatelessWidget {
@@ -19,7 +20,8 @@ class WorkoutsCreatedListTab extends StatelessWidget {
           log('Navigate to workout details');
           final workout = state.workout;
           if (workout != null) {
-            context.go('/workout', extra: workout);
+            context.goNamed(WorkoutDetailsPage.name,
+                params: {'id': workout.id}, extra: workout);
           }
         }
       },

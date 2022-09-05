@@ -6,6 +6,7 @@ import '../../../../../../../../data/models/models.dart';
 import '../../../../../../../../logic/home/home.dart';
 import '../../../../../../../styles/styles.dart';
 import '../../../../../../../widgets/widgets.dart';
+import '../../../../../../workout_details/workout_details.dart';
 
 class WorkoutItem extends StatelessWidget {
   const WorkoutItem({required this.workout, Key? key}) : super(key: key);
@@ -16,7 +17,8 @@ class WorkoutItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) => CustomCard(
-        onTap: () => context.go('/workout', extra: workout),
+        onTap: () => context.goNamed(WorkoutDetailsPage.name,
+            params: {'id': workout.id}, extra: workout),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(16),
           child: Stack(

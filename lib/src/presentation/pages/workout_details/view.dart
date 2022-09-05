@@ -6,10 +6,11 @@ import 'package:go_router/go_router.dart';
 import '../../../logic/workout_details/workout_details.dart';
 import '../../styles/styles.dart';
 import '../../widgets/widgets.dart';
+import '../workout_exercises_list/page.dart';
 import 'widgets/widgets.dart';
 
-class WorkoutDetailsScreen extends StatelessWidget {
-  const WorkoutDetailsScreen({Key? key}) : super(key: key);
+class WorkoutDetailsView extends StatelessWidget {
+  const WorkoutDetailsView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,11 @@ class WorkoutDetailsScreen extends StatelessWidget {
       child: AppScaffold(
         title: context.watch<WorkoutDetailsBloc>().state.workout.name,
         hasFloatingActionButton: true,
-        onPressedFloatingActionButton: () {},
+        onPressedFloatingActionButton: () {
+          final workout = context.read<WorkoutDetailsBloc>().state.workout;
+          context.goNamed(WorkoutExercisesListPage.name,
+              params: {'id': workout.id}, extra: workout);
+        },
         floatingActionButtonIcon: Icons.add,
         actions: _getActions(context),
         body: Padding(
@@ -51,11 +56,10 @@ class WorkoutDetailsScreen extends StatelessWidget {
           _getPopumMenuItem(
             text: 'Rename',
             icon: Icons.edit,
-            // TODO WorkoutDetails Name Changed 
+            // TODO WorkoutDetails Name Changed
             onTap: () => context
                 .read<WorkoutDetailsBloc>()
                 .add(const WorkoutDetailsNameChanged(name: 'Test')),
-
           ),
           _getPopumMenuItem(
             text: 'Delete',

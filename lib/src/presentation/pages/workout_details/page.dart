@@ -4,10 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../data/models/models.dart';
 import '../../../data/repositories/repositories.dart';
 import '../../../logic/workout_details/workout_details.dart';
-import 'screen.dart';
+import 'view.dart';
 
 class WorkoutDetailsPage extends StatelessWidget {
   const WorkoutDetailsPage({required this.workout, Key? key}) : super(key: key);
+
+  static String name = 'workout-details';
 
   final Workout workout;
 
@@ -19,7 +21,7 @@ class WorkoutDetailsPage extends StatelessWidget {
 
         return WorkoutDetailsBloc(workout: workout, repository: repository);
       },
-      child: const WorkoutDetailsScreen(),
+      child: const WorkoutDetailsView(),
     );
   }
 }

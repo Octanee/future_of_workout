@@ -58,6 +58,7 @@ class CreatedListCubit extends Cubit<CreatedListState> {
   @override
   Future<void> close() {
     _subscription.cancel();
+    repository.dispose();
     return super.close();
   }
 }
