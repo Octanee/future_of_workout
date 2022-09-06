@@ -6,7 +6,19 @@ class ExerciseProvider {
   static final List<Exercise> exercises = [
     _barbellBenchPress(),
     _squat(),
-    _deadlift()
+    _deadlift(),
+    _barbellBenchPress(),
+    _squat(),
+    _deadlift(),
+    _barbellBenchPress(),
+    _squat(),
+    _deadlift(),
+    _barbellBenchPress(),
+    _squat(),
+    _deadlift(),
+    _barbellBenchPress(),
+    _squat(),
+    _deadlift(),
   ];
 
   static Exercise _barbellBenchPress() {

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -17,7 +15,6 @@ class WorkoutsCreatedListTab extends StatelessWidget {
     return BlocConsumer<CreatedListCubit, CreatedListState>(
       listener: (context, state) {
         if (state.status == CreatedListStatus.added) {
-          log('Navigate to workout details');
           final workout = state.workout;
           if (workout != null) {
             context.goNamed(WorkoutDetailsPage.name,

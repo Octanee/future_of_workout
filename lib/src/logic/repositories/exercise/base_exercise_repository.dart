@@ -3,9 +3,11 @@ import 'dart:async';
 import '../../../data/models/models.dart';
 
 abstract class BaseExerciseRepository {
-  final _controller = StreamController<List<Exercise>>();
+  StreamController<List<Exercise>> _controller =
+      StreamController<List<Exercise>>();
 
-  Stream<List<Exercise>> get exercises => _controller.stream;
+  Stream<List<Exercise>> get exercises =>
+      _controller.stream.asBroadcastStream();
 
   void addToStream({required List<Exercise> exerises}) {
     _controller.sink.add(exerises);
@@ -17,5 +19,12 @@ abstract class BaseExerciseRepository {
 
   void dispose() {
     _controller.close();
+  }
+
+  void flush() {
+    if (_controller.hasListener) {
+      _controller.close();
+      _controller = StreamController<List<Exercise>>();
+    }
   }
 }

@@ -20,8 +20,8 @@ class WorkoutExercisesListPage extends StatelessWidget {
       create: (context) => WorkoutExercisesListCubit(
         workout: workout,
         workoutRepository: context.read<FakeWorkoutRepository>(),
-        exerciseRepository: context.read<BaseExerciseRepository>(),
-      ),
+        exerciseRepository: context.read<FakeExerciseRepository>(),
+      )..fetchList(),
       child: const WorkoutExercisesListView(),
     );
   }
