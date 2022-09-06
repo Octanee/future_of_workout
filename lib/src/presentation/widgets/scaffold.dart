@@ -57,9 +57,6 @@ class AppScaffold extends StatelessWidget {
           title: Text(
             title ?? '',
             style: AppTextStyle.bold28,
-            textAlign: TextAlign.center,
-            overflow: TextOverflow.clip,
-            softWrap: true,
           ),
           centerTitle: true,
         )

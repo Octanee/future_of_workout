@@ -21,10 +21,9 @@ class WorkoutExerciseItem extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Flexible(
-                  child: SvgPicture.asset(
-                    workoutExercise.exercise.imagePathStart,
-                  ),
+                child: SvgPicture.asset(
+                  workoutExercise.exercise.imagePathStart,
+                  height: 64,
                 ),
               ),
               Column(

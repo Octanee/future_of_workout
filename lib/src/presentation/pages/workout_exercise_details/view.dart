@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../data/models/exercise_series.dart';
 import '../../../logic/state_management/state_management.dart';
 import '../../styles/styles.dart';
 import '../../widgets/widgets.dart';
+import '../workout_details/workout_details.dart';
 
 class WorkoutExerciseDetailsView extends StatelessWidget {
   const WorkoutExerciseDetailsView({super.key});
@@ -13,7 +16,17 @@ class WorkoutExerciseDetailsView extends StatelessWidget {
     return BlocConsumer<WorkoutExerciseDetailsCubit,
         WorkoutExerciseDetailsState>(
       listener: (context, state) {
-        // TODO: implement listener
+        if (state.status == WorkoutExerciseDetailsStatus.saved) {
+          final workoutId =
+              context.read<WorkoutExerciseDetailsCubit>().workoutId;
+
+          context.goNamed(
+            WorkoutDetailsPage.name,
+            params: {
+              'workoutId': workoutId,
+            },
+          );
+        }
       },
       builder: (context, state) {
         switch (state.status) {
@@ -46,11 +59,33 @@ class WorkoutExerciseDetailsView extends StatelessWidget {
                     color: AppColors.grey),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  context
+                      .read<WorkoutExerciseDetailsCubit>()
+                      .saveWorkoutExercise();
+                },
                 icon: const Icon(Icons.save_outlined, color: AppColors.grey),
               ),
             ],
+            body: ListView(
+              padding: const EdgeInsets.all(16.0),
+              children: [
+                const BarButton(text: 'Add Set', icon: Icons.add),
+                ...state.workoutExercise!.seriesOfExercise
+                    .map<Widget>(_buildItem)
+              ],
+            ),
           );
         },
+      );
+
+  Widget _buildItem(ExerciseSeries series) => Padding(
+        padding: const EdgeInsets.only(top: 8.0),
+        child: CustomCard(
+          padding: const EdgeInsets.all(8),
+          child: Text(
+            series.index.toString(),
+          ),
+        ),
       );
 }

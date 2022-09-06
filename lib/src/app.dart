@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'logic/repositories/exercise/fake_exercise_repository.dart';
 import 'logic/repositories/repositories.dart';
 import 'presentation/router/app_router.dart';
 
