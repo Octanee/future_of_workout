@@ -16,7 +16,7 @@ abstract class BaseWorkoutRepository {
   Future<void> fetchAll();
   Future<Workout> createWorkout();
   Future<void> removeWorkout({required String id});
-  Future<Workout?> getOne({required String id});
+  Future<Workout> getOne({required String id});
   Future<void> updateWorkout({required Workout workout});
 
   void dispose() {

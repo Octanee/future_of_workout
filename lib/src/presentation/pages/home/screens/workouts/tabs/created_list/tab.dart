@@ -17,8 +17,10 @@ class WorkoutsCreatedListTab extends StatelessWidget {
         if (state.status == CreatedListStatus.added) {
           final workout = state.workout;
           if (workout != null) {
-            context.goNamed(WorkoutDetailsPage.name,
-                params: {'id': workout.id}, extra: workout);
+            context.goNamed(
+              WorkoutDetailsPage.name,
+              params: {'workoutId': workout.id},
+            );
           }
         }
       },

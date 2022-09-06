@@ -15,7 +15,7 @@ class FakeExerciseRepository extends BaseExerciseRepository {
   }
 
   @override
-  Future<Exercise?> getById({required String id}) async {
+  Future<Exercise> getById({required String id}) async {
     if (_exercises.isEmpty) {
       await fetchAll();
     }
@@ -28,7 +28,7 @@ class FakeExerciseRepository extends BaseExerciseRepository {
   }
 
   @override
-  Future<Exercise?> getByName({required String name}) async {
+  Future<Exercise> getByName({required String name}) async {
     if (_exercises.isEmpty) {
       await fetchAll();
     }

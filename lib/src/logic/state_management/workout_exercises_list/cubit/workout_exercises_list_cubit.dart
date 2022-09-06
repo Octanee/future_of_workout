@@ -10,12 +10,14 @@ part 'workout_exercises_list_state.dart';
 
 class WorkoutExercisesListCubit extends Cubit<WorkoutExercisesListState> {
   WorkoutExercisesListCubit({
-    required Workout workout,
+    required this.workoutId,
     required this.exerciseRepository,
     required this.workoutRepository,
   }) : super(const WorkoutExercisesListState.loading()) {
     _subscribe();
   }
+
+  final String workoutId;
 
   final FakeExerciseRepository exerciseRepository;
   final FakeWorkoutRepository workoutRepository;

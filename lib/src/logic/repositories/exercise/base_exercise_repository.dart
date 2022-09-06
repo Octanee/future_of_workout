@@ -14,8 +14,8 @@ abstract class BaseExerciseRepository {
   }
 
   Future<void> fetchAll();
-  Future<Exercise?> getById({required String id});
-  Future<Exercise?> getByName({required String name});
+  Future<Exercise> getById({required String id});
+  Future<Exercise> getByName({required String name});
 
   void dispose() {
     _controller.close();

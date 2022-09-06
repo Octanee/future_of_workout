@@ -14,30 +14,49 @@ class WorkoutDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<WorkoutDetailsBloc, WorkoutDetailsState>(
+    return BlocConsumer<WorkoutDetailsBloc, WorkoutDetailsState>(
       listener: (context, state) {
         if (state.status == WorkoutDetailsStatus.delete) {
           context.pop();
         }
       },
-      child: AppScaffold(
-        title: context.watch<WorkoutDetailsBloc>().state.workout.name,
-        hasFloatingActionButton: true,
-        onPressedFloatingActionButton: () {
-          final workout = context.read<WorkoutDetailsBloc>().state.workout;
-          context.goNamed(WorkoutExercisesListPage.name,
-              params: {'id': workout.id}, extra: workout);
-        },
-        floatingActionButtonIcon: Icons.add,
-        actions: _getActions(context),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-          child: Column(
-            children: [
-              _getStartWorkoutButton(),
-              _getList(),
-            ],
-          ),
+      buildWhen: (previous, current) => previous.workout != current.workout,
+      builder: (context, state) {
+        switch (state.status) {
+          case WorkoutDetailsStatus.loading:
+            return const AppLoading(text: 'Loading...');
+          case WorkoutDetailsStatus.failure:
+            return Center(
+              child: Text(
+                'Something gone wront :(',
+                style: AppTextStyle.semiBold20,
+              ),
+            );
+          default:
+            return _buildContent(context);
+        }
+      },
+    );
+  }
+
+  AppScaffold _buildContent(BuildContext context) {
+    return AppScaffold(
+      title: context.watch<WorkoutDetailsBloc>().state.workout?.name,
+      hasFloatingActionButton: true,
+      onPressedFloatingActionButton: () {
+        final workout = context.read<WorkoutDetailsBloc>().state.workout;
+        context.goNamed(WorkoutExercisesListPage.name,
+            params: {'workoutId': workout!.id});
+      },
+      floatingActionButtonIcon: Icons.add,
+      actions: _getActions(context),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        child: Column(
+          children: [
+            _getStartWorkoutButton(),
+            _getList(),
+          ],
         ),
       ),
     );
@@ -93,7 +112,7 @@ class WorkoutDetailsView extends StatelessWidget {
   Widget _getFavoritIcon(BuildContext context) {
     return BlocBuilder<WorkoutDetailsBloc, WorkoutDetailsState>(
       builder: (context, state) {
-        if (state.workout.isFavorite) {
+        if (state.workout!.isFavorite) {
           return const Icon(Icons.star, color: AppColors.yellow);
         } else {
           return const Icon(Icons.star_border, color: AppColors.grey);
@@ -106,7 +125,7 @@ class WorkoutDetailsView extends StatelessWidget {
     return Expanded(
       child: BlocBuilder<WorkoutDetailsBloc, WorkoutDetailsState>(
         builder: (context, state) {
-          final workoutExercises = state.workout.workoutExercises;
+          final workoutExercises = state.workout!.workoutExercises;
           return ListView.separated(
             padding: const EdgeInsets.only(top: 16),
             separatorBuilder: (context, index) => const SizedBox(

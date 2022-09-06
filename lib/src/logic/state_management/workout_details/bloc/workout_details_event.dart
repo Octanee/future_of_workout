@@ -7,6 +7,15 @@ abstract class WorkoutDetailsEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class WorkoutDetailsLoadWorkout extends WorkoutDetailsEvent {
+  const WorkoutDetailsLoadWorkout({required this.id});
+
+  final String id;
+
+  @override
+  List<Object> get props => [id];
+}
+
 class WorkoutDetailsNameChanged extends WorkoutDetailsEvent {
   const WorkoutDetailsNameChanged({required this.name});
 

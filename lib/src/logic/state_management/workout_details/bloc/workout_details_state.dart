@@ -11,12 +11,12 @@ enum WorkoutDetailsStatus {
 
 class WorkoutDetailsState extends Equatable {
   const WorkoutDetailsState({
-    required this.workout,
-    this.status = WorkoutDetailsStatus.initial,
+    this.workout,
+    this.status = WorkoutDetailsStatus.loading,
   });
 
   final WorkoutDetailsStatus status;
-  final Workout workout;
+  final Workout? workout;
 
   WorkoutDetailsState copyWith({
     WorkoutDetailsStatus? status,
@@ -29,7 +29,7 @@ class WorkoutDetailsState extends Equatable {
   }
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         status,
         workout,
       ];

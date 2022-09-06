@@ -17,8 +17,10 @@ class WorkoutItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) => CustomCard(
-        onTap: () => context.goNamed(WorkoutDetailsPage.name,
-            params: {'id': workout.id}, extra: workout),
+        onTap: () => context.goNamed(
+          WorkoutDetailsPage.name,
+          params: {'workoutId': workout.id},
+        ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(16),
           child: Stack(

@@ -5,6 +5,7 @@ import '../../styles/app_text_style.dart';
 import '../../widgets/bar_button.dart';
 import '../../widgets/custom_card.dart';
 import '../../widgets/scaffold.dart';
+import '../home/home.dart';
 
 class ErrorPage extends StatelessWidget {
   const ErrorPage({super.key, this.error, this.name});
@@ -33,7 +34,7 @@ class ErrorPage extends StatelessWidget {
             BarButton(
               text: 'Home',
               icon: Icons.home,
-              onTap: () => context.go('/'),
+              onTap: () => context.goNamed(HomePage.name),
             ),
           ],
         ),

@@ -13,21 +13,45 @@ class WorkoutDetailsBloc
     extends Bloc<WorkoutDetailsEvent, WorkoutDetailsState> {
   WorkoutDetailsBloc({
     required this.repository,
-    required Workout workout,
-  }) : super(WorkoutDetailsState(workout: workout)) {
+    required this.workoutId,
+  }) : super(const WorkoutDetailsState()) {
+    on<WorkoutDetailsLoadWorkout>(_onLoadWorkout);
     on<WorkoutDetailsNameChanged>(_onNameChanged);
     on<WorkoutDetailsIsFavoritToggled>(_onIsFavoritToggled);
     on<WorkoutDetailsDelete>(_onDelete);
   }
 
+  final String workoutId;
   final BaseWorkoutRepository repository;
+
+  Future<void> _onLoadWorkout(
+    WorkoutDetailsLoadWorkout event,
+    Emitter<WorkoutDetailsState> emit,
+  ) async {
+    emit(state.copyWith(status: WorkoutDetailsStatus.loading));
+    final workout = await repository.getOne(id: event.id);
+
+    if (workout == null) {
+      emit(state.copyWith(status: WorkoutDetailsStatus.failure));
+    } else {
+      emit(state.copyWith(
+        status: WorkoutDetailsStatus.success,
+        workout: workout,
+      ));
+    }
+  }
 
   Future<void> _onNameChanged(
     WorkoutDetailsNameChanged event,
     Emitter<WorkoutDetailsState> emit,
   ) async {
+    if (state.workout == null) {
+      add(WorkoutDetailsLoadWorkout(id: workoutId));
+      return;
+    }
+
     _updateWorkout(
-      workout: state.workout.copyWith(name: event.name),
+      workout: state.workout!.copyWith(name: event.name),
       emit: emit,
     );
   }
@@ -36,8 +60,12 @@ class WorkoutDetailsBloc
     WorkoutDetailsIsFavoritToggled event,
     Emitter<WorkoutDetailsState> emit,
   ) async {
+    if (state.workout == null) {
+      add(WorkoutDetailsLoadWorkout(id: workoutId));
+      return;
+    }
     _updateWorkout(
-      workout: state.workout.copyWith(isFavorite: !state.workout.isFavorite),
+      workout: state.workout!.copyWith(isFavorite: !state.workout!.isFavorite),
       emit: emit,
     );
   }
@@ -46,8 +74,13 @@ class WorkoutDetailsBloc
     WorkoutDetailsDelete event,
     Emitter<WorkoutDetailsState> emit,
   ) async {
+    if (state.workout == null) {
+      add(WorkoutDetailsLoadWorkout(id: workoutId));
+      return;
+    }
+
     try {
-      await repository.removeWorkout(id: state.workout.id);
+      await repository.removeWorkout(id: state.workout!.id);
       emit(state.copyWith(status: WorkoutDetailsStatus.delete));
     } catch (e) {
       emit(state.copyWith(status: WorkoutDetailsStatus.failure));
