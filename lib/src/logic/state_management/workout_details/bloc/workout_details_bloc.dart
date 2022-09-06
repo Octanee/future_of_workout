@@ -31,14 +31,10 @@ class WorkoutDetailsBloc
     emit(state.copyWith(status: WorkoutDetailsStatus.loading));
     final workout = await repository.getOne(id: event.id);
 
-    if (workout == null) {
-      emit(state.copyWith(status: WorkoutDetailsStatus.failure));
-    } else {
-      emit(state.copyWith(
-        status: WorkoutDetailsStatus.success,
-        workout: workout,
-      ));
-    }
+    emit(state.copyWith(
+      status: WorkoutDetailsStatus.success,
+      workout: workout,
+    ));
   }
 
   Future<void> _onNameChanged(

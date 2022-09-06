@@ -6,7 +6,6 @@ import 'package:equatable/equatable.dart';
 import '../../../../../data/models/models.dart';
 import '../../../../repositories/repositories.dart';
 
-
 part 'created_list_state.dart';
 
 class CreatedListCubit extends Cubit<CreatedListState> {
@@ -48,6 +47,7 @@ class CreatedListCubit extends Cubit<CreatedListState> {
   }
 
   void _subscribe() {
+    repository.flush();
     _subscription = repository.workouts.listen(
       (workouts) {
         emit(CreatedListState.loaded(workouts: workouts));
@@ -59,7 +59,6 @@ class CreatedListCubit extends Cubit<CreatedListState> {
   @override
   Future<void> close() {
     _subscription.cancel();
-    repository.dispose();
     return super.close();
   }
 }

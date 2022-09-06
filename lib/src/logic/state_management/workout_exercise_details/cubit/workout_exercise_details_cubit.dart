@@ -49,9 +49,13 @@ class WorkoutExerciseDetailsCubit extends Cubit<WorkoutExerciseDetailsState> {
           const ExerciseSeries(index: 1),
         ]);
       } else {
-        final lastSeries = workoutExercise.seriesOfExercise.last;
+        final series = List.of(workoutExercise.seriesOfExercise);
+
+        final lastSeries = series.last;
         final newSeries = lastSeries.copyWith(index: lastSeries.index + 1);
-        final list = workoutExercise.seriesOfExercise..add(newSeries);
+        
+        final list = series..add(newSeries);
+
         temp = workoutExercise.copyWith(seriesOfExercise: list);
       }
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../styles/styles.dart';
-import 'scaffold.dart';
+import 'app_scaffold.dart';
 
 class AppLoading extends StatelessWidget {
   const AppLoading({this.text, super.key});

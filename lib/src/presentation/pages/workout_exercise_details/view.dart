@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../data/models/exercise_series.dart';
 import '../../../logic/state_management/state_management.dart';
 import '../../styles/styles.dart';
 import '../../widgets/widgets.dart';
 import '../workout_details/workout_details.dart';
+import 'widgets/widgets.dart';
 
 class WorkoutExerciseDetailsView extends StatelessWidget {
   const WorkoutExerciseDetailsView({super.key});
@@ -33,12 +33,7 @@ class WorkoutExerciseDetailsView extends StatelessWidget {
           case WorkoutExerciseDetailsStatus.loading:
             return const AppLoading(text: 'Loading...');
           case WorkoutExerciseDetailsStatus.failure:
-            return Center(
-              child: Text(
-                'Something gone wront :(',
-                style: AppTextStyle.semiBold20,
-              ),
-            );
+            return const AppError();
           default:
             return _buildContent();
         }
@@ -48,6 +43,8 @@ class WorkoutExerciseDetailsView extends StatelessWidget {
 
   Widget _buildContent() =>
       BlocBuilder<WorkoutExerciseDetailsCubit, WorkoutExerciseDetailsState>(
+        buildWhen: (previous, current) =>
+            current.status == WorkoutExerciseDetailsStatus.loaded,
         builder: (context, state) {
           final workoutExercise = state.workoutExercise!;
           return AppScaffold(
@@ -67,25 +64,29 @@ class WorkoutExerciseDetailsView extends StatelessWidget {
                 icon: const Icon(Icons.save_outlined, color: AppColors.grey),
               ),
             ],
-            body: ListView(
-              padding: const EdgeInsets.all(16.0),
-              children: [
-                const BarButton(text: 'Add Set', icon: Icons.add),
-                ...state.workoutExercise!.seriesOfExercise
-                    .map<Widget>(_buildItem)
-              ],
+            body: BlocBuilder<WorkoutExerciseDetailsCubit,
+                WorkoutExerciseDetailsState>(
+              buildWhen: (previous, current) =>
+                  previous.status == WorkoutExerciseDetailsStatus.adding &&
+                  current.status == WorkoutExerciseDetailsStatus.added,
+              builder: (context, state) {
+                return ListView(
+                  padding: const EdgeInsets.all(16.0),
+                  children: [
+                    BarButton(
+                      text: 'Add Set',
+                      icon: Icons.add,
+                      onTap: () {
+                        context.read<WorkoutExerciseDetailsCubit>().addSeries();
+                      },
+                    ),
+                    ...state.workoutExercise!.seriesOfExercise.map<Widget>(
+                        (series) => ExerciseSeriesItem(series: series))
+                  ],
+                );
+              },
             ),
           );
         },
-      );
-
-  Widget _buildItem(ExerciseSeries series) => Padding(
-        padding: const EdgeInsets.only(top: 8.0),
-        child: CustomCard(
-          padding: const EdgeInsets.all(8),
-          child: Text(
-            series.index.toString(),
-          ),
-        ),
       );
 }

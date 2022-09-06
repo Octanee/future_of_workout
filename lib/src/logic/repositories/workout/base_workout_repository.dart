@@ -4,7 +4,8 @@ import 'dart:developer';
 import '../../../data/models/models.dart';
 
 abstract class BaseWorkoutRepository {
-  final _controller = StreamController<List<Workout>>();
+  StreamController<List<Workout>> _controller =
+      StreamController<List<Workout>>();
 
   Stream<List<Workout>> get workouts => _controller.stream;
 
@@ -13,13 +14,20 @@ abstract class BaseWorkoutRepository {
     _controller.sink.add(workouts);
   }
 
+  void dispose() {
+    _controller.close();
+  }
+
+  void flush() {
+    if (_controller.hasListener) {
+      _controller.close();
+      _controller = StreamController<List<Workout>>();
+    }
+  }
+
   Future<void> fetchAll();
   Future<Workout> createWorkout();
   Future<void> removeWorkout({required String id});
   Future<Workout> getOne({required String id});
   Future<void> updateWorkout({required Workout workout});
-
-  void dispose() {
-    _controller.close();
-  }
 }

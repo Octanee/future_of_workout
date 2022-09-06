@@ -1,6 +1,5 @@
 import 'package:go_router/go_router.dart';
 
-import '../../core/extensions/extensions.dart';
 import '../pages/error/error.dart';
 import '../pages/workout_exercise_details/page.dart';
 import '../pages/workout_exercises_list/workout_exercises_list.dart';

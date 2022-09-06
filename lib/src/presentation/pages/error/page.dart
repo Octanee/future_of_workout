@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../styles/app_text_style.dart';
 import '../../widgets/bar_button.dart';
 import '../../widgets/custom_card.dart';
-import '../../widgets/scaffold.dart';
+import '../../widgets/app_scaffold.dart';
 import '../home/home.dart';
 
 class ErrorPage extends StatelessWidget {
