@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../logic/repositories/repositories.dart';
-import '../../../logic/state_management/state_management.dart';
+import '../../../data/repositories/repositories.dart';
+import '../../../logic/workout_exercise_details/workout_exercise_details.dart';
 import 'view.dart';
 
 class WorkoutExerciseDetailsPage extends StatelessWidget {

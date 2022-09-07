@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../logic/state_management/state_management.dart';
+import '../../../logic/workout_exercise_details/workout_exercise_details.dart';
 import '../../styles/styles.dart';
 import '../../widgets/widgets.dart';
 import '../workout_details/workout_details.dart';

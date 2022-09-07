@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../../../../data/models/models.dart';
-import '../../../../../../../../logic/state_management/state_management.dart';
+import '../../../../../../../../logic/home/home.dart';
 import '../../../../../../../styles/styles.dart';
 import '../../../../../../../widgets/widgets.dart';
 import '../../../../../../workout_details/workout_details.dart';

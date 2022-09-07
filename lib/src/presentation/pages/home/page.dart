@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../logic/repositories/repositories.dart';
-import '../../../logic/state_management/state_management.dart';
+import '../../../data/repositories/repositories.dart';
+import '../../../logic/home/home.dart';
 import 'view.dart';
 
 class HomePage extends StatelessWidget {

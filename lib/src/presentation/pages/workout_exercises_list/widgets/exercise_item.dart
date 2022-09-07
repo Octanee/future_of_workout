@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../data/models/models.dart';
-import '../../../../logic/state_management/workout_exercises_list/cubit/workout_exercises_list_cubit.dart';
+import '../../../../logic/workout_exercises_list/workout_exercises_list.dart';
 import '../../../styles/app_text_style.dart';
 import '../../../widgets/widgets.dart';
 import '../../workout_exercise_details/workout_exercise_details.dart';

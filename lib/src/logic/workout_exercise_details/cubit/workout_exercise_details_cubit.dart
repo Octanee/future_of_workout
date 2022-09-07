@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../../data/models/models.dart';
-import '../../../repositories/repositories.dart';
+import '../../../data/models/models.dart';
+import '../../../data/repositories/repositories.dart';
 
 part 'workout_exercise_details_state.dart';
 

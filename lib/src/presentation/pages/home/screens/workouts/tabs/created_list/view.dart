@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../../../logic/state_management/state_management.dart';
+import '../../../../../../../logic/home/home.dart';
 import '../../../../../../widgets/widgets.dart';
 import 'widgets/widgets.dart';
 

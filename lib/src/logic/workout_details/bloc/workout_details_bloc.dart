@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../../data/models/models.dart';
-import '../../../repositories/repositories.dart';
+import '../../../data/models/models.dart';
+import '../../../data/repositories/repositories.dart';
 
 part 'workout_details_event.dart';
 part 'workout_details_state.dart';
