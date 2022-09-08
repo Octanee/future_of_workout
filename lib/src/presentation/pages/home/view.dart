@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../logic/home/home.dart';
-import '../../styles/styles.dart';
-import 'screens/screens.dart';
+import 'package:future_of_workout/src/logic/home/home.dart';
+import 'package:future_of_workout/src/presentation/pages/home/screens/screens.dart';
+import 'package:future_of_workout/src/presentation/styles/styles.dart';
 
 class HomeView extends StatelessWidget {
-  const HomeView({Key? key}) : super(key: key);
+  const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -57,25 +56,25 @@ class HomeView extends StatelessWidget {
             Icons.home,
             color: AppColors.grey,
           ),
-          label: 'Workouts'),
+          label: 'Workouts',),
       NavigationDestination(
           icon: Icon(
             Icons.sports_gymnastics,
             color: AppColors.grey,
           ),
-          label: 'Body'),
+          label: 'Body',),
       NavigationDestination(
           icon: Icon(
             Icons.search,
             color: AppColors.grey,
           ),
-          label: 'Discover'),
+          label: 'Discover',),
       NavigationDestination(
           icon: Icon(
             Icons.settings,
             color: AppColors.grey,
           ),
-          label: 'Settings'),
+          label: 'Settings',),
     ];
   }
 }

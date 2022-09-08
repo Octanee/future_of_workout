@@ -3,8 +3,9 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../data/models/models.dart';
-import '../../../data/repositories/repositories.dart';
+import 'package:future_of_workout/src/data/models/models.dart';
+import 'package:future_of_workout/src/data/repositories/repositories.dart';
+import 'package:future_of_workout/src/logic/home/home.dart';
 
 part 'workout_details_event.dart';
 part 'workout_details_state.dart';
@@ -14,6 +15,7 @@ class WorkoutDetailsBloc
   WorkoutDetailsBloc({
     required this.repository,
     required this.workoutId,
+    required this.createdListCubit,
   }) : super(const WorkoutDetailsState()) {
     on<WorkoutDetailsLoadWorkout>(_onLoadWorkout);
     on<WorkoutDetailsNameChanged>(_onNameChanged);
@@ -23,6 +25,7 @@ class WorkoutDetailsBloc
 
   final String workoutId;
   final BaseWorkoutRepository repository;
+  final CreatedListCubit createdListCubit;
 
   Future<void> _onLoadWorkout(
     WorkoutDetailsLoadWorkout event,
@@ -31,10 +34,12 @@ class WorkoutDetailsBloc
     emit(state.copyWith(status: WorkoutDetailsStatus.loading));
     final workout = await repository.getOne(id: event.id);
 
-    emit(state.copyWith(
-      status: WorkoutDetailsStatus.success,
-      workout: workout,
-    ));
+    emit(
+      state.copyWith(
+        status: WorkoutDetailsStatus.success,
+        workout: workout,
+      ),
+    );
   }
 
   Future<void> _onNameChanged(
@@ -46,7 +51,7 @@ class WorkoutDetailsBloc
       return;
     }
 
-    _updateWorkout(
+    await _updateWorkout(
       workout: state.workout!.copyWith(name: event.name),
       emit: emit,
     );
@@ -60,7 +65,7 @@ class WorkoutDetailsBloc
       add(WorkoutDetailsLoadWorkout(id: workoutId));
       return;
     }
-    _updateWorkout(
+    await _updateWorkout(
       workout: state.workout!.copyWith(isFavorite: !state.workout!.isFavorite),
       emit: emit,
     );
@@ -90,10 +95,12 @@ class WorkoutDetailsBloc
     try {
       emit(state.copyWith(status: WorkoutDetailsStatus.updating));
       await repository.updateWorkout(workout: workout);
-      emit(state.copyWith(
-        status: WorkoutDetailsStatus.success,
-        workout: workout,
-      ));
+      emit(
+        state.copyWith(
+          status: WorkoutDetailsStatus.success,
+          workout: workout,
+        ),
+      );
     } catch (e) {
       emit(state.copyWith(status: WorkoutDetailsStatus.failure));
     }

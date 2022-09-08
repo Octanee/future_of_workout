@@ -20,7 +20,7 @@ Map<String, dynamic> _$ExerciseToJson(Exercise instance) => <String, dynamic>{
       'name': instance.name,
       'imagePath': instance.imagePath,
       'imagePathSecondary': instance.imagePathSecondary,
-      'primaryMuscle': _$MuscleEnumMap[instance.primaryMuscle]!,
+      'primaryMuscle': _$MuscleEnumMap[instance.primaryMuscle],
     };
 
 const _$MuscleEnumMap = {

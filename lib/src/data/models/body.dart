@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import 'models.dart';
+import 'package:future_of_workout/src/data/models/models.dart';
 
 class Body extends Equatable {
   const Body({

@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../widgets/widgets.dart';
+import 'package:future_of_workout/src/presentation/widgets/widgets.dart';
 
 
 class WorkoutsRecordsTab extends StatelessWidget {
-  const WorkoutsRecordsTab({Key? key}) : super(key: key);
+  const WorkoutsRecordsTab({super.key});
 
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
       hasAppBar: false,
-      hasFloatingActionButton: false,
       body: ListView.separated(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         separatorBuilder: (context, index) => const SizedBox(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'styles.dart';
+import 'package:future_of_workout/src/presentation/styles/styles.dart';
 
 class AppShadows {
   const AppShadows._();

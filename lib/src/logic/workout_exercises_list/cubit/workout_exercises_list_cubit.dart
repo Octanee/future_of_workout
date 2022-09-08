@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../data/models/exercise.dart';
-import '../../../data/repositories/repositories.dart';
+import 'package:future_of_workout/src/data/models/exercise.dart';
+import 'package:future_of_workout/src/data/repositories/repositories.dart';
 
 part 'workout_exercises_list_state.dart';
 
@@ -22,7 +22,7 @@ class WorkoutExercisesListCubit extends Cubit<WorkoutExercisesListState> {
   final BaseExerciseRepository exerciseRepository;
   final BaseWorkoutRepository workoutRepository;
 
-  late final StreamSubscription _subscription;
+  late final StreamSubscription<List<Exercise>> _subscription;
 
   Future<void> fetchList() async {
     try {

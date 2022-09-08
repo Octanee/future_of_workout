@@ -7,7 +7,7 @@ class AlphabeticalListView<T> extends StatelessWidget {
     this.mainAxisSpacing = 8.0,
     this.crossAxisSpacing = 16.0,
     this.childAspectRatio = 1,
-    this.padding = const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 8.0),
+    this.padding = const EdgeInsets.only(left: 16, right: 16, bottom: 8),
     super.key,
   });
 

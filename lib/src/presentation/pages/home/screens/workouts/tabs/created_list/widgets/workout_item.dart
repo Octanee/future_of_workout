@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/data/models/models.dart';
+import 'package:future_of_workout/src/logic/home/home.dart';
+import 'package:future_of_workout/src/presentation/pages/workout_details/workout_details.dart';
+import 'package:future_of_workout/src/presentation/styles/styles.dart';
+import 'package:future_of_workout/src/presentation/widgets/widgets.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../../../../../data/models/models.dart';
-import '../../../../../../../../logic/home/home.dart';
-import '../../../../../../../styles/styles.dart';
-import '../../../../../../../widgets/widgets.dart';
-import '../../../../../../workout_details/workout_details.dart';
-
 class WorkoutItem extends StatelessWidget {
-  const WorkoutItem({required this.workout, Key? key}) : super(key: key);
+  const WorkoutItem({required this.workout, super.key});
 
   final Workout workout;
 
@@ -53,7 +52,7 @@ class WorkoutItem extends StatelessWidget {
     return Align(
       alignment: Alignment.centerRight,
       child: Container(
-        padding: const EdgeInsets.only(right: 8.0),
+        padding: const EdgeInsets.only(right: 8),
         width: constraints.maxWidth * 0.7,
         child: Text(
           workout.name,

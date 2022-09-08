@@ -1,4 +1,4 @@
-import 'enums/enum.dart';
+import 'package:future_of_workout/src/data/models/enums/enum.dart';
 
 class MuscleFatigue {
   const MuscleFatigue({

@@ -1,4 +1,4 @@
-import 'models.dart';
+import 'package:future_of_workout/src/data/models/models.dart';
 
 class Exercise {
   const Exercise({

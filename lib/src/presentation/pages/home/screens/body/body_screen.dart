@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../../../../widgets/widgets.dart';
+import 'package:future_of_workout/src/presentation/widgets/widgets.dart';
 
 class BodyScreen extends StatelessWidget {
-  const BodyScreen({Key? key}) : super(key: key);
+  const BodyScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const AppScaffold(
+    return  AppScaffold(
       title: 'My Body',
     );
   }

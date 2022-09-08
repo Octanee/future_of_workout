@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../data/models/models.dart';
-import '../../../styles/styles.dart';
-import '../../../widgets/widgets.dart';
+import 'package:future_of_workout/src/data/models/models.dart';
+import 'package:future_of_workout/src/presentation/styles/styles.dart';
+import 'package:future_of_workout/src/presentation/widgets/widgets.dart';
 
 class WorkoutExerciseItem extends StatelessWidget {
-  const WorkoutExerciseItem({required this.workoutExercise, Key? key})
-      : super(key: key);
+  const WorkoutExerciseItem({required this.workoutExercise, super.key});
 
   final WorkoutExercise workoutExercise;
 
@@ -22,7 +21,7 @@ class WorkoutExerciseItem extends StatelessWidget {
               SizedBox(
                 width: 80,
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8),
                   child: SvgPicture.asset(
                     workoutExercise.exercise.imagePathStart,
                     height: 64,
@@ -47,7 +46,7 @@ class WorkoutExerciseItem extends StatelessWidget {
           ),
           const Spacer(),
           const Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8),
             child: Icon(
               Icons.more_vert_outlined,
               color: AppColors.grey,

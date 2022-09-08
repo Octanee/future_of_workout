@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/logic/workout_exercise_details/workout_exercise_details.dart';
+import 'package:future_of_workout/src/presentation/pages/workout_details/workout_details.dart';
+import 'package:future_of_workout/src/presentation/pages/workout_exercise_details/widgets/widgets.dart';
+import 'package:future_of_workout/src/presentation/styles/styles.dart';
+import 'package:future_of_workout/src/presentation/widgets/widgets.dart';
 import 'package:go_router/go_router.dart';
-
-import '../../../logic/workout_exercise_details/workout_exercise_details.dart';
-import '../../styles/styles.dart';
-import '../../widgets/widgets.dart';
-import '../workout_details/workout_details.dart';
-import 'widgets/widgets.dart';
 
 class WorkoutExerciseDetailsView extends StatelessWidget {
   const WorkoutExerciseDetailsView({super.key});
@@ -29,14 +28,12 @@ class WorkoutExerciseDetailsView extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        switch (state.status) {
-          case WorkoutExerciseDetailsStatus.loading:
-            return const AppLoading(text: 'Loading...');
-          case WorkoutExerciseDetailsStatus.failure:
-            return const AppError();
-          default:
-            return _buildContent();
+        if (state.status == WorkoutExerciseDetailsStatus.loading) {
+          return const AppLoading(text: 'Loading...');
+        } else if (state.status == WorkoutExerciseDetailsStatus.failure) {
+          return const AppError();
         }
+        return _buildContent();
       },
     );
   }
@@ -52,8 +49,10 @@ class WorkoutExerciseDetailsView extends StatelessWidget {
             actions: [
               IconButton(
                 onPressed: () {},
-                icon: const Icon(Icons.info_outline_rounded,
-                    color: AppColors.grey),
+                icon: const Icon(
+                  Icons.info_outline_rounded,
+                  color: AppColors.grey,
+                ),
               ),
               IconButton(
                 onPressed: () {
@@ -71,7 +70,7 @@ class WorkoutExerciseDetailsView extends StatelessWidget {
                   current.status == WorkoutExerciseDetailsStatus.added,
               builder: (context, state) {
                 return ListView(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(16),
                   children: [
                     BarButton(
                       text: 'Add Set',
@@ -81,7 +80,8 @@ class WorkoutExerciseDetailsView extends StatelessWidget {
                       },
                     ),
                     ...state.workoutExercise!.seriesOfExercise.map<Widget>(
-                        (series) => ExerciseSeriesItem(series: series))
+                      (series) => ExerciseSeriesItem(series: series),
+                    )
                   ],
                 );
               },

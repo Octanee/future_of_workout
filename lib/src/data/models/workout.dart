@@ -2,7 +2,7 @@
 
 import 'package:equatable/equatable.dart';
 
-import 'models.dart';
+import 'package:future_of_workout/src/data/models/models.dart';
 
 class Workout extends Equatable {
   const Workout({
@@ -37,7 +37,13 @@ class Workout extends Equatable {
   }
 
   @override
-  List<Object?> get props => [id, name, isFavorite, body];
+  List<Object> get props => [
+        id,
+        name,
+        isFavorite,
+        body,
+        workoutExercises,
+      ];
 
   @override
   String toString() {

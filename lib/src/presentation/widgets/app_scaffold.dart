@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../styles/styles.dart';
-import 'floating_action_button.dart';
+import 'package:future_of_workout/src/presentation/styles/styles.dart';
+import 'package:future_of_workout/src/presentation/widgets/floating_action_button.dart';
 
 class AppScaffold extends StatelessWidget {
   const AppScaffold({
@@ -13,12 +13,16 @@ class AppScaffold extends StatelessWidget {
     this.hasFloatingActionButton = false,
     this.onPressedFloatingActionButton,
     this.floatingActionButtonIcon,
-    Key? key,
-  })  : assert(hasFloatingActionButton == true
-            ? (onPressedFloatingActionButton != null &&
-                floatingActionButtonIcon != null)
-            : true),
-        super(key: key);
+    super.key,
+  })  : assert(
+          hasFloatingActionButton == true &&
+              onPressedFloatingActionButton == null,
+          'FloatingActionButton must have a "onPressed" function.',
+        ),
+        assert(
+          hasFloatingActionButton == true && floatingActionButtonIcon == null,
+          'FloatingActionButton must have a "floatingActionButtonIcon".',
+        );
 
   final String? title;
   final Widget? body;

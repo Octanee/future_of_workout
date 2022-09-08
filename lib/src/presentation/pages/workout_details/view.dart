@@ -2,15 +2,15 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/logic/workout_details/workout_details.dart';
+import 'package:future_of_workout/src/presentation/pages/workout_details/widgets/widgets.dart';
+import 'package:future_of_workout/src/presentation/pages/workout_exercises_list/page.dart';
+import 'package:future_of_workout/src/presentation/styles/styles.dart';
+import 'package:future_of_workout/src/presentation/widgets/widgets.dart';
 import 'package:go_router/go_router.dart';
-import '../../../logic/workout_details/workout_details.dart';
-import '../../styles/styles.dart';
-import '../../widgets/widgets.dart';
-import '../workout_exercises_list/page.dart';
-import 'widgets/widgets.dart';
 
 class WorkoutDetailsView extends StatelessWidget {
-  const WorkoutDetailsView({Key? key}) : super(key: key);
+  const WorkoutDetailsView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,19 +22,17 @@ class WorkoutDetailsView extends StatelessWidget {
       },
       buildWhen: (previous, current) => previous.workout != current.workout,
       builder: (context, state) {
-        switch (state.status) {
-          case WorkoutDetailsStatus.loading:
-            return const AppLoading(text: 'Loading...');
-          case WorkoutDetailsStatus.failure:
-            return Center(
-              child: Text(
-                'Something gone wront :(',
-                style: AppTextStyle.semiBold20,
-              ),
-            );
-          default:
-            return _buildContent(context);
+        if (state.status == WorkoutDetailsStatus.loading) {
+          return const AppLoading(text: 'Loading...');
+        } else if (state.status == WorkoutDetailsStatus.failure) {
+          return Center(
+            child: Text(
+              'Something gone wront :(',
+              style: AppTextStyle.semiBold20,
+            ),
+          );
         }
+        return _buildContent(context);
       },
     );
   }
@@ -45,8 +43,10 @@ class WorkoutDetailsView extends StatelessWidget {
       hasFloatingActionButton: true,
       onPressedFloatingActionButton: () {
         final workout = context.read<WorkoutDetailsBloc>().state.workout;
-        context.goNamed(WorkoutExercisesListPage.name,
-            params: {'workoutId': workout!.id});
+        context.goNamed(
+          WorkoutExercisesListPage.name,
+          params: {'workoutId': workout!.id},
+        );
       },
       floatingActionButtonIcon: Icons.add,
       actions: _getActions(context),
@@ -75,7 +75,7 @@ class WorkoutDetailsView extends StatelessWidget {
           _getPopumMenuItem(
             text: 'Rename',
             icon: Icons.edit,
-            // TODO WorkoutDetails Name Changed
+            // TODO(Octane): WorkoutDetails Name Changed
             onTap: () => context
                 .read<WorkoutDetailsBloc>()
                 .add(const WorkoutDetailsNameChanged(name: 'Test')),

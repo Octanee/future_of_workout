@@ -1,7 +1,6 @@
+import 'package:future_of_workout/src/data/models/models.dart';
+import 'package:future_of_workout/src/data/repositories/repositories.dart';
 import 'package:uuid/uuid.dart';
-
-import '../../../data/models/models.dart';
-import '../repositories.dart';
 
 class FakeWorkoutRepository extends BaseWorkoutRepository {
   List<Workout> _workouts = [];

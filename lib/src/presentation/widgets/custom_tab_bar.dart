@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../styles/styles.dart';
+import 'package:future_of_workout/src/presentation/styles/styles.dart';
 
 class CustomTabBar extends StatelessWidget {
   const CustomTabBar({
     required this.tabs,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final List<Tab> tabs;
 
@@ -14,12 +14,12 @@ class CustomTabBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        vertical: 8.0,
+        vertical: 8,
         horizontal: 16,
       ),
       child: Container(
         height: 48,
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(24),
           color: AppColors.white,

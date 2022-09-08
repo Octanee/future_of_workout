@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-import '../styles/styles.dart';
-import 'widgets.dart';
+import 'package:future_of_workout/src/presentation/styles/styles.dart';
+import 'package:future_of_workout/src/presentation/widgets/widgets.dart';
 
 class BarButton extends StatelessWidget {
   const BarButton({
     required this.text,
     required this.icon,
     this.onTap,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final String text;
   final IconData icon;

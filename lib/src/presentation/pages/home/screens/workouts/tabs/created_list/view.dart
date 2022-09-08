@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../../../../logic/home/home.dart';
-import '../../../../../../widgets/widgets.dart';
-import 'widgets/widgets.dart';
+import 'package:future_of_workout/src/logic/home/home.dart';
+import 'package:future_of_workout/src/presentation/pages/home/screens/workouts/tabs/created_list/widgets/widgets.dart';
+import 'package:future_of_workout/src/presentation/widgets/widgets.dart';
 
 class WorkoutsCreatedListView extends StatelessWidget {
-  const WorkoutsCreatedListView({Key? key}) : super(key: key);
+  const WorkoutsCreatedListView({super.key});
 
   @override
   Widget build(BuildContext context) {

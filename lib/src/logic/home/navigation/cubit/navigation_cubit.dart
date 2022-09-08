@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../navigation.dart';
+import 'package:future_of_workout/src/logic/home/navigation/navigation.dart';
 
 part 'navigation_state.dart';
 

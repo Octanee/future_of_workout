@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../data/repositories/repositories.dart';
-import '../../../logic/workout_exercise_details/workout_exercise_details.dart';
-import 'view.dart';
+import 'package:future_of_workout/src/data/repositories/repositories.dart';
+import 'package:future_of_workout/src/logic/workout_exercise_details/workout_exercise_details.dart';
+import 'package:future_of_workout/src/presentation/pages/workout_exercise_details/view.dart';
 
 class WorkoutExerciseDetailsPage extends StatelessWidget {
   const WorkoutExerciseDetailsPage({

@@ -1,6 +1,6 @@
 // ignore_for_file: lines_longer_than_80_chars
 
-import '../models/models.dart';
+import 'package:future_of_workout/src/data/models/models.dart';
 
 class ExerciseProvider {
   static final List<Exercise> exercises = [
@@ -22,7 +22,7 @@ class ExerciseProvider {
   ];
 
   static Exercise _barbellBenchPress() {
-    const String id = '1';
+    const id = '1';
     return const Exercise(
       id: id,
       name: 'Barbell bench press',
@@ -60,7 +60,7 @@ class ExerciseProvider {
   }
 
   static Exercise _squat() {
-    const String id = '2';
+    const id = '2';
     return const Exercise(
       id: id,
       name: 'Squat',
@@ -100,7 +100,7 @@ class ExerciseProvider {
   }
 
   static Exercise _deadlift() {
-    const String id = '3';
+    const id = '3';
     return const Exercise(
       id: id,
       name: 'Deadlift',

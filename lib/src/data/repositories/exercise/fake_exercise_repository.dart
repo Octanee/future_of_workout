@@ -1,6 +1,6 @@
-import '../../../data/models/exercise.dart';
-import '../../../data/providers/exercise_provider.dart';
-import 'base_exercise_repository.dart';
+import 'package:future_of_workout/src/data/models/exercise.dart';
+import 'package:future_of_workout/src/data/providers/exercise_provider.dart';
+import 'package:future_of_workout/src/data/repositories/exercise/base_exercise_repository.dart';
 
 class FakeExerciseRepository extends BaseExerciseRepository {
   List<Exercise> _exercises = [];

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class WorkoutsSavedTab extends StatelessWidget {
-  const WorkoutsSavedTab({Key? key}) : super(key: key);
+  const WorkoutsSavedTab({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../styles/styles.dart';
+import 'package:future_of_workout/src/presentation/styles/styles.dart';
 
 class WorkoutExercisesListMuscleTab extends StatelessWidget {
   const WorkoutExercisesListMuscleTab({super.key});

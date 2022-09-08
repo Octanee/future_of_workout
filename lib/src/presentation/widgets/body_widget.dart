@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../data/models/models.dart';
+import 'package:future_of_workout/src/data/models/models.dart';
 
 class BodyWidget extends StatelessWidget {
-  const BodyWidget({required this.body, Key? key}) : super(key: key);
+  const BodyWidget({required this.body, super.key});
 
   final Body body;
 
@@ -45,13 +45,15 @@ class BodyWidget extends StatelessWidget {
       SvgPicture.asset(contourPath),
     ];
 
-    body.forEach((element) {
-      children.add(getSVG(
-        muscle: element.muscle,
-        fatigue: element.fatigue,
-        isFront: isFront,
-      ));
-    });
+    for (final element in body) {
+      children.add(
+        getSVG(
+          muscle: element.muscle,
+          fatigue: element.fatigue,
+          isFront: isFront,
+        ),
+      );
+    }
 
     return Stack(
       children: children,

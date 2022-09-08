@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../data/models/models.dart';
-import '../../../widgets/widgets.dart';
+import 'package:future_of_workout/src/data/models/models.dart';
+import 'package:future_of_workout/src/presentation/widgets/widgets.dart';
 
 class ExerciseSeriesItem extends StatelessWidget {
   const ExerciseSeriesItem({required this.series, super.key});
@@ -11,7 +11,7 @@ class ExerciseSeriesItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 8.0),
+      padding: const EdgeInsets.only(top: 8),
       child: CustomCard(
         padding: const EdgeInsets.all(8),
         child: Text(

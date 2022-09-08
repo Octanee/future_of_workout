@@ -1,4 +1,4 @@
-import '../../../core/extensions/extensions.dart';
+import 'package:future_of_workout/src/core/extensions/extensions.dart';
 
 enum Muscle {
   neck(

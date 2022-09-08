@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:future_of_workout/src/presentation/pages/home/home.dart';
+import 'package:future_of_workout/src/presentation/styles/app_text_style.dart';
+import 'package:future_of_workout/src/presentation/widgets/app_scaffold.dart';
+import 'package:future_of_workout/src/presentation/widgets/bar_button.dart';
+import 'package:future_of_workout/src/presentation/widgets/custom_card.dart';
 import 'package:go_router/go_router.dart';
-
-import '../../styles/app_text_style.dart';
-import '../../widgets/bar_button.dart';
-import '../../widgets/custom_card.dart';
-import '../../widgets/app_scaffold.dart';
-import '../home/home.dart';
 
 class ErrorPage extends StatelessWidget {
   const ErrorPage({super.key, this.error, this.name});

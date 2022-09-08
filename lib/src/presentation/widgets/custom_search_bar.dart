@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../styles/styles.dart';
-import 'widgets.dart';
+import 'package:future_of_workout/src/presentation/styles/styles.dart';
+import 'package:future_of_workout/src/presentation/widgets/widgets.dart';
 
 class CustomSearchBar extends StatelessWidget {
   const CustomSearchBar({this.onChanged, this.hintText, super.key});
 
   final String? hintText;
-  final Function(String)? onChanged;
+  final void Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {

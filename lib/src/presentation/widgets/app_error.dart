@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:future_of_workout/src/presentation/styles/styles.dart';
+import 'package:future_of_workout/src/presentation/widgets/widgets.dart';
 import 'package:go_router/go_router.dart';
-
-import '../styles/styles.dart';
-import 'widgets.dart';
 
 class AppError extends StatelessWidget {
   const AppError({this.text = 'Something gone wrong...', super.key});
@@ -22,7 +21,7 @@ class AppError extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16),
               child: BarButton(
                 text: 'Back',
                 icon: Icons.arrow_back,

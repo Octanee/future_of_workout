@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-
-import '../../../../widgets/widgets.dart';
-import 'tabs/tabs.dart';
+import 'package:future_of_workout/src/presentation/pages/home/screens/workouts/tabs/tabs.dart';
+import 'package:future_of_workout/src/presentation/widgets/widgets.dart';
 
 class WorkoutsScreen extends StatelessWidget {
-  const WorkoutsScreen({Key? key}) : super(key: key);
+  const WorkoutsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,15 +17,15 @@ class WorkoutsScreen extends StatelessWidget {
     return DefaultTabController(
       length: 3,
       child: Column(
-        children: [
-          const CustomTabBar(
+        children: const [
+          CustomTabBar(
             tabs: [
               Tab(text: 'Created'),
               Tab(text: 'Records'),
               Tab(text: 'Saved'),
             ],
           ),
-          const CustomTabBarView(
+          CustomTabBarView(
             children: [
               WorkoutsCreatedListTab(),
               WorkoutsRecordsTab(),

@@ -4,8 +4,8 @@ class CustomTabBarView extends StatelessWidget {
   const CustomTabBarView({
     required this.children,
     this.height = 572,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final List<Widget> children;
   final double height;

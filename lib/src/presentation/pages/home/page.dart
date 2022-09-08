@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../data/repositories/repositories.dart';
-import '../../../logic/home/home.dart';
-import 'view.dart';
+import 'package:future_of_workout/src/data/repositories/repositories.dart';
+import 'package:future_of_workout/src/logic/home/home.dart';
+import 'package:future_of_workout/src/presentation/pages/home/view.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   static String name = 'home';
 
@@ -19,7 +19,7 @@ class HomePage extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => CreatedListCubit(
-              repository: context.read<FakeWorkoutRepository>())
+              repository: context.read<FakeWorkoutRepository>(),)
             ..fetchList(),
         ),
       ],

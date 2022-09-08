@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../data/models/models.dart';
-import '../../../data/repositories/repositories.dart';
+import 'package:future_of_workout/src/data/models/models.dart';
+import 'package:future_of_workout/src/data/repositories/repositories.dart';
 
 part 'workout_exercise_details_state.dart';
 
@@ -31,7 +31,7 @@ class WorkoutExerciseDetailsCubit extends Cubit<WorkoutExerciseDetailsState> {
       emit(state.copyWith(
         status: WorkoutExerciseDetailsStatus.loaded,
         workoutExercise: workoutExercise,
-      ));
+      ),);
     } catch (e) {
       emit(state.copyWith(status: WorkoutExerciseDetailsStatus.failure));
     }
@@ -47,7 +47,7 @@ class WorkoutExerciseDetailsCubit extends Cubit<WorkoutExerciseDetailsState> {
       if (workoutExercise.seriesOfExercise.isEmpty) {
         temp = workoutExercise.copyWith(seriesOfExercise: [
           const ExerciseSeries(index: 1),
-        ]);
+        ],);
       } else {
         final series = List.of(workoutExercise.seriesOfExercise);
 
@@ -62,7 +62,7 @@ class WorkoutExerciseDetailsCubit extends Cubit<WorkoutExerciseDetailsState> {
       emit(state.copyWith(
         status: WorkoutExerciseDetailsStatus.added,
         workoutExercise: temp,
-      ));
+      ),);
     } catch (e) {
       emit(state.copyWith(status: WorkoutExerciseDetailsStatus.failure));
     }
@@ -87,7 +87,7 @@ class WorkoutExerciseDetailsCubit extends Cubit<WorkoutExerciseDetailsState> {
 
       final temp = workout.copyWith(workoutExercises: list);
 
-      workoutRepository.updateWorkout(workout: temp);
+      await workoutRepository.updateWorkout(workout: temp);
 
       emit(state.copyWith(status: WorkoutExerciseDetailsStatus.saved));
     } catch (e) {

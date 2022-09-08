@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-import 'exercise.dart';
-import 'exercise_series.dart';
+import 'package:future_of_workout/src/data/models/exercise.dart';
+import 'package:future_of_workout/src/data/models/exercise_series.dart';
 
 class WorkoutExercise extends Equatable {
   const WorkoutExercise({

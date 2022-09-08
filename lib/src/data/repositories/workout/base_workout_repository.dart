@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
-import '../../../data/models/models.dart';
+import 'package:future_of_workout/src/data/models/models.dart';
 
 abstract class BaseWorkoutRepository {
   StreamController<List<Workout>> _controller =

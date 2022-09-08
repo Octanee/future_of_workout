@@ -1,11 +1,11 @@
+import 'package:future_of_workout/src/logic/home/home.dart';
+import 'package:future_of_workout/src/presentation/pages/error/error.dart';
+import 'package:future_of_workout/src/presentation/pages/home/home.dart';
+import 'package:future_of_workout/src/presentation/pages/workout_details/workout_details.dart';
+import 'package:future_of_workout/src/presentation/pages/workout_exercise_details/page.dart';
+import 'package:future_of_workout/src/presentation/pages/workout_exercises_list/workout_exercises_list.dart';
+import 'package:future_of_workout/src/presentation/router/router.dart';
 import 'package:go_router/go_router.dart';
-
-import '../pages/error/error.dart';
-import '../pages/workout_exercise_details/page.dart';
-import '../pages/workout_exercises_list/workout_exercises_list.dart';
-import '../pages/home/home.dart';
-import '../pages/workout_details/workout_details.dart';
-import 'router.dart';
 
 class AppRouter {
   static final GoRouter router = GoRouter(
@@ -22,11 +22,15 @@ class AppRouter {
             path: '${WorkoutDetailsPage.name}/:workoutId',
             pageBuilder: (context, state) {
               final workoutId = state.params['workoutId']!;
+              final bloc = state.extra! as CreatedListCubit;
               return CustomTransitionPage(
                 key: state.pageKey,
-                child: WorkoutDetailsPage(workoutId: workoutId),
+                child: WorkoutDetailsPage(
+                  workoutId: workoutId,
+                  createdListCubit: bloc,
+                ),
                 transitionsBuilder: (context, animation, secondaryAnimation,
-                        child) =>
+                        child,) =>
                     AppTransitions()
                         .buildTransitions(animation, secondaryAnimation, child),
               );
@@ -43,16 +47,16 @@ class AppRouter {
                       transitionsBuilder:
                           (context, animation, secondaryAnimation, child) =>
                               AppTransitions().buildTransitions(
-                                  animation, secondaryAnimation, child),
+                                  animation, secondaryAnimation, child,),
                     );
-                  }),
+                  },),
               GoRoute(
                   name: WorkoutExerciseDetailsPage.name,
                   path: '${WorkoutExerciseDetailsPage.name}/:exerciseId',
                   pageBuilder: (context, state) {
                     final workoutId = state.params['workoutId']!;
                     final exerciseId = state.params['exerciseId']!;
-                    final isNew = state.extra as bool;
+                    final isNew = state.extra! as bool;
 
                     return CustomTransitionPage(
                       key: state.pageKey,
@@ -64,9 +68,9 @@ class AppRouter {
                       transitionsBuilder:
                           (context, animation, secondaryAnimation, child) =>
                               AppTransitions().buildTransitions(
-                                  animation, secondaryAnimation, child),
+                                  animation, secondaryAnimation, child,),
                     );
-                  }),
+                  },),
             ],
           ),
         ],

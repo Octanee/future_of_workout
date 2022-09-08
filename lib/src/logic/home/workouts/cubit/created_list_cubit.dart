@@ -1,10 +1,11 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../../data/models/models.dart';
-import '../../../../data/repositories/repositories.dart';
+import 'package:future_of_workout/src/data/models/models.dart';
+import 'package:future_of_workout/src/data/repositories/repositories.dart';
 
 part 'created_list_state.dart';
 
@@ -15,7 +16,7 @@ class CreatedListCubit extends Cubit<CreatedListState> {
   }
 
   final BaseWorkoutRepository repository;
-  late final StreamSubscription _subscription;
+  late final StreamSubscription<List<Workout>> _subscription;
 
   Future<void> fetchList() async {
     try {
@@ -43,13 +44,16 @@ class CreatedListCubit extends Cubit<CreatedListState> {
       await repository.updateWorkout(workout: temp);
       emit(CreatedListState.toggleFavorite(workout: temp));
       await fetchList();
-    } catch (e) {}
+    } catch (e) {
+      log('toggleFavorite Error');
+    }
   }
 
   void _subscribe() {
     repository.flush();
     _subscription = repository.workouts.listen(
       (workouts) {
+        log('CreatedListCubit Listen');
         emit(CreatedListState.loaded(workouts: workouts));
       },
       onError: (error) => emit(const CreatedListState.failure()),
@@ -59,6 +63,7 @@ class CreatedListCubit extends Cubit<CreatedListState> {
   @override
   Future<void> close() {
     _subscription.cancel();
+    repository.dispose();
     return super.close();
   }
 }

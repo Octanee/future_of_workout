@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../styles/styles.dart';
+import 'package:future_of_workout/src/presentation/styles/styles.dart';
 
 class CustomBar extends StatelessWidget {
   const CustomBar({
     required this.child,
-    this.padding = const EdgeInsets.all(8.0),
+    this.padding = const EdgeInsets.all(8),
     this.onTap,
     super.key,
   });
@@ -18,10 +18,10 @@ class CustomBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(100.0),
+      borderRadius: BorderRadius.circular(100),
       child: Ink(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(100.0),
+          borderRadius: BorderRadius.circular(100),
           color: AppColors.white,
           boxShadow: [AppShadows.shadow15],
         ),

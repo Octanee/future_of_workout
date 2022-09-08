@@ -11,8 +11,11 @@ class AppTransitions {
   final AxisDirection direction;
   final Duration duration;
 
-  Widget buildTransitions(Animation<double> animation,
-      Animation<double> secondaryAnimation, Widget child) {
+  Widget buildTransitions(
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) {
     switch (transition) {
       case AppPageRouteTransition.scale:
         return ScaleTransition(

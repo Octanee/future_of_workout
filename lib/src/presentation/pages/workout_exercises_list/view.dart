@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../logic/workout_exercises_list/workout_exercises_list.dart';
-import '../../styles/styles.dart';
-import '../../widgets/widgets.dart';
-import 'tabs/tabs.dart';
+import 'package:future_of_workout/src/logic/workout_exercises_list/workout_exercises_list.dart';
+import 'package:future_of_workout/src/presentation/pages/workout_exercises_list/tabs/tabs.dart';
+import 'package:future_of_workout/src/presentation/styles/styles.dart';
+import 'package:future_of_workout/src/presentation/widgets/widgets.dart';
 
 class WorkoutExercisesListView extends StatelessWidget {
   const WorkoutExercisesListView({super.key});
@@ -41,15 +40,15 @@ class WorkoutExercisesListView extends StatelessWidget {
     return DefaultTabController(
       length: 3,
       child: Column(
-        children: [
-          const CustomTabBar(
+        children: const [
+          CustomTabBar(
             tabs: [
               Tab(text: 'All'),
               Tab(text: 'Muscle'),
               Tab(text: 'Category'),
             ],
           ),
-          const CustomTabBarView(
+          CustomTabBarView(
             height: 652,
             children: [
               WorkoutExercisesListAllTab(),

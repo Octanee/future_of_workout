@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:future_of_workout/src/presentation/styles/styles.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'styles.dart';
 
 class AppTextStyle {
   const AppTextStyle._();

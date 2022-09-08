@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../data/repositories/repositories.dart';
-import '../../../logic/workout_exercises_list/workout_exercises_list.dart';
-import 'view.dart';
+import 'package:future_of_workout/src/data/repositories/repositories.dart';
+import 'package:future_of_workout/src/logic/workout_exercises_list/workout_exercises_list.dart';
+import 'package:future_of_workout/src/presentation/pages/workout_exercises_list/view.dart';
 
 class WorkoutExercisesListPage extends StatelessWidget {
   const WorkoutExercisesListPage({required this.workoutId, super.key});

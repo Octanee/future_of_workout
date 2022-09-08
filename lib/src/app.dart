@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'data/repositories/repositories.dart';
-import 'presentation/router/app_router.dart';
+import 'package:future_of_workout/src/data/repositories/repositories.dart';
+import 'package:future_of_workout/src/presentation/router/app_router.dart';
 
 class FutureOfWorkoutApp extends StatelessWidget {
-  const FutureOfWorkoutApp({Key? key}) : super(key: key);
+  const FutureOfWorkoutApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +18,7 @@ class FutureOfWorkoutApp extends StatelessWidget {
           create: (context) => FakeExerciseRepository(),
         ),
       ],
+      
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         routerDelegate: AppRouter.router.routerDelegate,
