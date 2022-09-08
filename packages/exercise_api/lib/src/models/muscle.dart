@@ -1,0 +1,151 @@
+/// {@template muscle}
+/// List of body muscles.
+///
+/// Contains a [name], [imagePathFront] and [imagePathBack].
+///
+/// {@endtemplate}
+enum Muscle {
+  /// Neck
+  neck(
+    name: 'Neck',
+    imagePathFront: 'assets/body/front/neck.svg',
+    imagePathBack: 'assets/body/back/neck.svg',
+  ),
+
+  /// Chest
+  chest(
+    name: 'Chest',
+    imagePathFront: 'assets/body/front/chest.svg',
+  ),
+
+  /// Serratus
+  serratus(
+    name: 'Serratus',
+    imagePathFront: 'assets/body/front/serratus.svg',
+  ),
+
+  /// Shoulders
+  shoulders(
+    name: 'Shoulders',
+    imagePathFront: 'assets/body/front/shoulders.svg',
+    imagePathBack: 'assets/body/back/shoulders.svg',
+  ),
+
+  /// Biceps
+  biceps(
+    name: 'Biceps',
+    imagePathFront: 'assets/body/front/biceps.svg',
+  ),
+
+  /// Triceps
+  triceps(
+    name: 'Triceps',
+    imagePathBack: 'assets/body/back/triceps.svg',
+  ),
+
+  /// Forearm
+  forearm(
+    name: 'Forearm',
+    imagePathFront: 'assets/body/front/forearm.svg',
+    imagePathBack: 'assets/body/back/forearm.svg',
+  ),
+
+  /// Abs
+  abs(
+    name: 'Abs',
+    imagePathFront: 'assets/body/front/abs.svg',
+  ),
+
+  /// Obliques
+  obliques(
+    name: 'Obliques',
+    imagePathFront: 'assets/body/front/obliques.svg',
+    imagePathBack: 'assets/body/back/obliques.svg',
+  ),
+
+  /// Trapezius
+  trapezius(
+    name: 'Trapezius',
+    imagePathFront: 'assets/body/front/trapezius.svg',
+    imagePathBack: 'assets/body/back/trapezius.svg',
+  ),
+
+  /// Lattisimus
+  lattisimus(
+    name: 'Lattisimus',
+    imagePathBack: 'assets/body/back/latisimus.svg',
+  ),
+
+  /// Teres Major
+  teresMajor(
+    name: 'Teres Major',
+    imagePathBack: 'assets/body/back/teres_major.svg',
+  ),
+
+  /// Erector spinae
+  erectorSpinae(
+    name: 'Erector Spinae',
+    imagePathBack: 'assets/body/back/erector_spinae.svg',
+  ),
+
+  /// Adductors
+  adductors(
+    name: 'Adductors',
+    imagePathFront: 'assets/body/front/adductors.svg',
+    imagePathBack: 'assets/body/back/adductors.svg',
+  ),
+
+  /// Abductors
+  abductors(
+    name: 'Abductors',
+    imagePathFront: 'assets/body/front/abductors.svg',
+    imagePathBack: 'assets/body/back/abductors.svg',
+  ),
+
+  /// Glutes
+  glutes(
+    name: 'Glutes',
+    imagePathBack: 'assets/body/back/glutes.svg',
+  ),
+
+  /// Quadriceps
+  quadriceps(
+    name: 'Quadriceps',
+    imagePathFront: 'assets/body/front/quadriceps.svg',
+  ),
+
+  /// Hamstering
+  hamstering(
+    name: 'Hamstering',
+    imagePathBack: 'assets/body/back/hamstering.svg',
+  ),
+
+  /// Calf
+  calf(
+    name: 'Calf',
+    imagePathFront: 'assets/body/front/calf.svg',
+    imagePathBack: 'assets/body/back/calf.svg',
+  );
+
+  /// {@macro muscle}
+  const Muscle({
+    required this.name,
+    this.imagePathFront,
+    this.imagePathBack,
+  });
+
+  /// The name of the Muscle
+  ///
+  /// Cannot be empty.
+  final String name;
+
+  /// Path to SVG from assets,
+  /// showing the muscle appearance from the
+  /// `front` of the body.
+  final String? imagePathFront;
+
+  /// Path to SVG from assets,
+  /// showing the muscle appearance from the
+  /// `back` of the body.
+  final String? imagePathBack;
+}
