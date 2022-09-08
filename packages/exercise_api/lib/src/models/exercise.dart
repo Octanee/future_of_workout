@@ -12,12 +12,12 @@ part 'exercise.g.dart';
 /// Contains a [id], [name], [imagePath] and [imagePathSecondary],
 /// in addtion to a [primaryMuscle] value.
 ///
-/// If a [id] is provided, it cannot be empty. If no [id] is provided, 
+/// If a [id] is provided, it cannot be empty. If no [id] is provided,
 /// one will be generated.
-/// 
+///
 /// [name], [imagePath] and [imagePathSecondary] cannot be empty.
-/// 
-/// [Exercise] are immutable and can be copied using [copyWith], 
+///
+/// [Exercise] are immutable and can be copied using [copyWith],
 ///
 /// {@endtemplate}
 @immutable
@@ -34,10 +34,11 @@ class Exercise extends Equatable {
           id == null || id.isNotEmpty,
           '"id" can not be null and should be empty.',
         ),
-        assert(name.isEmpty, '"name" of the Exercise can not be empty'),
+        assert(name.isNotEmpty, '"name" of the Exercise can not be empty'),
+        assert(imagePath.isNotEmpty, '"imagePath" to image can not be empty'),
         assert(
-          imagePath.isEmpty || imagePathSecondary.isEmpty,
-          'Path to image can not be empty',
+          imagePathSecondary.isNotEmpty,
+          '"imagePathSecondary" to image can not be empty',
         ),
         id = id ?? const Uuid().v4();
 
@@ -92,7 +93,7 @@ class Exercise extends Equatable {
     );
   }
 
-    /// Deserializes the given [JsonMap] into a [Exercise].
+  /// Deserializes the given [JsonMap] into a [Exercise].
   factory Exercise.fromJson(JsonMap json) => _$ExerciseFromJson(json);
 
   /// Converts this [Exercise] into a [JsonMap].

@@ -2,7 +2,6 @@
 /// List of body muscles.
 ///
 /// Contains a [name], [imagePathFront] and [imagePathBack].
-///
 /// {@endtemplate}
 enum Muscle {
   /// Neck
