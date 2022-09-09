@@ -9,7 +9,8 @@ import 'package:rxdart/rxdart.dart';
 class LocalStorageExerciseApi extends ExerciseApi {
   /// {@macro local_storage_exercise_api}
   LocalStorageExerciseApi({required Box<Exercise> exerciseBox})
-      : _exerciseBox = exerciseBox {
+      : assert(exerciseBox.isOpen, '"exerciseBox" must be opened.'),
+        _exerciseBox = exerciseBox {
     _init();
   }
 
@@ -28,13 +29,31 @@ class LocalStorageExerciseApi extends ExerciseApi {
   void _init() {
     var exercises = _exerciseBox.values.toList();
     if (exercises.isEmpty) {
+      _populateBox();
       exercises = DefaultExerciseProvider.defaultExercises;
     }
 
     _exercisesStreamController.add(exercises);
   }
 
+  void _populateBox() {
+    final defaultExercises = DefaultExerciseProvider.defaultExercises;
+    final entries = <String, Exercise>{
+      for (final exercise in defaultExercises) exercise.id: exercise,
+    };
+    _exerciseBox.putAll(entries);
+  }
+
   @override
   Stream<List<Exercise>> getExercises() =>
       _exercisesStreamController.asBroadcastStream();
+
+  @override
+  Exercise get({required String id}) {
+    final exercise = _exerciseBox.get(id);
+    if (exercise == null) {
+      throw ExerciseNotFoundException();
+    }
+    return exercise;
+  }
 }

@@ -10,4 +10,9 @@ abstract class ExerciseApi {
   /// Provides a [Stream] of all exercises.
   Stream<List<Exercise>> getExercises();
 
+  /// Get the exercise with the given `id`.
+  /// 
+  /// If no exercise with the given `id` exists,
+  /// a [ExerciseNotFoundException] error is thrown.
+  Exercise get({required String id});
 }
