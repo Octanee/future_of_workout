@@ -21,7 +21,7 @@ abstract class WorkoutApi {
   /// 
   /// If a [workout] with the same `id` already exists,
   /// it will be replaced.
-  Future<String> saveWorkout(Workout workout);
+  Future<void> saveWorkout(Workout workout);
 
   /// Deletes the `workout` with the given [id].
   /// 

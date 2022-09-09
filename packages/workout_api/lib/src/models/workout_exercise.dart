@@ -12,9 +12,6 @@ part 'workout_exercise.g.dart';
 ///
 /// Contains a [id], [index], [exercise] and [exerciseSeries].
 ///
-/// If a [id] is provided, it cannot be empty.
-/// If no [id] is provided, one will be generated.
-///
 /// [WorkoutExercise]s are immutable and can be copied using [copyWith],
 /// in addition to being serialized and deserialized using [toJson]
 /// and [WorkoutExercise.fromJson] respectively.
@@ -24,7 +21,7 @@ part 'workout_exercise.g.dart';
 class WorkoutExercise extends Equatable {
   /// {@macro workout_exercise}
   WorkoutExercise({
-    //String? id,
+    String? id,
     required this.index,
     required this.exercise,
     this.exerciseSeries = const [
@@ -32,17 +29,16 @@ class WorkoutExercise extends Equatable {
       ExerciseSeries(),
       ExerciseSeries(),
     ],
-  }) ;
-  //  : assert(
-  //         id == null || id.isNotEmpty,
-  //         '"id" can not be null and should be empty.',
-  //       ),
-  //       id = id ?? const Uuid().v4();
+  })  : assert(
+          id == null || id.isNotEmpty,
+          '"id" can not be null and should be empty.',
+        ),
+        id = id ?? const Uuid().v4();
 
-  // /// The unique identifier of the workoutExercise.
-  // ///
-  // /// Cannot be empty.
-  // final String id;
+  /// The unique indentifier of the workout.
+  ///
+  /// Cannot be empty.
+  final String id;
 
   /// The order in which the `exercise` is performed.
   ///
@@ -65,13 +61,12 @@ class WorkoutExercise extends Equatable {
   ///
   /// {@macro workout_exercise}
   WorkoutExercise copyWith({
-    //String? id,
+    String? id,
     int? index,
     Exercise? exercise,
     List<ExerciseSeries>? exerciseSeries,
   }) {
     return WorkoutExercise(
-      //id: id ?? this.id,
       index: index ?? this.index,
       exercise: exercise ?? this.exercise,
       exerciseSeries: exerciseSeries ?? this.exerciseSeries,
