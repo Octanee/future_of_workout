@@ -1,5 +1,6 @@
 import 'package:exercise_api/exercise_api.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:local_storage_exercise_api/local_storage_exercise_api.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -8,13 +9,11 @@ import 'package:rxdart/rxdart.dart';
 /// {@endtemplate}
 class LocalStorageExerciseApi extends ExerciseApi {
   /// {@macro local_storage_exercise_api}
-  LocalStorageExerciseApi({required Box<Exercise> exerciseBox})
-      : assert(exerciseBox.isOpen, '"exerciseBox" must be opened.'),
-        _exerciseBox = exerciseBox {
+  LocalStorageExerciseApi() {
     _init();
   }
 
-  final Box<Exercise> _exerciseBox;
+  late Box<Exercise> _exerciseBox;
 
   final _exercisesStreamController =
       BehaviorSubject<List<Exercise>>.seeded(const []);
@@ -26,7 +25,21 @@ class LocalStorageExerciseApi extends ExerciseApi {
   @visibleForTesting
   static const kExercisesBoxName = 'exercises_box_name';
 
-  void _init() {
+  Future<void> _init() async {
+    _registerAdapters();
+
+    _exerciseBox = await Hive.openBox<Exercise>(kExercisesBoxName);
+
+    _addExercisesToStreamController();
+  }
+
+  void _registerAdapters() {
+    Hive
+      ..registerAdapter<Muscle>(MuscleAdapter())
+      ..registerAdapter<Exercise>(ExerciseAdapter());
+  }
+
+  void _addExercisesToStreamController() {
     var exercises = _exerciseBox.values.toList();
     if (exercises.isEmpty) {
       _populateBox();
