@@ -30,7 +30,9 @@ class LocalStorageExerciseApi extends ExerciseApi {
 
     _exerciseBox = await Hive.openBox<Exercise>(kExercisesBoxName);
 
-    _addExercisesToStreamController();
+    _exerciseBox.watch().listen((event) {
+      _addExercisesToStreamController();
+    });
   }
 
   void _registerAdapters() {

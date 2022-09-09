@@ -28,7 +28,9 @@ class LocalStorageWorkoutApi extends WorkoutApi {
 
     _workoutBox = await Hive.openBox<Workout>(kWorkoutBoxName);
 
-    _addWorkoutsToStreamController();
+    _workoutBox.watch().listen((event) {
+      _addWorkoutsToStreamController();
+    });
   }
 
   void _addWorkoutsToStreamController() {
@@ -57,7 +59,11 @@ class LocalStorageWorkoutApi extends WorkoutApi {
   }
 
   @override
-  Future<void> deleteWorkout(String id) async => _workoutBox.delete(id);
+  Future<void> deleteWorkout(String id) async {
+    _workoutBox;
+
+    //await _workoutBox.delete(id);
+  }
 
   @override
   Future<void> saveWorkout(Workout workout) async =>
