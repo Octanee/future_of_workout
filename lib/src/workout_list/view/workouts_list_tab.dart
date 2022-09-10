@@ -36,7 +36,7 @@ class WorkoutListView extends StatelessWidget {
       },
       builder: (context, state) {
         if (state.workouts.isEmpty) {
-          if (state.status == WorkoutListStatus.loaded) {
+          if (state.status == WorkoutListStatus.loading) {
             return const AppLoading();
           } else if (state.status != WorkoutListStatus.loaded) {
             return const SizedBox();
