@@ -5,12 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
 import 'package:future_of_workout/src/workout_details/workout_details.dart';
 import 'package:future_of_workout/src/workouts/cubit/created_list_cubit.dart';
-import 'package:future_of_workout/src/workouts/tabs/created_list/view.dart';
 
 import 'package:go_router/go_router.dart';
 
-class WorkoutsCreatedListTab extends StatelessWidget {
-  const WorkoutsCreatedListTab({super.key});
+class WorkoutsListTab extends StatelessWidget {
+  const WorkoutsListTab({super.key});
 
   @override
   Widget build(BuildContext context) {
