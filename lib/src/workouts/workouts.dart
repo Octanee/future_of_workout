@@ -1,1 +1,1 @@
-export 'screen.dart';
+export 'workouts_screen.dart';
