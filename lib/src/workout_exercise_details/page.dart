@@ -1,34 +1,34 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:future_of_workout/src/data/repositories/repositories.dart';
-import 'package:future_of_workout/src/workout_exercise_details/cubit/workout_exercise_details_cubit.dart';
-import 'package:future_of_workout/src/workout_exercise_details/view.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:future_of_workout/src/data/repositories/repositories.dart';
+// import 'package:future_of_workout/src/workout_exercise_details/cubit/workout_exercise_details_cubit.dart';
+// import 'package:future_of_workout/src/workout_exercise_details/view.dart';
 
-class WorkoutExerciseDetailsPage extends StatelessWidget {
-  const WorkoutExerciseDetailsPage({
-    required this.workoutId,
-    required this.exerciseId,
-    this.isNew = true,
-    super.key,
-  });
+// class WorkoutExerciseDetailsPage extends StatelessWidget {
+//   const WorkoutExerciseDetailsPage({
+//     required this.workoutId,
+//     required this.exerciseId,
+//     this.isNew = true,
+//     super.key,
+//   });
 
-  static String name = 'workout-exercise-details';
+//   static String name = 'workout-exercise-details';
 
-  final bool isNew;
-  final String workoutId;
-  final String exerciseId;
+//   final bool isNew;
+//   final String workoutId;
+//   final String exerciseId;
 
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => WorkoutExerciseDetailsCubit(
-        exerciseId: exerciseId,
-        workoutId: workoutId,
-        isNew: isNew,
-        workoutRepository: context.read<FakeWorkoutRepository>(),
-        exerciseRepository: context.read<FakeExerciseRepository>(),
-      )..fetchWorkoutExercise(),
-      child: const WorkoutExerciseDetailsView(),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return BlocProvider(
+//       create: (context) => WorkoutExerciseDetailsCubit(
+//         exerciseId: exerciseId,
+//         workoutId: workoutId,
+//         isNew: isNew,
+//         workoutRepository: context.read<FakeWorkoutRepository>(),
+//         exerciseRepository: context.read<FakeExerciseRepository>(),
+//       )..fetchWorkoutExercise(),
+//       child: const WorkoutExerciseDetailsView(),
+//     );
+//   }
+// }
