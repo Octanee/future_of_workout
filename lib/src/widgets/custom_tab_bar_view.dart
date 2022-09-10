@@ -12,12 +12,18 @@ class CustomTabBarView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: height,
+    return Expanded(
       child: TabBarView(
         physics: const BouncingScrollPhysics(),
         children: children,
       ),
     );
+    // SizedBox(
+    //   height: height,
+    //   child: TabBarView(
+    //     physics: const BouncingScrollPhysics(),
+    //     children: children,
+    //   ),
+    // );
   }
 }

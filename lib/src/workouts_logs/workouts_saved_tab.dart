@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class WorkoutsSavedTab extends StatelessWidget {
-  const WorkoutsSavedTab({super.key});
+class WorkoutsLogsTab extends StatelessWidget {
+  const WorkoutsLogsTab({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -9,7 +9,7 @@ class WorkoutsSavedTab extends StatelessWidget {
       decoration: const BoxDecoration(color: Colors.blue),
       height: 500,
       child: const Center(
-        child: Text('WorkoutsSavedTab'),
+        child: Text('WorkoutsLogsTab'),
       ),
     );
   }

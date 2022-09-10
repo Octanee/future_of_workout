@@ -4,7 +4,6 @@ import 'package:future_of_workout/src/data/models/models.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:future_of_workout/src/workout_details/workout_details.dart';
-import 'package:future_of_workout/src/workouts/cubit/created_list_cubit.dart';
 
 import 'package:go_router/go_router.dart';
 
@@ -40,7 +39,7 @@ class WorkoutItem extends StatelessWidget {
       alignment: Alignment.topRight,
       child: IconButton(
         onPressed: () {
-          context.read<CreatedListCubit>().toggleFavorite(workout: workout);
+         // context.read<CreatedListCubit>().toggleFavorite(workout: workout);
         },
         icon: workout.isFavorite
             ? const Icon(Icons.star, color: AppColors.yellow)

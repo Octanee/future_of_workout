@@ -1,22 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:future_of_workout/src/data/repositories/repositories.dart';
+import 'package:future_of_workout/src/exercise_records/workouts_records_tab.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
-import 'package:future_of_workout/src/workouts/cubit/created_list_cubit.dart';
-import 'package:future_of_workout/src/workouts/workouts.dart';
+import 'package:future_of_workout/src/workout_list/tab.dart';
+import 'package:future_of_workout/src/workouts_logs/workouts_saved_tab.dart';
 
 class WorkoutsScreen extends StatelessWidget {
   const WorkoutsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) =>
-          CreatedListCubit(repository: context.read<FakeWorkoutRepository>()),
-      child: AppScaffold(
-        title: 'My Workouts',
-        body: _buildContent(),
-      ),
+    return AppScaffold(
+      title: 'My Workouts',
+      body: _buildContent(),
     );
   }
 
@@ -34,9 +29,9 @@ class WorkoutsScreen extends StatelessWidget {
           ),
           CustomTabBarView(
             children: [
-              WorkoutsCreatedListTab(),
+              WorkoutsListTab(),
               WorkoutsRecordsTab(),
-              WorkoutsSavedTab(),
+              WorkoutsLogsTab(),
             ],
           )
         ],
