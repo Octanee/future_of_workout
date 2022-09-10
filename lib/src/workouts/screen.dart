@@ -9,6 +9,15 @@ class WorkoutsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return const WorkoutsScreenView();
+  }
+}
+
+class WorkoutsScreenView extends StatelessWidget {
+  const WorkoutsScreenView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
     return AppScaffold(
       title: 'My Workouts',
       body: _buildContent(),
