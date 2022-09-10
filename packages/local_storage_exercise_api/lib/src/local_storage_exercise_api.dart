@@ -6,12 +6,12 @@ import 'package:rxdart/rxdart.dart';
 
 /// {@template local_storage_exercise_api}
 /// Implementation of the [ExerciseApi] that uses local storage.
+/// 
+/// Must be initialized `init()` before use.
 /// {@endtemplate}
 class LocalStorageExerciseApi extends ExerciseApi {
   /// {@macro local_storage_exercise_api}
-  LocalStorageExerciseApi() {
-    _init();
-  }
+  LocalStorageExerciseApi();
 
   late Box<Exercise> _exerciseBox;
 
@@ -25,7 +25,8 @@ class LocalStorageExerciseApi extends ExerciseApi {
   @visibleForTesting
   static const kExercisesBoxName = 'exercises_box_name';
 
-  Future<void> _init() async {
+  /// Initialization function registers adapters and opens exercise [Box]
+  Future<void> init() async {
     _registerAdapters();
 
     _exerciseBox = await Hive.openBox<Exercise>(kExercisesBoxName);
@@ -59,12 +60,19 @@ class LocalStorageExerciseApi extends ExerciseApi {
     _exerciseBox.putAll(entries);
   }
 
+  void _checkInit() {
+    assert(_exerciseBox.isOpen, 'Local Storage has not been initialized.');
+  }
+
   @override
-  Stream<List<Exercise>> getExercises() =>
-      _exercisesStreamController.asBroadcastStream();
+  Stream<List<Exercise>> getExercises() {
+    _checkInit();
+    return _exercisesStreamController.asBroadcastStream();
+  }
 
   @override
   Exercise get({required String id}) {
+    _checkInit();
     final exercise = _exerciseBox.get(id);
     if (exercise == null) {
       throw ExerciseNotFoundException();

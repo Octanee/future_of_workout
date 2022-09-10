@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:local_storage_exercise_api/local_storage_exercise_api.dart';
+import 'package:local_storage_workout_api/local_storage_workout_api.dart';
 
-import 'package:future_of_workout/src/app.dart';
-import 'package:future_of_workout/src/core/app_bloc_observer.dart';
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
-void main() {
-  Bloc.observer = AppBlocObserver();
-  runApp(const FutureOfWorkoutApp());
+  await Hive.initFlutter();
+  final exerciseApi = LocalStorageExerciseApi();
+  await exerciseApi.init();
+
+  final workoutApi = LocalStorageWorkoutApi();
+  await workoutApi.init();
 }

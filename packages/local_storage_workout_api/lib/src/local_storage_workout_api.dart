@@ -5,12 +5,12 @@ import 'package:workout_api/workout_api.dart';
 
 /// {@template local_storage_workout_api}
 /// Implementation of the [WorkoutApi] that uses local storage.
+///
+/// Must be initialized `init()` before use.
 /// {@endtemplate}
 class LocalStorageWorkoutApi extends WorkoutApi {
   /// {@macro local_storage_workout_api}
-  LocalStorageWorkoutApi() {
-    _init();
-  }
+  LocalStorageWorkoutApi();
 
   late Box<Workout> _workoutBox;
 
@@ -23,7 +23,8 @@ class LocalStorageWorkoutApi extends WorkoutApi {
   /// and shouldn't be used for consumers of this library.
   static const kWorkoutBoxName = 'workout_box_name';
 
-  Future<void> _init() async {
+  /// Initialization function registers adapters and opens workout [Box]
+  Future<void> init() async {
     _registerAdapters();
 
     _workoutBox = await Hive.openBox<Workout>(kWorkoutBoxName);
@@ -45,12 +46,19 @@ class LocalStorageWorkoutApi extends WorkoutApi {
       ..registerAdapter(ExerciseSeriesAdapter());
   }
 
+  void _checkInit() {
+    assert(_workoutBox.isOpen, 'Local Storage has not been initialized.');
+  }
+
   @override
-  Stream<List<Workout>> getWorkouts() =>
-      _workoutStreamController.asBroadcastStream();
+  Stream<List<Workout>> getWorkouts() {
+    _checkInit();
+    return _workoutStreamController.asBroadcastStream();
+  }
 
   @override
   Workout get({required String id}) {
+    _checkInit();
     final workout = _workoutBox.get(id);
     if (workout == null) {
       throw WorkoutNotFoundException();
@@ -60,12 +68,17 @@ class LocalStorageWorkoutApi extends WorkoutApi {
 
   @override
   Future<void> deleteWorkout(String id) async {
-    _workoutBox;
+    _checkInit();
+    if (!_workoutBox.containsKey(id)) {
+      throw WorkoutNotFoundException();
+    }
 
-    //await _workoutBox.delete(id);
+    await _workoutBox.delete(id);
   }
 
   @override
-  Future<void> saveWorkout(Workout workout) async =>
-      _workoutBox.put(workout.id, workout);
+  Future<void> saveWorkout(Workout workout) async {
+    _checkInit();
+    return _workoutBox.put(workout.id, workout);
+  }
 }
