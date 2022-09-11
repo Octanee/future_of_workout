@@ -10,6 +10,15 @@ class AppTheme {
       colorScheme: ColorScheme.fromSwatch(
         accentColor: AppColors.yellow,
       ),
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        foregroundColor: AppColors.grey,
+        iconSize: 32,
+      ),
+      navigationBarTheme: NavigationBarThemeData(
+        iconTheme: MaterialStateProperty.resolveWith<IconThemeData>((states) {
+          return const IconThemeData(color: AppColors.grey);
+        }),
+      ),
       snackBarTheme: const SnackBarThemeData(
         behavior: SnackBarBehavior.floating,
       ),
