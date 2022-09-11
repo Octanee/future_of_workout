@@ -15,7 +15,7 @@ class WorkoutDetailsPage extends StatelessWidget {
   });
 
   static String name = 'workout-details';
-  static String path = 'workout-details';
+  static String path = '$name/:workoutId';
 
   final String workoutId;
 
