@@ -65,12 +65,13 @@ class WorkoutItem extends StatelessWidget {
   Widget _getBody(BoxConstraints constraints) => Positioned(
         left: constraints.maxWidth * -0.25,
         height: constraints.maxHeight * 1.5,
-        top: constraints.maxHeight * 0.1,
+        top: 0,
         width: constraints.maxWidth * 0.8,
         child: const DecoratedBox(
           decoration: BoxDecoration(
             color: AppColors.yellow,
           ),
+          // TODO(Octane): Display body SVG
         ),
       );
 }

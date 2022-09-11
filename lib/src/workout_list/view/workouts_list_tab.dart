@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/widgets/app_loading.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:future_of_workout/src/workout_list/workout_list.dart';
-import 'package:go_router/go_router.dart';
 import 'package:workout_repository/workout_repository.dart';
 
 class WorkoutsListTab extends StatelessWidget {
