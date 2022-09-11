@@ -1,6 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/styles/styles.dart';
+import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:future_of_workout/src/workout_details/workout_details.dart';
+import 'package:go_router/go_router.dart';
 import 'package:workout_repository/workout_repository.dart';
 
 class WorkoutDetailsPage extends StatelessWidget {
@@ -10,6 +15,7 @@ class WorkoutDetailsPage extends StatelessWidget {
   });
 
   static String name = 'workout-details';
+  static String path = 'workout-details';
 
   final String workoutId;
 
@@ -61,11 +67,12 @@ class WorkoutDetailsView extends StatelessWidget {
       title: context.watch<WorkoutDetailsBloc>().state.workout?.name,
       hasFloatingActionButton: true,
       onPressedFloatingActionButton: () {
-        final workout = context.read<WorkoutDetailsBloc>().state.workout;
-        context.goNamed(
-          WorkoutExercisesListPage.name,
-          params: {'workoutId': workout!.id},
-        );
+        // TODO(Octane): Navigate to Exercises list
+        // final workout = context.read<WorkoutDetailsBloc>().state.workout;
+        // context.goNamed(
+        //   WorkoutExercisesListPage.name,
+        //   params: {'workoutId': workout!.id},
+        // );
       },
       floatingActionButtonIcon: Icons.add,
       actions: _getActions(context),
@@ -86,7 +93,7 @@ class WorkoutDetailsView extends StatelessWidget {
       IconButton(
         onPressed: () => context
             .read<WorkoutDetailsBloc>()
-            .add(const WorkoutDetailsIsFavoritToggled()),
+            .add(const WorkoutDetailsFavoritToggled()),
         icon: _getFavoritIcon(context),
       ),
       PopupMenuButton(
@@ -94,10 +101,12 @@ class WorkoutDetailsView extends StatelessWidget {
           _getPopumMenuItem(
             text: 'Rename',
             icon: Icons.edit,
-            // TODO(Octane): WorkoutDetails Name Changed
-            onTap: () => context
-                .read<WorkoutDetailsBloc>()
-                .add(const WorkoutDetailsNameChanged(name: 'Test')),
+            onTap: () {
+              // TODO(Octane): Handle Name Changed
+              // context
+              //     .read<WorkoutDetailsBloc>()
+              //     .add(const WorkoutDetailsNameChanged(name: 'Test'));
+            },
           ),
           _getPopumMenuItem(
             text: 'Delete',
@@ -165,7 +174,10 @@ class WorkoutDetailsView extends StatelessWidget {
     return BarButton(
       text: 'Start workout',
       icon: Icons.play_arrow_outlined,
-      onTap: () => log('Start workout'),
+      onTap: () {
+        // TODO(Octane): Start workout
+        log('Start workout');
+      },
     );
   }
 }
