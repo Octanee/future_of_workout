@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/styles/app_text_style.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:future_of_workout/src/workout_details/workout_details.dart';
@@ -40,61 +41,78 @@ class WorkoutDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<WorkoutDetailsBloc, WorkoutDetailsState>(
+      listenWhen: (previous, current) => previous.status != current.status,
       listener: (context, state) {
         if (state.status == WorkoutDetailsStatus.delete) {
           context.pop();
         }
       },
-      buildWhen: (previous, current) => previous.workout != current.workout,
       builder: (context, state) {
         if (state.status == WorkoutDetailsStatus.loading) {
-          return const AppLoading(text: 'Loading...');
+          return _buildLoading();
         } else if (state.status == WorkoutDetailsStatus.failure) {
-          return Center(
-            child: Text(
-              'Something gone wront :(',
-              style: AppTextStyle.semiBold20,
-            ),
-          );
+          return _buildFailure();
         }
-        return _buildContent(context);
+        return _buildContent(state, context);
       },
     );
   }
 
-  AppScaffold _buildContent(BuildContext context) {
+  Widget _buildContent(WorkoutDetailsState state, BuildContext context) {
     return AppScaffold(
-      title: context.watch<WorkoutDetailsBloc>().state.workout?.name,
-      hasFloatingActionButton: true,
-      onPressedFloatingActionButton: () {
-        // TODO(Octane): Navigate to Exercises list
-        // final workout = context.read<WorkoutDetailsBloc>().state.workout;
-        // context.goNamed(
-        //   WorkoutExercisesListPage.name,
-        //   params: {'workoutId': workout!.id},
-        // );
-      },
-      floatingActionButtonIcon: Icons.add,
-      actions: _getActions(context),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-        child: Column(
-          children: [
+      title: state.workout!.name,
+      actions: _getActions(context, state.workout!.isFavorite),
+      body: ListView(
+        physics: const BouncingScrollPhysics(),
+        children: [
+          if (state.workout!.workoutExercises.isNotEmpty)
             _getStartWorkoutButton(),
-            _getList(),
-          ],
+          ...state.workout!.workoutExercises
+              .map((item) => WorkoutExerciseItem(workoutExercise: item))
+              .toList(),
+          _getAddWorkoutExerciseButton(),
+          if (state.workout!.workoutExercises.isEmpty) _getEmptyList(),
+        ],
+      ),
+    );
+  }
+
+  Widget _getEmptyList() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 64),
+      child: Center(
+        child: Text(
+          'Add some exercise to training.',
+          style: AppTextStyle.semiBold20,
         ),
       ),
     );
   }
 
-  List<Widget> _getActions(BuildContext context) {
+  Widget _buildFailure() {
+    return AppScaffold(
+      body: Center(
+        child: Text(
+          'Something gone wront...',
+          style: AppTextStyle.semiBold20,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLoading() {
+    return const AppScaffold(
+      body: AppLoading(),
+    );
+  }
+
+  List<Widget> _getActions(BuildContext context, bool isFavorite) {
     return [
       IconButton(
         onPressed: () => context
             .read<WorkoutDetailsBloc>()
             .add(const WorkoutDetailsFavoritToggled()),
-        icon: _getFavoritIcon(context),
+        icon: _getFavoritIcon(isFavorite),
       ),
       PopupMenuButton(
         itemBuilder: (context) => [
@@ -103,9 +121,6 @@ class WorkoutDetailsView extends StatelessWidget {
             icon: Icons.edit,
             onTap: () {
               // TODO(Octane): Handle Name Changed
-              // context
-              //     .read<WorkoutDetailsBloc>()
-              //     .add(const WorkoutDetailsNameChanged(name: 'Test'));
             },
           ),
           _getPopumMenuItem(
@@ -137,46 +152,31 @@ class WorkoutDetailsView extends StatelessWidget {
     );
   }
 
-  Widget _getFavoritIcon(BuildContext context) {
-    return BlocBuilder<WorkoutDetailsBloc, WorkoutDetailsState>(
-      builder: (context, state) {
-        if (state.workout!.isFavorite) {
-          return const Icon(Icons.star, color: AppColors.yellow);
-        } else {
-          return const Icon(Icons.star_border, color: AppColors.grey);
-        }
-      },
-    );
-  }
-
-  Widget _getList() {
-    return Expanded(
-      child: BlocBuilder<WorkoutDetailsBloc, WorkoutDetailsState>(
-        builder: (context, state) {
-          final workoutExercises = state.workout!.workoutExercises;
-          return ListView.separated(
-            padding: const EdgeInsets.only(top: 16),
-            separatorBuilder: (context, index) => const SizedBox(
-              height: 8,
-            ),
-            physics: const BouncingScrollPhysics(),
-            itemCount: workoutExercises.length,
-            itemBuilder: (context, index) => WorkoutExerciseItem(
-              workoutExercise: workoutExercises[index],
-            ),
-          );
-        },
-      ),
-    );
+  Widget _getFavoritIcon(bool isFavorite) {
+    if (isFavorite) {
+      return const Icon(Icons.star, color: AppColors.yellow);
+    } else {
+      return const Icon(Icons.star_border, color: AppColors.grey);
+    }
   }
 
   Widget _getStartWorkoutButton() {
     return BarButton(
       text: 'Start workout',
-      icon: Icons.play_arrow_outlined,
+      icon: const Icon(Icons.play_arrow_outlined),
       onTap: () {
         // TODO(Octane): Start workout
         log('Start workout');
+      },
+    );
+  }
+
+  Widget _getAddWorkoutExerciseButton() {
+    return BarButton(
+      text: 'Add exercise',
+      icon: const Icon(Icons.add),
+      onTap: () {
+        // TODO(Octane): Navigate to List of Exercises
       },
     );
   }

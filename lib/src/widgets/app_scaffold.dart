@@ -9,10 +9,8 @@ class AppScaffold extends StatelessWidget {
     this.body,
     this.actions,
     this.leading,
+    this.floatingActionButton,
     this.hasAppBar = true,
-    this.hasFloatingActionButton = false,
-    this.onPressedFloatingActionButton,
-    this.floatingActionButtonIcon,
     super.key,
   });
 
@@ -21,27 +19,18 @@ class AppScaffold extends StatelessWidget {
   final List<Widget>? actions;
   final Widget? leading;
   final bool hasAppBar;
-  final bool hasFloatingActionButton;
-  final void Function()? onPressedFloatingActionButton;
-  final IconData? floatingActionButtonIcon;
+  final Widget? floatingActionButton;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      floatingActionButton: _getFab(),
+      floatingActionButton: floatingActionButton,
       appBar: _getAppBar(),
       backgroundColor: AppColors.background,
       body: body,
     );
   }
-
-  Widget? _getFab() => hasFloatingActionButton
-      ? AppFloatingActionButton(
-          floatingActionButtonIcon: floatingActionButtonIcon,
-          onPressedFloatingActionButton: onPressedFloatingActionButton,
-        )
-      : null;
 
   AppBar? _getAppBar() => hasAppBar
       ? AppBar(

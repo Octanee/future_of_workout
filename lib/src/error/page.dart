@@ -31,7 +31,7 @@ class ErrorPage extends StatelessWidget {
             const SizedBox(height: 16),
             BarButton(
               text: 'Home',
-              icon: Icons.home,
+              icon: const Icon(Icons.home),
               onTap: () => context.goNamed(HomePage.name),
             ),
           ],

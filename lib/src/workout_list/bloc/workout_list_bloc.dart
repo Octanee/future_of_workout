@@ -62,9 +62,8 @@ class WorkoutListBloc extends Bloc<WorkoutListEvent, WorkoutListState> {
     Emitter<WorkoutListState> emit,
   ) async {
     emit(state.copyWith(status: WorkoutListStatus.adding));
-    final workout = Workout(
-      name: 'Workout ${state.workouts.length}',
-    );
+
+    final workout = Workout(name: 'Workout ${state.workouts.length}');
 
     try {
       await _workoutRepository.saveWorkout(workout);

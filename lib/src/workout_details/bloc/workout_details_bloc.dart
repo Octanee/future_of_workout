@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:workout_api/workout_api.dart';
 import 'package:workout_repository/workout_repository.dart';
 
 part 'workout_details_event.dart';
@@ -26,14 +27,18 @@ class WorkoutDetailsBloc
     Emitter<WorkoutDetailsState> emit,
   ) async {
     emit(state.copyWith(status: WorkoutDetailsStatus.loading));
-    final workout = _workoutRepository.get(id: event.id);
+    try {
+      final workout = _workoutRepository.get(id: event.id);
 
-    emit(
-      state.copyWith(
-        status: WorkoutDetailsStatus.loaded,
-        workout: workout,
-      ),
-    );
+      emit(
+        state.copyWith(
+          status: WorkoutDetailsStatus.loaded,
+          workout: workout,
+        ),
+      );
+    } on WorkoutNotFoundException catch (_) {
+      emit(state.copyWith(status: WorkoutDetailsStatus.failure));
+    }
   }
 
   Future<void> _onNameChanged(

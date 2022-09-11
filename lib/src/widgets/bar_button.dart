@@ -7,19 +7,24 @@ class BarButton extends StatelessWidget {
     required this.text,
     required this.icon,
     this.onTap,
+    this.padding = const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
     super.key,
   });
 
   final String text;
-  final IconData icon;
+  final Icon icon;
   final void Function()? onTap;
+  final EdgeInsets padding;
 
   @override
   Widget build(BuildContext context) {
-    return CustomBar(
-      padding: const EdgeInsets.fromLTRB(16, 8, 8, 8),
-      onTap: onTap,
-      child: _getContent(),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: CustomBar(
+        padding: const EdgeInsets.fromLTRB(16, 8, 8, 8),
+        onTap: onTap,
+        child: _getContent(),
+      ),
     );
   }
 
@@ -38,11 +43,7 @@ class BarButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(64),
             color: AppColors.yellow,
           ),
-          child: Icon(
-            icon,
-            size: 24,
-            color: AppColors.grey,
-          ),
+          child: icon,
         )
       ],
     );

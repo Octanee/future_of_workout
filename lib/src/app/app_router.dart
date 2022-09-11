@@ -1,11 +1,13 @@
+import 'package:future_of_workout/src/app/app_transitions.dart';
 import 'package:future_of_workout/src/home/home.dart';
 import 'package:future_of_workout/src/workout_details/workout_details.dart';
+import 'package:future_of_workout/src/workout_list/view/workouts_list_tab.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRouter {
   static final GoRouter router = GoRouter(
     debugLogDiagnostics: true,
-    initialLocation: '/${HomeNavigationItem.workouts.name}',
+    initialLocation: '/${WorkoutsListTab.name}',
     routes: [
       GoRoute(
         name: HomePage.name,
@@ -26,9 +28,15 @@ class AppRouter {
   static final GoRoute _workoutDetailsRoute = GoRoute(
     name: WorkoutDetailsPage.name,
     path: WorkoutDetailsPage.path,
-    builder: (context, state) {
+    pageBuilder: (context, state) {
       final workoutId = state.params['workoutId']!;
-      return WorkoutDetailsPage(workoutId: workoutId);
+      return CustomTransitionPage(
+        key: state.pageKey,
+        child: WorkoutDetailsPage(workoutId: workoutId),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+            AppTransitions(duration: Duration(seconds: 4))
+                .buildTransitions(animation, secondaryAnimation, child),
+      );
     },
   );
 }

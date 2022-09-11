@@ -14,6 +14,10 @@ class AppTheme {
         foregroundColor: AppColors.grey,
         iconSize: 32,
       ),
+      iconTheme: const IconThemeData(
+        color: AppColors.grey,
+        size: 32,
+      ),
       navigationBarTheme: NavigationBarThemeData(
         iconTheme: MaterialStateProperty.resolveWith<IconThemeData>((states) {
           return const IconThemeData(color: AppColors.grey);
