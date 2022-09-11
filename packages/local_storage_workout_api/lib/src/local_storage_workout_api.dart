@@ -29,6 +29,8 @@ class LocalStorageWorkoutApi extends WorkoutApi {
 
     _workoutBox = await Hive.openBox<Workout>(kWorkoutBoxName);
 
+    _addWorkoutsToStreamController();
+    
     _workoutBox.watch().listen((event) {
       _addWorkoutsToStreamController();
     });

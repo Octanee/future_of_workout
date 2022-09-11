@@ -30,7 +30,7 @@ class WorkoutExerciseAdapter extends TypeAdapter<WorkoutExercise> {
       ..writeByte(2)
       ..writeInt(obj.index)
       ..writeByte(3)
-      ..write<Exercise>(obj.exercise)
+      ..write(obj.exercise)
       ..writeByte(4)
       ..writeList(obj.exerciseSeries);
   }

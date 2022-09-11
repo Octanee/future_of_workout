@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:hive_flutter/adapters.dart';
 import 'package:workout_api/workout_api.dart';
 
@@ -8,10 +10,14 @@ class WorkoutAdapter extends TypeAdapter<Workout> {
 
   @override
   Workout read(BinaryReader reader) {
+
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
+
+    log('WorkoutAdapter: read { fields: $fields }');
+
     return Workout(
       id: fields[1] as String?,
       name: fields[2] as String,
@@ -25,12 +31,12 @@ class WorkoutAdapter extends TypeAdapter<Workout> {
     writer
       ..writeByte(4)
       ..writeByte(1)
-      ..writeString(obj.id)
+      ..write(obj.id)
       ..writeByte(2)
-      ..writeString(obj.name)
+      ..write(obj.name)
       ..writeByte(3)
-      ..writeList(obj.workoutExercises)
+      ..write(obj.workoutExercises)
       ..writeByte(4)
-      ..writeBool(obj.isFavorite);
+      ..write(obj.isFavorite);
   }
 }
