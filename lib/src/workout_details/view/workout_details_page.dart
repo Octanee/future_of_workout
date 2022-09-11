@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/workout_details/workout_details.dart';
+import 'package:workout_repository/workout_repository.dart';
 
 class WorkoutDetailsPage extends StatelessWidget {
   const WorkoutDetailsPage({
@@ -15,11 +17,10 @@ class WorkoutDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<WorkoutDetailsBloc>(
       create: (context) {
-        final repository = context.read<FakeWorkoutRepository>();
+        final repository = context.read<WorkoutRepository>();
 
         return WorkoutDetailsBloc(
-          workoutId: workoutId,
-          repository: repository,
+          workoutRepository: repository,
         )..add(WorkoutDetailsLoadWorkout(id: workoutId));
       },
       child: const WorkoutDetailsView(),

@@ -11,7 +11,6 @@ class WorkoutDetailsBloc
     extends Bloc<WorkoutDetailsEvent, WorkoutDetailsState> {
   WorkoutDetailsBloc({
     required WorkoutRepository workoutRepository,
-    required this.workoutId,
   })  : _workoutRepository = workoutRepository,
         super(const WorkoutDetailsState()) {
     on<WorkoutDetailsLoadWorkout>(_onLoadWorkout);
@@ -20,7 +19,6 @@ class WorkoutDetailsBloc
     on<WorkoutDetailsDelete>(_onDelete);
   }
 
-  final String workoutId;
   final WorkoutRepository _workoutRepository;
 
   Future<void> _onLoadWorkout(
@@ -42,11 +40,6 @@ class WorkoutDetailsBloc
     WorkoutDetailsNameChanged event,
     Emitter<WorkoutDetailsState> emit,
   ) async {
-    if (state.workout == null) {
-      add(WorkoutDetailsLoadWorkout(id: workoutId));
-      return;
-    }
-
     await _updateWorkout(
       workout: state.workout!.copyWith(name: event.name),
       emit: emit,
@@ -57,10 +50,6 @@ class WorkoutDetailsBloc
     WorkoutDetailsFavoritToggled event,
     Emitter<WorkoutDetailsState> emit,
   ) async {
-    if (state.workout == null) {
-      add(WorkoutDetailsLoadWorkout(id: workoutId));
-      return;
-    }
     await _updateWorkout(
       workout: state.workout!.copyWith(isFavorite: !state.workout!.isFavorite),
       emit: emit,
@@ -71,11 +60,6 @@ class WorkoutDetailsBloc
     WorkoutDetailsDelete event,
     Emitter<WorkoutDetailsState> emit,
   ) async {
-    if (state.workout == null) {
-      add(WorkoutDetailsLoadWorkout(id: workoutId));
-      return;
-    }
-
     try {
       await _workoutRepository.deleteWorkout(state.workout!.id);
       emit(state.copyWith(status: WorkoutDetailsStatus.delete));
