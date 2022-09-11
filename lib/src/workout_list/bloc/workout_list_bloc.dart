@@ -13,7 +13,6 @@ class WorkoutListBloc extends Bloc<WorkoutListEvent, WorkoutListState> {
         super(const WorkoutListState()) {
     on<WorkoutListSubcriptionRequested>(_onSubscriptionRequested);
     on<WorkoutListWorkoutFavoriteToggled>(_onWorkoutFavoriteToggled);
-    on<WorkoutListNewWorkoutNameChanged>(_onNewWorkoutNameChanged);
     on<WorkoutListNewWorkoutAdding>(_onNewWorkoutAdding);
   }
 
@@ -27,10 +26,23 @@ class WorkoutListBloc extends Bloc<WorkoutListEvent, WorkoutListState> {
 
     await emit.forEach<List<Workout>>(
       _workoutRepository.getWorkouts(),
-      onData: (workouts) => state.copyWith(
-        status: WorkoutListStatus.loaded,
-        workouts: workouts,
-      ),
+      onData: (workouts) {
+        final favoriteWorkouts = workouts
+            .where((element) => element.isFavorite)
+            .toList()
+          ..sort((a, b) => a.name.compareTo(b.name));
+        final otherWorkouts = workouts
+            .where((element) => !element.isFavorite)
+            .toList()
+          ..sort((a, b) => a.name.compareTo(b.name));
+
+        final sortedList = favoriteWorkouts + otherWorkouts;
+
+        return state.copyWith(
+          status: WorkoutListStatus.loaded,
+          workouts: sortedList,
+        );
+      },
       onError: (_, __) => state.copyWith(
         status: WorkoutListStatus.failure,
       ),
@@ -45,19 +57,14 @@ class WorkoutListBloc extends Bloc<WorkoutListEvent, WorkoutListState> {
     await _workoutRepository.saveWorkout(newWorkout);
   }
 
-  void _onNewWorkoutNameChanged(
-    WorkoutListNewWorkoutNameChanged event,
-    Emitter<WorkoutListState> emit,
-  ) {
-    emit(state.copyWith(newWorkoutName: event.newWorkoutName));
-  }
-
   Future<void> _onNewWorkoutAdding(
     WorkoutListNewWorkoutAdding event,
     Emitter<WorkoutListState> emit,
   ) async {
     emit(state.copyWith(status: WorkoutListStatus.adding));
-    final workout = Workout(name: state.newWorkoutName);
+    final workout = Workout(
+      name: 'Workout ${state.workouts.length}',
+    );
 
     try {
       await _workoutRepository.saveWorkout(workout);
