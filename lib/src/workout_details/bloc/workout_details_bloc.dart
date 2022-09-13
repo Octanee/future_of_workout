@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:workout_api/workout_api.dart';
+import 'package:future_of_workout/src/logger.dart';
 import 'package:workout_repository/workout_repository.dart';
 
 part 'workout_details_event.dart';
@@ -14,7 +14,9 @@ class WorkoutDetailsBloc
     required WorkoutRepository workoutRepository,
   })  : _workoutRepository = workoutRepository,
         super(const WorkoutDetailsState()) {
-    on<WorkoutDetailsLoadWorkout>(_onLoadWorkout);
+    on<WorkoutDetailsWorkoutSubscriptionRequested>(
+      _onWorkoutSubscriptionRequested,
+    );
     on<WorkoutDetailsNameChanged>(_onNameChanged);
     on<WorkoutDetailsFavoritToggled>(_onFavoritToggled);
     on<WorkoutDetailsDelete>(_onDelete);
@@ -22,23 +24,23 @@ class WorkoutDetailsBloc
 
   final WorkoutRepository _workoutRepository;
 
-  Future<void> _onLoadWorkout(
-    WorkoutDetailsLoadWorkout event,
+  Future<void> _onWorkoutSubscriptionRequested(
+    WorkoutDetailsWorkoutSubscriptionRequested event,
     Emitter<WorkoutDetailsState> emit,
   ) async {
     emit(state.copyWith(status: WorkoutDetailsStatus.loading));
-    try {
-      final workout = _workoutRepository.get(id: event.id);
 
-      emit(
-        state.copyWith(
+    await emit.forEach<Workout?>(
+      _workoutRepository.getWorkout(id: event.id),
+      onData: (workout) {
+        logger.d('_onWorkoutSubscriptionRequested - $workout');
+        return state.copyWith(
           status: WorkoutDetailsStatus.loaded,
           workout: workout,
-        ),
-      );
-    } on WorkoutNotFoundException catch (_) {
-      emit(state.copyWith(status: WorkoutDetailsStatus.failure));
-    }
+        );
+      },
+      onError: (_, __) => state.copyWith(status: WorkoutDetailsStatus.failure),
+    );
   }
 
   Future<void> _onNameChanged(

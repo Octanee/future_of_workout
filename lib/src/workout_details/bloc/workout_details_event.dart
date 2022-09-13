@@ -7,8 +7,8 @@ abstract class WorkoutDetailsEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class WorkoutDetailsLoadWorkout extends WorkoutDetailsEvent {
-  const WorkoutDetailsLoadWorkout({required this.id});
+class WorkoutDetailsWorkoutSubscriptionRequested extends WorkoutDetailsEvent {
+  const WorkoutDetailsWorkoutSubscriptionRequested({required this.id});
 
   final String id;
 

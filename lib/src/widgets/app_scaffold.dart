@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:future_of_workout/src/styles/styles.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
 
 class AppScaffold extends StatelessWidget {
   const AppScaffold({

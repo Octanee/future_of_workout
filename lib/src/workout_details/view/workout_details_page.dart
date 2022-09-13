@@ -2,10 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:future_of_workout/src/styles/app_text_style.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:future_of_workout/src/workout_details/workout_details.dart';
+import 'package:future_of_workout/src/workout_exercises_list/view/view.dart';
+import 'package:future_of_workout/src/workout_list/workout_list.dart';
 import 'package:go_router/go_router.dart';
 import 'package:workout_repository/workout_repository.dart';
 
@@ -28,7 +29,7 @@ class WorkoutDetailsPage extends StatelessWidget {
 
         return WorkoutDetailsBloc(
           workoutRepository: repository,
-        )..add(WorkoutDetailsLoadWorkout(id: workoutId));
+        )..add(WorkoutDetailsWorkoutSubscriptionRequested(id: workoutId));
       },
       child: const WorkoutDetailsView(),
     );
@@ -68,9 +69,14 @@ class WorkoutDetailsView extends StatelessWidget {
           if (state.workout!.workoutExercises.isNotEmpty)
             _getStartWorkoutButton(),
           ...state.workout!.workoutExercises
-              .map((item) => WorkoutExerciseItem(workoutExercise: item))
+              .map(
+                (item) => WorkoutExerciseItem(
+                  workoutExercise: item,
+                  onTap: () => context.goNamed(''),
+                ),
+              )
               .toList(),
-          _getAddWorkoutExerciseButton(),
+          _getAddWorkoutExerciseButton(context, state.workout!.id),
           if (state.workout!.workoutExercises.isEmpty) _getEmptyList(),
         ],
       ),
@@ -162,6 +168,7 @@ class WorkoutDetailsView extends StatelessWidget {
 
   Widget _getStartWorkoutButton() {
     return BarButton(
+      padding: const EdgeInsets.all(30),
       text: 'Start workout',
       icon: const Icon(Icons.play_arrow_outlined),
       onTap: () {
@@ -171,12 +178,18 @@ class WorkoutDetailsView extends StatelessWidget {
     );
   }
 
-  Widget _getAddWorkoutExerciseButton() {
+  Widget _getAddWorkoutExerciseButton(BuildContext context, String workoutId) {
     return BarButton(
       text: 'Add exercise',
       icon: const Icon(Icons.add),
       onTap: () {
-        // TODO(Octane): Navigate to List of Exercises
+        context.pushNamed(
+          WorkoutExercisesListPage.name,
+          params: {
+            'homePageTab': WorkoutsListTab.name,
+            'workoutId': workoutId,
+          },
+        );
       },
     );
   }

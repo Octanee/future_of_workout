@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/logger.dart';
 import 'package:workout_repository/workout_repository.dart';
 
 part 'workout_list_state.dart';
@@ -66,6 +67,7 @@ class WorkoutListBloc extends Bloc<WorkoutListEvent, WorkoutListState> {
     final workout = Workout(name: 'Workout ${state.workouts.length}');
 
     try {
+      logger.d(workout.toString());
       await _workoutRepository.saveWorkout(workout);
       emit(
         state.copyWith(

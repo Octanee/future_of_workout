@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:future_of_workout/src/styles/styles.dart';
@@ -20,20 +19,11 @@ class WorkoutExerciseItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Slidable(
-      key: Key('workoutExerciseItem_${workoutExercise.id}'),
-      startActionPane: ActionPane(
-        motion: const ScrollMotion(),
-        children: [
-          SlidableAction(
-            onPressed: (context) {},
-          ),
-        ],
-      ),
+    return Padding(
+      padding: const EdgeInsets.only(left: 16, right: 16, bottom: 8),
       child: CustomCard(
         onTap: onTap,
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
