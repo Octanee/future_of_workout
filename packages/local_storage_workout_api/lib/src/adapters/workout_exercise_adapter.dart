@@ -10,9 +10,14 @@ class WorkoutExerciseAdapter extends TypeAdapter<WorkoutExercise> {
   @override
   WorkoutExercise read(BinaryReader reader) {
     final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
+
+    final fields = <int, dynamic>{};
+
+    for (var i = 0; i < numOfFields; i++) {
+      final field = {reader.readByte(): reader.read()};
+      fields.addAll(field);
+    }
+
     return WorkoutExercise(
       id: fields[1] as String,
       index: fields[2] as int,
@@ -26,12 +31,12 @@ class WorkoutExerciseAdapter extends TypeAdapter<WorkoutExercise> {
     writer
       ..writeByte(4)
       ..writeByte(1)
-      ..writeString(obj.id)
+      ..write(obj.id)
       ..writeByte(2)
-      ..writeInt(obj.index)
+      ..write(obj.index)
       ..writeByte(3)
       ..write(obj.exercise)
       ..writeByte(4)
-      ..writeList(obj.exerciseSeries);
+      ..write(obj.exerciseSeries);
   }
 }

@@ -10,9 +10,14 @@ class ExerciseSeriesAdapter extends TypeAdapter<ExerciseSeries> {
   @override
   ExerciseSeries read(BinaryReader reader) {
     final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
+
+    final fields = <int, dynamic>{};
+
+    for (var i = 0; i < numOfFields; i++) {
+      final field = {reader.readByte(): reader.read()};
+      fields.addAll(field);
+    }
+
     return ExerciseSeries(
       weight: fields[1] as double,
       reps: fields[2] as int,

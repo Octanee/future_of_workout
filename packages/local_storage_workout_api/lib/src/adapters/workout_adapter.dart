@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:hive_flutter/adapters.dart';
 import 'package:workout_api/workout_api.dart';
 
@@ -10,13 +8,14 @@ class WorkoutAdapter extends TypeAdapter<Workout> {
 
   @override
   Workout read(BinaryReader reader) {
-
     final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
 
-    log('WorkoutAdapter: read { fields: $fields }');
+    final fields = <int, dynamic>{};
+
+    for (var i = 0; i < numOfFields; i++) {
+      final field = {reader.readByte(): reader.read()};
+      fields.addAll(field);
+    }
 
     return Workout(
       id: fields[1] as String?,

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:local_storage_workout_api/local_storage_workout_api.dart';
 import 'package:rxdart/rxdart.dart';
@@ -14,8 +16,10 @@ class LocalStorageWorkoutApi extends WorkoutApi {
 
   late Box<Workout> _workoutBox;
 
-  final _workoutStreamController =
+  final _workoutsStreamController =
       BehaviorSubject<List<Workout>>.seeded(const []);
+
+  final _workoutStreamController = BehaviorSubject<Workout?>();
 
   /// The name used for storing the workout locally.
   ///
@@ -30,7 +34,7 @@ class LocalStorageWorkoutApi extends WorkoutApi {
     _workoutBox = await Hive.openBox<Workout>(kWorkoutBoxName);
 
     _addWorkoutsToStreamController();
-    
+
     _workoutBox.watch().listen((event) {
       _addWorkoutsToStreamController();
     });
@@ -38,7 +42,7 @@ class LocalStorageWorkoutApi extends WorkoutApi {
 
   void _addWorkoutsToStreamController() {
     final workouts = _workoutBox.values.toList();
-    _workoutStreamController.add(workouts);
+    _workoutsStreamController.add(workouts);
   }
 
   void _registerAdapters() {
@@ -55,6 +59,21 @@ class LocalStorageWorkoutApi extends WorkoutApi {
   @override
   Stream<List<Workout>> getWorkouts() {
     _checkInit();
+    return _workoutsStreamController.asBroadcastStream();
+  }
+
+  @override
+  Stream<Workout?> getWorkout({required String id}) {
+    _checkInit();
+
+    final workout = _workoutBox.get(id);
+    _workoutStreamController.add(workout);
+
+    _workoutBox.watch(key: id).listen((event) {
+      final workout = _workoutBox.get(id);
+      _workoutStreamController.add(workout);
+    });
+
     return _workoutStreamController.asBroadcastStream();
   }
 
@@ -81,6 +100,7 @@ class LocalStorageWorkoutApi extends WorkoutApi {
   @override
   Future<void> saveWorkout(Workout workout) async {
     _checkInit();
-    return _workoutBox.put(workout.id, workout);
+    log('LocalStorageWorkoutApi - save { workout: $workout }');
+    await _workoutBox.put(workout.id, workout);
   }
 }

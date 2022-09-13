@@ -6,7 +6,7 @@ import 'package:rxdart/rxdart.dart';
 
 /// {@template local_storage_exercise_api}
 /// Implementation of the [ExerciseApi] that uses local storage.
-/// 
+///
 /// Must be initialized `init()` before use.
 /// {@endtemplate}
 class LocalStorageExerciseApi extends ExerciseApi {
@@ -30,6 +30,8 @@ class LocalStorageExerciseApi extends ExerciseApi {
     _registerAdapters();
 
     _exerciseBox = await Hive.openBox<Exercise>(kExercisesBoxName);
+
+    _addExercisesToStreamController();
 
     _exerciseBox.watch().listen((event) {
       _addExercisesToStreamController();
