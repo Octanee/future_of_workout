@@ -19,7 +19,7 @@ class BarButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: padding,
       child: CustomBar(
         padding: const EdgeInsets.fromLTRB(16, 8, 8, 8),
         onTap: onTap,
@@ -44,7 +44,7 @@ class BarButton extends StatelessWidget {
             color: AppColors.yellow,
           ),
           child: icon,
-        )
+        ),
       ],
     );
   }

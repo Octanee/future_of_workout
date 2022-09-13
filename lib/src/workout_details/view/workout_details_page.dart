@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:future_of_workout/src/workout_details/workout_details.dart';
+import 'package:future_of_workout/src/workout_exercise_details/workout_exercise_details.dart';
 import 'package:future_of_workout/src/workout_exercises_list/view/view.dart';
 import 'package:future_of_workout/src/workout_list/workout_list.dart';
 import 'package:go_router/go_router.dart';
@@ -72,7 +73,14 @@ class WorkoutDetailsView extends StatelessWidget {
               .map(
                 (item) => WorkoutExerciseItem(
                   workoutExercise: item,
-                  onTap: () => context.goNamed(''),
+                  onTap: () => context.goNamed(
+                    WorkoutExerciseDetailsPage.name,
+                    params: {
+                      'homePageTab': WorkoutsListTab.name,
+                      'workoutId': state.workout!.id,
+                      'workoutExerciseId': item.id,
+                    },
+                  ),
                 ),
               )
               .toList(),

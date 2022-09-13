@@ -1,6 +1,7 @@
 import 'package:future_of_workout/src/app/app_transitions.dart';
 import 'package:future_of_workout/src/home/home.dart';
 import 'package:future_of_workout/src/workout_details/workout_details.dart';
+import 'package:future_of_workout/src/workout_exercise_details/workout_exercise_details.dart';
 import 'package:future_of_workout/src/workout_exercises_list/view/view.dart';
 import 'package:future_of_workout/src/workout_list/view/workouts_list_tab.dart';
 import 'package:go_router/go_router.dart';
@@ -41,6 +42,7 @@ class AppRouter {
     },
     routes: [
       _workoutExercisesList,
+      _workoutExerciseDetails,
     ],
   );
 
@@ -57,7 +59,24 @@ class AppRouter {
                 .buildTransitions(animation, secondaryAnimation, child),
       );
     },
-    routes: [
-    ],
+  );
+
+  static final GoRoute _workoutExerciseDetails = GoRoute(
+    name: WorkoutExerciseDetailsPage.name,
+    path: WorkoutExerciseDetailsPage.path,
+    pageBuilder: (context, state) {
+      final workoutId = state.params['workoutId']!;
+      final workoutExerciseId = state.params['workoutExerciseId']!;
+      return CustomTransitionPage(
+        key: state.pageKey,
+        child: WorkoutExerciseDetailsPage(
+          workoutId: workoutId,
+          workoutExerciseId: workoutExerciseId,
+        ),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+            AppTransitions()
+                .buildTransitions(animation, secondaryAnimation, child),
+      );
+    },
   );
 }

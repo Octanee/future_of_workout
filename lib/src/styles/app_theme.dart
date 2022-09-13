@@ -27,6 +27,21 @@ class AppTheme {
         behavior: SnackBarBehavior.floating,
       ),
       toggleableActiveColor: AppColors.yellow,
+      inputDecorationTheme: InputDecorationTheme(
+        enabledBorder: const UnderlineInputBorder(
+          borderSide: BorderSide.none,
+        ),
+        border: const UnderlineInputBorder(
+          borderSide: BorderSide.none,
+        ),
+        contentPadding: EdgeInsets.zero,
+        suffixStyle: AppTextStyle.medium16,
+      ),
+      textSelectionTheme: const TextSelectionThemeData(
+        cursorColor: AppColors.yellow,
+        selectionColor: AppColors.yellow,
+        selectionHandleColor: AppColors.yellow,
+      ),
     );
   }
 }
