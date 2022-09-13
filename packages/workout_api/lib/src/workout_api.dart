@@ -11,6 +11,9 @@ abstract class WorkoutApi {
   /// Provides a [Stream] of all workouts.
   Stream<List<Workout>> getWorkouts();
 
+  /// Provides a [Stream] of specific workout.
+  Stream<Workout?> getWorkout({required String id});
+
   /// Get the exercise with the given `id`.
   ///
   /// If no exercise with the given `id` exists,
