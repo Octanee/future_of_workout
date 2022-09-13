@@ -54,7 +54,7 @@ class WorkoutExercise extends Equatable {
   final List<ExerciseSeries> exerciseSeries;
 
   @override
-  List<Object?> get props => [index, exercise, exerciseSeries];
+  List<Object?> get props => [id, index, exercise, exerciseSeries];
 
   /// Returns a copy of this [WorkoutExercise] with the given values updated.
   ///
@@ -66,6 +66,7 @@ class WorkoutExercise extends Equatable {
     List<ExerciseSeries>? exerciseSeries,
   }) {
     return WorkoutExercise(
+      id: id ?? this.id,
       index: index ?? this.index,
       exercise: exercise ?? this.exercise,
       exerciseSeries: exerciseSeries ?? this.exerciseSeries,
