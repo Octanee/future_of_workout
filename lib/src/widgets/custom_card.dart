@@ -12,7 +12,7 @@ class CustomCard extends StatelessWidget {
 
   final Widget child;
   final EdgeInsets? padding;
-  final void Function()? onTap;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
