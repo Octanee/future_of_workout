@@ -95,16 +95,15 @@ class WorkoutExerciseDetailsBloc
     WorkoutExerciseDetailsUpdatetingWorkoutRequested event,
     Emitter<WorkoutExerciseDetailsState> emit,
   ) async {
+    logger.i('_onUpdatetingWorkoutRequested');
+
     emit(state.copyWith(status: WorkoutExerciseDetailsStatus.updating));
     try {
       final workoutExercises = List.of(state.workout!.workoutExercises);
 
       final index = workoutExercises
           .indexWhere((element) => element.id == state.workoutExercise!.id);
-      logger
-        ..d(workoutExercises)
-        ..d(state.workoutExercise)
-        ..d(index);
+
       workoutExercises[index] = state.workoutExercise!;
 
       final workout =

@@ -33,7 +33,6 @@ class WorkoutDetailsBloc
     await emit.forEach<Workout?>(
       _workoutRepository.getWorkout(id: event.id),
       onData: (workout) {
-        logger.d('_onWorkoutSubscriptionRequested - $workout');
         return state.copyWith(
           status: WorkoutDetailsStatus.loaded,
           workout: workout,
