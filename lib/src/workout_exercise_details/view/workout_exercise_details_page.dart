@@ -90,8 +90,6 @@ class WorkoutExerciseDetailsView extends StatelessWidget {
       child: AppScaffold(
         title: state.workoutExercise!.exercise.name,
         actions: _getActions(context),
-        floatingActionButton:
-            state.isEditing ? _buildFAB(context, state.status) : null,
         body: ListView(
           padding: const EdgeInsets.symmetric(vertical: 8),
           physics: const BouncingScrollPhysics(),

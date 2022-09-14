@@ -20,6 +20,7 @@ class WorkoutExerciseDetailsBloc
       _onAllExerciseSeriesChanged,
     );
     on<WorkoutExerciseDetailsAddingSeries>(_onAddingSeries);
+    on<WorkoutExerciseDetailsRemovedSeries>(_onRemovedSeries);
     on<WorkoutExerciseDetailsDeleteWorkoutExercise>(_onDeleteWorkoutExercise);
     on<WorkoutExerciseDetailsChangeDisplayMode>(_onChangeDisplayMode);
     on<WorkoutExerciseDetailsUpdatetingWorkoutRequested>(
@@ -70,7 +71,7 @@ class WorkoutExerciseDetailsBloc
     final newWorkoutExercise =
         state.workoutExercise!.copyWith(exerciseSeries: exerciseSeries);
 
-    emit(state.copyWith(workoutExercise: newWorkoutExercise, isEditing: true));
+    emit(state.copyWith(workoutExercise: newWorkoutExercise));
   }
 
   void _onAddingSeries(
@@ -88,7 +89,7 @@ class WorkoutExerciseDetailsBloc
     final newWorkoutExercise =
         state.workoutExercise!.copyWith(exerciseSeries: exerciseSeries);
 
-    emit(state.copyWith(workoutExercise: newWorkoutExercise, isEditing: true));
+    emit(state.copyWith(workoutExercise: newWorkoutExercise));
   }
 
   Future<void> _onUpdatetingWorkoutRequested(
@@ -167,6 +168,21 @@ class WorkoutExerciseDetailsBloc
     final newWorkoutExercise =
         state.workoutExercise!.copyWith(exerciseSeries: exerciseSeries);
 
-    emit(state.copyWith(workoutExercise: newWorkoutExercise, isEditing: true));
+    emit(state.copyWith(workoutExercise: newWorkoutExercise));
+  }
+
+  void _onRemovedSeries(
+    WorkoutExerciseDetailsRemovedSeries event,
+    Emitter<WorkoutExerciseDetailsState> emit,
+  ) {
+    final exerciseSeries = List.of(state.workoutExercise!.exerciseSeries);
+    if (exerciseSeries.isEmpty) return;
+
+    exerciseSeries.removeLast();
+
+    final newWorkoutExercise =
+        state.workoutExercise!.copyWith(exerciseSeries: exerciseSeries);
+
+    emit(state.copyWith(workoutExercise: newWorkoutExercise));
   }
 }

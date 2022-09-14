@@ -50,6 +50,10 @@ class WorkoutExerciseDetailsAddingSeries extends WorkoutExerciseDetailsEvent {
   const WorkoutExerciseDetailsAddingSeries();
 }
 
+class WorkoutExerciseDetailsRemovedSeries extends WorkoutExerciseDetailsEvent {
+  const WorkoutExerciseDetailsRemovedSeries();
+}
+
 class WorkoutExerciseDetailsUpdatetingWorkoutRequested
     extends WorkoutExerciseDetailsEvent {
   const WorkoutExerciseDetailsUpdatetingWorkoutRequested();

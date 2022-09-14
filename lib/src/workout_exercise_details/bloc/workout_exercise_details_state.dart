@@ -12,7 +12,6 @@ enum WorkoutExerciseDetailsStatus {
 class WorkoutExerciseDetailsState extends Equatable {
   const WorkoutExerciseDetailsState({
     this.status = WorkoutExerciseDetailsStatus.loading,
-    this.isEditing = false,
     this.isAdvanced = false,
     this.workoutExercise,
     this.workout,
@@ -20,7 +19,6 @@ class WorkoutExerciseDetailsState extends Equatable {
 
   final WorkoutExerciseDetailsStatus status;
   final WorkoutExercise? workoutExercise;
-  final bool isEditing;
   final bool isAdvanced;
 
   final Workout? workout;
@@ -30,7 +28,6 @@ class WorkoutExerciseDetailsState extends Equatable {
     return [
       status,
       workoutExercise,
-      isEditing,
       isAdvanced,
       workout,
     ];
@@ -39,14 +36,12 @@ class WorkoutExerciseDetailsState extends Equatable {
   WorkoutExerciseDetailsState copyWith({
     WorkoutExerciseDetailsStatus? status,
     WorkoutExercise? workoutExercise,
-    bool? isEditing,
     bool? isAdvanced,
     Workout? workout,
   }) {
     return WorkoutExerciseDetailsState(
       status: status ?? this.status,
       workoutExercise: workoutExercise ?? this.workoutExercise,
-      isEditing: isEditing ?? this.isEditing,
       isAdvanced: isAdvanced ?? this.isAdvanced,
       workout: workout ?? this.workout,
     );
