@@ -176,7 +176,7 @@ class WorkoutDetailsView extends StatelessWidget {
 
   Widget _getStartWorkoutButton() {
     return BarButton(
-      padding: const EdgeInsets.all(30),
+      padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
       text: 'Start workout',
       icon: const Icon(Icons.play_arrow_outlined),
       onTap: () {

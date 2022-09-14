@@ -57,7 +57,7 @@ class WorkoutExerciseItem extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.all(8),
               child: Icon(
-                Icons.more_vert_outlined,
+                Icons.arrow_forward_ios_rounded,
                 color: AppColors.grey,
               ),
             ),

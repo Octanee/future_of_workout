@@ -95,7 +95,8 @@ class WorkoutExerciseDetailsView extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           children: [
             _buildAddExerciseSeriesButton(context),
-            if (state.workoutExercise!.exerciseSeries.isNotEmpty)
+            if (state.workoutExercise!.exerciseSeries.isNotEmpty) ...[
+              _buildRemoveExerciseSeriesButton(context),
               ...state.isAdvanced
                   ? _buildAdvanced(
                       context,
@@ -105,8 +106,9 @@ class WorkoutExerciseDetailsView extends StatelessWidget {
                       context,
                       series: state.workoutExercise!.exerciseSeries,
                     ),
-            if (state.workoutExercise!.exerciseSeries.isNotEmpty)
-              _buildChangeDisplayModeButton(context, state.isAdvanced)
+              _buildChangeDisplayModeButton(context, state.isAdvanced),
+            ],
+            _buildExerciseInfoButton(context),
           ],
         ),
       ),
@@ -133,7 +135,6 @@ class WorkoutExerciseDetailsView extends StatelessWidget {
   Widget _buildAddExerciseSeriesButton(BuildContext context) {
     return BarButton(
       text: 'Add series',
-      padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 16),
       icon: const Icon(Icons.add),
       onTap: () {
         context
@@ -146,7 +147,7 @@ class WorkoutExerciseDetailsView extends StatelessWidget {
   Widget _buildChangeDisplayModeButton(BuildContext context, bool isAdvanced) {
     return BarButton(
       text: isAdvanced ? 'Simple' : 'Advanced',
-      padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 16),
+      padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
       icon: const Icon(Icons.list),
       onTap: () {
         context
@@ -156,14 +157,25 @@ class WorkoutExerciseDetailsView extends StatelessWidget {
     );
   }
 
-  Widget _buildFAB(BuildContext context, WorkoutExerciseDetailsStatus status) {
-    return FloatingActionButton(
-      onPressed: () => context
-          .read<WorkoutExerciseDetailsBloc>()
-          .add(const WorkoutExerciseDetailsUpdatetingWorkoutRequested()),
-      child: status == WorkoutExerciseDetailsStatus.updating
-          ? const CircularProgressIndicator()
-          : const Icon(Icons.save_outlined),
+  Widget _buildRemoveExerciseSeriesButton(BuildContext context) {
+    return BarButton(
+      text: 'Remove series',
+      padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+      icon: const Icon(Icons.remove),
+      onTap: () {
+        context
+            .read<WorkoutExerciseDetailsBloc>()
+            .add(const WorkoutExerciseDetailsRemovedSeries());
+      },
+    );
+  }
+
+  Widget _buildExerciseInfoButton(BuildContext context) {
+    return BarButton(
+      text: 'About exercise',
+      padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 16),
+      icon: const Icon(Icons.info_outline_rounded),
+      onTap: () {},
     );
   }
 
