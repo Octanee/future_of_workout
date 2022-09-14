@@ -29,18 +29,34 @@ class AppTheme {
       toggleableActiveColor: AppColors.yellow,
       inputDecorationTheme: InputDecorationTheme(
         enabledBorder: const UnderlineInputBorder(
-          borderSide: BorderSide.none,
+          borderSide: BorderSide(color: AppColors.yellow, width: 2),
         ),
-        border: const UnderlineInputBorder(
-          borderSide: BorderSide.none,
+        focusedBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(color: AppColors.yellow, width: 3),
         ),
         contentPadding: EdgeInsets.zero,
         suffixStyle: AppTextStyle.medium16,
+        hintStyle: AppTextStyle.medium16.copyWith(
+          color: AppColors.grey.withOpacity(0.4),
+        ),
       ),
       textSelectionTheme: const TextSelectionThemeData(
         cursorColor: AppColors.yellow,
         selectionColor: AppColors.yellow,
         selectionHandleColor: AppColors.yellow,
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          primary: AppColors.yellow,
+          onPrimary: AppColors.grey,
+          shape: const StadiumBorder(),
+        ),
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          primary: AppColors.yellow,
+          shape: const StadiumBorder(),
+        ),
       ),
     );
   }
