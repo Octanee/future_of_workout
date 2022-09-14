@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:future_of_workout/src/logger.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:future_of_workout/src/workout_exercise_details/workout_exercise_details.dart';
@@ -47,8 +46,6 @@ class WorkoutExerciseDetailsView extends StatelessWidget {
       listener: (context, state) {
         if (state.status == WorkoutExerciseDetailsStatus.delete) {
           context.pop();
-        } else if (state.status == WorkoutExerciseDetailsStatus.updated) {
-          context.pop();
         }
       },
       builder: (context, state) {
@@ -83,35 +80,56 @@ class WorkoutExerciseDetailsView extends StatelessWidget {
     WorkoutExerciseDetailsState state,
     BuildContext context,
   ) {
-    return AppScaffold(
-      title: state.workoutExercise!.exercise.name,
-      actions: _getActions(context),
-      floatingActionButton:
-          state.isEditing ? _buildFAB(context, state.status) : null,
-      body: ListView(
-        padding: const EdgeInsets.symmetric(vertical: 8),
-        physics: const BouncingScrollPhysics(),
-        children: [
-          _buildAddExerciseSeriesButton(context),
-          if (state.workoutExercise!.exerciseSeries.isNotEmpty)
-            ...state.isAdvanced
-                ? _buildAdvanced(
-                    context,
-                    series: state.workoutExercise!.exerciseSeries,
-                  )
-                : _buildItem(
-                    context,
-                    series: state.workoutExercise!.exerciseSeries,
-                  ),
-          if (state.workoutExercise!.exerciseSeries.isNotEmpty)
-            _buildChangeDisplayModeButton(context, state.isAdvanced)
-        ],
+    return WillPopScope(
+      onWillPop: () async {
+        context
+            .read<WorkoutExerciseDetailsBloc>()
+            .add(const WorkoutExerciseDetailsUpdatetingWorkoutRequested());
+        return true;
+      },
+      child: AppScaffold(
+        title: state.workoutExercise!.exercise.name,
+        actions: _getActions(context),
+        floatingActionButton:
+            state.isEditing ? _buildFAB(context, state.status) : null,
+        body: ListView(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          physics: const BouncingScrollPhysics(),
+          children: [
+            _buildAddExerciseSeriesButton(context),
+            if (state.workoutExercise!.exerciseSeries.isNotEmpty)
+              ...state.isAdvanced
+                  ? _buildAdvanced(
+                      context,
+                      series: state.workoutExercise!.exerciseSeries,
+                    )
+                  : _buildSimple(
+                      context,
+                      series: state.workoutExercise!.exerciseSeries,
+                    ),
+            if (state.workoutExercise!.exerciseSeries.isNotEmpty)
+              _buildChangeDisplayModeButton(context, state.isAdvanced)
+          ],
+        ),
       ),
     );
   }
 
   List<Widget> _getActions(BuildContext context) {
-    return [];
+    return [
+      IconButton(
+        onPressed: () {},
+        icon: const Icon(Icons.repeat),
+      ),
+      IconButton(
+        onPressed: () {
+          context
+              .read<WorkoutExerciseDetailsBloc>()
+              .add(const WorkoutExerciseDetailsDeleteWorkoutExercise());
+        },
+        icon: const Icon(Icons.delete_outline),
+      ),
+    ];
   }
 
   Widget _buildAddExerciseSeriesButton(BuildContext context) {
@@ -129,9 +147,9 @@ class WorkoutExerciseDetailsView extends StatelessWidget {
 
   Widget _buildChangeDisplayModeButton(BuildContext context, bool isAdvanced) {
     return BarButton(
-      text: isAdvanced ? 'Show simple' : 'Show advanced',
+      text: isAdvanced ? 'Simple' : 'Advanced',
       padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 16),
-      icon: const Icon(Icons.display_settings_rounded),
+      icon: const Icon(Icons.list),
       onTap: () {
         context
             .read<WorkoutExerciseDetailsBloc>()
@@ -164,41 +182,56 @@ class WorkoutExerciseDetailsView extends StatelessWidget {
             index: i + 1,
             weight: item.weight,
             reps: item.reps,
-            onRepsChanged: (value) {
-              final newSeries = item.copyWith(reps: value);
+            onTap: () async {
+              final bloc = context.read<WorkoutExerciseDetailsBloc>();
 
-              context.read<WorkoutExerciseDetailsBloc>().add(
-                    WorkoutExerciseDetailsExerciseSeriesChanged(
-                      series: newSeries,
-                      index: i,
-                    ),
+              await showDialog<String>(
+                context: context,
+                builder: (context) {
+                  return SeriesEditDialog(
+                    title: 'Change ${i + 1} series',
+                    reps: item.reps.toString(),
+                    weight: item.weight.toString(),
+                    onPositive: (int reps, double weight) {
+                      final newSeries =
+                          item.copyWith(reps: reps, weight: weight);
+                      bloc.add(
+                        WorkoutExerciseDetailsExerciseSeriesChanged(
+                          index: i,
+                          series: newSeries,
+                        ),
+                      );
+                    },
                   );
-            },
-            onWeightChanged: (value) {
-              final newSeries = item.copyWith(weight: value);
-
-              context.read<WorkoutExerciseDetailsBloc>().add(
-                    WorkoutExerciseDetailsExerciseSeriesChanged(
-                      series: newSeries,
-                      index: i,
-                    ),
-                  );
+                },
+              );
             },
           ),
         )
         ..add(
           RestExerciseSeries(
             rest: item.rest,
-            onValueChanged: (value) {
-              final rest = value.isNotEmpty ? int.parse(value) : 0;
-              logger.d('${i + 1} Rest: $rest');
-              final newSeries = item.copyWith(rest: rest);
-              context.read<WorkoutExerciseDetailsBloc>().add(
-                    WorkoutExerciseDetailsExerciseSeriesChanged(
-                      index: i,
-                      series: newSeries,
-                    ),
+            onTap: () async {
+              final bloc = context.read<WorkoutExerciseDetailsBloc>();
+
+              await showDialog<String>(
+                context: context,
+                builder: (context) {
+                  return RestEditDialog(
+                    title: 'Change ${i + 1} REST',
+                    rest: item.rest.toString(),
+                    onPositive: (rest) {
+                      final newSeries = item.copyWith(rest: rest);
+                      bloc.add(
+                        WorkoutExerciseDetailsExerciseSeriesChanged(
+                          index: i,
+                          series: newSeries,
+                        ),
+                      );
+                    },
                   );
+                },
+              );
             },
           ),
         );
@@ -206,7 +239,7 @@ class WorkoutExerciseDetailsView extends StatelessWidget {
     return list;
   }
 
-  List<Widget> _buildItem(
+  List<Widget> _buildSimple(
     BuildContext context, {
     required List<ExerciseSeries> series,
   }) {
@@ -217,35 +250,49 @@ class WorkoutExerciseDetailsView extends StatelessWidget {
         index: series.length,
         weight: item.weight,
         reps: item.reps,
-        onRepsChanged: (value) {
-          final newSeries = item.copyWith(reps: value);
+        onTap: () async {
+          final bloc = context.read<WorkoutExerciseDetailsBloc>();
 
-          context.read<WorkoutExerciseDetailsBloc>().add(
-                WorkoutExerciseDetailsAllExerciseSeriesChanged(
-                  series: newSeries,
-                ),
+          await showDialog<String>(
+            context: context,
+            builder: (context) {
+              return SeriesEditDialog(
+                reps: item.reps.toString(),
+                weight: item.weight.toString(),
+                onPositive: (int reps, double weight) {
+                  final newSeries = item.copyWith(reps: reps, weight: weight);
+                  bloc.add(
+                    WorkoutExerciseDetailsAllExerciseSeriesChanged(
+                      series: newSeries,
+                    ),
+                  );
+                },
               );
-        },
-        onWeightChanged: (value) {
-          final newSeries = item.copyWith(weight: value);
-
-          context.read<WorkoutExerciseDetailsBloc>().add(
-                WorkoutExerciseDetailsAllExerciseSeriesChanged(
-                  series: newSeries,
-                ),
-              );
+            },
+          );
         },
       ),
       RestExerciseSeries(
         rest: item.rest,
-        onValueChanged: (value) {
-          final rest = value.isNotEmpty ? int.parse(value) : 0;
-          final newSeries = item.copyWith(rest: rest);
-          context.read<WorkoutExerciseDetailsBloc>().add(
-                WorkoutExerciseDetailsAllExerciseSeriesChanged(
-                  series: newSeries,
-                ),
+        onTap: () async {
+          final bloc = context.read<WorkoutExerciseDetailsBloc>();
+
+          await showDialog<String>(
+            context: context,
+            builder: (context) {
+              return RestEditDialog(
+                rest: item.rest.toString(),
+                onPositive: (rest) {
+                  final newSeries = item.copyWith(rest: rest);
+                  bloc.add(
+                    WorkoutExerciseDetailsAllExerciseSeriesChanged(
+                      series: newSeries,
+                    ),
+                  );
+                },
               );
+            },
+          );
         },
       ),
     ];
