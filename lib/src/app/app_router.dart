@@ -1,9 +1,11 @@
 import 'package:future_of_workout/src/app/app_transitions.dart';
+import 'package:future_of_workout/src/exercise_details/exercise_details.dart';
 import 'package:future_of_workout/src/home/home.dart';
 import 'package:future_of_workout/src/workout_details/workout_details.dart';
 import 'package:future_of_workout/src/workout_exercise_details/workout_exercise_details.dart';
-import 'package:future_of_workout/src/workout_exercises_list/view/view.dart';
-import 'package:future_of_workout/src/workout_list/view/workouts_list_tab.dart';
+import 'package:future_of_workout/src/workout_exercises_list/workout_exercises_list.dart';
+import 'package:future_of_workout/src/workout_list/workout_list.dart';
+
 import 'package:go_router/go_router.dart';
 
 class AppRouter {
@@ -11,19 +13,22 @@ class AppRouter {
     debugLogDiagnostics: true,
     initialLocation: '/${WorkoutsListTab.name}',
     routes: [
-      GoRoute(
-        name: HomePage.name,
-        path: HomePage.path,
-        builder: (context, state) {
-          final name = state.params['homePageTab'];
-          final item = HomeNavigationItem.values
-              .firstWhere((element) => element.name == name);
-          return HomePage(item: item);
-        },
-        routes: [
-          _workoutDetailsRoute,
-        ],
-      )
+      _homeRoute,
+      _exerciseDetailsRoute,
+    ],
+  );
+
+  static final GoRoute _homeRoute = GoRoute(
+    name: HomePage.name,
+    path: HomePage.path,
+    builder: (context, state) {
+      final name = state.params['homePageTab'];
+      final item = HomeNavigationItem.values
+          .firstWhere((element) => element.name == name);
+      return HomePage(item: item);
+    },
+    routes: [
+      _workoutDetailsRoute,
     ],
   );
 
@@ -41,12 +46,12 @@ class AppRouter {
       );
     },
     routes: [
-      _workoutExercisesList,
-      _workoutExerciseDetails,
+      _workoutExercisesListRoute,
+      _workoutExerciseDetailsRoute,
     ],
   );
 
-  static final GoRoute _workoutExercisesList = GoRoute(
+  static final GoRoute _workoutExercisesListRoute = GoRoute(
     name: WorkoutExercisesListPage.name,
     path: WorkoutExercisesListPage.path,
     pageBuilder: (context, state) {
@@ -61,7 +66,7 @@ class AppRouter {
     },
   );
 
-  static final GoRoute _workoutExerciseDetails = GoRoute(
+  static final GoRoute _workoutExerciseDetailsRoute = GoRoute(
     name: WorkoutExerciseDetailsPage.name,
     path: WorkoutExerciseDetailsPage.path,
     pageBuilder: (context, state) {
@@ -73,6 +78,22 @@ class AppRouter {
           workoutId: workoutId,
           workoutExerciseId: workoutExerciseId,
         ),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+            AppTransitions()
+                .buildTransitions(animation, secondaryAnimation, child),
+      );
+    },
+  );
+
+  static final GoRoute _exerciseDetailsRoute = GoRoute(
+    name: ExerciseDetailsPage.name,
+    path: ExerciseDetailsPage.path,
+    pageBuilder: (context, state) {
+      final exerciseId = state.params['exerciseId']!;
+
+      return CustomTransitionPage(
+        key: state.pageKey,
+        child: ExerciseDetailsPage(exerciseId: exerciseId),
         transitionsBuilder: (context, animation, secondaryAnimation, child) =>
             AppTransitions()
                 .buildTransitions(animation, secondaryAnimation, child),
