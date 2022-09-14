@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/exercise_details/view/view.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:future_of_workout/src/workout_exercise_details/workout_exercise_details.dart';
@@ -108,7 +109,8 @@ class WorkoutExerciseDetailsView extends StatelessWidget {
                     ),
               _buildChangeDisplayModeButton(context, state.isAdvanced),
             ],
-            _buildExerciseInfoButton(context),
+            _buildExerciseInfoButton(
+                context, state.workoutExercise!.exercise.id),
           ],
         ),
       ),
@@ -170,12 +172,17 @@ class WorkoutExerciseDetailsView extends StatelessWidget {
     );
   }
 
-  Widget _buildExerciseInfoButton(BuildContext context) {
+  Widget _buildExerciseInfoButton(BuildContext context, String exerciseId) {
     return BarButton(
       text: 'About exercise',
       padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 16),
       icon: const Icon(Icons.info_outline_rounded),
-      onTap: () {},
+      onTap: () {
+        context.pushNamed(
+          ExerciseDetailsPage.name,
+          params: {'exerciseId': exerciseId},
+        );
+      },
     );
   }
 
