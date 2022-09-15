@@ -20,3 +20,10 @@ extension DarkenAndLighten on Color {
     return hslLight.toColor();
   }
 }
+
+extension EmptyString on String {
+  String withDefault([String defaultValue = '']) {
+    final temp = isEmpty ? defaultValue : this;
+    return temp;
+  }
+}

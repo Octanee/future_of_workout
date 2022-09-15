@@ -25,5 +25,10 @@ class WorkoutListWorkoutFavoriteToggled extends WorkoutListEvent {
 }
 
 class WorkoutListNewWorkoutAdding extends WorkoutListEvent {
-  const WorkoutListNewWorkoutAdding();
+  const WorkoutListNewWorkoutAdding({required this.name});
+
+  final String name;
+
+  @override
+  List<Object?> get props => [name];
 }

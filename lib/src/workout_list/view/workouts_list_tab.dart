@@ -33,10 +33,16 @@ class WorkoutListView extends StatelessWidget {
       backgroundColor: Colors.transparent,
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
-        onPressed: () {
-          context
-              .read<WorkoutListBloc>()
-              .add(const WorkoutListNewWorkoutAdding());
+        onPressed: () async {
+          final bloc = context.read<WorkoutListBloc>();
+
+          await showDialog<String>(
+            context: context,
+            builder: (context) => NewWorkoutDialog(
+              onConfirm: (value) =>
+                  bloc.add(WorkoutListNewWorkoutAdding(name: value)),
+            ),
+          );
         },
       ),
       body: BlocConsumer<WorkoutListBloc, WorkoutListState>(
