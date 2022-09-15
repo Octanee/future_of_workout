@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:future_of_workout/src/formatter.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
+import 'package:future_of_workout/src/widgets/widgets.dart';
 
 class RestEditDialog extends StatelessWidget {
   const RestEditDialog({
@@ -22,11 +23,8 @@ class RestEditDialog extends StatelessWidget {
       text: rest,
     );
 
-    return AlertDialog(
-      title: Text(
-        title,
-        style: AppTextStyle.semiBold20,
-      ),
+    return CustomDialog(
+      title: title,
       content: Row(
         children: [
           const Padding(
@@ -52,21 +50,10 @@ class RestEditDialog extends StatelessWidget {
           ),
         ],
       ),
-      actions: [
-        OutlinedButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: const Text('Cancel'),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            final value = int.tryParse(controller.text) ?? 0;
-
-            onPositive(value);
-            Navigator.of(context).pop();
-          },
-          child: const Text('Save'),
-        ),
-      ],
+      onConfirm: () {
+        final value = int.tryParse(controller.text) ?? 0;
+        onPositive(value);
+      },
     );
   }
 }

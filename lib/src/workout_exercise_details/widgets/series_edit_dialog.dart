@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:future_of_workout/src/formatter.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
+import 'package:future_of_workout/src/widgets/widgets.dart';
 
 class SeriesEditDialog extends StatelessWidget {
   const SeriesEditDialog({
     required this.weight,
     required this.reps,
-    required this.onPositive,
+    required this.onConfirm,
     this.title = 'Change Series',
     super.key,
   });
@@ -16,7 +17,7 @@ class SeriesEditDialog extends StatelessWidget {
   final String reps;
   final String title;
 
-  final void Function(int reps, double weight) onPositive;
+  final void Function(int reps, double weight) onConfirm;
 
   @override
   Widget build(BuildContext context) {
@@ -27,11 +28,8 @@ class SeriesEditDialog extends StatelessWidget {
       text: reps,
     );
 
-    return AlertDialog(
-      title: Text(
-        title,
-        style: AppTextStyle.semiBold20,
-      ),
+    return CustomDialog(
+      title: title,
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -89,22 +87,12 @@ class SeriesEditDialog extends StatelessWidget {
           ),
         ],
       ),
-      actions: [
-        OutlinedButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: const Text('Cancel'),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            final weight = double.tryParse(weightController.text) ?? 0;
-            final reps = int.tryParse(repsController.text) ?? 0;
+      onConfirm: () {
+        final weight = double.tryParse(weightController.text) ?? 0;
+        final reps = int.tryParse(repsController.text) ?? 0;
 
-            onPositive(reps, weight);
-            Navigator.of(context).pop();
-          },
-          child: const Text('Save'),
-        ),
-      ],
+        onConfirm(reps, weight);
+      },
     );
   }
 }
