@@ -47,14 +47,14 @@ class AppTheme {
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          primary: AppColors.yellow,
-          onPrimary: AppColors.grey,
+          backgroundColor: AppColors.yellow,
+          foregroundColor: AppColors.grey,
           shape: const StadiumBorder(),
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          primary: AppColors.yellow,
+          foregroundColor: AppColors.yellow,
           shape: const StadiumBorder(),
         ),
       ),
