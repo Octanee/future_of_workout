@@ -129,41 +129,46 @@ class WorkoutDetailsView extends StatelessWidget {
         icon: _getFavoritIcon(isFavorite),
       ),
       PopupMenuButton(
-        itemBuilder: (context) => [
-          _getPopumMenuItem(
-            text: 'Rename',
-            icon: Icons.edit,
+        itemBuilder: (builderContext) => [
+          PopupMenuItem<void>(
             onTap: () {
-              // TODO(Octane): Handle Name Changed
+              final bloc = context.read<WorkoutDetailsBloc>();
+              Future.delayed(
+                Duration.zero,
+                () => showDialog<String>(
+                  context: context,
+                  builder: (context) {
+                    return RenameWorkoutDialog(
+                      onConfirm: (value) =>
+                          bloc.add(WorkoutDetailsRenameWorkout(name: value)),
+                    );
+                  },
+                ),
+              );
             },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Rename', style: AppTextStyle.medium16),
+                const Icon(Icons.edit, color: AppColors.grey)
+              ],
+            ),
           ),
-          _getPopumMenuItem(
-            text: 'Delete',
-            icon: Icons.delete,
+          PopupMenuItem<void>(
             onTap: () => context
                 .read<WorkoutDetailsBloc>()
                 .add(const WorkoutDetailsDelete()),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Delete', style: AppTextStyle.medium16),
+                const Icon(Icons.delete, color: AppColors.grey)
+              ],
+            ),
           ),
         ],
       ),
     ];
-  }
-
-  PopupMenuItem<dynamic> _getPopumMenuItem({
-    required String text,
-    required IconData icon,
-    required void Function()? onTap,
-  }) {
-    return PopupMenuItem(
-      onTap: onTap,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(text, style: AppTextStyle.medium16),
-          Icon(icon, color: AppColors.grey)
-        ],
-      ),
-    );
   }
 
   Widget _getFavoritIcon(bool isFavorite) {

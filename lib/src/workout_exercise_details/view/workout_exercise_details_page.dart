@@ -211,7 +211,7 @@ class WorkoutExerciseDetailsView extends StatelessWidget {
                     title: 'Change ${i + 1} series',
                     reps: item.reps.toString(),
                     weight: item.weight.toString(),
-                    onPositive: (int reps, double weight) {
+                    onConfirm: (int reps, double weight) {
                       final newSeries =
                           item.copyWith(reps: reps, weight: weight);
                       bloc.add(
@@ -278,7 +278,7 @@ class WorkoutExerciseDetailsView extends StatelessWidget {
               return SeriesEditDialog(
                 reps: item.reps.toString(),
                 weight: item.weight.toString(),
-                onPositive: (int reps, double weight) {
+                onConfirm: (int reps, double weight) {
                   final newSeries = item.copyWith(reps: reps, weight: weight);
                   bloc.add(
                     WorkoutExerciseDetailsAllExerciseSeriesChanged(

@@ -16,8 +16,8 @@ class WorkoutDetailsWorkoutSubscriptionRequested extends WorkoutDetailsEvent {
   List<Object> get props => [id];
 }
 
-class WorkoutDetailsNameChanged extends WorkoutDetailsEvent {
-  const WorkoutDetailsNameChanged({required this.name});
+class WorkoutDetailsRenameWorkout extends WorkoutDetailsEvent {
+  const WorkoutDetailsRenameWorkout({required this.name});
 
   final String name;
 

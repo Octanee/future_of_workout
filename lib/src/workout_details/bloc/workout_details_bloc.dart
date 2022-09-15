@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:future_of_workout/src/extensions.dart';
 import 'package:workout_repository/workout_repository.dart';
 
 part 'workout_details_event.dart';
@@ -16,7 +17,7 @@ class WorkoutDetailsBloc
     on<WorkoutDetailsWorkoutSubscriptionRequested>(
       _onWorkoutSubscriptionRequested,
     );
-    on<WorkoutDetailsNameChanged>(_onNameChanged);
+    on<WorkoutDetailsRenameWorkout>(_onRenameWorkout);
     on<WorkoutDetailsFavoritToggled>(_onFavoritToggled);
     on<WorkoutDetailsDelete>(_onDelete);
   }
@@ -41,12 +42,13 @@ class WorkoutDetailsBloc
     );
   }
 
-  Future<void> _onNameChanged(
-    WorkoutDetailsNameChanged event,
+  Future<void> _onRenameWorkout(
+    WorkoutDetailsRenameWorkout event,
     Emitter<WorkoutDetailsState> emit,
   ) async {
+    final name = event.name.withDefault('Workout');
     await _updateWorkout(
-      workout: state.workout!.copyWith(name: event.name),
+      workout: state.workout!.copyWith(name: name),
       emit: emit,
     );
   }
