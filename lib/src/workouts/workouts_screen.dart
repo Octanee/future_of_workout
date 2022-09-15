@@ -30,6 +30,7 @@ class WorkoutsScreenView extends StatelessWidget {
       child: Column(
         children: const [
           CustomTabBar(
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             tabs: [
               Tab(text: 'Created'),
               Tab(text: 'Records'),

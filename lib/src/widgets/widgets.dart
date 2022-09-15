@@ -8,4 +8,5 @@ export 'custom_card.dart';
 export 'custom_search_bar.dart';
 export 'custom_tab_bar.dart';
 export 'custom_tab_bar_view.dart';
+export 'header.dart';
 export 'input_dialog.dart';
