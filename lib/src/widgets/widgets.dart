@@ -9,4 +9,4 @@ export 'custom_search_bar.dart';
 export 'custom_tab_bar.dart';
 export 'custom_tab_bar_view.dart';
 export 'header.dart';
-export 'input_dialog.dart';
+export 'custom_dialog.dart';
