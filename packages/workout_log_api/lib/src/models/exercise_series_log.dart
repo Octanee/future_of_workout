@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
+import 'package:uuid/uuid.dart';
 import 'package:workout_api/workout_log_api.dart';
 
 part 'exercise_series_log.g.dart';
@@ -19,11 +20,21 @@ part 'exercise_series_log.g.dart';
 @JsonSerializable()
 class ExerciseSeriesLog extends Equatable {
   /// {@macro exercise_series_log}
-  const ExerciseSeriesLog({
+  ExerciseSeriesLog({
+    String? id,
     this.weight = 0,
     this.reps = 12,
     this.rest = 120,
-  });
+  })  : assert(
+          id == null || id.isNotEmpty,
+          '"id" can not be null and should be empty',
+        ),
+        id = id ?? const Uuid().v4();
+
+  /// The unique indentifier of the workout.
+  ///
+  /// Cannot be empty.
+  final String id;
 
   /// The value of weight in that log of series.
   final double weight;
@@ -34,16 +45,17 @@ class ExerciseSeriesLog extends Equatable {
   /// The time of rest after series.
   final int rest;
 
-  /// Returns a copy of this [ExerciseSeries] with the given values updated.
+  /// Returns a copy of this [ExerciseSeriesLog] with the given values updated.
   ///
-  /// {@macro exercise_series}
+  /// {@macro exercise_series_log}
   ExerciseSeriesLog copyWith({
-    int? index,
+    String? id,
     double? weight,
     int? reps,
     int? rest,
   }) {
     return ExerciseSeriesLog(
+      id: id ?? this.id,
       weight: weight ?? this.weight,
       reps: reps ?? this.reps,
       rest: rest ?? this.rest,
@@ -58,5 +70,5 @@ class ExerciseSeriesLog extends Equatable {
   JsonMap toJson() => _$ExerciseSeriesLogToJson(this);
 
   @override
-  List<Object?> get props => [weight, reps, rest];
+  List<Object?> get props => [id, weight, reps, rest];
 }
