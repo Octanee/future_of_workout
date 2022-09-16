@@ -1,5 +1,5 @@
-name: workout_api
-description: The interface and models for an API providing access to workout.
+name: workout_log_api
+description: The interface and models for an API providing access to workout logs.
 version: 1.0.0+1
 publish_to: none
 

@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:uuid/uuid.dart';
-import 'package:workout_api/workout_log_api.dart';
+import 'package:workout_log_api/workout_log_api.dart';
 
 part 'exercise_series_log.g.dart';
 
