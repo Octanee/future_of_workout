@@ -9,8 +9,10 @@ part 'exercise_series_log.g.dart';
 /// {@template exercise_series_log}
 /// A single exerciseSeriesLog item.
 ///
-/// Contains a [weight], [reps] and [rest] time.
+/// Contains a [id]] [weight], [reps] and [rest] time.
 ///
+/// If a [id] is provided, it cannot be empty.
+/// If no [id] is provided one will be generated.
 ///
 /// [ExerciseSeriesLog]s are immutable and can be copied using [copyWith],
 /// in addition to being serialized and deserialized using [toJson]
