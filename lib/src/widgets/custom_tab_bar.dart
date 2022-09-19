@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:future_of_workout/src/extensions.dart';
 
 import 'package:future_of_workout/src/styles/styles.dart';
 
