@@ -19,6 +19,7 @@ class NewWorkoutDialog extends StatelessWidget {
           hintText: 'Name',
         ),
       ),
+      confirmButtonText: 'Add',
       onConfirm: () {
         final name = controller.text;
 
