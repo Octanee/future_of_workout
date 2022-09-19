@@ -6,6 +6,7 @@ import 'package:future_of_workout/src/styles/app_text_style.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:future_of_workout/src/workout_list/view/view.dart';
 import 'package:go_router/go_router.dart';
+import 'package:workout_repository/workout_repository.dart';
 
 class CurrentWorkoutPage extends StatelessWidget {
   const CurrentWorkoutPage({required this.workoutId, super.key});
@@ -18,7 +19,9 @@ class CurrentWorkoutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CurrentWorkoutBloc(),
+      create: (context) => CurrentWorkoutBloc(
+        workoutRepository: context.read<WorkoutRepository>(),
+      )..add(CurrentWorkoutLoadingWorkout(id: workoutId)),
       child: const CurrentWorkoutView(),
     );
   }
