@@ -9,7 +9,7 @@ part 'exercise_series_log.g.dart';
 /// {@template exercise_series_log}
 /// A single exerciseSeriesLog item.
 ///
-/// Contains a [id]] [weight], [reps], [rest] time and performed [exercise].
+/// Contains a [id]] [weight], [reps] and [rest] time.
 ///
 /// If a [id] is provided, it cannot be empty.
 /// If no [id] is provided one will be generated.
@@ -27,7 +27,6 @@ class ExerciseSeriesLog extends Equatable {
     required this.weight,
     required this.reps,
     required this.rest,
-    required this.exercise,
   })  : assert(
           id == null || id.isNotEmpty,
           '"id" can not be null and should be empty',
@@ -48,9 +47,6 @@ class ExerciseSeriesLog extends Equatable {
   /// The time of rest after series.
   final int rest;
 
-  /// Instance of exercise performed in that series.
-  final Exercise exercise;
-
   /// Returns a copy of this [ExerciseSeriesLog] with the given values updated.
   ///
   /// {@macro exercise_series_log}
@@ -59,14 +55,12 @@ class ExerciseSeriesLog extends Equatable {
     double? weight,
     int? reps,
     int? rest,
-    Exercise? exercise,
   }) {
     return ExerciseSeriesLog(
       id: id ?? this.id,
       weight: weight ?? this.weight,
       reps: reps ?? this.reps,
       rest: rest ?? this.rest,
-      exercise: exercise ?? this.exercise,
     );
   }
 
@@ -78,5 +72,5 @@ class ExerciseSeriesLog extends Equatable {
   JsonMap toJson() => _$ExerciseSeriesLogToJson(this);
 
   @override
-  List<Object?> get props => [id, weight, reps, rest, exercise];
+  List<Object?> get props => [id, weight, reps, rest];
 }

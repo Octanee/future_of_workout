@@ -12,7 +12,6 @@ ExerciseSeriesLog _$ExerciseSeriesLogFromJson(Map<String, dynamic> json) =>
       weight: (json['weight'] as num).toDouble(),
       reps: json['reps'] as int,
       rest: json['rest'] as int,
-      exercise: Exercise.fromJson(json['exercise'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$ExerciseSeriesLogToJson(ExerciseSeriesLog instance) =>
@@ -21,5 +20,4 @@ Map<String, dynamic> _$ExerciseSeriesLogToJson(ExerciseSeriesLog instance) =>
       'weight': instance.weight,
       'reps': instance.reps,
       'rest': instance.rest,
-      'exercise': instance.exercise,
     };
