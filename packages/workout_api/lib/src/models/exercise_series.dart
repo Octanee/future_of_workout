@@ -20,10 +20,14 @@ part 'exercise_series.g.dart';
 class ExerciseSeries extends Equatable {
   /// {@macro exercise_series}
   const ExerciseSeries({
+    required this.index,
     this.weight = 0,
     this.reps = 12,
     this.rest = 120,
   });
+
+  /// Index of series in exercise.
+  final int index;
 
   /// The value of weight in that series.
   ///
@@ -50,6 +54,7 @@ class ExerciseSeries extends Equatable {
     int? rest,
   }) {
     return ExerciseSeries(
+      index: index ?? this.index,
       weight: weight ?? this.weight,
       reps: reps ?? this.reps,
       rest: rest ?? this.rest,
@@ -64,5 +69,5 @@ class ExerciseSeries extends Equatable {
   JsonMap toJson() => _$ExerciseSeriesToJson(this);
 
   @override
-  List<Object?> get props => [weight, reps, rest];
+  List<Object?> get props => [index, weight, reps, rest];
 }

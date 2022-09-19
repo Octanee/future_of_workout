@@ -14,7 +14,11 @@ WorkoutExercise _$WorkoutExerciseFromJson(Map<String, dynamic> json) =>
       exerciseSeries: (json['exerciseSeries'] as List<dynamic>?)
               ?.map((e) => ExerciseSeries.fromJson(e as Map<String, dynamic>))
               .toList() ??
-          const [ExerciseSeries(), ExerciseSeries(), ExerciseSeries()],
+          const [
+            ExerciseSeries(index: 1),
+            ExerciseSeries(index: 2),
+            ExerciseSeries(index: 3)
+          ],
     );
 
 Map<String, dynamic> _$WorkoutExerciseToJson(WorkoutExercise instance) =>

@@ -19,6 +19,7 @@ class ExerciseSeriesAdapter extends TypeAdapter<ExerciseSeries> {
     }
 
     return ExerciseSeries(
+      index: fields[1] as int,
       weight: fields[1] as double,
       reps: fields[2] as int,
       rest: fields[3] as int,
@@ -28,12 +29,14 @@ class ExerciseSeriesAdapter extends TypeAdapter<ExerciseSeries> {
   @override
   void write(BinaryWriter writer, ExerciseSeries obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(1)
-      ..write(obj.weight)
+      ..write(obj.index)
       ..writeByte(2)
-      ..write(obj.reps)
+      ..write(obj.weight)
       ..writeByte(3)
+      ..write(obj.reps)
+      ..writeByte(4)
       ..write(obj.rest);
   }
 }

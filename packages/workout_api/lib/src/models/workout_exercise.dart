@@ -24,9 +24,9 @@ class WorkoutExercise extends Equatable {
     required this.index,
     required this.exercise,
     this.exerciseSeries = const [
-      ExerciseSeries(),
-      ExerciseSeries(),
-      ExerciseSeries(),
+      ExerciseSeries(index: 1),
+      ExerciseSeries(index: 2),
+      ExerciseSeries(index: 3),
     ],
   })  : assert(
           id == null || id.isNotEmpty,
