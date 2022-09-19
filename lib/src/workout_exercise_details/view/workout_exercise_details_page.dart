@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:future_of_workout/src/exercise_details/view/view.dart';
+import 'package:future_of_workout/src/exercise_details/exercise_details.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:future_of_workout/src/workout_exercise_details/workout_exercise_details.dart';
@@ -126,10 +126,34 @@ class WorkoutExerciseDetailsView extends StatelessWidget {
         icon: const Icon(Icons.repeat),
       ),
       IconButton(
-        onPressed: () {
-          context
-              .read<WorkoutExerciseDetailsBloc>()
-              .add(const WorkoutExerciseDetailsDeleteWorkoutExercise());
+        onPressed: () async {
+          final bloc = context.read<WorkoutExerciseDetailsBloc>();
+          final name = bloc.state.workoutExercise!.exercise.name;
+
+          await showDialog<bool>(
+            context: context,
+            builder: (context) {
+              return ConfirmDialog(
+                title: 'Delete?',
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Are you sure you want to delete:',
+                      style: AppTextStyle.medium16,
+                    ),
+                    Text(
+                      name,
+                      style: AppTextStyle.semiBold16,
+                    ),
+                  ],
+                ),
+                onConfirm: () => bloc
+                    .add(const WorkoutExerciseDetailsDeleteWorkoutExercise()),
+              );
+            },
+          );
         },
         icon: const Icon(Icons.delete_outline),
       ),

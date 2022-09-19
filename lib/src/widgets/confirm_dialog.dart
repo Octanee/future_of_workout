@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:future_of_workout/src/styles/app_text_style.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 
 class ConfirmDialog extends StatelessWidget {
@@ -9,10 +8,12 @@ class ConfirmDialog extends StatelessWidget {
     required this.title,
     required this.content,
     required this.onConfirm,
+    this.confirmButtonText = 'Yes',
   });
 
   final String title;
-  final String content;
+  final Widget content;
+  final String confirmButtonText;
 
   final VoidCallback onConfirm;
 
@@ -20,11 +21,9 @@ class ConfirmDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomDialog(
       title: title,
-      content: Text(
-        content,
-        style: AppTextStyle.semiBold16,
-      ),
+      content: content,
       onConfirm: onConfirm,
+      confirmButtonText: confirmButtonText,
     );
   }
 }
