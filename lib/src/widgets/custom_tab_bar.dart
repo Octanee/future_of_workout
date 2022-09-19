@@ -32,15 +32,16 @@ class CustomTabBar extends StatelessWidget {
           labelColor: AppColors.grey,
           labelStyle: AppTextStyle.semiBold16,
           indicator: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                AppColors.yellow.darken(amount: 0.04),
-                AppColors.yellow,
-                AppColors.yellow.lighten(),
-              ],
-            ),
+            color: AppColors.yellow,
+            // gradient: LinearGradient(
+            //   begin: Alignment.topLeft,
+            //   end: Alignment.bottomRight,
+            //   colors: [
+            //     AppColors.yellow.darken(amount: 0.04),
+            //     AppColors.yellow,
+            //     AppColors.yellow.lighten(),
+            //   ],
+            // ),
             borderRadius: BorderRadius.circular(16),
           ),
           tabs: tabs,
