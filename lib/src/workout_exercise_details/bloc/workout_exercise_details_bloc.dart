@@ -80,11 +80,13 @@ class WorkoutExerciseDetailsBloc
   ) {
     final exerciseSeries = List.of(state.workoutExercise!.exerciseSeries);
     if (exerciseSeries.isEmpty) {
-      exerciseSeries.add(const ExerciseSeries());
+      exerciseSeries.add(const ExerciseSeries(index: 1));
     } else {
       final lastSeries = exerciseSeries.last;
-      exerciseSeries.add(lastSeries);
+      exerciseSeries.add(lastSeries.copyWith(index: lastSeries.index + 1));
     }
+
+    logger.d('_onAddingSeries { exerciseSeries: $exerciseSeries }');
 
     final newWorkoutExercise =
         state.workoutExercise!.copyWith(exerciseSeries: exerciseSeries);

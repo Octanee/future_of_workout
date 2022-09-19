@@ -651,6 +651,13 @@ packages:
       relative: true
     source: path
     version: "1.0.0+1"
+  workout_log_api:
+    dependency: "direct main"
+    description:
+      path: "packages/workout_log_api"
+      relative: true
+    source: path
+    version: "1.0.0+1"
   workout_repository:
     dependency: "direct main"
     description:

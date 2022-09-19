@@ -29,6 +29,8 @@ dependencies:
   uuid: ^3.0.6
   workout_api:
     path: packages/workout_api
+  workout_log_api:
+    path: packages/workout_log_api
   workout_repository:
     path: packages/workout_repository
 
