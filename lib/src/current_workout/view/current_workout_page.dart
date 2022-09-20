@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/current_workout/current_workout.dart';
+import 'package:future_of_workout/src/current_workout_exercise/current_workout_exercise.dart';
 import 'package:future_of_workout/src/home/home.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
-import 'package:future_of_workout/src/workout_list/view/workouts_list_tab.dart';
+import 'package:future_of_workout/src/workout_list/workout_list.dart';
 import 'package:go_router/go_router.dart';
 import 'package:workout_repository/workout_repository.dart';
 
@@ -95,21 +96,35 @@ class CurrentWorkoutView extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           children: [
             const FinishButton(),
-            ..._buildList(state.workoutExercises),
+            ..._buildList(context, state.workoutExercises),
           ],
         ),
       ),
     );
   }
 
-  List<Widget> _buildList(Map<WorkoutExercise, bool> workoutExercises) {
+  List<Widget> _buildList(
+    BuildContext context,
+    Map<WorkoutExercise, bool> workoutExercises,
+  ) {
     final list = <Widget>[];
+
+    final workoutId = context.select(
+      (CurrentWorkoutBloc bloc) => bloc.state.workout!.id,
+    );
 
     workoutExercises.forEach(
       (key, value) => list.add(
         CurrentWorkoutExerciseItem(
           workoutExercise: key,
           isFinished: value,
+          onTap: () => context.goNamed(
+            CurrentWorkoutExercisePage.name,
+            params: {
+              'workoutId': workoutId,
+              'workoutExerciseId': key.id,
+            },
+          ),
         ),
       ),
     );

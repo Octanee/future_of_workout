@@ -1,5 +1,6 @@
 import 'package:future_of_workout/src/app/app_transitions.dart';
 import 'package:future_of_workout/src/current_workout/current_workout.dart';
+import 'package:future_of_workout/src/current_workout_exercise/view/current_workout_exercise_page.dart';
 import 'package:future_of_workout/src/exercise_details/exercise_details.dart';
 import 'package:future_of_workout/src/home/home.dart';
 import 'package:future_of_workout/src/workout_details/workout_details.dart';
@@ -112,6 +113,29 @@ class AppRouter {
       return CustomTransitionPage(
         key: state.pageKey,
         child: CurrentWorkoutPage(workoutId: workoutId),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+            AppTransitions()
+                .buildTransitions(animation, secondaryAnimation, child),
+      );
+    },
+    routes: [
+      _currentWorkoutExerciseRoute,
+    ],
+  );
+
+  static final GoRoute _currentWorkoutExerciseRoute = GoRoute(
+    name: CurrentWorkoutExercisePage.name,
+    path: CurrentWorkoutExercisePage.path,
+    pageBuilder: (context, state) {
+      final workoutId = state.params['workoutId']!;
+      final workoutExerciseId = state.params['workoutExerciseId']!;
+
+      return CustomTransitionPage(
+        key: state.pageKey,
+        child: CurrentWorkoutExercisePage(
+          workoutId: workoutId,
+          workoutExerciseId: workoutExerciseId,
+        ),
         transitionsBuilder: (context, animation, secondaryAnimation, child) =>
             AppTransitions()
                 .buildTransitions(animation, secondaryAnimation, child),
