@@ -139,72 +139,72 @@ class WorkoutDetailsView extends StatelessWidget {
 
   PopupMenuItem<void> _deletePopupMenuItem(BuildContext context) {
     return PopupMenuItem<void>(
-          onTap: () {
-            final bloc = context.read<WorkoutDetailsBloc>();
-            final name = bloc.state.workout!.name;
+      onTap: () {
+        final bloc = context.read<WorkoutDetailsBloc>();
+        final name = bloc.state.workout!.name;
 
-            Future.delayed(
-              Duration.zero,
-              () => showDialog<bool>(
-                context: context,
-                builder: (context) {
-                  return ConfirmDialog(
-                    title: 'Delete?',
-                    content: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Are you sure you want to delete:',
-                          style: AppTextStyle.medium16,
-                        ),
-                        Text(
-                          name,
-                          style: AppTextStyle.semiBold16,
-                        ),
-                      ],
+        Future.delayed(
+          Duration.zero,
+          () => showDialog<bool>(
+            context: context,
+            builder: (context) {
+              return ConfirmDialog(
+                title: 'Delete?',
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Are you sure you want to delete:',
+                      style: AppTextStyle.medium16,
                     ),
-                    onConfirm: () => bloc.add(const WorkoutDetailsDelete()),
-                  );
-                },
-              ),
-            );
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('Delete', style: AppTextStyle.medium16),
-              const Icon(Icons.delete, color: AppColors.grey)
-            ],
+                    Text(
+                      name,
+                      style: AppTextStyle.semiBold16,
+                    ),
+                  ],
+                ),
+                onConfirm: () => bloc.add(const WorkoutDetailsDelete()),
+              );
+            },
           ),
         );
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text('Delete', style: AppTextStyle.medium16),
+          const Icon(Icons.delete, color: AppColors.grey)
+        ],
+      ),
+    );
   }
 
   PopupMenuItem<void> _renamePopupMenuItem(BuildContext context) {
     return PopupMenuItem<void>(
-          onTap: () {
-            final bloc = context.read<WorkoutDetailsBloc>();
-            Future.delayed(
-              Duration.zero,
-              () => showDialog<String>(
-                context: context,
-                builder: (context) {
-                  return RenameWorkoutDialog(
-                    onConfirm: (value) =>
-                        bloc.add(WorkoutDetailsRenameWorkout(name: value)),
-                  );
-                },
-              ),
-            );
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('Rename', style: AppTextStyle.medium16),
-              const Icon(Icons.edit, color: AppColors.grey)
-            ],
+      onTap: () {
+        final bloc = context.read<WorkoutDetailsBloc>();
+        Future.delayed(
+          Duration.zero,
+          () => showDialog<String>(
+            context: context,
+            builder: (context) {
+              return RenameWorkoutDialog(
+                onConfirm: (value) =>
+                    bloc.add(WorkoutDetailsRenameWorkout(name: value)),
+              );
+            },
           ),
         );
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text('Rename', style: AppTextStyle.medium16),
+          const Icon(Icons.edit, color: AppColors.grey)
+        ],
+      ),
+    );
   }
 
   Widget _getFavoritIcon(bool isFavorite) {
@@ -221,6 +221,9 @@ class WorkoutDetailsView extends StatelessWidget {
       text: 'Start workout',
       icon: const Icon(Icons.play_arrow_outlined),
       onTap: () {
+        context
+            .read<CurrentWorkoutBloc>()
+            .add(CurrentWorkoutLoadingWorkout(id: workoutId));
         context.goNamed(
           CurrentWorkoutPage.name,
           params: {'workoutId': workoutId},

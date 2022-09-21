@@ -19,12 +19,7 @@ class CurrentWorkoutPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => CurrentWorkoutBloc(
-        workoutRepository: context.read<WorkoutRepository>(),
-      )..add(CurrentWorkoutLoadingWorkout(id: workoutId)),
-      child: const CurrentWorkoutView(),
-    );
+    return const CurrentWorkoutView();
   }
 }
 
@@ -96,7 +91,11 @@ class CurrentWorkoutView extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           children: [
             const FinishButton(),
-            ..._buildList(context, state.workoutExercises),
+            ..._buildList(
+              context,
+              state.workoutExercises,
+              workout.workoutExercises,
+            ),
           ],
         ),
       ),
@@ -105,7 +104,8 @@ class CurrentWorkoutView extends StatelessWidget {
 
   List<Widget> _buildList(
     BuildContext context,
-    Map<WorkoutExercise, bool> workoutExercises,
+    Map<WorkoutExercise, int> workoutExercises,
+    List<WorkoutExercise> workoutExerciseList,
   ) {
     final list = <Widget>[];
 
@@ -114,19 +114,26 @@ class CurrentWorkoutView extends StatelessWidget {
     );
 
     workoutExercises.forEach(
-      (key, value) => list.add(
-        CurrentWorkoutExerciseItem(
-          workoutExercise: key,
-          isFinished: value,
-          onTap: () => context.goNamed(
-            CurrentWorkoutExercisePage.name,
-            params: {
-              'workoutId': workoutId,
-              'workoutExerciseId': key.id,
-            },
+      (key, value) {
+        final seriesTodo = workoutExerciseList
+            .firstWhere((element) => element.id == key.id)
+            .exerciseSeries
+            .length;
+
+        list.add(
+          CurrentWorkoutExerciseItem(
+            workoutExercise: key,
+            isFinished: value >= seriesTodo,
+            onTap: () => context.goNamed(
+              CurrentWorkoutExercisePage.name,
+              params: {
+                'workoutId': workoutId,
+                'workoutExerciseId': key.id,
+              },
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
 
     return list;

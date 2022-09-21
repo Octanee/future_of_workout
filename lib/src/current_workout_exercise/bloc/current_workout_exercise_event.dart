@@ -22,15 +22,17 @@ class CurrentWorkoutExerciseLoading extends CurrentWorkoutExerciseEvent {
 
 class CurrentWorkoutExerciseCompleteSeries extends CurrentWorkoutExerciseEvent {
   const CurrentWorkoutExerciseCompleteSeries({
+    required this.series,
     required this.weight,
     required this.reps,
   });
 
+  final ExerciseSeries series;
   final double weight;
   final int reps;
 
   @override
-  List<Object> get props => [weight, reps];
+  List<Object> get props => [series, weight, reps];
 }
 
 class CurrentWorkoutExerciseWorkoutExerciseComplete

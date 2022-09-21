@@ -12,7 +12,7 @@ class CurrentWorkoutBloc
       : _workoutRepository = workoutRepository,
         super(const CurrentWorkoutState()) {
     on<CurrentWorkoutLoadingWorkout>(_onLoadingWorkout);
-    on<CurrentWorkoutWorkoutExerciseFinished>(_onWorkoutExerciseFinished);
+    on<CurrentWorkoutWorkoutExerciseSeriesFinished>(_onWorkoutExerciseFinished);
     on<CurrentWorkoutFinishWorkout>(_onFinishWorkout);
   }
 
@@ -24,9 +24,9 @@ class CurrentWorkoutBloc
   ) {
     try {
       final workout = _workoutRepository.get(id: event.id);
-      final workoutExercisesMap = Map<WorkoutExercise, bool>.fromIterable(
+      final workoutExercisesMap = Map<WorkoutExercise, int>.fromIterable(
         workout.workoutExercises,
-        value: (e) => false,
+        value: (e) => 0,
       );
 
       emit(
@@ -42,13 +42,13 @@ class CurrentWorkoutBloc
   }
 
   void _onWorkoutExerciseFinished(
-    CurrentWorkoutWorkoutExerciseFinished event,
+    CurrentWorkoutWorkoutExerciseSeriesFinished event,
     Emitter<CurrentWorkoutState> emit,
   ) {
     emit(state.copyWith(status: CurrentWorkoutStatus.updating));
 
     final newMap = state.workoutExercises
-      ..update(event.workoutExercise, (value) => true);
+      ..update(event.workoutExercise, (value) => event.index);
 
     emit(
       state.copyWith(

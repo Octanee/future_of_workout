@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/current_workout/current_workout.dart';
 import 'package:future_of_workout/src/current_workout_exercise/current_workout_exercise.dart';
 import 'package:future_of_workout/src/current_workout_exercise/view/widgets/current_workout_exercise_series_item.dart';
 import 'package:future_of_workout/src/logger.dart';
@@ -75,34 +76,65 @@ class CurrentWorkoutExerciseView extends StatelessWidget {
     CurrentWorkoutExerciseState state,
   ) {
     final workoutExercise = state.workoutExercise!;
-    return AppScaffold(
-      title: workoutExercise.exercise.name,
-      body: ListView(
-        padding: const EdgeInsets.symmetric(vertical: 8),
-        physics: const BouncingScrollPhysics(),
-        children: [
-          ..._buildList(state.exerciseSeries),
-          const AddSeriesButton(),
-        ],
+    return WillPopScope(
+      onWillPop: () async {
+        final completed = state.completedExerciseSeries.length;
+
+        context.read<CurrentWorkoutBloc>().add(
+              CurrentWorkoutWorkoutExerciseSeriesFinished(
+                workoutExercise: workoutExercise,
+                index: completed,
+              ),
+            );
+        return true;
+      },
+      child: AppScaffold(
+        title: workoutExercise.exercise.name,
+        body: ListView(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          physics: const BouncingScrollPhysics(),
+          children: [
+            ..._buildList(
+              context,
+              exerciseSeries: state.exerciseSeries,
+              completedExerciseSeries: state.completedExerciseSeries,
+              workoutExercise: workoutExercise,
+            ),
+            const AddSeriesButton(),
+          ],
+        ),
       ),
     );
   }
 
-  List<Widget> _buildList(Map<ExerciseSeries, bool> exerciseSeries) {
+  List<Widget> _buildList(
+    BuildContext context, {
+    required List<ExerciseSeries> exerciseSeries,
+    required List<ExerciseSeries> completedExerciseSeries,
+    required WorkoutExercise workoutExercise,
+  }) {
     final list = <Widget>[];
 
-    exerciseSeries.forEach(
-      (key, value) => list.add(
+    for (final series in exerciseSeries) {
+      list.add(
         CurrentWorkoutExerciseSeriesItem(
-          exerciseSeries: key,
-          isFinished: value,
-          index: list.length + 1,
+          isFinished: completedExerciseSeries
+              .any((element) => element.index == series.index),
+          index: series.index,
+          exerciseSeries: series,
           onTap: () {
-            logger.i('CurrentWorkoutExerciseSeriesItem TAP');
+            // TODO(Octane): Show input dialog
+            context.read<CurrentWorkoutExerciseBloc>().add(
+                  CurrentWorkoutExerciseCompleteSeries(
+                    series: series,
+                    weight: 60,
+                    reps: 10,
+                  ),
+                );
           },
         ),
-      ),
-    );
+      );
+    }
 
     return list;
   }

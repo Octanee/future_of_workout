@@ -11,15 +11,15 @@ import 'package:future_of_workout/src/workout_list/workout_list.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRouter {
-  static final GoRouter router = GoRouter(
-    debugLogDiagnostics: true,
-    initialLocation: '/${WorkoutsListTab.name}',
-    routes: [
-      _homeRoute,
-      _currentWorkoutRoute,
-      _exerciseDetailsRoute,
-    ],
-  );
+  static GoRouter router = GoRouter(
+        debugLogDiagnostics: true,
+        initialLocation: '/${WorkoutsListTab.name}',
+        routes: [
+          _homeRoute,
+          _currentWorkoutRoute,
+          _exerciseDetailsRoute,
+        ],
+      );
 
   static final GoRoute _homeRoute = GoRoute(
     name: HomePage.name,

@@ -14,12 +14,14 @@ class CurrentWorkoutExerciseState extends Equatable {
     this.status = CurrentWorkoutExerciseStatus.loading,
     this.workout,
     this.workoutExercise,
-    this.exerciseSeries = const {},
+    this.exerciseSeries = const [],
+    this.completedExerciseSeries = const [],
   });
 
   final CurrentWorkoutExerciseStatus status;
   final WorkoutExercise? workoutExercise;
-  final Map<ExerciseSeries, bool> exerciseSeries;
+  final List<ExerciseSeries> exerciseSeries;
+  final List<ExerciseSeries> completedExerciseSeries;
   final Workout? workout;
 
   @override
@@ -28,13 +30,16 @@ class CurrentWorkoutExerciseState extends Equatable {
   CurrentWorkoutExerciseState copyWith({
     CurrentWorkoutExerciseStatus? status,
     WorkoutExercise? workoutExercise,
-    Map<ExerciseSeries, bool>? exerciseSeries,
+    List<ExerciseSeries>? exerciseSeries,
+    List<ExerciseSeries>? completedExerciseSeries,
     Workout? workout,
   }) {
     return CurrentWorkoutExerciseState(
       status: status ?? this.status,
       workoutExercise: workoutExercise ?? this.workoutExercise,
       exerciseSeries: exerciseSeries ?? this.exerciseSeries,
+      completedExerciseSeries:
+          completedExerciseSeries ?? this.completedExerciseSeries,
       workout: workout ?? this.workout,
     );
   }

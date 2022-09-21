@@ -16,13 +16,17 @@ class CurrentWorkoutLoadingWorkout extends CurrentWorkoutEvent {
   List<Object> get props => [id];
 }
 
-class CurrentWorkoutWorkoutExerciseFinished extends CurrentWorkoutEvent {
-  const CurrentWorkoutWorkoutExerciseFinished({required this.workoutExercise});
+class CurrentWorkoutWorkoutExerciseSeriesFinished extends CurrentWorkoutEvent {
+  const CurrentWorkoutWorkoutExerciseSeriesFinished({
+    required this.workoutExercise,
+    required this.index,
+  });
 
   final WorkoutExercise workoutExercise;
+  final int index;
 
   @override
-  List<Object> get props => [workoutExercise];
+  List<Object> get props => [workoutExercise, index];
 }
 
 class CurrentWorkoutFinishWorkout extends CurrentWorkoutEvent {

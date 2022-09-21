@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:future_of_workout/src/logger.dart';
 import 'package:workout_api/workout_api.dart';
 import 'package:workout_repository/workout_repository.dart';
 
@@ -15,6 +14,7 @@ class CurrentWorkoutExerciseBloc
       : _workoutRepository = workoutRepository,
         super(const CurrentWorkoutExerciseState()) {
     on<CurrentWorkoutExerciseLoading>(_onLoading);
+    on<CurrentWorkoutExerciseCompleteSeries>(_onExerciseCompleteSeries);
   }
 
   final WorkoutRepository _workoutRepository;
@@ -30,28 +30,35 @@ class CurrentWorkoutExerciseBloc
       final workoutExercise = workout.workoutExercises
           .firstWhere((element) => element.id == event.workoutExerciseId);
 
-      logger.v(
-          'CurrentWorkoutExerciseBloc - _onLoading { workoutExercise.exerciseSeries: ${workoutExercise.exerciseSeries} }');
-
-      final exerciseSeriesMap = Map<ExerciseSeries, bool>.fromIterable(
-        workoutExercise.exerciseSeries,
-        
-        value: (e) => false,
-      );
-
-      logger.v(
-          'CurrentWorkoutExerciseBloc - _onLoading { exerciseSeriesMap: $exerciseSeriesMap }');
-
       emit(
         state.copyWith(
           status: CurrentWorkoutExerciseStatus.loaded,
           workout: workout,
           workoutExercise: workoutExercise,
-          exerciseSeries: exerciseSeriesMap,
+          exerciseSeries: workoutExercise.exerciseSeries,
         ),
       );
     } on WorkoutNotFoundException catch (_) {
       emit(state.copyWith(status: CurrentWorkoutExerciseStatus.failure));
     }
+  }
+
+  void _onExerciseCompleteSeries(
+    CurrentWorkoutExerciseCompleteSeries event,
+    Emitter<CurrentWorkoutExerciseState> emit,
+  ) {
+    emit(state.copyWith(status: CurrentWorkoutExerciseStatus.updating));
+
+    final completed = List<ExerciseSeries>.of(state.completedExerciseSeries)
+      ..add(event.series.copyWith(reps: event.reps, weight: event.weight));
+
+    // TODO(Octane): Save in WorkoutLogAPI
+
+    emit(
+      state.copyWith(
+        status: CurrentWorkoutExerciseStatus.updated,
+        completedExerciseSeries: completed,
+      ),
+    );
   }
 }

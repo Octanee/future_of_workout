@@ -20,9 +20,9 @@ class ExerciseSeriesAdapter extends TypeAdapter<ExerciseSeries> {
 
     return ExerciseSeries(
       index: fields[1] as int,
-      weight: fields[1] as double,
-      reps: fields[2] as int,
-      rest: fields[3] as int,
+      weight: fields[2] as double,
+      reps: fields[3] as int,
+      rest: fields[4] as int,
     );
   }
 

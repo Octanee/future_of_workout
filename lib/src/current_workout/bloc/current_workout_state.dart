@@ -18,7 +18,7 @@ class CurrentWorkoutState extends Equatable {
 
   final CurrentWorkoutStatus status;
   final Workout? workout;
-  final Map<WorkoutExercise, bool> workoutExercises;
+  final Map<WorkoutExercise, int> workoutExercises;
 
   @override
   List<Object?> get props => [status, workout, workoutExercises];
@@ -26,7 +26,7 @@ class CurrentWorkoutState extends Equatable {
   CurrentWorkoutState copyWith({
     CurrentWorkoutStatus? status,
     Workout? workout,
-    Map<WorkoutExercise, bool>? workoutExercises,
+    Map<WorkoutExercise, int>? workoutExercises,
   }) {
     return CurrentWorkoutState(
       status: status ?? this.status,

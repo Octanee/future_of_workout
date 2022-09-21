@@ -31,12 +31,14 @@ class CurrentWorkoutExerciseSeriesItem extends StatelessWidget {
               width: 44,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(64),
-                color: AppColors.yellow,
+                color: isFinished ? AppColors.grey : AppColors.yellow,
               ),
               child: Center(
                 child: Text(
                   '$index',
-                  style: AppTextStyle.bold28,
+                  style: AppTextStyle.bold28.copyWith(
+                    color: isFinished ? AppColors.yellow : AppColors.grey,
+                  ),
                 ),
               ),
             ),

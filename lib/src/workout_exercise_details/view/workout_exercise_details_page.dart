@@ -107,7 +107,7 @@ class WorkoutExerciseDetailsView extends StatelessWidget {
                       context,
                       series: state.workoutExercise!.exerciseSeries,
                     ),
-              _buildChangeDisplayModeButton(context, state.isAdvanced),
+              //_buildChangeDisplayModeButton(context, state.isAdvanced),
             ],
             _buildExerciseInfoButton(
               context,
