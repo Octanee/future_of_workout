@@ -224,7 +224,7 @@ class WorkoutDetailsView extends StatelessWidget {
         context
             .read<CurrentWorkoutBloc>()
             .add(CurrentWorkoutLoadingWorkout(id: workoutId));
-        context.goNamed(
+        context.pushNamed(
           CurrentWorkoutPage.name,
           params: {'workoutId': workoutId},
         );

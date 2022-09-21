@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:future_of_workout/src/current_workout/current_workout.dart';
 
 import 'package:future_of_workout/src/styles/styles.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
-import 'package:workout_api/workout_api.dart';
 
 class CurrentWorkoutExerciseItem extends StatelessWidget {
   const CurrentWorkoutExerciseItem({
     super.key,
-    required this.workoutExercise,
+    required this.exercise,
     this.onTap,
-    this.isFinished = false,
   });
 
-  final WorkoutExercise workoutExercise;
+  final CurrentWorkoutExercise exercise;
   final VoidCallback? onTap;
-  final bool isFinished;
 
   @override
   Widget build(BuildContext context) {
@@ -27,14 +25,14 @@ class CurrentWorkoutExerciseItem extends StatelessWidget {
           children: [
             Row(
               children: [
-                if (!isFinished)
+                if (!exercise.isFinished)
                   SizedBox(
                     width: 80,
                     height: 80,
                     child: Padding(
                       padding: const EdgeInsets.all(8),
                       child: SvgPicture.asset(
-                        workoutExercise.exercise.imagePath,
+                        exercise.exercise.imagePath,
                         height: 64,
                       ),
                     ),
@@ -57,11 +55,11 @@ class CurrentWorkoutExerciseItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      workoutExercise.exercise.name,
+                      exercise.exercise.name,
                       style: AppTextStyle.bold20,
                     ),
                     Text(
-                      '${workoutExercise.exerciseSeries.length} series',
+                      '${exercise.series.length} series',
                       style: AppTextStyle.medium16,
                     ),
                   ],

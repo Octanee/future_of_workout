@@ -12,14 +12,14 @@ import 'package:go_router/go_router.dart';
 
 class AppRouter {
   static GoRouter router = GoRouter(
-        debugLogDiagnostics: true,
-        initialLocation: '/${WorkoutsListTab.name}',
-        routes: [
-          _homeRoute,
-          _currentWorkoutRoute,
-          _exerciseDetailsRoute,
-        ],
-      );
+    debugLogDiagnostics: true,
+    initialLocation: '/${WorkoutsListTab.name}',
+    routes: [
+      _homeRoute,
+      _currentWorkoutRoute,
+      _exerciseDetailsRoute,
+    ],
+  );
 
   static final GoRoute _homeRoute = GoRoute(
     name: HomePage.name,
@@ -127,15 +127,9 @@ class AppRouter {
     name: CurrentWorkoutExercisePage.name,
     path: CurrentWorkoutExercisePage.path,
     pageBuilder: (context, state) {
-      final workoutId = state.params['workoutId']!;
-      final workoutExerciseId = state.params['workoutExerciseId']!;
-
       return CustomTransitionPage(
         key: state.pageKey,
-        child: CurrentWorkoutExercisePage(
-          workoutId: workoutId,
-          workoutExerciseId: workoutExerciseId,
-        ),
+        child: const CurrentWorkoutExercisePage(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) =>
             AppTransitions()
                 .buildTransitions(animation, secondaryAnimation, child),

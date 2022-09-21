@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:future_of_workout/src/current_workout/current_workout.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
 import 'package:future_of_workout/src/widgets/custom_card.dart';
-import 'package:workout_api/workout_api.dart';
 
-class CurrentWorkoutExerciseSeriesItem extends StatelessWidget {
-  const CurrentWorkoutExerciseSeriesItem({
+class CurrentWorkoutSeriesItem extends StatelessWidget {
+  const CurrentWorkoutSeriesItem({
     super.key,
-    required this.index,
-    required this.exerciseSeries,
-    this.isFinished = false,
+    required this.series,
     this.onTap,
   });
 
-  final int index;
-  final ExerciseSeries exerciseSeries;
-  final bool isFinished;
+  final CurrentWorkoutSeries series;
   final VoidCallback? onTap;
 
   @override
@@ -31,13 +27,14 @@ class CurrentWorkoutExerciseSeriesItem extends StatelessWidget {
               width: 44,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(64),
-                color: isFinished ? AppColors.grey : AppColors.yellow,
+                color: series.isFinished ? AppColors.grey : AppColors.yellow,
               ),
               child: Center(
                 child: Text(
-                  '$index',
+                  '${series.index}',
                   style: AppTextStyle.bold28.copyWith(
-                    color: isFinished ? AppColors.yellow : AppColors.grey,
+                    color:
+                        series.isFinished ? AppColors.yellow : AppColors.grey,
                   ),
                 ),
               ),
@@ -51,7 +48,7 @@ class CurrentWorkoutExerciseSeriesItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.baseline,
                     children: [
                       Text(
-                        exerciseSeries.weight.toString(),
+                        series.weight.toString(),
                         style: AppTextStyle.bold28,
                       ),
                       Text(
@@ -73,7 +70,7 @@ class CurrentWorkoutExerciseSeriesItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.baseline,
                     children: [
                       Text(
-                        exerciseSeries.reps.toString(),
+                        series.reps.toString(),
                         style: AppTextStyle.bold28,
                       ),
                       Text(

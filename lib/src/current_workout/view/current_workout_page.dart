@@ -7,7 +7,6 @@ import 'package:future_of_workout/src/styles/styles.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:future_of_workout/src/workout_list/workout_list.dart';
 import 'package:go_router/go_router.dart';
-import 'package:workout_repository/workout_repository.dart';
 
 class CurrentWorkoutPage extends StatelessWidget {
   const CurrentWorkoutPage({required this.workoutId, super.key});
@@ -68,73 +67,38 @@ class CurrentWorkoutView extends StatelessWidget {
 
   Widget _buildContent(BuildContext context, CurrentWorkoutState state) {
     final workout = state.workout!;
-    return WillPopScope(
-      onWillPop: () async {
-        final bloc = context.read<CurrentWorkoutBloc>();
-
-        await showDialog<bool>(
-          context: context,
-          builder: (builderContext) => ConfirmDialog(
-            title: 'Finish workout?',
-            content: Text(
-              'Do you want to end your workout?',
-              style: AppTextStyle.medium16,
-            ),
-            onConfirm: () => bloc.add(const CurrentWorkoutFinishWorkout()),
-          ),
-        );
-        return false;
-      },
-      child: AppScaffold(
-        title: workout.name,
-        body: ListView(
-          physics: const BouncingScrollPhysics(),
-          children: [
-            const FinishButton(),
-            ..._buildList(
-              context,
-              state.workoutExercises,
-              workout.workoutExercises,
-            ),
-          ],
-        ),
+    return AppScaffold(
+      title: workout.name,
+      body: ListView(
+        physics: const BouncingScrollPhysics(),
+        children: [
+          const FinishButton(),
+          ..._buildList(context, state.exercises),
+          AddExerciseButton(onTap: () {}),
+        ],
       ),
     );
   }
 
   List<Widget> _buildList(
     BuildContext context,
-    Map<WorkoutExercise, int> workoutExercises,
-    List<WorkoutExercise> workoutExerciseList,
+    List<CurrentWorkoutExercise> exercises,
   ) {
-    final list = <Widget>[];
-
-    final workoutId = context.select(
-      (CurrentWorkoutBloc bloc) => bloc.state.workout!.id,
-    );
-
-    workoutExercises.forEach(
-      (key, value) {
-        final seriesTodo = workoutExerciseList
-            .firstWhere((element) => element.id == key.id)
-            .exerciseSeries
-            .length;
-
-        list.add(
-          CurrentWorkoutExerciseItem(
-            workoutExercise: key,
-            isFinished: value >= seriesTodo,
-            onTap: () => context.goNamed(
-              CurrentWorkoutExercisePage.name,
-              params: {
-                'workoutId': workoutId,
-                'workoutExerciseId': key.id,
-              },
-            ),
+    final list = exercises
+        .map<Widget>(
+          (exercise) => CurrentWorkoutExerciseItem(
+            exercise: exercise,
+            onTap: () {
+              final bloc = context.read<CurrentWorkoutBloc>()
+                ..add(CurrentWorkoutChangeExercise(exercise: exercise));
+              context.goNamed(
+                CurrentWorkoutExercisePage.name,
+                params: {'workoutId': bloc.state.workout!.id},
+              );
+            },
           ),
-        );
-      },
-    );
+        )
+        .toList();
 
     return list;
   }

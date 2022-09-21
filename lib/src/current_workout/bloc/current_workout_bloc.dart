@@ -1,5 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import '../models/current_workout_exercise.dart';
+import '../models/current_workout_series.dart';
+import '../../logger.dart';
 import 'package:workout_api/workout_api.dart';
 import 'package:workout_repository/workout_repository.dart';
 
@@ -12,8 +15,8 @@ class CurrentWorkoutBloc
       : _workoutRepository = workoutRepository,
         super(const CurrentWorkoutState()) {
     on<CurrentWorkoutLoadingWorkout>(_onLoadingWorkout);
-    on<CurrentWorkoutWorkoutExerciseSeriesFinished>(_onWorkoutExerciseFinished);
-    on<CurrentWorkoutFinishWorkout>(_onFinishWorkout);
+    on<CurrentWorkoutSeriesFinished>(_onSeriesFinished);
+    on<CurrentWorkoutChangeExercise>(_onChangeExercise);
   }
 
   final WorkoutRepository _workoutRepository;
@@ -24,16 +27,34 @@ class CurrentWorkoutBloc
   ) {
     try {
       final workout = _workoutRepository.get(id: event.id);
-      final workoutExercisesMap = Map<WorkoutExercise, int>.fromIterable(
-        workout.workoutExercises,
-        value: (e) => 0,
-      );
+
+      final exercises = workout.workoutExercises.map<CurrentWorkoutExercise>(
+        (workoutExercise) {
+          final exercise = CurrentWorkoutExercise(
+            id: workoutExercise.id,
+            index: workoutExercise.index,
+            exercise: workoutExercise.exercise,
+            series: workoutExercise.exerciseSeries
+                .map<CurrentWorkoutSeries>(
+                  (exerciseSeries) => CurrentWorkoutSeries(
+                    index: exerciseSeries.index,
+                    weight: exerciseSeries.weight,
+                    reps: exerciseSeries.reps,
+                    rest: exerciseSeries.rest,
+                  ),
+                )
+                .toList(),
+          );
+          return exercise;
+        },
+      ).toList();
 
       emit(
         state.copyWith(
           status: CurrentWorkoutStatus.loaded,
           workout: workout,
-          workoutExercises: workoutExercisesMap,
+          exercises: exercises,
+          startDate: DateTime.now(),
         ),
       );
     } on WorkoutNotFoundException catch (_) {
@@ -41,27 +62,51 @@ class CurrentWorkoutBloc
     }
   }
 
-  void _onWorkoutExerciseFinished(
-    CurrentWorkoutWorkoutExerciseSeriesFinished event,
+  void _onSeriesFinished(
+    CurrentWorkoutSeriesFinished event,
     Emitter<CurrentWorkoutState> emit,
   ) {
-    emit(state.copyWith(status: CurrentWorkoutStatus.updating));
+    try {
+      final exercises = List.of(state.exercises);
 
-    final newMap = state.workoutExercises
-      ..update(event.workoutExercise, (value) => event.index);
+      final exerciseIndex = exercises.indexWhere(
+        (current) =>
+            current.id == state.currentWorkoutExercise!.id &&
+            current.index == state.currentWorkoutExercise!.index,
+      );
 
-    emit(
-      state.copyWith(
-        status: CurrentWorkoutStatus.updated,
-        workoutExercises: newMap,
-      ),
-    );
+      final series = List.of(state.currentWorkoutExercise!.series);
+      final seriesIndex =
+          series.indexWhere((current) => current.index == event.series.index);
+
+      series[seriesIndex] = event.series.copyWith(isFinished: true);
+
+      final isFinished = seriesIndex == series.length - 1;
+
+      logger.i('_onSeriesFinished { isFinished: $isFinished }');
+
+      final newExercise = state.currentWorkoutExercise!
+          .copyWith(series: series, isFinished: isFinished);
+
+      exercises[exerciseIndex] = newExercise;
+
+      emit(
+        state.copyWith(
+          currentWorkoutExercise: newExercise,
+          exercises: exercises,
+        ),
+      );
+    } catch (e) {
+      logger.e(e);
+    }
   }
 
-  void _onFinishWorkout(
-    CurrentWorkoutFinishWorkout event,
+  void _onChangeExercise(
+    CurrentWorkoutChangeExercise event,
     Emitter<CurrentWorkoutState> emit,
   ) {
-    emit(state.copyWith(status: CurrentWorkoutStatus.finish));
+    emit(
+      state.copyWith(currentWorkoutExercise: event.exercise),
+    );
   }
 }

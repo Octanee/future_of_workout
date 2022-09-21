@@ -4,7 +4,7 @@ abstract class CurrentWorkoutEvent extends Equatable {
   const CurrentWorkoutEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class CurrentWorkoutLoadingWorkout extends CurrentWorkoutEvent {
@@ -16,19 +16,21 @@ class CurrentWorkoutLoadingWorkout extends CurrentWorkoutEvent {
   List<Object> get props => [id];
 }
 
-class CurrentWorkoutWorkoutExerciseSeriesFinished extends CurrentWorkoutEvent {
-  const CurrentWorkoutWorkoutExerciseSeriesFinished({
-    required this.workoutExercise,
-    required this.index,
+class CurrentWorkoutChangeExercise extends CurrentWorkoutEvent {
+  const CurrentWorkoutChangeExercise({
+    this.exercise,
   });
-
-  final WorkoutExercise workoutExercise;
-  final int index;
+  final CurrentWorkoutExercise? exercise;
 
   @override
-  List<Object> get props => [workoutExercise, index];
+  List<Object?> get props => [exercise];
 }
 
-class CurrentWorkoutFinishWorkout extends CurrentWorkoutEvent {
-  const CurrentWorkoutFinishWorkout();
+class CurrentWorkoutSeriesFinished extends CurrentWorkoutEvent {
+  const CurrentWorkoutSeriesFinished({required this.series});
+
+  final CurrentWorkoutSeries series;
+
+  @override
+  List<Object> get props => [series];
 }
