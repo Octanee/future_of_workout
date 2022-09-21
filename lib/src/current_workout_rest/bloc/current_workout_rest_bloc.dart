@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:future_of_workout/src/current_workout_rest/current_workout_rest.dart';
+import '../current_workout_rest.dart';
 
 part 'current_workout_rest_event.dart';
 part 'current_workout_rest_state.dart';
@@ -11,11 +11,14 @@ class CurrentWorkoutRestBloc
     extends Bloc<CurrentWorkoutRestEvent, CurrentWorkoutRestState> {
   CurrentWorkoutRestBloc({required Ticker ticker, required int duration})
       : _ticker = ticker,
-        super(CurrentWorkoutRestInitial(duration: duration)) {
+        super(CurrentWorkoutRestState(duration: duration)) {
     on<CurrentWorkoutRestStarted>(_onStarted);
     on<CurrentWorkoutRestPaused>(_onPaused);
     on<CurrentWorkoutRestResumed>(_onResumed);
+    on<CurrentWorkoutRestStop>(_onStop);
     on<CurrentWorkoutRestTicked>(_onTicked);
+    on<CurrentWorkoutRestAdd>(_onAdd);
+    on<CurrentWorkoutRestSubtract>(_onSubtract);
   }
 
   final Ticker _ticker;
@@ -32,7 +35,7 @@ class CurrentWorkoutRestBloc
     CurrentWorkoutRestStarted event,
     Emitter<CurrentWorkoutRestState> emit,
   ) {
-    emit(CurrentWorkoutRestRunInProgress(duration: event.duration));
+    emit(state.copyWith(duration: event.duration));
 
     _tickerSubscription?.cancel();
     _tickerSubscription = _ticker.tick(ticks: event.duration).listen(
@@ -44,9 +47,14 @@ class CurrentWorkoutRestBloc
     CurrentWorkoutRestPaused event,
     Emitter<CurrentWorkoutRestState> emit,
   ) {
-    if (state is CurrentWorkoutRestRunInProgress) {
+    if (state.status == CurrentWorkoutRestStatus.runInProgress) {
       _tickerSubscription?.pause();
-      emit(CurrentWorkoutRestRunPause(duration: state.duration));
+      emit(
+        state.copyWith(
+          status: CurrentWorkoutRestStatus.runPause,
+          duration: state.duration,
+        ),
+      );
     }
   }
 
@@ -54,10 +62,22 @@ class CurrentWorkoutRestBloc
     CurrentWorkoutRestResumed resume,
     Emitter<CurrentWorkoutRestState> emit,
   ) {
-    if (state is CurrentWorkoutRestRunPause) {
+    if (state.status == CurrentWorkoutRestStatus.runPause) {
       _tickerSubscription?.resume();
-      emit(CurrentWorkoutRestRunInProgress(duration: state.duration));
+      emit(
+        state.copyWith(
+          status: CurrentWorkoutRestStatus.runInProgress,
+          duration: state.duration,
+        ),
+      );
     }
+  }
+
+  void _onStop(
+    CurrentWorkoutRestStop event,
+    Emitter<CurrentWorkoutRestState> emit,
+  ) {
+    emit(state.copyWith(status: CurrentWorkoutRestStatus.complete));
   }
 
   void _onTicked(
@@ -66,8 +86,25 @@ class CurrentWorkoutRestBloc
   ) {
     emit(
       event.duration > 0
-          ? CurrentWorkoutRestRunInProgress(duration: event.duration)
-          : const CurrentWorkoutRestRunComplete(),
+          ? state.copyWith(
+              status: CurrentWorkoutRestStatus.runInProgress,
+              duration: event.duration,
+            )
+          : state.copyWith(status: CurrentWorkoutRestStatus.complete),
     );
+  }
+
+  void _onAdd(
+    CurrentWorkoutRestAdd event,
+    Emitter<CurrentWorkoutRestState> emit,
+  ) {
+    add(CurrentWorkoutRestStarted(duration: state.duration + 15));
+  }
+
+  void _onSubtract(
+    CurrentWorkoutRestSubtract event,
+    Emitter<CurrentWorkoutRestState> emit,
+  ) {
+    add(CurrentWorkoutRestStarted(duration: state.duration - 15));
   }
 }

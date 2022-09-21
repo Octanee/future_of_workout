@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/current_workout/current_workout.dart';
 import 'package:future_of_workout/src/current_workout_exercise/current_workout_exercise.dart';
+import 'package:future_of_workout/src/current_workout_rest/current_workout_rest.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:go_router/go_router.dart';
 
@@ -60,14 +61,25 @@ class CurrentWorkoutExerciseView extends StatelessWidget {
                         builder: (builderContext) => SeriesDialog(
                           weight: series.weight.toString(),
                           reps: series.reps.toString(),
-                          onConfirm: (reps, weight) => bloc.add(
-                            CurrentWorkoutSeriesFinished(
-                              series: series.copyWith(
-                                weight: weight,
-                                reps: reps,
+                          onConfirm: (reps, weight) {
+                            bloc.add(
+                              CurrentWorkoutSeriesFinished(
+                                series: series.copyWith(
+                                  weight: weight,
+                                  reps: reps,
+                                ),
                               ),
-                            ),
-                          ),
+                            );
+                            if (!series.isFinished) {
+                              context.goNamed(
+                                CurrentWorkoutRestPage.name,
+                                params: {
+                                  'time': series.rest.toString(),
+                                  'workoutId': bloc.state.workout!.id
+                                },
+                              );
+                            }
+                          },
                         ),
                       );
                     }

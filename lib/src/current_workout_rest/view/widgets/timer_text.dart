@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/current_workout_rest/current_workout_rest.dart';
+import 'package:future_of_workout/src/styles/styles.dart';
 
 class TimerText extends StatelessWidget {
   const TimerText({super.key});
@@ -15,7 +16,7 @@ class TimerText extends StatelessWidget {
     final secondStr = (duration % 60).toString().padLeft(2, '0');
     return Text(
       '$minutesStr:$secondStr',
-      style: Theme.of(context).textTheme.headline1,
+      style: AppTextStyle.bold96,
     );
   }
 }

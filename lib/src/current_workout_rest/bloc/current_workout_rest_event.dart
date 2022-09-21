@@ -19,8 +19,20 @@ class CurrentWorkoutRestPaused extends CurrentWorkoutRestEvent {
   const CurrentWorkoutRestPaused();
 }
 
+class CurrentWorkoutRestStop extends CurrentWorkoutRestEvent {
+  const CurrentWorkoutRestStop();
+}
+
 class CurrentWorkoutRestResumed extends CurrentWorkoutRestEvent {
   const CurrentWorkoutRestResumed();
+}
+
+class CurrentWorkoutRestAdd extends CurrentWorkoutRestEvent {
+  const CurrentWorkoutRestAdd();
+}
+
+class CurrentWorkoutRestSubtract extends CurrentWorkoutRestEvent {
+  const CurrentWorkoutRestSubtract();
 }
 
 class CurrentWorkoutRestTicked extends CurrentWorkoutRestEvent {

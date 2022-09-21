@@ -15,7 +15,8 @@ class CurrentWorkoutRestPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          CurrentWorkoutRestBloc(ticker: const Ticker(), duration: duration),
+          CurrentWorkoutRestBloc(ticker: const Ticker(), duration: duration)
+            ..add(CurrentWorkoutRestStarted(duration: duration)),
       child: const CurrentWorkoutRestView(),
     );
   }
@@ -27,6 +28,7 @@ class CurrentWorkoutRestView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
+      title: 'Rest',
       body: Stack(
         children: const [
           Center(child: TimerText()),

@@ -5,6 +5,11 @@ import 'package:google_fonts/google_fonts.dart';
 class AppTextStyle {
   const AppTextStyle._();
 
+  static TextStyle bold96 = _workSans(
+    fontSize: 96,
+    fontWeight: FontWeight.bold,
+  );
+
   static TextStyle bold28 = _workSans(
     fontSize: 28,
     fontWeight: FontWeight.bold,

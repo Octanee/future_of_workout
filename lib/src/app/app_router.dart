@@ -136,6 +136,9 @@ class AppRouter {
                 .buildTransitions(animation, secondaryAnimation, child),
       );
     },
+    routes: [
+      _currentWorkoutRestRoute,
+    ],
   );
 
   static final GoRoute _currentWorkoutRestRoute = GoRoute(
