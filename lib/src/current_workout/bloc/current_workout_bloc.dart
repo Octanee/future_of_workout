@@ -1,8 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import '../models/current_workout_exercise.dart';
-import '../models/current_workout_series.dart';
-import '../../logger.dart';
+import 'package:future_of_workout/src/current_workout/current_workout.dart';
+import 'package:future_of_workout/src/logger.dart';
 import 'package:workout_api/workout_api.dart';
 import 'package:workout_repository/workout_repository.dart';
 
