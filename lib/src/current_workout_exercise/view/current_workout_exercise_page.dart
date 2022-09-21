@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/current_workout/current_workout.dart';
 import 'package:future_of_workout/src/current_workout_exercise/current_workout_exercise.dart';
-import 'package:future_of_workout/src/current_workout_exercise/view/widgets/current_workout_series_item.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:go_router/go_router.dart';
 
@@ -53,11 +52,24 @@ class CurrentWorkoutExerciseView extends StatelessWidget {
 
             return CurrentWorkoutSeriesItem(
               series: series,
-              onTap: todo && !series.isFinished
-                  ? () {
-                      context
-                          .read<CurrentWorkoutBloc>()
-                          .add(CurrentWorkoutSeriesFinished(series: series));
+              onTap: todo || series.isFinished
+                  ? () async {
+                      final bloc = context.read<CurrentWorkoutBloc>();
+                      await showDialog<void>(
+                        context: context,
+                        builder: (builderContext) => SeriesDialog(
+                          weight: series.weight.toString(),
+                          reps: series.reps.toString(),
+                          onConfirm: (reps, weight) => bloc.add(
+                            CurrentWorkoutSeriesFinished(
+                              series: series.copyWith(
+                                weight: weight,
+                                reps: reps,
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
                     }
                   : null,
             );
