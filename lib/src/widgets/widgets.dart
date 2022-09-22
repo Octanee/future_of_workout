@@ -3,6 +3,7 @@ export 'app_loading.dart';
 export 'app_scaffold.dart';
 export 'bar_button.dart';
 export 'body_widget.dart';
+export 'circle_button.dart';
 export 'confirm_dialog.dart';
 export 'custom_bar.dart';
 export 'custom_card.dart';
