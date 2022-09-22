@@ -22,7 +22,7 @@ class ExerciseSeries extends Equatable {
   ExerciseSeries({
     String? id,
     required this.index,
-    this.weight = 0,
+    this.weight = 20,
     this.reps = 12,
     this.rest = 120,
   })  : assert(
