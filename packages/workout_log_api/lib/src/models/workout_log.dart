@@ -25,14 +25,18 @@ class WorkoutLog extends Equatable {
     String? id,
     DateTime? startDate,
     this.endDate,
-    required this.workoutId,
-    required this.workoutExerciseLogs,
-  })  : startDate = startDate ?? DateTime.now(),
-        assert(workoutId.isNotEmpty, '"workoutId" can not be empty.'),
-        assert(
+    this.workoutId,
+    this.workoutExerciseLogs = const [],
+    this.name = 'Workout',
+  })  : assert(
           id == null || id.isNotEmpty,
           '"id" can not be null and should be empty',
         ),
+        assert(
+          name.isNotEmpty,
+          '"id" can not be null and should be empty',
+        ),
+        startDate = startDate ?? DateTime.now(),
         id = id ?? const Uuid().v4();
 
   /// The unique indentifier of the workout.
@@ -48,10 +52,15 @@ class WorkoutLog extends Equatable {
   /// The date of end durign workout.
   final DateTime? endDate;
 
+  /// The name of workout.
+  ///
+  /// Defaults `Workout`.
+  final String name;
+
   /// The unique indentifier of during workout.
   ///
   /// Cannot be empty.
-  final String workoutId;
+  final String? workoutId;
 
   /// List of [WorkoutExerciseLog] in workout.
   ///
@@ -77,6 +86,7 @@ class WorkoutLog extends Equatable {
     DateTime? endDate,
     String? workoutId,
     List<WorkoutExerciseLog>? workoutExerciseLogs,
+    String? name,
   }) {
     return WorkoutLog(
       id: id ?? this.id,
@@ -84,12 +94,14 @@ class WorkoutLog extends Equatable {
       endDate: endDate ?? this.endDate,
       workoutId: workoutId ?? this.workoutId,
       workoutExerciseLogs: workoutExerciseLogs ?? this.workoutExerciseLogs,
+      name: name ?? this.name,
     );
   }
 
   /// Convert the given [Workout] into a [WorkoutLog]
   factory WorkoutLog.fromWorkout(Workout workout) => WorkoutLog(
         workoutId: workout.id,
+        name: workout.name,
         workoutExerciseLogs: workout.workoutExercises
             .map(WorkoutExerciseLog.fromWorkoutExercise)
             .toList(),

@@ -14,10 +14,13 @@ WorkoutLog _$WorkoutLogFromJson(Map<String, dynamic> json) => WorkoutLog(
       endDate: json['endDate'] == null
           ? null
           : DateTime.parse(json['endDate'] as String),
-      workoutId: json['workoutId'] as String,
-      workoutExerciseLogs: (json['workoutExerciseLogs'] as List<dynamic>)
-          .map((e) => WorkoutExerciseLog.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      workoutId: json['workoutId'] as String?,
+      workoutExerciseLogs: (json['workoutExerciseLogs'] as List<dynamic>?)
+              ?.map(
+                  (e) => WorkoutExerciseLog.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      name: json['name'] as String? ?? 'Workout',
     );
 
 Map<String, dynamic> _$WorkoutLogToJson(WorkoutLog instance) =>
@@ -25,6 +28,7 @@ Map<String, dynamic> _$WorkoutLogToJson(WorkoutLog instance) =>
       'id': instance.id,
       'startDate': instance.startDate.toIso8601String(),
       'endDate': instance.endDate?.toIso8601String(),
+      'name': instance.name,
       'workoutId': instance.workoutId,
       'workoutExerciseLogs': instance.workoutExerciseLogs,
     };
