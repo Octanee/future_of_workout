@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:local_storage_workout_api/local_storage_workout_api.dart';
 import 'package:rxdart/rxdart.dart';
@@ -32,17 +30,6 @@ class LocalStorageWorkoutApi extends WorkoutApi {
     _registerAdapters();
 
     _workoutBox = await Hive.openBox<Workout>(kWorkoutBoxName);
-
-    _addWorkoutsToStreamController();
-
-    _workoutBox.watch().listen((event) {
-      _addWorkoutsToStreamController();
-    });
-  }
-
-  void _addWorkoutsToStreamController() {
-    final workouts = _workoutBox.values.toList();
-    _workoutsStreamController.add(workouts);
   }
 
   void _registerAdapters() {
@@ -59,6 +46,15 @@ class LocalStorageWorkoutApi extends WorkoutApi {
   @override
   Stream<List<Workout>> getWorkouts() {
     _checkInit();
+
+    final workouts = _workoutBox.values.toList();
+    _workoutsStreamController.add(workouts);
+
+    _workoutBox.watch().listen((event) {
+      final workouts = _workoutBox.values.toList();
+      _workoutsStreamController.add(workouts);
+    });
+
     return _workoutsStreamController.asBroadcastStream();
   }
 
@@ -100,7 +96,6 @@ class LocalStorageWorkoutApi extends WorkoutApi {
   @override
   Future<void> saveWorkout(Workout workout) async {
     _checkInit();
-    log('LocalStorageWorkoutApi - save { workout: $workout }');
     await _workoutBox.put(workout.id, workout);
   }
 }
