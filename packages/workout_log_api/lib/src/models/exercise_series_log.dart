@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:uuid/uuid.dart';
+import 'package:workout_api/workout_api.dart' hide JsonMap;
 import 'package:workout_log_api/workout_log_api.dart';
 
 part 'exercise_series_log.g.dart';
@@ -9,7 +10,8 @@ part 'exercise_series_log.g.dart';
 /// {@template exercise_series_log}
 /// A single exerciseSeriesLog item.
 ///
-/// Contains a [id]] [weight], [reps] and [rest] time.
+/// Contains a [id], [index], [weight], [reps], [rest] time
+/// and [isFinished] flag.
 ///
 /// If a [id] is provided, it cannot be empty.
 /// If no [id] is provided one will be generated.
@@ -24,9 +26,11 @@ class ExerciseSeriesLog extends Equatable {
   /// {@macro exercise_series_log}
   ExerciseSeriesLog({
     String? id,
+    required this.index,
     required this.weight,
     required this.reps,
     required this.rest,
+    this.isFinished = false,
   })  : assert(
           id == null || id.isNotEmpty,
           '"id" can not be null and should be empty',
@@ -38,6 +42,9 @@ class ExerciseSeriesLog extends Equatable {
   /// Cannot be empty.
   final String id;
 
+  /// Index of series in exercise.
+  final int index;
+
   /// The value of weight in that log of series.
   final double weight;
 
@@ -47,20 +54,29 @@ class ExerciseSeriesLog extends Equatable {
   /// The time of rest after series.
   final int rest;
 
+  /// Flag whether the series has been executed.
+  ///
+  /// Defaults `false`.
+  final bool isFinished;
+
   /// Returns a copy of this [ExerciseSeriesLog] with the given values updated.
   ///
   /// {@macro exercise_series_log}
   ExerciseSeriesLog copyWith({
     String? id,
+    int? index,
     double? weight,
     int? reps,
     int? rest,
+    bool? isFinished,
   }) {
     return ExerciseSeriesLog(
       id: id ?? this.id,
+      index: index ?? this.index,
       weight: weight ?? this.weight,
       reps: reps ?? this.reps,
       rest: rest ?? this.rest,
+      isFinished: isFinished ?? this.isFinished,
     );
   }
 
@@ -72,5 +88,14 @@ class ExerciseSeriesLog extends Equatable {
   JsonMap toJson() => _$ExerciseSeriesLogToJson(this);
 
   @override
-  List<Object?> get props => [id, weight, reps, rest];
+  List<Object?> get props => [id, index, weight, reps, rest, isFinished];
+
+  /// Convert the given [ExerciseSeries] into a [ExerciseSeriesLog]
+  factory ExerciseSeriesLog.fromExerciseSeries(ExerciseSeries series) =>
+      ExerciseSeriesLog(
+        index: series.index,
+        weight: series.weight,
+        reps: series.reps,
+        rest: series.rest,
+      );
 }

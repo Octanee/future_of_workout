@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
+import 'package:uuid/uuid.dart';
+import 'package:workout_api/workout_api.dart' hide JsonMap;
 import 'package:workout_log_api/workout_log_api.dart';
 
 part 'workout_log.g.dart';
@@ -20,12 +22,23 @@ part 'workout_log.g.dart';
 class WorkoutLog extends Equatable {
   /// {@macro workout_log}
   WorkoutLog({
+    String? id,
     DateTime? startDate,
     this.endDate,
     required this.workoutId,
-    this.workoutExerciseLogs = const [],
+    required this.workoutExerciseLogs,
   })  : startDate = startDate ?? DateTime.now(),
-        assert(workoutId.isNotEmpty, '"workoutId" can not be empty.');
+        assert(workoutId.isNotEmpty, '"workoutId" can not be empty.'),
+        assert(
+          id == null || id.isNotEmpty,
+          '"id" can not be null and should be empty',
+        ),
+        id = id ?? const Uuid().v4();
+
+  /// The unique indentifier of the workout.
+  ///
+  /// Cannot be empty.
+  final String id;
 
   /// The date of start during workout.
   ///
@@ -41,7 +54,7 @@ class WorkoutLog extends Equatable {
   final String workoutId;
 
   /// List of [WorkoutExerciseLog] in workout.
-  /// 
+  ///
   /// Defaults to empty list.
   final List<WorkoutExerciseLog> workoutExerciseLogs;
 
@@ -53,22 +66,32 @@ class WorkoutLog extends Equatable {
 
   @override
   List<Object?> get props =>
-      [startDate, endDate, workoutId, workoutExerciseLogs];
+      [id, startDate, endDate, workoutId, workoutExerciseLogs];
 
   /// Return a copy of this [WorkoutLog] with the given values updated.
-  /// 
+  ///
   /// {@macro workout_log}
   WorkoutLog copyWith({
+    String? id,
     DateTime? startDate,
     DateTime? endDate,
     String? workoutId,
     List<WorkoutExerciseLog>? workoutExerciseLogs,
   }) {
     return WorkoutLog(
+      id: id ?? this.id,
       startDate: startDate ?? this.startDate,
       endDate: endDate ?? this.endDate,
       workoutId: workoutId ?? this.workoutId,
       workoutExerciseLogs: workoutExerciseLogs ?? this.workoutExerciseLogs,
     );
   }
+
+  /// Convert the given [Workout] into a [WorkoutLog]
+  factory WorkoutLog.fromWorkout(Workout workout) => WorkoutLog(
+        workoutId: workout.id,
+        workoutExerciseLogs: workout.workoutExercises
+            .map(WorkoutExerciseLog.fromWorkoutExercise)
+            .toList(),
+      );
 }

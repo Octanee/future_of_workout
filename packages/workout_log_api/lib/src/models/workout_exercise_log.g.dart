@@ -11,11 +11,10 @@ WorkoutExerciseLog _$WorkoutExerciseLogFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String?,
       index: json['index'] as int,
       exercise: Exercise.fromJson(json['exercise'] as Map<String, dynamic>),
-      exerciseSeriesLogs: (json['exerciseSeriesLogs'] as List<dynamic>?)
-              ?.map(
-                  (e) => ExerciseSeriesLog.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          const [],
+      exerciseSeriesLogs: (json['exerciseSeriesLogs'] as List<dynamic>)
+          .map((e) => ExerciseSeriesLog.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      isFinished: json['isFinished'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$WorkoutExerciseLogToJson(WorkoutExerciseLog instance) =>
@@ -24,4 +23,5 @@ Map<String, dynamic> _$WorkoutExerciseLogToJson(WorkoutExerciseLog instance) =>
       'index': instance.index,
       'exercise': instance.exercise,
       'exerciseSeriesLogs': instance.exerciseSeriesLogs,
+      'isFinished': instance.isFinished,
     };
