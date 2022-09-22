@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/current_workout/current_workout.dart';
-import 'package:future_of_workout/src/logger.dart';
+import 'package:future_of_workout/src/current_workout_summary/current_wokrout_summary.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:go_router/go_router.dart';
 
 class CurrentWorkoutPage extends StatelessWidget {
   const CurrentWorkoutPage({super.key});
@@ -28,8 +29,12 @@ class CurrentWorkoutView extends StatelessWidget {
       listenWhen: (previous, current) => previous.status != current.status,
       listener: (context, state) {
         if (state.status == CurrentWorkoutStatus.finish) {
-          // TODO(Octane): Navigate to WorkoutSummaryPage
-          logger.i('Navigate to WorkoutSummaryPage');
+          context.goNamed(
+            CurrentWorkoutSummaryPage.name,
+            params: {
+              'homePageTab': CurrentWorkoutPage.name,
+            },
+          );
         }
       },
       buildWhen: (previous, current) => previous.status != current.status,
@@ -40,6 +45,9 @@ class CurrentWorkoutView extends StatelessWidget {
           return _buildLoading();
         } else if (state.status == CurrentWorkoutStatus.failure) {
           return _buildFailure();
+        } else if (state.status == CurrentWorkoutStatus.start ||
+            state.status == CurrentWorkoutStatus.started) {
+          return const AppScaffold();
         }
         return _buildContent(context, state);
       },

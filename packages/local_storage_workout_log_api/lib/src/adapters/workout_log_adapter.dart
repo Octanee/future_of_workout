@@ -22,7 +22,7 @@ class WorkoutLogAdapter extends TypeAdapter<WorkoutLog> {
       id: fields[1] as String?,
       startDate: fields[2] as DateTime,
       endDate: fields[3] as DateTime?,
-      workoutId: fields[4] as String,
+      workoutId: fields[4] as String?,
       workoutExerciseLogs: (fields[5] as List).cast<WorkoutExerciseLog>(),
     );
   }
