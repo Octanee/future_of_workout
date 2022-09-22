@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/current_workout_rest/current_workout_rest.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
+import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:go_router/go_router.dart';
 
 class TimerActions extends StatelessWidget {
@@ -20,17 +21,17 @@ class TimerActions extends StatelessWidget {
       builder: (context, state) {
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
+            _subtractButton(context),
             if (state.status == CurrentWorkoutRestStatus.runInProgress) ...[
-              _subtractButton(context),
               _pauseButton(context),
-              _stopButton(context),
-              _addButton(context),
             ],
             if (state.status == CurrentWorkoutRestStatus.runPause) ...[
               _resumeButton(context),
-              _stopButton(context),
             ],
+            _stopButton(context),
+            _addButton(context),
           ],
         );
       },
@@ -38,8 +39,9 @@ class TimerActions extends StatelessWidget {
   }
 
   Widget _stopButton(BuildContext context) {
-    return FloatingActionButton(
-      onPressed: () => context
+    return CircleButton(
+      size: 64,
+      onTap: () => context
           .read<CurrentWorkoutRestBloc>()
           .add(const CurrentWorkoutRestStop()),
       child: const Icon(Icons.stop),
@@ -47,8 +49,9 @@ class TimerActions extends StatelessWidget {
   }
 
   Widget _resumeButton(BuildContext context) {
-    return FloatingActionButton(
-      onPressed: () => context
+    return CircleButton(
+      size: 64,
+      onTap: () => context
           .read<CurrentWorkoutRestBloc>()
           .add(const CurrentWorkoutRestResumed()),
       child: const Icon(Icons.play_arrow),
@@ -56,8 +59,9 @@ class TimerActions extends StatelessWidget {
   }
 
   Widget _pauseButton(BuildContext context) {
-    return FloatingActionButton(
-      onPressed: () => context
+    return CircleButton(
+      size: 64,
+      onTap: () => context
           .read<CurrentWorkoutRestBloc>()
           .add(const CurrentWorkoutRestPaused()),
       child: const Icon(Icons.pause),
@@ -65,8 +69,8 @@ class TimerActions extends StatelessWidget {
   }
 
   Widget _addButton(BuildContext context) {
-    return FloatingActionButton(
-      onPressed: () => context
+    return CircleButton(
+      onTap: () => context
           .read<CurrentWorkoutRestBloc>()
           .add(const CurrentWorkoutRestAdd()),
       child: Text(
@@ -77,8 +81,8 @@ class TimerActions extends StatelessWidget {
   }
 
   Widget _subtractButton(BuildContext context) {
-    return FloatingActionButton(
-      onPressed: () => context
+    return CircleButton(
+      onTap: () => context
           .read<CurrentWorkoutRestBloc>()
           .add(const CurrentWorkoutRestSubtract()),
       child: Text(

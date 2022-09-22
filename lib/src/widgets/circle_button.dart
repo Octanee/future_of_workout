@@ -7,8 +7,10 @@ class CircleButton extends StatelessWidget {
     super.key,
     required this.child,
     this.onTap,
+    this.size = 48,
   });
 
+  final double size;
   final Widget child;
   final VoidCallback? onTap;
 
@@ -16,14 +18,15 @@ class CircleButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
+      borderRadius: BorderRadius.circular(size),
       child: Ink(
-        height: 44,
-        width: 44,
+        height: size,
+        width: size,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(64),
           color: AppColors.yellow,
         ),
-        child: child,
+        child: Center(child: child),
       ),
     );
   }
