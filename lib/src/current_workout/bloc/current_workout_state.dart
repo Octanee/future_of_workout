@@ -15,14 +15,14 @@ class CurrentWorkoutState extends Equatable {
     this.status = CurrentWorkoutStatus.loading,
     this.exercises = const [],
     this.currentWorkoutExercise,
-    this.startDate,
+    this.time = 0,
   });
 
   final CurrentWorkoutStatus status;
   final Workout? workout;
   final List<CurrentWorkoutExercise> exercises;
   final CurrentWorkoutExercise? currentWorkoutExercise;
-  final DateTime? startDate;
+  final int time;
 
   @override
   List<Object?> get props => [
@@ -30,7 +30,7 @@ class CurrentWorkoutState extends Equatable {
         workout,
         exercises,
         currentWorkoutExercise,
-        startDate,
+        time,
       ];
 
   CurrentWorkoutState copyWith({
@@ -38,7 +38,7 @@ class CurrentWorkoutState extends Equatable {
     Workout? workout,
     List<CurrentWorkoutExercise>? exercises,
     CurrentWorkoutExercise? currentWorkoutExercise,
-    DateTime? startDate,
+    int? time,
   }) {
     return CurrentWorkoutState(
       status: status ?? this.status,
@@ -46,7 +46,7 @@ class CurrentWorkoutState extends Equatable {
       exercises: exercises ?? this.exercises,
       currentWorkoutExercise:
           currentWorkoutExercise ?? this.currentWorkoutExercise,
-      startDate: startDate ?? this.startDate,
+      time: time ?? this.time,
     );
   }
 }

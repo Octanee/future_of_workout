@@ -2,8 +2,9 @@ import 'package:exercise_repository/exercise_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/app/app_router.dart';
-import 'package:future_of_workout/src/current_workout/bloc/current_workout_bloc.dart';
+import 'package:future_of_workout/src/current_workout/current_workout.dart';
 import 'package:future_of_workout/src/styles/app_theme.dart';
+import 'package:future_of_workout/src/ticker.dart';
 
 import 'package:workout_repository/workout_repository.dart';
 
@@ -26,8 +27,10 @@ class FutureOfWorkoutApp extends StatelessWidget {
         RepositoryProvider.value(value: _workoutRepository),
       ],
       child: BlocProvider(
-        create: (context) =>
-            CurrentWorkoutBloc(workoutRepository: _workoutRepository),
+        create: (context) => CurrentWorkoutBloc(
+          workoutRepository: _workoutRepository,
+          ticker: const Ticker(),
+        ),
         child: const FutureOfWorkoutAppView(),
       ),
     );

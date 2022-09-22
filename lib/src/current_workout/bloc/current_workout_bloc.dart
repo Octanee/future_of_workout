@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:future_of_workout/src/current_workout/current_workout.dart';
 import 'package:future_of_workout/src/logger.dart';
+import 'package:future_of_workout/src/ticker.dart';
 import 'package:workout_api/workout_api.dart';
 import 'package:workout_repository/workout_repository.dart';
 
@@ -10,15 +13,28 @@ part 'current_workout_state.dart';
 
 class CurrentWorkoutBloc
     extends Bloc<CurrentWorkoutEvent, CurrentWorkoutState> {
-  CurrentWorkoutBloc({required WorkoutRepository workoutRepository})
-      : _workoutRepository = workoutRepository,
+  CurrentWorkoutBloc({
+    required WorkoutRepository workoutRepository,
+    required Ticker ticker,
+  })  : _workoutRepository = workoutRepository,
+        _ticker = ticker,
         super(const CurrentWorkoutState()) {
     on<CurrentWorkoutLoadingWorkout>(_onLoadingWorkout);
     on<CurrentWorkoutSeriesFinished>(_onSeriesFinished);
     on<CurrentWorkoutChangeExercise>(_onChangeExercise);
+    on<CurrentWorkoutTicked>(_onTicked);
   }
 
   final WorkoutRepository _workoutRepository;
+  final Ticker _ticker;
+
+  StreamSubscription<int>? _tickerSubscirption;
+
+  @override
+  Future<void> close() {
+    _tickerSubscirption?.cancel();
+    return super.close();
+  }
 
   void _onLoadingWorkout(
     CurrentWorkoutLoadingWorkout event,
@@ -53,9 +69,12 @@ class CurrentWorkoutBloc
           status: CurrentWorkoutStatus.loaded,
           workout: workout,
           exercises: exercises,
-          startDate: DateTime.now(),
         ),
       );
+
+      _tickerSubscirption = _ticker
+          .tick()
+          .listen((time) => add(CurrentWorkoutTicked(time: time)));
     } on WorkoutNotFoundException catch (_) {
       emit(state.copyWith(status: CurrentWorkoutStatus.failure));
     }
@@ -107,5 +126,12 @@ class CurrentWorkoutBloc
     emit(
       state.copyWith(currentWorkoutExercise: event.exercise),
     );
+  }
+
+  void _onTicked(
+    CurrentWorkoutTicked event,
+    Emitter<CurrentWorkoutState> emit,
+  ) {
+    emit(state.copyWith(time: event.time));
   }
 }

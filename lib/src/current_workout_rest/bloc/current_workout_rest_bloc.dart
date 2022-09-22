@@ -2,7 +2,8 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import '../current_workout_rest.dart';
+import 'package:future_of_workout/src/current_workout_rest/current_workout_rest.dart';
+import 'package:future_of_workout/src/ticker.dart';
 
 part 'current_workout_rest_event.dart';
 part 'current_workout_rest_state.dart';
@@ -38,7 +39,7 @@ class CurrentWorkoutRestBloc
     emit(state.copyWith(duration: event.duration));
 
     _tickerSubscription?.cancel();
-    _tickerSubscription = _ticker.tick(ticks: event.duration).listen(
+    _tickerSubscription = _ticker.countdown(time: event.duration).listen(
           (duration) => add(CurrentWorkoutRestTicked(duration: duration)),
         );
   }

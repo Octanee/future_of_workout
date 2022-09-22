@@ -37,6 +37,7 @@ class CurrentWorkoutView extends StatelessWidget {
           );
         }
       },
+      buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
         if (state.status == CurrentWorkoutStatus.loading) {
           return _buildLoading();
@@ -69,6 +70,7 @@ class CurrentWorkoutView extends StatelessWidget {
     final workout = state.workout!;
     return AppScaffold(
       title: workout.name,
+      actions: const [WorkoutTime()],
       body: ListView(
         physics: const BouncingScrollPhysics(),
         children: [
