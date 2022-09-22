@@ -275,6 +275,13 @@ packages:
       relative: true
     source: path
     version: "1.0.0+1"
+  local_storage_workout_log_api:
+    dependency: "direct main"
+    description:
+      path: "packages/local_storage_workout_log_api"
+      relative: true
+    source: path
+    version: "1.0.0+1"
   logger:
     dependency: "direct main"
     description:
@@ -655,6 +662,13 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/workout_log_api"
+      relative: true
+    source: path
+    version: "1.0.0+1"
+  workout_log_repository:
+    dependency: "direct main"
+    description:
+      path: "packages/workout_log_repository"
       relative: true
     source: path
     version: "1.0.0+1"

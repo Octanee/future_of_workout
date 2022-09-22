@@ -25,12 +25,16 @@ dependencies:
     path: packages/local_storage_exercise_api
   local_storage_workout_api:
     path: packages/local_storage_workout_api
+  local_storage_workout_log_api:
+    path: packages/local_storage_workout_log_api
   logger: ^1.1.0
   uuid: ^3.0.6
   workout_api:
     path: packages/workout_api
   workout_log_api:
     path: packages/workout_log_api
+  workout_log_repository:
+    path: packages/workout_log_repository
   workout_repository:
     path: packages/workout_repository
 
