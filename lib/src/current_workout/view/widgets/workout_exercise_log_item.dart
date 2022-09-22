@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:future_of_workout/src/current_workout/current_workout.dart';
 
 import 'package:future_of_workout/src/styles/styles.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:workout_log_repository/workout_log_repository.dart';
 
-class CurrentWorkoutExerciseItem extends StatelessWidget {
-  const CurrentWorkoutExerciseItem({
+class WorkoutExerciseLogItem extends StatelessWidget {
+  const WorkoutExerciseLogItem({
     super.key,
-    required this.exercise,
+    required this.workoutExerciseLog,
     this.onTap,
   });
 
-  final CurrentWorkoutExercise exercise;
+  final WorkoutExerciseLog workoutExerciseLog;
   final VoidCallback? onTap;
 
   @override
@@ -25,14 +25,14 @@ class CurrentWorkoutExerciseItem extends StatelessWidget {
           children: [
             Row(
               children: [
-                if (!exercise.isFinished)
+                if (!workoutExerciseLog.isFinished)
                   SizedBox(
                     width: 80,
                     height: 80,
                     child: Padding(
                       padding: const EdgeInsets.all(8),
                       child: SvgPicture.asset(
-                        exercise.exercise.imagePath,
+                        workoutExerciseLog.exercise.imagePath,
                         height: 64,
                       ),
                     ),
@@ -55,11 +55,11 @@ class CurrentWorkoutExerciseItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      exercise.exercise.name,
+                      workoutExerciseLog.exercise.name,
                       style: AppTextStyle.bold20,
                     ),
                     Text(
-                      '${exercise.series.length} series',
+                      '${workoutExerciseLog.exerciseSeriesLogs.length} series',
                       style: AppTextStyle.medium16,
                     ),
                   ],

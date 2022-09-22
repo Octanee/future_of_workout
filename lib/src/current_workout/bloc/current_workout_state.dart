@@ -1,6 +1,9 @@
 part of 'current_workout_bloc.dart';
 
 enum CurrentWorkoutStatus {
+  initial,
+  start,
+  started,
   loading,
   loaded,
   updating,
@@ -11,41 +14,26 @@ enum CurrentWorkoutStatus {
 
 class CurrentWorkoutState extends Equatable {
   const CurrentWorkoutState({
-    this.workout,
-    this.status = CurrentWorkoutStatus.loading,
-    this.exercises = const [],
-    this.currentWorkoutExercise,
+    this.status = CurrentWorkoutStatus.initial,
+    this.workoutLog,
     this.time = 0,
   });
 
   final CurrentWorkoutStatus status;
-  final Workout? workout;
-  final List<CurrentWorkoutExercise> exercises;
-  final CurrentWorkoutExercise? currentWorkoutExercise;
+  final WorkoutLog? workoutLog;
   final int time;
 
   @override
-  List<Object?> get props => [
-        status,
-        workout,
-        exercises,
-        currentWorkoutExercise,
-        time,
-      ];
+  List<Object?> get props => [status, workoutLog, time];
 
   CurrentWorkoutState copyWith({
     CurrentWorkoutStatus? status,
-    Workout? workout,
-    List<CurrentWorkoutExercise>? exercises,
-    CurrentWorkoutExercise? currentWorkoutExercise,
+    WorkoutLog? workoutLog,
     int? time,
   }) {
     return CurrentWorkoutState(
       status: status ?? this.status,
-      workout: workout ?? this.workout,
-      exercises: exercises ?? this.exercises,
-      currentWorkoutExercise:
-          currentWorkoutExercise ?? this.currentWorkoutExercise,
+      workoutLog: workoutLog ?? this.workoutLog,
       time: time ?? this.time,
     );
   }

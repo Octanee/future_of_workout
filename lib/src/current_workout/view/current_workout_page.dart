@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/current_workout/current_workout.dart';
-import 'package:future_of_workout/src/current_workout_exercise/current_workout_exercise.dart';
-import 'package:future_of_workout/src/home/home.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
-import 'package:future_of_workout/src/workout_list/workout_list.dart';
-import 'package:go_router/go_router.dart';
+import 'package:future_of_workout/src/workout_details/widgets/widgets.dart';
+import 'package:future_of_workout/src/workout_list/widgets/widgets.dart';
 
 class CurrentWorkoutPage extends StatelessWidget {
-  const CurrentWorkoutPage({required this.workoutId, super.key});
+  const CurrentWorkoutPage({super.key});
 
-  static String name = '/current_workout';
-  static String path = '$name/:workoutId';
-
-  final String workoutId;
+  static String name = 'currentWorkout';
 
   @override
   Widget build(BuildContext context) {
+    context
+        .read<CurrentWorkoutBloc>()
+        .add(const CurrentWorkoutSubscriptionRequested());
     return const CurrentWorkoutView();
   }
 }
@@ -31,21 +29,27 @@ class CurrentWorkoutView extends StatelessWidget {
       listenWhen: (previous, current) => previous.status != current.status,
       listener: (context, state) {
         if (state.status == CurrentWorkoutStatus.finish) {
-          context.goNamed(
-            HomePage.name,
-            params: {'homePageTab': WorkoutsListTab.name},
-          );
+          // TODO(Octane): Navigate to WorkoutSummaryPage
         }
       },
       buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
-        if (state.status == CurrentWorkoutStatus.loading) {
+        if (state.status == CurrentWorkoutStatus.initial) {
+          return _buildInitial();
+        } else if (state.status == CurrentWorkoutStatus.loading) {
           return _buildLoading();
         } else if (state.status == CurrentWorkoutStatus.failure) {
           return _buildFailure();
         }
         return _buildContent(context, state);
       },
+    );
+  }
+
+  Widget _buildInitial() {
+    return const AppScaffold(
+      title: 'Workout',
+      body: Center(child: StartWorkoutButton()),
     );
   }
 
@@ -67,41 +71,22 @@ class CurrentWorkoutView extends StatelessWidget {
   }
 
   Widget _buildContent(BuildContext context, CurrentWorkoutState state) {
-    final workout = state.workout!;
+    final workoutLog = state.workoutLog!;
     return AppScaffold(
-      title: workout.name,
+      title: workoutLog.name,
       actions: const [WorkoutTime()],
       body: ListView(
-        physics: const BouncingScrollPhysics(),
         children: [
           const FinishButton(),
-          ..._buildList(context, state.exercises),
-          AddExerciseButton(onTap: () {}),
+          ...workoutLog.workoutExerciseLogs
+              .map<Widget>(
+                (workoutExerciseLog) => WorkoutExerciseLogItem(
+                  workoutExerciseLog: workoutExerciseLog,
+                ),
+              )
+              .toList(),
         ],
       ),
     );
-  }
-
-  List<Widget> _buildList(
-    BuildContext context,
-    List<CurrentWorkoutExercise> exercises,
-  ) {
-    final list = exercises
-        .map<Widget>(
-          (exercise) => CurrentWorkoutExerciseItem(
-            exercise: exercise,
-            onTap: () {
-              final bloc = context.read<CurrentWorkoutBloc>()
-                ..add(CurrentWorkoutChangeExercise(exercise: exercise));
-              context.goNamed(
-                CurrentWorkoutExercisePage.name,
-                params: {'workoutId': bloc.state.workout!.id},
-              );
-            },
-          ),
-        )
-        .toList();
-
-    return list;
   }
 }

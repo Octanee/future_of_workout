@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/app/app_router.dart';
 import 'package:future_of_workout/src/current_workout/current_workout.dart';
+import 'package:future_of_workout/src/home/home.dart';
 import 'package:future_of_workout/src/styles/app_theme.dart';
-import 'package:future_of_workout/src/ticker.dart';
-
+import 'package:workout_log_repository/workout_log_repository.dart';
 import 'package:workout_repository/workout_repository.dart';
 
 class FutureOfWorkoutApp extends StatelessWidget {
@@ -13,11 +13,14 @@ class FutureOfWorkoutApp extends StatelessWidget {
     super.key,
     required ExerciseRepository exerciseRepository,
     required WorkoutRepository workoutRepository,
+    required WorkoutLogRepository workoutLogRepository,
   })  : _workoutRepository = workoutRepository,
-        _exerciseRepository = exerciseRepository;
+        _exerciseRepository = exerciseRepository,
+        _workoutLogRepository = workoutLogRepository;
 
   final ExerciseRepository _exerciseRepository;
   final WorkoutRepository _workoutRepository;
+  final WorkoutLogRepository _workoutLogRepository;
 
   @override
   Widget build(BuildContext context) {
@@ -25,12 +28,21 @@ class FutureOfWorkoutApp extends StatelessWidget {
       providers: [
         RepositoryProvider.value(value: _exerciseRepository),
         RepositoryProvider.value(value: _workoutRepository),
+        RepositoryProvider.value(value: _workoutLogRepository),
       ],
-      child: BlocProvider(
-        create: (context) => CurrentWorkoutBloc(
-          workoutRepository: _workoutRepository,
-          ticker: const Ticker(),
-        ),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => CurrentWorkoutBloc(
+              workoutRepository: _workoutRepository,
+              workoutLogRepository: _workoutLogRepository,
+            ),
+          ),
+          BlocProvider(
+            create: (context) =>
+                NavigationCubit(item: HomeNavigationItem.workouts),
+          ),
+        ],
         child: const FutureOfWorkoutAppView(),
       ),
     );
