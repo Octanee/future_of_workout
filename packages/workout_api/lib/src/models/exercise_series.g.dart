@@ -8,6 +8,7 @@ part of 'exercise_series.dart';
 
 ExerciseSeries _$ExerciseSeriesFromJson(Map<String, dynamic> json) =>
     ExerciseSeries(
+      id: json['id'] as String?,
       index: json['index'] as int,
       weight: (json['weight'] as num?)?.toDouble() ?? 0,
       reps: json['reps'] as int? ?? 12,
@@ -16,6 +17,7 @@ ExerciseSeries _$ExerciseSeriesFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$ExerciseSeriesToJson(ExerciseSeries instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'index': instance.index,
       'weight': instance.weight,
       'reps': instance.reps,

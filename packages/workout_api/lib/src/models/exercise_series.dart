@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
+import 'package:uuid/uuid.dart';
 import 'package:workout_api/workout_api.dart';
 
 part 'exercise_series.g.dart';
@@ -8,8 +9,7 @@ part 'exercise_series.g.dart';
 /// {@template exercise_series}
 /// A single exerciseSeries item.
 ///
-/// Contains a [weight], [reps] and [rest] time.
-///
+/// Contains a [id], [index], [weight], [reps] and [rest] time.
 ///
 /// [ExerciseSeries]s are immutable and can be copied using [copyWith],
 /// in addition to being serialized and deserialized using [toJson]
@@ -19,12 +19,22 @@ part 'exercise_series.g.dart';
 @JsonSerializable()
 class ExerciseSeries extends Equatable {
   /// {@macro exercise_series}
-  const ExerciseSeries({
+  ExerciseSeries({
+    String? id,
     required this.index,
     this.weight = 0,
     this.reps = 12,
     this.rest = 120,
-  });
+  })  : assert(
+          id == null || id.isNotEmpty,
+          '"id" can not be null and should be empty',
+        ),
+        id = id ?? const Uuid().v4();
+
+  /// The unique indentifier of the workout.
+  ///
+  /// Cannot be empty.
+  final String id;
 
   /// Index of series in exercise.
   final int index;
@@ -48,12 +58,14 @@ class ExerciseSeries extends Equatable {
   ///
   /// {@macro exercise_series}
   ExerciseSeries copyWith({
+    String? id,
     int? index,
     double? weight,
     int? reps,
     int? rest,
   }) {
     return ExerciseSeries(
+      id: id ?? this.id,
       index: index ?? this.index,
       weight: weight ?? this.weight,
       reps: reps ?? this.reps,
@@ -69,5 +81,5 @@ class ExerciseSeries extends Equatable {
   JsonMap toJson() => _$ExerciseSeriesToJson(this);
 
   @override
-  List<Object?> get props => [index, weight, reps, rest];
+  List<Object?> get props => [id, index, weight, reps, rest];
 }

@@ -80,7 +80,7 @@ class WorkoutExerciseDetailsBloc
   ) {
     final exerciseSeries = List.of(state.workoutExercise!.exerciseSeries);
     if (exerciseSeries.isEmpty) {
-      exerciseSeries.add(const ExerciseSeries(index: 1));
+      exerciseSeries.add( ExerciseSeries(index: 1));
     } else {
       final lastSeries = exerciseSeries.last;
       exerciseSeries.add(lastSeries.copyWith(index: lastSeries.index + 1));

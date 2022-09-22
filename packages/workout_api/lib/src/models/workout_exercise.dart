@@ -23,16 +23,18 @@ class WorkoutExercise extends Equatable {
     String? id,
     required this.index,
     required this.exercise,
-    this.exerciseSeries = const [
-      ExerciseSeries(index: 1),
-      ExerciseSeries(index: 2),
-      ExerciseSeries(index: 3),
-    ],
+    List<ExerciseSeries>? exerciseSeries,
   })  : assert(
           id == null || id.isNotEmpty,
           '"id" can not be null and should be empty.',
         ),
-        id = id ?? const Uuid().v4();
+        id = id ?? const Uuid().v4(),
+        exerciseSeries = exerciseSeries ??
+            [
+              ExerciseSeries(index: 1),
+              ExerciseSeries(index: 2),
+              ExerciseSeries(index: 3),
+            ];
 
   /// The unique indentifier of the workout.
   ///
