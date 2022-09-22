@@ -23,7 +23,7 @@ class FinishButton extends StatelessWidget {
               'Do you want to end your workout?',
               style: AppTextStyle.medium16,
             ),
-            onConfirm: () {},
+            onConfirm: () => bloc.add(const CurrentWorkoutFinish()),
           ),
         );
       },

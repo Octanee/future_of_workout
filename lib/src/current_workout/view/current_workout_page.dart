@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/current_workout/current_workout.dart';
+import 'package:future_of_workout/src/logger.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
-import 'package:future_of_workout/src/workout_details/widgets/widgets.dart';
-import 'package:future_of_workout/src/workout_list/widgets/widgets.dart';
 
 class CurrentWorkoutPage extends StatelessWidget {
   const CurrentWorkoutPage({super.key});
@@ -30,6 +29,7 @@ class CurrentWorkoutView extends StatelessWidget {
       listener: (context, state) {
         if (state.status == CurrentWorkoutStatus.finish) {
           // TODO(Octane): Navigate to WorkoutSummaryPage
+          logger.i('Navigate to WorkoutSummaryPage');
         }
       },
       buildWhen: (previous, current) => previous.status != current.status,

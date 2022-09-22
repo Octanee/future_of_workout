@@ -19,3 +19,11 @@ class CurrentWorkoutStartWorkout extends CurrentWorkoutEvent {
 class CurrentWorkoutSubscriptionRequested extends CurrentWorkoutEvent {
   const CurrentWorkoutSubscriptionRequested();
 }
+
+class CurrentWorkoutFinish extends CurrentWorkoutEvent {
+  const CurrentWorkoutFinish();
+}
+
+class CurrentWorkoutClear extends CurrentWorkoutEvent {
+  const CurrentWorkoutClear();
+}

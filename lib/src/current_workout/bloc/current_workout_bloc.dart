@@ -18,6 +18,8 @@ class CurrentWorkoutBloc
         super(const CurrentWorkoutState()) {
     on<CurrentWorkoutStartWorkout>(_onStartWorkout);
     on<CurrentWorkoutSubscriptionRequested>(_onSubscriptionRequested);
+    on<CurrentWorkoutFinish>(_onFinish);
+    on<CurrentWorkoutClear>(_onClear);
   }
 
   final WorkoutRepository _workoutRepository;
@@ -65,5 +67,25 @@ class CurrentWorkoutBloc
         status: CurrentWorkoutStatus.failure,
       ),
     );
+  }
+
+  Future<void> _onFinish(
+    CurrentWorkoutFinish event,
+    Emitter<CurrentWorkoutState> emit,
+  ) async {
+    emit(state.copyWith(status: CurrentWorkoutStatus.updating));
+
+    final workoutLog = state.workoutLog!.copyWith(endDate: DateTime.now());
+
+    await _workoutLogRepository.saveWorkoutLog(workoutLog: workoutLog);
+
+    emit(state.copyWith(status: CurrentWorkoutStatus.finish));
+  }
+
+  Future<void> _onClear(
+    CurrentWorkoutClear event,
+    Emitter<CurrentWorkoutState> emit,
+  ) async {
+    emit(const CurrentWorkoutState());
   }
 }
