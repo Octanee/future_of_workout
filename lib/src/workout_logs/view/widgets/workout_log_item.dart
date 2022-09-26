@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
-import 'package:future_of_workout/src/widgets/custom_card.dart';
+import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:workout_log_api/workout_log_api.dart';
 

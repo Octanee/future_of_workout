@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:future_of_workout/src/widgets/custom_card.dart';
+import 'package:future_of_workout/src/widgets/widgets.dart';
 
 class ExerciseImagesCard extends StatelessWidget {
   const ExerciseImagesCard({

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:future_of_workout/src/styles/app_text_style.dart';
-import 'package:future_of_workout/src/widgets/custom_card.dart';
+import 'package:future_of_workout/src/widgets/widgets.dart';
 
 class InstructionItem extends StatelessWidget {
   const InstructionItem({
