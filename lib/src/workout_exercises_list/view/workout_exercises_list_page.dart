@@ -6,7 +6,7 @@ import 'package:future_of_workout/src/widgets/app_loading.dart';
 import 'package:future_of_workout/src/widgets/app_scaffold.dart';
 import 'package:future_of_workout/src/workout_details/view/workout_details_page.dart';
 import 'package:future_of_workout/src/workout_exercises_list/workout_exercises_list.dart';
-import 'package:future_of_workout/src/workout_list/workout_list.dart';
+import 'package:future_of_workout/src/workouts/workouts.dart';
 import 'package:go_router/go_router.dart';
 import 'package:workout_repository/workout_repository.dart';
 
@@ -47,7 +47,7 @@ class WorkoutExercisesListView extends StatelessWidget {
             context.goNamed(
               WorkoutDetailsPage.name,
               params: {
-                'homePageTab': WorkoutsListTab.name,
+                'homePageTab': WorkoutsPage.name,
                 'workoutId': state.workout!.id,
               },
             );

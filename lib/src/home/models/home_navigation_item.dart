@@ -9,7 +9,7 @@ enum HomeNavigationItem {
   workouts(
     icon: Icon(Icons.list_alt_rounded),
     itemIndex: 0,
-    view: WorkoutsScreen(),
+    view: WorkoutsPage(),
     label: 'Plans',
   ),
   body(

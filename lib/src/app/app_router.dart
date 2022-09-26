@@ -7,14 +7,14 @@ import 'package:future_of_workout/src/home/home.dart';
 import 'package:future_of_workout/src/workout_details/workout_details.dart';
 import 'package:future_of_workout/src/workout_exercise_details/workout_exercise_details.dart';
 import 'package:future_of_workout/src/workout_exercises_list/workout_exercises_list.dart';
-import 'package:future_of_workout/src/workout_list/workout_list.dart';
+import 'package:future_of_workout/src/workouts/workouts.dart';
 
 import 'package:go_router/go_router.dart';
 
 class AppRouter {
   static GoRouter router = GoRouter(
     debugLogDiagnostics: true,
-    initialLocation: '/${WorkoutsListTab.name}',
+    initialLocation: '/${WorkoutsPage.name}',
     routes: [
       _homeRoute,
       _exerciseDetailsRoute,

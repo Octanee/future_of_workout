@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:future_of_workout/src/home/home.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:future_of_workout/src/workout_list/workout_list.dart';
 import 'package:future_of_workout/src/workouts_logs/workouts_logs.dart';
 
-class WorkoutsScreen extends StatelessWidget {
-  const WorkoutsScreen({super.key});
+class WorkoutsPage extends StatelessWidget {
+  const WorkoutsPage({super.key});
+
+  static String name = HomeNavigationItem.workouts.name;
 
   @override
   Widget build(BuildContext context) {
-    return const WorkoutsScreenView();
+    return const WorkoutsView();
   }
 }
 
-class WorkoutsScreenView extends StatelessWidget {
-  const WorkoutsScreenView({super.key});
+class WorkoutsView extends StatelessWidget {
+  const WorkoutsView({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:future_of_workout/src/home/home.dart';
 import 'package:future_of_workout/src/widgets/app_loading.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:future_of_workout/src/workout_details/workout_details.dart';
 import 'package:future_of_workout/src/workout_list/workout_list.dart';
+import 'package:future_of_workout/src/workouts/workouts.dart';
 import 'package:go_router/go_router.dart';
 import 'package:workout_repository/workout_repository.dart';
 
 class WorkoutsListTab extends StatelessWidget {
   const WorkoutsListTab({super.key});
-
-  static String name = HomeNavigationItem.workouts.name;
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +56,7 @@ class WorkoutListView extends StatelessWidget {
             context.goNamed(
               WorkoutDetailsPage.name,
               params: {
-                'homePageTab': WorkoutsListTab.name,
+                'homePageTab': WorkoutsPage.name,
                 'workoutId': state.newWorkoutId,
               },
             );
@@ -102,7 +100,7 @@ class WorkoutListView extends StatelessWidget {
               context.goNamed(
                 WorkoutDetailsPage.name,
                 params: {
-                  'homePageTab': WorkoutsListTab.name,
+                  'homePageTab': WorkoutsPage.name,
                   'workoutId': workout.id,
                 },
               );

@@ -7,7 +7,7 @@ import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:future_of_workout/src/workout_details/workout_details.dart';
 import 'package:future_of_workout/src/workout_exercise_details/workout_exercise_details.dart';
 import 'package:future_of_workout/src/workout_exercises_list/view/view.dart';
-import 'package:future_of_workout/src/workout_list/workout_list.dart';
+import 'package:future_of_workout/src/workouts/workouts.dart';
 import 'package:go_router/go_router.dart';
 import 'package:workout_repository/workout_repository.dart';
 
@@ -77,7 +77,7 @@ class WorkoutDetailsView extends StatelessWidget {
                   onTap: () => context.goNamed(
                     WorkoutExerciseDetailsPage.name,
                     params: {
-                      'homePageTab': WorkoutsListTab.name,
+                      'homePageTab': WorkoutsPage.name,
                       'workoutId': workout.id,
                       'workoutExerciseId': item.id,
                     },
@@ -241,7 +241,7 @@ class WorkoutDetailsView extends StatelessWidget {
         context.pushNamed(
           WorkoutExercisesListPage.name,
           params: {
-            'homePageTab': WorkoutsListTab.name,
+            'homePageTab': WorkoutsPage.name,
             'workoutId': workoutId,
           },
         );
