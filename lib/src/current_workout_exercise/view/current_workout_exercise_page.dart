@@ -39,11 +39,7 @@ class CurrentWorkoutExerciseView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<CurrentWorkoutExerciseBloc,
-        CurrentWorkoutExerciseState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
+    return BlocBuilder<CurrentWorkoutExerciseBloc, CurrentWorkoutExerciseState>(
       builder: (context, state) {
         if (state.status == CurrentWorkoutExerciseStatus.loading) {
           return _buildLoading();

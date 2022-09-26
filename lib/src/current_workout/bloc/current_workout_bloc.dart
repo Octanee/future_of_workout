@@ -28,7 +28,7 @@ class CurrentWorkoutBloc
   final WorkoutRepository _workoutRepository;
   final WorkoutLogRepository _workoutLogRepository;
 
-  Ticker _ticker;
+  final Ticker _ticker;
   StreamSubscription<int>? _tickerSubscription;
 
   @override

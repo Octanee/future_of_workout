@@ -172,18 +172,21 @@ class WorkoutExerciseDetailsView extends StatelessWidget {
     );
   }
 
-  Widget _buildChangeDisplayModeButton(BuildContext context, bool isAdvanced) {
-    return BarButton(
-      text: isAdvanced ? 'Simple' : 'Advanced',
-      padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
-      icon: const Icon(Icons.list),
-      onTap: () {
-        context
-            .read<WorkoutExerciseDetailsBloc>()
-            .add(const WorkoutExerciseDetailsChangeDisplayMode());
-      },
-    );
-  }
+  // Widget _buildChangeDisplayModeButton(
+  //   BuildContext context,
+  //   bool isAdvanced,
+  // ) {
+  //   return BarButton(
+  //     text: isAdvanced ? 'Simple' : 'Advanced',
+  //     padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
+  //     icon: const Icon(Icons.list),
+  //     onTap: () {
+  //       context
+  //           .read<WorkoutExerciseDetailsBloc>()
+  //           .add(const WorkoutExerciseDetailsChangeDisplayMode());
+  //     },
+  //   );
+  // }
 
   Widget _buildRemoveExerciseSeriesButton(BuildContext context) {
     return BarButton(
