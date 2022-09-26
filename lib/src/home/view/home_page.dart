@@ -52,19 +52,24 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  NavigationBarTheme _getNavigationBar(BuildContext context) {
-    return NavigationBarTheme(
-      data: const NavigationBarThemeData(
-        elevation: 2,
-        indicatorColor: AppColors.yellow,
-        backgroundColor: AppColors.white,
+  Widget _getNavigationBar(BuildContext context) {
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        boxShadow: [AppShadows.shadow50],
       ),
-      child: NavigationBar(
-        selectedIndex:
-            context.select<NavigationCubit, int>((value) => value.state.index),
-        onDestinationSelected: (index) =>
-            context.read<NavigationCubit>().changeDestination(index: index),
-        destinations: _getDestinations,
+      child: NavigationBarTheme(
+        data: const NavigationBarThemeData(
+          elevation: 2,
+          indicatorColor: AppColors.yellow,
+          backgroundColor: AppColors.white,
+        ),
+        child: NavigationBar(
+          selectedIndex: context
+              .select<NavigationCubit, int>((value) => value.state.index),
+          onDestinationSelected: (index) =>
+              context.read<NavigationCubit>().changeDestination(index: index),
+          destinations: _getDestinations,
+        ),
       ),
     );
   }
