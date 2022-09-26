@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:future_of_workout/src/workout_exercise_logs_details/workout_exercise_logs_details.dart';
 import 'package:future_of_workout/src/workout_logs_details/workout_logs_details.dart';
+import 'package:future_of_workout/src/workouts/workouts.dart';
+import 'package:go_router/go_router.dart';
 import 'package:workout_log_repository/workout_log_repository.dart';
 
 class WorkoutLogsDetailsPage extends StatelessWidget {
@@ -56,6 +59,16 @@ class WorkoutLogsDetailsView extends StatelessWidget {
                     (exerciseLog) => WorkoutExerciseLogItem(
                       markCompleted: false,
                       workoutExerciseLog: exerciseLog,
+                      onTap: () {
+                        context.goNamed(
+                          WorkoutExerciseLogsDetailsPage.name,
+                          params: {
+                            'homePageTab': WorkoutsPage.name,
+                            'workoutLogId': log.id,
+                            'workoutExerciseLogId': exerciseLog.id,
+                          },
+                        );
+                      },
                     ),
                   )
                 ],
