@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:future_of_workout/src/widgets/app_scaffold.dart';
+import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:future_of_workout/src/workout_exercise_logs_details/workout_exercise_logs_details.dart';
 import 'package:workout_log_repository/workout_log_repository.dart';
 
@@ -38,6 +38,39 @@ class WorkoutExerciseLogsDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const AppScaffold();
+    return WillPopScope(
+      onWillPop: () async {
+        context
+            .read<WorkoutExerciseLogsDetailsBloc>()
+            .add(const WorkoutExerciseLogsDetailsPop());
+        return true;
+      },
+      child: BlocBuilder<WorkoutExerciseLogsDetailsBloc,
+          WorkoutExerciseLogsDetailsState>(
+        builder: (context, state) {
+          switch (state.status) {
+            case WorkoutExerciseLogsDetailsStatus.initial:
+            case WorkoutExerciseLogsDetailsStatus.loading:
+              return const AppScaffold(body: AppLoading());
+            case WorkoutExerciseLogsDetailsStatus.failure:
+              return const AppScaffold(body: AppError());
+            case WorkoutExerciseLogsDetailsStatus.loaded:
+            case WorkoutExerciseLogsDetailsStatus.updated:
+              final log = state.exerciseLog!;
+              return AppScaffold(
+                title: log.exercise.name,
+                body: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: ListView(
+                    physics: const BouncingScrollPhysics(),
+                    children: [],
+                  ),
+                ),
+              );
+          }
+        },
+      ),
+    );
   }
 }
