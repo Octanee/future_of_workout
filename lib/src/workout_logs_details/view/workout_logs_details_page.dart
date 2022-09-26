@@ -45,6 +45,20 @@ class WorkoutLogsDetailsView extends StatelessWidget {
             final log = state.workoutLog!;
             return AppScaffold(
               title: log.name,
+              body: ListView(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                physics: const BouncingScrollPhysics(),
+                children: [
+                  const Header(text: 'Exercises'),
+                  ...log.workoutExerciseLogs.map<Widget>(
+                    (exerciseLog) => WorkoutExerciseLogItem(
+                      markCompleted: false,
+                      workoutExerciseLog: exerciseLog,
+                    ),
+                  )
+                ],
+              ),
             );
         }
       },
