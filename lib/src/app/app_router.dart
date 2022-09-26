@@ -150,7 +150,23 @@ class AppRouter {
         child: WorkoutLogsDetailsPage(workoutLogId: id),
       );
     },
-    routes: [],
+    routes: [_workoutExerciseLogDetailsRoute],
+  );
+
+  static final GoRoute _workoutExerciseLogDetailsRoute = GoRoute(
+    name: WorkoutExerciseLogsDetailsPage.name,
+    path: WorkoutExerciseLogsDetailsPage.path,
+    pageBuilder: (context, state) {
+      final workoutLogId = state.params['workoutLogId']!;
+      final workoutExerciseLogId = state.params['workoutExerciseLogId']!;
+      return _buildTransition(
+        key: state.pageKey,
+        child: WorkoutExerciseLogsDetailsPage(
+          workoutLogId: workoutLogId,
+          workoutExerciseLogId: workoutExerciseLogId,
+        ),
+      );
+    },
   );
 
   static CustomTransitionPage<void> _buildTransition({
