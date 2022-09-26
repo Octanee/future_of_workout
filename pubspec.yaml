@@ -21,6 +21,7 @@ dependencies:
   flutter_svg: ^1.1.4
   go_router: ^4.3.0
   google_fonts: ^3.0.1
+  intl: ^0.17.0
   local_storage_exercise_api:
     path: packages/local_storage_exercise_api
   local_storage_workout_api:
