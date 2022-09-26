@@ -70,7 +70,10 @@ class WorkoutExerciseLogsDetailsBloc extends Bloc<
     final logs = List.of(exerciseLog.exerciseSeriesLogs);
     logs[seriesIndex] = event.seriesLog;
 
-    final log = exerciseLog.copyWith(exerciseSeriesLogs: logs);
+    final complete = !logs.any((log) => !log.isFinished);
+
+    final log =
+        exerciseLog.copyWith(exerciseSeriesLogs: logs, isFinished: complete);
 
     emit(
       state.copyWith(

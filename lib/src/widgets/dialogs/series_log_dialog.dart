@@ -4,8 +4,8 @@ import 'package:future_of_workout/src/formatter.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 
-class SeriesDialog extends StatelessWidget {
-  const SeriesDialog({
+class SeriesLogDialog extends StatelessWidget {
+  const SeriesLogDialog({
     required this.weight,
     required this.reps,
     required this.onConfirm,

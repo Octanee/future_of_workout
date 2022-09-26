@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/exercise_details/exercise_details.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:future_of_workout/src/workout_exercise_logs_details/workout_exercise_logs_details.dart';
+import 'package:go_router/go_router.dart';
 import 'package:workout_log_repository/workout_log_repository.dart';
 
 class WorkoutExerciseLogsDetailsPage extends StatelessWidget {
@@ -64,7 +66,39 @@ class WorkoutExerciseLogsDetailsView extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: ListView(
                     physics: const BouncingScrollPhysics(),
-                    children: [],
+                    children: [
+                      ...log.exerciseSeriesLogs.map<Widget>(
+                        (series) => Padding(
+                          padding: const EdgeInsets.only(bottom: 8),
+                          child: ExerciseSeriesLogItem(
+                            series: series,
+                            onTap: () async {
+                              final bloc = context
+                                  .read<WorkoutExerciseLogsDetailsBloc>();
+                              await showDialog<void>(
+                                context: context,
+                                builder: (builderContext) => SeriesLogDialog(
+                                  weight: series.weight.toString(),
+                                  reps: series.reps.toString(),
+                                  onConfirm: (reps, weight) {
+                                    bloc.add(
+                                      WorkoutExerciseLogsDetailsUpdateSeries(
+                                        seriesLog: series.copyWith(
+                                          weight: weight,
+                                          reps: reps,
+                                          isFinished: true,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                      AboutExerciseButton(exerciseId: log.exercise.id),
+                    ],
                   ),
                 ),
               );

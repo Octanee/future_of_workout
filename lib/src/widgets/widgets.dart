@@ -1,3 +1,4 @@
+export 'about_exercise_button.dart';
 export 'app_error.dart';
 export 'app_loading.dart';
 export 'app_scaffold.dart';
@@ -11,5 +12,7 @@ export 'custom_dialog.dart';
 export 'custom_search_bar.dart';
 export 'custom_tab_bar.dart';
 export 'custom_tab_bar_view.dart';
+export 'dialogs/dialogs.dart';
 export 'header.dart';
 export 'items/items.dart';
+export 'workout_summary_card.dart';

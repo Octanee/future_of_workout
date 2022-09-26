@@ -4,8 +4,8 @@ import 'package:future_of_workout/src/widgets/custom_card.dart';
 import 'package:intl/intl.dart';
 import 'package:workout_log_api/workout_log_api.dart';
 
-class WorkoutSummaryItem extends StatelessWidget {
-  const WorkoutSummaryItem({required this.workoutLog, super.key});
+class WorkoutSummaryCard extends StatelessWidget {
+  const WorkoutSummaryCard({required this.workoutLog, super.key});
 
   final WorkoutLog workoutLog;
 

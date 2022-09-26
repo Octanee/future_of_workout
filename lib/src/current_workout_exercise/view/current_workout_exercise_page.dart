@@ -4,6 +4,7 @@ import 'package:future_of_workout/src/current_workout/current_workout.dart';
 import 'package:future_of_workout/src/current_workout_exercise/bloc/current_workout_exercise_bloc.dart';
 import 'package:future_of_workout/src/current_workout_exercise/current_workout_exercise.dart';
 import 'package:future_of_workout/src/current_workout_rest/current_workout_rest.dart';
+import 'package:future_of_workout/src/exercise_details/exercise_details.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:workout_log_repository/workout_log_repository.dart';
@@ -46,6 +47,17 @@ class CurrentWorkoutExerciseView extends StatelessWidget {
         }
         final workoutExerciseLog = state.workoutExerciseLog!;
         return AppScaffold(
+          actions: [
+            IconButton(
+              onPressed: () {
+                context.pushNamed(
+                  ExerciseDetailsPage.name,
+                  params: {'exerciseId': workoutExerciseLog.exercise.id},
+                );
+              },
+              icon: const Icon(Icons.info_outline),
+            ),
+          ],
           floatingActionButton: workoutExerciseLog.isFinished
               ? FloatingActionButton(
                   onPressed: () {
@@ -68,7 +80,7 @@ class CurrentWorkoutExerciseView extends StatelessWidget {
                   todo = series == firstTodo;
                 } catch (_) {}
 
-                return CurrentWorkoutSeriesItem(
+                return ExerciseSeriesLogItem(
                   series: series,
                   onTap: todo || series.isFinished
                       ? () async {
@@ -76,7 +88,7 @@ class CurrentWorkoutExerciseView extends StatelessWidget {
                               context.read<CurrentWorkoutExerciseBloc>();
                           await showDialog<void>(
                             context: context,
-                            builder: (builderContext) => SeriesDialog(
+                            builder: (builderContext) => SeriesLogDialog(
                               weight: series.weight.toString(),
                               reps: series.reps.toString(),
                               onConfirm: (reps, weight) {
