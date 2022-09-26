@@ -95,6 +95,7 @@ class CurrentWorkoutView extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: ListView(
+          physics: const BouncingScrollPhysics(),
           children: [
             const FinishButton(),
             ...workoutLog.workoutExerciseLogs
