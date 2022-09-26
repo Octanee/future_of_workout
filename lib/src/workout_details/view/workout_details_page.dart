@@ -234,18 +234,21 @@ class WorkoutDetailsView extends StatelessWidget {
   }
 
   Widget _getAddWorkoutExerciseButton(BuildContext context, String workoutId) {
-    return BarButton(
-      text: 'Add exercise',
-      icon: const Icon(Icons.add),
-      onTap: () {
-        context.pushNamed(
-          WorkoutExercisesListPage.name,
-          params: {
-            'homePageTab': WorkoutsPage.name,
-            'workoutId': workoutId,
-          },
-        );
-      },
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: BarButton(
+        text: 'Add exercise',
+        icon: const Icon(Icons.add),
+        onTap: () {
+          context.pushNamed(
+            WorkoutExercisesListPage.name,
+            params: {
+              'homePageTab': WorkoutsPage.name,
+              'workoutId': workoutId,
+            },
+          );
+        },
+      ),
     );
   }
 }

@@ -7,7 +7,7 @@ class BarButton extends StatelessWidget {
     required this.text,
     required this.icon,
     this.onTap,
-    this.padding = const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+    this.padding = EdgeInsets.zero,
     super.key,
   });
 

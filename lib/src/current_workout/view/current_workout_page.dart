@@ -92,26 +92,29 @@ class CurrentWorkoutView extends StatelessWidget {
     return AppScaffold(
       title: workoutLog.name,
       actions: const [WorkoutTime()],
-      body: ListView(
-        children: [
-          const FinishButton(),
-          ...workoutLog.workoutExerciseLogs
-              .map<Widget>(
-                (workoutExerciseLog) => WorkoutExerciseLogItem(
-                  workoutExerciseLog: workoutExerciseLog,
-                  onTap: () {
-                    context.goNamed(
-                      CurrentWorkoutExercisePage.name,
-                      params: {
-                        'homePageTab': CurrentWorkoutPage.name,
-                        'currentWorkoutExerciseId': workoutExerciseLog.id
-                      },
-                    );
-                  },
-                ),
-              )
-              .toList(),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        child: ListView(
+          children: [
+            const FinishButton(),
+            ...workoutLog.workoutExerciseLogs
+                .map<Widget>(
+                  (workoutExerciseLog) => WorkoutExerciseLogItem(
+                    workoutExerciseLog: workoutExerciseLog,
+                    onTap: () {
+                      context.goNamed(
+                        CurrentWorkoutExercisePage.name,
+                        params: {
+                          'homePageTab': CurrentWorkoutPage.name,
+                          'currentWorkoutExerciseId': workoutExerciseLog.id
+                        },
+                      );
+                    },
+                  ),
+                )
+                .toList(),
+          ],
+        ),
       ),
     );
   }

@@ -9,24 +9,27 @@ class FinishButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BarButton(
-      text: 'Finish workout',
-      icon: const Icon(Icons.stop_circle_outlined),
-      onTap: () async {
-        final bloc = context.read<CurrentWorkoutBloc>();
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: BarButton(
+        text: 'Finish workout',
+        icon: const Icon(Icons.stop_circle_outlined),
+        onTap: () async {
+          final bloc = context.read<CurrentWorkoutBloc>();
 
-        await showDialog<bool>(
-          context: context,
-          builder: (builderContext) => ConfirmDialog(
-            title: 'Finish workout?',
-            content: Text(
-              'Do you want to end your workout?',
-              style: AppTextStyle.medium16,
+          await showDialog<bool>(
+            context: context,
+            builder: (builderContext) => ConfirmDialog(
+              title: 'Finish workout?',
+              content: Text(
+                'Do you want to end your workout?',
+                style: AppTextStyle.medium16,
+              ),
+              onConfirm: () => bloc.add(const CurrentWorkoutFinish()),
             ),
-            onConfirm: () => bloc.add(const CurrentWorkoutFinish()),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

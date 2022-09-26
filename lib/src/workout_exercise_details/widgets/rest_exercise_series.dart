@@ -14,45 +14,42 @@ class RestExerciseSeries extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8, left: 16, right: 16),
-      child: CustomCard(
-        onTap: onTap,
-        padding: const EdgeInsets.all(8),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8),
-              child: Icon(Icons.timer_outlined),
+    return CustomCard(
+      onTap: onTap,
+      padding: const EdgeInsets.all(8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8),
+            child: Icon(Icons.timer_outlined),
+          ),
+          Text(
+            'REST',
+            style: AppTextStyle.semiBold20,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: Text(
+              ':',
+              style: AppTextStyle.bold20.copyWith(color: AppColors.yellow),
             ),
-            Text(
-              'REST',
-              style: AppTextStyle.semiBold20,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Text(
-                ':',
-                style: AppTextStyle.bold20.copyWith(color: AppColors.yellow),
+          ),
+          Row(
+            textBaseline: TextBaseline.alphabetic,
+            crossAxisAlignment: CrossAxisAlignment.baseline,
+            children: [
+              Text(
+                rest.toString(),
+                style: AppTextStyle.bold28,
               ),
-            ),
-            Row(
-              textBaseline: TextBaseline.alphabetic,
-              crossAxisAlignment: CrossAxisAlignment.baseline,
-              children: [
-                Text(
-                  rest.toString(),
-                  style: AppTextStyle.bold28,
-                ),
-                Text(
-                  's',
-                  style: AppTextStyle.medium16,
-                ),
-              ],
-            )
-          ],
-        ),
+              Text(
+                's',
+                style: AppTextStyle.medium16,
+              ),
+            ],
+          )
+        ],
       ),
     );
   }

@@ -92,7 +92,7 @@ class WorkoutExerciseDetailsView extends StatelessWidget {
         title: state.workoutExercise!.exercise.name,
         actions: _getActions(context),
         body: ListView(
-          padding: const EdgeInsets.symmetric(vertical: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           physics: const BouncingScrollPhysics(),
           children: [
             _buildAddExerciseSeriesButton(context),
@@ -161,14 +161,17 @@ class WorkoutExerciseDetailsView extends StatelessWidget {
   }
 
   Widget _buildAddExerciseSeriesButton(BuildContext context) {
-    return BarButton(
-      text: 'Add series',
-      icon: const Icon(Icons.add),
-      onTap: () {
-        context
-            .read<WorkoutExerciseDetailsBloc>()
-            .add(const WorkoutExerciseDetailsAddingSeries());
-      },
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: BarButton(
+        text: 'Add series',
+        icon: const Icon(Icons.add),
+        onTap: () {
+          context
+              .read<WorkoutExerciseDetailsBloc>()
+              .add(const WorkoutExerciseDetailsAddingSeries());
+        },
+      ),
     );
   }
 
@@ -191,7 +194,7 @@ class WorkoutExerciseDetailsView extends StatelessWidget {
   Widget _buildRemoveExerciseSeriesButton(BuildContext context) {
     return BarButton(
       text: 'Remove series',
-      padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+      padding: const EdgeInsets.only(bottom: 16),
       icon: const Icon(Icons.remove),
       onTap: () {
         context
@@ -204,7 +207,7 @@ class WorkoutExerciseDetailsView extends StatelessWidget {
   Widget _buildExerciseInfoButton(BuildContext context, String exerciseId) {
     return BarButton(
       text: 'About exercise',
-      padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 16),
+      padding: const EdgeInsets.only(top: 8),
       icon: const Icon(Icons.info_outline_rounded),
       onTap: () {
         context.pushNamed(
@@ -224,61 +227,67 @@ class WorkoutExerciseDetailsView extends StatelessWidget {
       final item = series[i];
       list
         ..add(
-          ExerciseSeriesItem(
-            index: i + 1,
-            weight: item.weight,
-            reps: item.reps,
-            onTap: () async {
-              final bloc = context.read<WorkoutExerciseDetailsBloc>();
+          Padding(
+            padding: const EdgeInsets.only(bottom: 4),
+            child: ExerciseSeriesItem(
+              index: i + 1,
+              weight: item.weight,
+              reps: item.reps,
+              onTap: () async {
+                final bloc = context.read<WorkoutExerciseDetailsBloc>();
 
-              await showDialog<String>(
-                context: context,
-                builder: (context) {
-                  return SeriesEditDialog(
-                    title: 'Change ${i + 1} series',
-                    reps: item.reps.toString(),
-                    weight: item.weight.toString(),
-                    onConfirm: (int reps, double weight) {
-                      final newSeries =
-                          item.copyWith(reps: reps, weight: weight);
-                      bloc.add(
-                        WorkoutExerciseDetailsExerciseSeriesChanged(
-                          index: i,
-                          series: newSeries,
-                        ),
-                      );
-                    },
-                  );
-                },
-              );
-            },
+                await showDialog<String>(
+                  context: context,
+                  builder: (context) {
+                    return SeriesEditDialog(
+                      title: 'Change ${i + 1} series',
+                      reps: item.reps.toString(),
+                      weight: item.weight.toString(),
+                      onConfirm: (int reps, double weight) {
+                        final newSeries =
+                            item.copyWith(reps: reps, weight: weight);
+                        bloc.add(
+                          WorkoutExerciseDetailsExerciseSeriesChanged(
+                            index: i,
+                            series: newSeries,
+                          ),
+                        );
+                      },
+                    );
+                  },
+                );
+              },
+            ),
           ),
         )
         ..add(
-          RestExerciseSeries(
-            rest: item.rest,
-            onTap: () async {
-              final bloc = context.read<WorkoutExerciseDetailsBloc>();
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: RestExerciseSeries(
+              rest: item.rest,
+              onTap: () async {
+                final bloc = context.read<WorkoutExerciseDetailsBloc>();
 
-              await showDialog<String>(
-                context: context,
-                builder: (context) {
-                  return RestEditDialog(
-                    title: 'Change ${i + 1} REST',
-                    rest: item.rest.toString(),
-                    onPositive: (rest) {
-                      final newSeries = item.copyWith(rest: rest);
-                      bloc.add(
-                        WorkoutExerciseDetailsExerciseSeriesChanged(
-                          index: i,
-                          series: newSeries,
-                        ),
-                      );
-                    },
-                  );
-                },
-              );
-            },
+                await showDialog<String>(
+                  context: context,
+                  builder: (context) {
+                    return RestEditDialog(
+                      title: 'Change ${i + 1} REST',
+                      rest: item.rest.toString(),
+                      onPositive: (rest) {
+                        final newSeries = item.copyWith(rest: rest);
+                        bloc.add(
+                          WorkoutExerciseDetailsExerciseSeriesChanged(
+                            index: i,
+                            series: newSeries,
+                          ),
+                        );
+                      },
+                    );
+                  },
+                );
+              },
+            ),
           ),
         );
     }
