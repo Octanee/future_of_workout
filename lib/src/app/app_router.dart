@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:future_of_workout/src/app/app_transitions.dart';
 import 'package:future_of_workout/src/current_workout_exercise/view/current_workout_exercise_page.dart';
 import 'package:future_of_workout/src/current_workout_rest/current_workout_rest.dart';
@@ -6,6 +7,7 @@ import 'package:future_of_workout/src/exercise_details/exercise_details.dart';
 import 'package:future_of_workout/src/home/home.dart';
 import 'package:future_of_workout/src/workout_details/workout_details.dart';
 import 'package:future_of_workout/src/workout_exercise_details/workout_exercise_details.dart';
+import 'package:future_of_workout/src/workout_exercise_logs_details/workout_exercise_logs_details.dart';
 import 'package:future_of_workout/src/workout_exercises_list/workout_exercises_list.dart';
 import 'package:future_of_workout/src/workout_logs_details/view/workout_logs_details_page.dart';
 import 'package:future_of_workout/src/workouts/workouts.dart';
@@ -44,12 +46,9 @@ class AppRouter {
     path: WorkoutDetailsPage.path,
     pageBuilder: (context, state) {
       final workoutId = state.params['workoutId']!;
-      return CustomTransitionPage(
+      return _buildTransition(
         key: state.pageKey,
         child: WorkoutDetailsPage(workoutId: workoutId),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-            AppTransitions()
-                .buildTransitions(animation, secondaryAnimation, child),
       );
     },
     routes: [
@@ -63,12 +62,9 @@ class AppRouter {
     path: WorkoutExercisesListPage.path,
     pageBuilder: (context, state) {
       final workoutId = state.params['workoutId']!;
-      return CustomTransitionPage(
+      return _buildTransition(
         key: state.pageKey,
         child: WorkoutExercisesListPage(workoutId: workoutId),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-            AppTransitions()
-                .buildTransitions(animation, secondaryAnimation, child),
       );
     },
   );
@@ -79,15 +75,12 @@ class AppRouter {
     pageBuilder: (context, state) {
       final workoutId = state.params['workoutId']!;
       final workoutExerciseId = state.params['workoutExerciseId']!;
-      return CustomTransitionPage(
+      return _buildTransition(
         key: state.pageKey,
         child: WorkoutExerciseDetailsPage(
           workoutId: workoutId,
           workoutExerciseId: workoutExerciseId,
         ),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-            AppTransitions()
-                .buildTransitions(animation, secondaryAnimation, child),
       );
     },
   );
@@ -97,13 +90,9 @@ class AppRouter {
     path: ExerciseDetailsPage.path,
     pageBuilder: (context, state) {
       final exerciseId = state.params['exerciseId']!;
-
-      return CustomTransitionPage(
+      return _buildTransition(
         key: state.pageKey,
         child: ExerciseDetailsPage(exerciseId: exerciseId),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-            AppTransitions()
-                .buildTransitions(animation, secondaryAnimation, child),
       );
     },
   );
@@ -114,15 +103,11 @@ class AppRouter {
     pageBuilder: (context, state) {
       final currentWorkoutExerciseId =
           state.params['currentWorkoutExerciseId']!;
-
-      return CustomTransitionPage(
+      return _buildTransition(
         key: state.pageKey,
         child: CurrentWorkoutExercisePage(
           currentWorkoutExerciseId: currentWorkoutExerciseId,
         ),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-            AppTransitions()
-                .buildTransitions(animation, secondaryAnimation, child),
       );
     },
     routes: [
@@ -135,14 +120,11 @@ class AppRouter {
     path: CurrentWorkoutRestPage.path,
     pageBuilder: (context, state) {
       final time = int.tryParse(state.params['time']!) ?? 120;
-      return CustomTransitionPage(
+      return _buildTransition(
         key: state.pageKey,
         child: CurrentWorkoutRestPage(
           duration: time,
         ),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-            AppTransitions()
-                .buildTransitions(animation, secondaryAnimation, child),
       );
     },
   );
@@ -151,12 +133,9 @@ class AppRouter {
     name: CurrentWorkoutSummaryPage.name,
     path: CurrentWorkoutSummaryPage.path,
     pageBuilder: (context, state) {
-      return CustomTransitionPage(
+      return _buildTransition(
         key: state.pageKey,
         child: const CurrentWorkoutSummaryPage(),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-            AppTransitions()
-                .buildTransitions(animation, secondaryAnimation, child),
       );
     },
   );
@@ -166,13 +145,24 @@ class AppRouter {
     path: WorkoutLogsDetailsPage.path,
     pageBuilder: (context, state) {
       final id = state.params['workoutLogId']!;
-      return CustomTransitionPage(
+      return _buildTransition(
         key: state.pageKey,
         child: WorkoutLogsDetailsPage(workoutLogId: id),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-            AppTransitions()
-                .buildTransitions(animation, secondaryAnimation, child),
       );
     },
+    routes: [],
   );
+
+  static CustomTransitionPage<void> _buildTransition({
+    required ValueKey<String> key,
+    required Widget child,
+  }) {
+    return CustomTransitionPage(
+      key: key,
+      child: child,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+          AppTransitions()
+              .buildTransitions(animation, secondaryAnimation, child),
+    );
+  }
 }
