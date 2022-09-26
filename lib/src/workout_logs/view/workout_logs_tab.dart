@@ -3,7 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
 import 'package:future_of_workout/src/widgets/app_loading.dart';
 import 'package:future_of_workout/src/workout_logs/workout_logs.dart';
+import 'package:future_of_workout/src/workout_logs_details/view/workout_logs_details_page.dart';
+import 'package:go_router/go_router.dart';
 import 'package:workout_log_repository/workout_log_repository.dart';
+
+import '../../workouts/workouts.dart';
 
 class WorkoutsLogsTab extends StatelessWidget {
   const WorkoutsLogsTab({super.key});
@@ -46,11 +50,22 @@ class WorkoutsLogsView extends StatelessWidget {
                 separatorBuilder: (context, index) => const SizedBox(height: 8),
                 physics: const BouncingScrollPhysics(),
                 itemCount: state.logs.length,
-                itemBuilder: (context, index) => WorkoutLogItem(
-                  log: state.logs[index],
-                  isReverse: index.isOdd,
-                  onTap: () {},
-                ),
+                itemBuilder: (context, index) {
+                  final item = state.logs[index];
+                  return WorkoutLogItem(
+                    log: item,
+                    isReverse: index.isOdd,
+                    onTap: () {
+                      context.goNamed(
+                        WorkoutLogsDetailsPage.name,
+                        params: {
+                          'homePageTab': WorkoutsPage.name,
+                          'workoutLogId': item.id,
+                        },
+                      );
+                    },
+                  );
+                },
               );
           }
         },

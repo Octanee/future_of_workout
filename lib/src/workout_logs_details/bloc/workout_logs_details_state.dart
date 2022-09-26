@@ -1,10 +1,31 @@
 part of 'workout_logs_details_bloc.dart';
 
-abstract class WorkoutLogsDetailsState extends Equatable {
-  const WorkoutLogsDetailsState();
-  
-  @override
-  List<Object> get props => [];
+enum WorkoutLogsDetailsStatus {
+  initial,
+  loading,
+  loaded,
+  failure,
 }
 
-class WorkoutLogsDetailsInitial extends WorkoutLogsDetailsState {}
+class WorkoutLogsDetailsState extends Equatable {
+  const WorkoutLogsDetailsState({
+    this.workoutLog,
+    this.status = WorkoutLogsDetailsStatus.initial,
+  });
+
+  final WorkoutLogsDetailsStatus status;
+  final WorkoutLog? workoutLog;
+
+  @override
+  List<Object?> get props => [status, workoutLog];
+
+  WorkoutLogsDetailsState copyWith({
+    WorkoutLogsDetailsStatus? status,
+    WorkoutLog? workoutLog,
+  }) {
+    return WorkoutLogsDetailsState(
+      status: status ?? this.status,
+      workoutLog: workoutLog ?? this.workoutLog,
+    );
+  }
+}

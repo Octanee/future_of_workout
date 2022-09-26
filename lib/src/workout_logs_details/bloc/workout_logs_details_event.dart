@@ -6,3 +6,12 @@ abstract class WorkoutLogsDetailsEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class WorkoutLogsDetailsSubscriptionRequest extends WorkoutLogsDetailsEvent {
+  const WorkoutLogsDetailsSubscriptionRequest({required this.id});
+
+  final String id;
+
+  @override
+  List<Object> get props => [id];
+}
