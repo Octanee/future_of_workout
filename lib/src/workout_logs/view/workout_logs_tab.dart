@@ -4,10 +4,9 @@ import 'package:future_of_workout/src/styles/styles.dart';
 import 'package:future_of_workout/src/widgets/app_loading.dart';
 import 'package:future_of_workout/src/workout_logs/workout_logs.dart';
 import 'package:future_of_workout/src/workout_logs_details/view/workout_logs_details_page.dart';
+import 'package:future_of_workout/src/workouts/workouts.dart';
 import 'package:go_router/go_router.dart';
 import 'package:workout_log_repository/workout_log_repository.dart';
-
-import '../../workouts/workouts.dart';
 
 class WorkoutsLogsTab extends StatelessWidget {
   const WorkoutsLogsTab({super.key});
