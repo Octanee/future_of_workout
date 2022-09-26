@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:future_of_workout/src/home/home.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:future_of_workout/src/workout_list/workout_list.dart';
-import 'package:future_of_workout/src/workouts_logs/workouts_logs.dart';
+import 'package:future_of_workout/src/workout_logs/workout_logs.dart';
 
 class WorkoutsPage extends StatelessWidget {
   const WorkoutsPage({super.key});

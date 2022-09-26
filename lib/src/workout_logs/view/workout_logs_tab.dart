@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
 import 'package:future_of_workout/src/widgets/app_loading.dart';
-import 'package:future_of_workout/src/widgets/custom_card.dart';
-import 'package:future_of_workout/src/workouts_logs/workouts_logs.dart';
-import 'package:intl/intl.dart';
+import 'package:future_of_workout/src/workout_logs/workout_logs.dart';
 import 'package:workout_log_repository/workout_log_repository.dart';
 
 class WorkoutsLogsTab extends StatelessWidget {
@@ -13,9 +11,9 @@ class WorkoutsLogsTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => WorkoutsLogsBloc(
+      create: (context) => WorkoutLogsBloc(
         workoutLogRepository: context.read<WorkoutLogRepository>(),
-      )..add(const WorkoutsLogsLoadingRequest()),
+      )..add(const WorkoutLogsLoadingRequest()),
       child: const WorkoutsLogsView(),
     );
   }
@@ -28,20 +26,20 @@ class WorkoutsLogsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: BlocBuilder<WorkoutsLogsBloc, WorkoutsLogsState>(
+      body: BlocBuilder<WorkoutLogsBloc, WorkoutLogsState>(
         builder: (context, state) {
           switch (state.status) {
-            case WorkoutsLogsStatus.initial:
-            case WorkoutsLogsStatus.loading:
+            case WorkoutLogsStatus.initial:
+            case WorkoutLogsStatus.loading:
               return const AppLoading();
-            case WorkoutsLogsStatus.failure:
+            case WorkoutLogsStatus.failure:
               return Center(
                 child: Text(
                   'Something gone wrong..',
                   style: AppTextStyle.semiBold20,
                 ),
               );
-            case WorkoutsLogsStatus.loaded:
+            case WorkoutLogsStatus.loaded:
               return ListView.separated(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
