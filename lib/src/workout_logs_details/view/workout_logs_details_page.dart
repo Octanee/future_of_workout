@@ -50,6 +50,7 @@ class WorkoutLogsDetailsView extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 physics: const BouncingScrollPhysics(),
                 children: [
+                  WorkoutSummaryItem(workoutLog: log),
                   const Header(text: 'Exercises'),
                   ...log.workoutExerciseLogs.map<Widget>(
                     (exerciseLog) => WorkoutExerciseLogItem(
