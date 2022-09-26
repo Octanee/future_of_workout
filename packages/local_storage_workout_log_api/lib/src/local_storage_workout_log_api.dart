@@ -65,16 +65,28 @@ class LocalStorageWorkoutLogApi extends WorkoutLogApi {
 
     try {
       final logs = _workoutLogBox.values.toList();
-      final log = logs.firstWhere((log) => log.endDate == null);
 
-      _currentWorkoutLogStreamController.add(log);
+      final test = logs.any((log) => log.endDate == null);
 
-      _workoutLogBox.watch(key: log.id).listen((event) {
-        final logs = _workoutLogBox.values.toList();
+      if (test) {
         final log = logs.firstWhere((log) => log.endDate == null);
-
         _currentWorkoutLogStreamController.add(log);
-      });
+
+        _workoutLogBox.watch(key: log.id).listen((event) {
+          final logs = _workoutLogBox.values.toList();
+
+          final test = logs.any((log) => log.endDate == null);
+
+          if (test) {
+            final log = logs.firstWhere((log) => log.endDate == null);
+            _currentWorkoutLogStreamController.add(log);
+          } else {
+            _currentWorkoutLogStreamController.add(null);
+          }
+        });
+      } else {
+        _currentWorkoutLogStreamController.add(null);
+      }
 
       return _currentWorkoutLogStreamController.asBroadcastStream();
     } catch (_) {

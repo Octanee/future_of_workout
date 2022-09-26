@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/current_workout/current_workout.dart';
+import 'package:future_of_workout/src/current_workout_exercise/current_workout_exercise.dart';
 import 'package:future_of_workout/src/current_workout_summary/current_wokrout_summary.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
@@ -36,8 +37,15 @@ class CurrentWorkoutView extends StatelessWidget {
             },
           );
         }
+        if (state.status == CurrentWorkoutStatus.started) {
+          context
+              .read<CurrentWorkoutBloc>()
+              .add(const CurrentWorkoutSubscriptionRequested());
+        }
       },
-      buildWhen: (previous, current) => previous.status != current.status,
+      buildWhen: (previous, current) =>
+          previous.status != current.status ||
+          previous.workoutLog != current.workoutLog,
       builder: (context, state) {
         if (state.status == CurrentWorkoutStatus.initial) {
           return _buildInitial();
@@ -45,11 +53,11 @@ class CurrentWorkoutView extends StatelessWidget {
           return _buildLoading();
         } else if (state.status == CurrentWorkoutStatus.failure) {
           return _buildFailure();
-        } else if (state.status == CurrentWorkoutStatus.start ||
-            state.status == CurrentWorkoutStatus.started) {
-          return const AppScaffold();
         }
-        return _buildContent(context, state);
+        if (state.workoutLog != null) {
+          return _buildContent(context, state);
+        }
+        return const AppScaffold();
       },
     );
   }
@@ -80,6 +88,7 @@ class CurrentWorkoutView extends StatelessWidget {
 
   Widget _buildContent(BuildContext context, CurrentWorkoutState state) {
     final workoutLog = state.workoutLog!;
+
     return AppScaffold(
       title: workoutLog.name,
       actions: const [WorkoutTime()],
@@ -90,6 +99,15 @@ class CurrentWorkoutView extends StatelessWidget {
               .map<Widget>(
                 (workoutExerciseLog) => WorkoutExerciseLogItem(
                   workoutExerciseLog: workoutExerciseLog,
+                  onTap: () {
+                    context.goNamed(
+                      CurrentWorkoutExercisePage.name,
+                      params: {
+                        'homePageTab': CurrentWorkoutPage.name,
+                        'currentWorkoutExerciseId': workoutExerciseLog.id
+                      },
+                    );
+                  },
                 ),
               )
               .toList(),

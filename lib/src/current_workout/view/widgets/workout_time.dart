@@ -9,6 +9,7 @@ class WorkoutTime extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CurrentWorkoutBloc, CurrentWorkoutState>(
+      buildWhen: (previous, current) => previous.time != current.time,
       builder: (context, state) {
         final time = state.time;
         final hourStr = ''.padLeft(2, '0');

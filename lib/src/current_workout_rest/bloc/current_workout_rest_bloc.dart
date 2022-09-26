@@ -106,6 +106,7 @@ class CurrentWorkoutRestBloc
     CurrentWorkoutRestSubtract event,
     Emitter<CurrentWorkoutRestState> emit,
   ) {
-    add(CurrentWorkoutRestStarted(duration: state.duration - 15));
+    final duration = (state.duration - 15).clamp(1, 999);
+    add(CurrentWorkoutRestStarted(duration: duration));
   }
 }

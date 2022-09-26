@@ -17,6 +17,10 @@ class WorkoutExerciseLogItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final series = workoutExerciseLog.exerciseSeriesLogs.length;
+    final finished = workoutExerciseLog.exerciseSeriesLogs
+        .where((log) => log.isFinished)
+        .length;
     return Padding(
       padding: const EdgeInsets.only(left: 16, right: 16, bottom: 8),
       child: CustomCard(
@@ -58,9 +62,17 @@ class WorkoutExerciseLogItem extends StatelessWidget {
                       workoutExerciseLog.exercise.name,
                       style: AppTextStyle.bold20,
                     ),
-                    Text(
-                      '${workoutExerciseLog.exerciseSeriesLogs.length} series',
-                      style: AppTextStyle.medium16,
+                    Row(
+                      children: [
+                        Text(
+                          '$finished / ',
+                          style: AppTextStyle.medium16,
+                        ),
+                        Text(
+                          '$series series',
+                          style: AppTextStyle.medium16,
+                        ),
+                      ],
                     ),
                   ],
                 ),

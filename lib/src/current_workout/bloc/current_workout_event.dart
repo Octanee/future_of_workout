@@ -27,3 +27,12 @@ class CurrentWorkoutFinish extends CurrentWorkoutEvent {
 class CurrentWorkoutClear extends CurrentWorkoutEvent {
   const CurrentWorkoutClear();
 }
+
+class CurrentWorkoutTicked extends CurrentWorkoutEvent {
+  const CurrentWorkoutTicked({required this.time});
+
+  final int time;
+
+  @override
+  List<Object?> get props => [time];
+}

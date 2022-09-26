@@ -110,9 +110,14 @@ class AppRouter {
     name: CurrentWorkoutExercisePage.name,
     path: CurrentWorkoutExercisePage.path,
     pageBuilder: (context, state) {
+      final currentWorkoutExerciseId =
+          state.params['currentWorkoutExerciseId']!;
+
       return CustomTransitionPage(
         key: state.pageKey,
-        child: const CurrentWorkoutExercisePage(),
+        child: CurrentWorkoutExercisePage(
+          currentWorkoutExerciseId: currentWorkoutExerciseId,
+        ),
         transitionsBuilder: (context, animation, secondaryAnimation, child) =>
             AppTransitions()
                 .buildTransitions(animation, secondaryAnimation, child),
