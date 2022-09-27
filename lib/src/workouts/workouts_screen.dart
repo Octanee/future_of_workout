@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:future_of_workout/src/exercise_records/exercise_records.dart';
 import 'package:future_of_workout/src/home/home.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:future_of_workout/src/workout_list/workout_list.dart';
@@ -28,21 +29,21 @@ class WorkoutsView extends StatelessWidget {
 
   Widget _buildContent() {
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Column(
         children: const [
           CustomTabBar(
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             tabs: [
               Tab(text: 'Created'),
-              //Tab(text: 'Records'),
+              Tab(text: 'Records'),
               Tab(text: 'Saved'),
             ],
           ),
           CustomTabBarView(
             children: [
               WorkoutsListTab(),
-              //WorkoutsRecordsTab(),
+              WorkoutsRecordsTab(),
               WorkoutsLogsTab(),
             ],
           )
