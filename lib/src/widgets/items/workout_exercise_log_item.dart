@@ -59,13 +59,14 @@ class WorkoutExerciseLogItem extends StatelessWidget {
                   ],
                 ),
                 const Spacer(),
-                const Padding(
-                  padding: EdgeInsets.all(8),
-                  child: Icon(
-                    Icons.arrow_forward_ios_rounded,
-                    color: AppColors.grey,
+                if (onTap != null)
+                  const Padding(
+                    padding: EdgeInsets.all(8),
+                    child: Icon(
+                      Icons.arrow_forward_ios_rounded,
+                      color: AppColors.grey,
+                    ),
                   ),
-                ),
               ],
             ),
           ),

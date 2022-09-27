@@ -109,7 +109,12 @@ class CurrentWorkoutBloc
 
     await _tickerSubscription!.cancel();
 
-    emit(state.copyWith(status: CurrentWorkoutStatus.finish));
+    emit(
+      state.copyWith(
+        status: CurrentWorkoutStatus.finish,
+        workoutLog: workoutLog,
+      ),
+    );
   }
 
   Future<void> _onClear(
