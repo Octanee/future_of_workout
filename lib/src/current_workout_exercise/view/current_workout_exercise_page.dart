@@ -47,17 +47,6 @@ class CurrentWorkoutExerciseView extends StatelessWidget {
         }
         final workoutExerciseLog = state.workoutExerciseLog!;
         return AppScaffold(
-          actions: [
-            IconButton(
-              onPressed: () {
-                context.pushNamed(
-                  ExerciseDetailsPage.name,
-                  params: {'exerciseId': workoutExerciseLog.exercise.id},
-                );
-              },
-              icon: const Icon(Icons.info_outline),
-            ),
-          ],
           floatingActionButton: workoutExerciseLog.isFinished
               ? FloatingActionButton(
                   onPressed: () {
@@ -68,7 +57,7 @@ class CurrentWorkoutExerciseView extends StatelessWidget {
               : null,
           title: workoutExerciseLog.exercise.name,
           body: ListView(
-            padding: const EdgeInsets.symmetric(vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             children: [
               ...workoutExerciseLog.exerciseSeriesLogs.map<Widget>((series) {
                 var todo = false;
@@ -80,46 +69,68 @@ class CurrentWorkoutExerciseView extends StatelessWidget {
                   todo = series == firstTodo;
                 } catch (_) {}
 
-                return ExerciseSeriesLogItem(
-                  series: series,
-                  onTap: todo || series.isFinished
-                      ? () async {
-                          final bloc =
-                              context.read<CurrentWorkoutExerciseBloc>();
-                          await showDialog<void>(
-                            context: context,
-                            builder: (builderContext) => SeriesLogDialog(
-                              weight: series.weight.toString(),
-                              reps: series.reps.toString(),
-                              onConfirm: (reps, weight) {
-                                bloc.add(
-                                  CurrentWorkoutExerciseSeriesComplete(
-                                    series: series.copyWith(
-                                      weight: weight,
-                                      reps: reps,
-                                      isFinished: true,
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: ExerciseSeriesLogItem(
+                    series: series,
+                    onTap: todo || series.isFinished
+                        ? () async {
+                            final bloc =
+                                context.read<CurrentWorkoutExerciseBloc>();
+                            await showDialog<void>(
+                              context: context,
+                              builder: (builderContext) => SeriesLogDialog(
+                                weight: series.weight.toString(),
+                                reps: series.reps.toString(),
+                                onConfirm: (reps, weight) {
+                                  bloc.add(
+                                    CurrentWorkoutExerciseSeriesComplete(
+                                      series: series.copyWith(
+                                        weight: weight,
+                                        reps: reps,
+                                        isFinished: true,
+                                      ),
                                     ),
-                                  ),
-                                );
-                                if (!series.isFinished) {
-                                  context.goNamed(
-                                    CurrentWorkoutRestPage.name,
-                                    params: {
-                                      'homePageTab': CurrentWorkoutPage.name,
-                                      'currentWorkoutExerciseId': series.id,
-                                      'time': series.rest.toString(),
-                                    },
                                   );
-                                }
-                              },
-                            ),
-                          );
-                        }
-                      : null,
+                                  if (!series.isFinished) {
+                                    context.goNamed(
+                                      CurrentWorkoutRestPage.name,
+                                      params: {
+                                        'homePageTab': CurrentWorkoutPage.name,
+                                        'currentWorkoutExerciseId': series.id,
+                                        'time': series.rest.toString(),
+                                      },
+                                    );
+                                  }
+                                },
+                              ),
+                            );
+                          }
+                        : null,
+                  ),
                 );
               }),
-              AddSeriesButton(
-                onTap: () {},
+              Padding(
+                padding: const EdgeInsets.only(top: 8),
+                child: AddSeriesButton(
+                  onTap: () {
+                    // TODO(Octane): Add series
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 8),
+                child: RemoveSeriesButton(
+                  onTap: () {
+                    // TODO(Octane): Remove series
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 16),
+                child: AboutExerciseButton(
+                  exerciseId: workoutExerciseLog.exercise.id,
+                ),
               ),
             ],
           ),

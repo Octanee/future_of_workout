@@ -66,6 +66,7 @@ class WorkoutDetailsView extends StatelessWidget {
       title: workout.name,
       actions: _getActions(context, workout.isFavorite),
       body: ListView(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         physics: const BouncingScrollPhysics(),
         children: [
           if (workout.workoutExercises.isNotEmpty)
@@ -217,25 +218,27 @@ class WorkoutDetailsView extends StatelessWidget {
   }
 
   Widget _getStartWorkoutButton(BuildContext context, String workoutId) {
-    return BarButton(
-      padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
-      text: 'Start workout',
-      icon: const Icon(Icons.play_arrow_outlined),
-      onTap: () {
-        context
-            .read<CurrentWorkoutBloc>()
-            .add(CurrentWorkoutStartWorkout(id: workoutId));
-        context.goNamed(
-          HomePage.name,
-          params: {'homePageTab': CurrentWorkoutPage.name},
-        );
-      },
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: BarButton(
+        text: 'Start workout',
+        icon: const Icon(Icons.play_arrow_outlined),
+        onTap: () {
+          context
+              .read<CurrentWorkoutBloc>()
+              .add(CurrentWorkoutStartWorkout(id: workoutId));
+          context.goNamed(
+            HomePage.name,
+            params: {'homePageTab': CurrentWorkoutPage.name},
+          );
+        },
+      ),
     );
   }
 
   Widget _getAddWorkoutExerciseButton(BuildContext context, String workoutId) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.only(top: 8),
       child: BarButton(
         text: 'Add exercise',
         icon: const Icon(Icons.add),
