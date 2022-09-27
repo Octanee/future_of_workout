@@ -13,6 +13,7 @@ class DefaultExerciseProvider {
 
   static Exercise _barbellBenchPress() {
     return Exercise(
+      id: '1',
       name: 'Barbell bench press',
       primaryMuscle: Muscle.chest,
       imagePath:
@@ -24,6 +25,7 @@ class DefaultExerciseProvider {
 
   static Exercise _squat() {
     return Exercise(
+      id: '2',
       name: 'Squat',
       primaryMuscle: Muscle.quadriceps,
       imagePath: 'assets/exercises/squat/squat_end.svg',
@@ -33,6 +35,7 @@ class DefaultExerciseProvider {
 
   static Exercise _deadlift() {
     return Exercise(
+      id: '3',
       name: 'Deadlift',
       primaryMuscle: Muscle.quadriceps,
       imagePath: 'assets/exercises/deadlift/deadlift_start.svg',

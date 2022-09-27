@@ -46,11 +46,11 @@ class LocalStorageExerciseApi extends ExerciseApi {
 
   void _addExercisesToStreamController() {
     var exercises = _exerciseBox.values.toList();
-    if (exercises.isEmpty) {
+    if (exercises.isEmpty ||
+        !exercises.contains(DefaultExerciseProvider.defaultExercises.last)) {
       _populateBox();
-      exercises = DefaultExerciseProvider.defaultExercises;
     }
-
+    exercises = _exerciseBox.values.toList();
     _exercisesStreamController.add(exercises);
   }
 
