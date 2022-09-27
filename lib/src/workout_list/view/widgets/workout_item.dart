@@ -51,10 +51,10 @@ class WorkoutItem extends StatelessWidget {
       alignment: Alignment.centerRight,
       child: Container(
         padding: const EdgeInsets.only(right: 8),
-        width: constraints.maxWidth * 0.7,
+        width: constraints.maxWidth * 0.5,
         child: Text(
           workout.name,
-          style: AppTextStyle.semiBold16,
+          style: AppTextStyle.bold20,
           softWrap: true,
           textAlign: TextAlign.right,
         ),
@@ -62,16 +62,13 @@ class WorkoutItem extends StatelessWidget {
     );
   }
 
-  Widget _getBody(BoxConstraints constraints) => Positioned(
-        left: constraints.maxWidth * -0.25,
-        height: constraints.maxHeight * 1.5,
-        top: 0,
-        width: constraints.maxWidth * 0.8,
-        child: const DecoratedBox(
-          decoration: BoxDecoration(
-            color: AppColors.yellow,
-          ),
-          // TODO(Octane): Display body SVG
-        ),
-      );
+  Widget _getBody(BoxConstraints constraints) {
+    final size = constraints.maxWidth;
+    return Positioned(
+      left: size * -1,
+      height: size * 1.25,
+      top: 8,
+      child: const BodyWidget( isFront: false),
+    );
+  }
 }

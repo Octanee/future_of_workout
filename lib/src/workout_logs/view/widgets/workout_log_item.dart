@@ -27,38 +27,54 @@ class WorkoutLogItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(16),
             child: Stack(
               children: [
-                Align(
-                  alignment: isReverse ? Alignment.topRight : Alignment.topLeft,
-                  child: SizedBox(
-                    width: constraints.maxWidth * 0.5,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 8,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: isReverse
-                            ? CrossAxisAlignment.end
-                            : CrossAxisAlignment.start,
-                        children: [
-                          Text(log.name, style: AppTextStyle.bold24),
-                          const SizedBox(height: 16),
-                          _buildDate(),
-                          const SizedBox(height: 8),
-                          _buildTime(),
-                          const SizedBox(height: 8),
-                          _buildExercises(),
-                          const SizedBox(height: 8),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+                _getData(constraints),
+                _getBody(constraints),
               ],
             ),
           ),
         );
       },
+    );
+  }
+
+  Widget _getData(BoxConstraints constraints) {
+    return Align(
+      alignment: isReverse ? Alignment.topRight : Alignment.topLeft,
+      child: SizedBox(
+        width: constraints.maxWidth * 0.5,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 8,
+          ),
+          child: Column(
+            crossAxisAlignment:
+                isReverse ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+            children: [
+              Text(log.name, style: AppTextStyle.bold24),
+              const SizedBox(height: 16),
+              _buildDate(),
+              const SizedBox(height: 8),
+              _buildTime(),
+              const SizedBox(height: 8),
+              _buildExercises(),
+              const SizedBox(height: 8),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _getBody(BoxConstraints constraints) {
+    final size = constraints.maxWidth;
+    return Positioned(
+      right: isReverse ? size / 9 : null,
+      left: isReverse ? null : size / 9,
+      //width: constraints.maxWidth,
+      height: size,
+      top: -(size / 12),
+      child: const BodyWidget(),
     );
   }
 
