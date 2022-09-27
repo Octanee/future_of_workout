@@ -18,64 +18,70 @@ class WorkoutExerciseLogDetailsItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: CustomCard(
-        onTap: onTap,
-        child: Column(
-          children: [
-            header,
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: Row(
+    final finished = workoutExerciseLog.exerciseSeriesLogs
+        .where((series) => series.isFinished);
+    return finished.isNotEmpty
+        ? Padding(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: CustomCard(
+              onTap: onTap,
+              child: Column(
                 children: [
-                  _buildColumn(
-                    header: _buildColumnName(
-                      name: 'Reps',
-                      icon: const Icon(Icons.repeat_rounded),
-                    ),
-                    items: workoutExerciseLog.exerciseSeriesLogs
-                        .map<Widget>(
-                          (series) => _buildText(bold: series.reps.toString()),
-                        )
-                        .toList(),
-                  ),
-                  _buildColumn(
-                    isMiddle: true,
-                    header: _buildColumnName(
-                      name: 'Weight',
-                      icon: const Icon(Icons.accessibility_new_rounded),
-                    ),
-                    items: workoutExerciseLog.exerciseSeriesLogs
-                        .map<Widget>(
-                          (series) => _buildText(
-                            bold: series.weight.toString(),
-                            medium: 'kg',
+                  header,
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    child: Row(
+                      children: [
+                        _buildColumn(
+                          header: _buildColumnName(
+                            name: 'Reps',
+                            icon: const Icon(Icons.repeat_rounded),
                           ),
-                        )
-                        .toList(),
-                  ),
-                  _buildColumn(
-                    header: _buildColumnName(
-                      name: 'Rest',
-                      icon: const Icon(Icons.repeat_rounded),
-                    ),
-                    items: workoutExerciseLog.exerciseSeriesLogs
-                        .map<Widget>(
-                          (series) => _buildText(
-                            bold: series.rest.toString(),
-                            medium: 's',
+                          items: finished
+                              .map<Widget>(
+                                (series) =>
+                                    _buildText(bold: series.reps.toString()),
+                              )
+                              .toList(),
+                        ),
+                        _buildColumn(
+                          isMiddle: true,
+                          header: _buildColumnName(
+                            name: 'Weight',
+                            icon: const Icon(Icons.accessibility_new_rounded),
                           ),
-                        )
-                        .toList(),
+                          items: finished
+                              .map<Widget>(
+                                (series) => _buildText(
+                                  bold: series.weight.toString(),
+                                  medium: 'kg',
+                                ),
+                              )
+                              .toList(),
+                        ),
+                        _buildColumn(
+                          header: _buildColumnName(
+                            name: 'Rest',
+                            icon: const Icon(Icons.repeat_rounded),
+                          ),
+                          items: finished
+                              .map<Widget>(
+                                (series) => _buildText(
+                                  bold: series.rest.toString(),
+                                  medium: 's',
+                                ),
+                              )
+                              .toList(),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
             ),
-          ],
-        ),
-      ),
-    );
+          )
+        : header;
   }
 
   Widget _buildColumn({
