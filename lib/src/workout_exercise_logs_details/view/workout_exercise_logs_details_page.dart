@@ -78,12 +78,14 @@ class WorkoutExerciseLogsDetailsView extends StatelessWidget {
                                 builder: (builderContext) => SeriesLogDialog(
                                   weight: series.weight.toString(),
                                   reps: series.reps.toString(),
-                                  onConfirm: (reps, weight) {
+                                  intensity: series.intensity,
+                                  onConfirm: (reps, weight, intensity) {
                                     bloc.add(
                                       WorkoutExerciseLogsDetailsUpdateSeries(
                                         seriesLog: series.copyWith(
                                           weight: weight,
                                           reps: reps,
+                                          intensity: intensity,
                                           isFinished: true,
                                         ),
                                       ),

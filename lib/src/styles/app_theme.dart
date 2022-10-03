@@ -58,6 +58,16 @@ class AppTheme {
           shape: const StadiumBorder(),
         ),
       ),
+      sliderTheme: SliderThemeData(
+        thumbColor: AppColors.yellow,
+        activeTrackColor: AppColors.yellow,
+        activeTickMarkColor: AppColors.grey,
+        overlayColor: AppColors.yellow.withOpacity(0.25),
+        inactiveTrackColor: AppColors.grey,
+        inactiveTickMarkColor: AppColors.yellow,
+        valueIndicatorShape: const PaddleSliderValueIndicatorShape(),
+        valueIndicatorColor: AppColors.yellow,
+      ),
     );
   }
 }

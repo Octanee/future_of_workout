@@ -3,11 +3,13 @@ import 'package:flutter/services.dart';
 import 'package:future_of_workout/src/formatter.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:workout_log_api/workout_log_api.dart';
 
-class SeriesLogDialog extends StatelessWidget {
+class SeriesLogDialog extends StatefulWidget {
   const SeriesLogDialog({
     required this.weight,
     required this.reps,
+    required this.intensity,
     required this.onConfirm,
     this.title = 'Complete Series',
     super.key,
@@ -16,20 +18,36 @@ class SeriesLogDialog extends StatelessWidget {
   final String weight;
   final String reps;
   final String title;
+  final SeriesLogIntensity intensity;
 
-  final void Function(int reps, double weight) onConfirm;
+  final void Function(int reps, double weight, SeriesLogIntensity intensity)
+      onConfirm;
+
+  @override
+  State<SeriesLogDialog> createState() => _SeriesLogDialogState();
+}
+
+class _SeriesLogDialogState extends State<SeriesLogDialog> {
+  late double _value;
+  late TextEditingController weightController;
+  late TextEditingController repsController;
+  
+  @override
+  void initState() {
+    _value = widget.intensity.index.toDouble();
+    weightController = TextEditingController(
+      text: widget.weight,
+    );
+    repsController = TextEditingController(
+      text: widget.reps,
+    );
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final weightController = TextEditingController(
-      text: weight,
-    );
-    final repsController = TextEditingController(
-      text: reps,
-    );
-
     return CustomDialog(
-      title: title,
+      title: widget.title,
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -85,13 +103,32 @@ class SeriesLogDialog extends StatelessWidget {
               ),
             ],
           ),
+          const SizedBox(height: 16),
+          Row(
+            children: [
+              const Padding(
+                padding: EdgeInsets.only(right: 16),
+                child: Icon(Icons.speed_rounded),
+              ),
+              Slider(
+                label: SeriesLogIntensity.values[_value.round()].name,
+                max: 5,
+                divisions: 5,
+                value: _value,
+                onChanged: (value) => setState(
+                  () => _value = value,
+                ),
+              ),
+            ],
+          )
         ],
       ),
       onConfirm: () {
         final weight = double.tryParse(weightController.text) ?? 0;
         final reps = int.tryParse(repsController.text) ?? 0;
+        final intensity = SeriesLogIntensity.values[_value.toInt()];
 
-        onConfirm(reps, weight);
+        widget.onConfirm(reps, weight, intensity);
       },
     );
   }
