@@ -30,6 +30,7 @@ class ExerciseSeriesLog extends Equatable {
     required this.weight,
     required this.reps,
     required this.rest,
+    required this.intensity,
     this.isFinished = false,
   })  : assert(
           id == null || id.isNotEmpty,
@@ -59,6 +60,9 @@ class ExerciseSeriesLog extends Equatable {
   /// Defaults `false`.
   final bool isFinished;
 
+  /// Intensity of series;
+  final SeriesIntensity intensity;
+
   /// Returns a copy of this [ExerciseSeriesLog] with the given values updated.
   ///
   /// {@macro exercise_series_log}
@@ -68,6 +72,7 @@ class ExerciseSeriesLog extends Equatable {
     double? weight,
     int? reps,
     int? rest,
+    SeriesIntensity? intensity,
     bool? isFinished,
   }) {
     return ExerciseSeriesLog(
@@ -76,6 +81,7 @@ class ExerciseSeriesLog extends Equatable {
       weight: weight ?? this.weight,
       reps: reps ?? this.reps,
       rest: rest ?? this.rest,
+      intensity: intensity ?? this.intensity,
       isFinished: isFinished ?? this.isFinished,
     );
   }
@@ -88,7 +94,8 @@ class ExerciseSeriesLog extends Equatable {
   JsonMap toJson() => _$ExerciseSeriesLogToJson(this);
 
   @override
-  List<Object?> get props => [id, index, weight, reps, rest, isFinished];
+  List<Object?> get props =>
+      [id, index, weight, reps, rest, intensity, isFinished];
 
   /// Convert the given [ExerciseSeries] into a [ExerciseSeriesLog]
   factory ExerciseSeriesLog.fromExerciseSeries(ExerciseSeries series) =>
@@ -97,5 +104,6 @@ class ExerciseSeriesLog extends Equatable {
         weight: series.weight,
         reps: series.reps,
         rest: series.rest,
+        intensity: series.intensity,
       );
 }
