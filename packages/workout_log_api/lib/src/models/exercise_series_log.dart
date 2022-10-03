@@ -61,7 +61,7 @@ class ExerciseSeriesLog extends Equatable {
   final bool isFinished;
 
   /// Intensity of series;
-  final SeriesIntensity intensity;
+  final SeriesLogIntensity intensity;
 
   /// Returns a copy of this [ExerciseSeriesLog] with the given values updated.
   ///
@@ -72,7 +72,7 @@ class ExerciseSeriesLog extends Equatable {
     double? weight,
     int? reps,
     int? rest,
-    SeriesIntensity? intensity,
+    SeriesLogIntensity? intensity,
     bool? isFinished,
   }) {
     return ExerciseSeriesLog(
@@ -98,12 +98,14 @@ class ExerciseSeriesLog extends Equatable {
       [id, index, weight, reps, rest, intensity, isFinished];
 
   /// Convert the given [ExerciseSeries] into a [ExerciseSeriesLog]
-  factory ExerciseSeriesLog.fromExerciseSeries(ExerciseSeries series) =>
-      ExerciseSeriesLog(
-        index: series.index,
-        weight: series.weight,
-        reps: series.reps,
-        rest: series.rest,
-        intensity: series.intensity,
-      );
+  factory ExerciseSeriesLog.fromExerciseSeries(ExerciseSeries series) {
+    return ExerciseSeriesLog(
+      index: series.index,
+      weight: series.weight,
+      reps: series.reps,
+      rest: series.rest,
+      intensity: SeriesLogIntensity.values
+          .firstWhere((element) => element.value == series.intensity.value),
+    );
+  }
 }

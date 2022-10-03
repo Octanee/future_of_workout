@@ -2,7 +2,6 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:uuid/uuid.dart';
-import 'package:workout_api/src/models/series_intensity.dart';
 import 'package:workout_api/workout_api.dart';
 
 part 'exercise_series.g.dart';

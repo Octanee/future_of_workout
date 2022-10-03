@@ -25,13 +25,14 @@ class ExerciseSeriesLogAdapter extends TypeAdapter<ExerciseSeriesLog> {
       reps: fields[4] as int,
       rest: fields[5] as int,
       isFinished: fields[6] as bool,
+      intensity: fields[7] as SeriesLogIntensity,
     );
   }
 
   @override
   void write(BinaryWriter writer, ExerciseSeriesLog obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(1)
       ..write(obj.id)
       ..writeByte(2)
@@ -43,6 +44,7 @@ class ExerciseSeriesLogAdapter extends TypeAdapter<ExerciseSeriesLog> {
       ..writeByte(5)
       ..write(obj.rest)
       ..writeByte(6)
-      ..write(obj.isFinished);
+      ..write(obj.isFinished)..writeByte(7)
+      ..write(obj.intensity);
   }
 }
