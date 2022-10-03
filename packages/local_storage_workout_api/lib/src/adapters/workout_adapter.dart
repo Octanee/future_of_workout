@@ -4,7 +4,7 @@ import 'package:workout_api/workout_api.dart';
 /// Custom [TypeAdapter] for writing and reading [Workout] from local database.
 class WorkoutAdapter extends TypeAdapter<Workout> {
   @override
-  final int typeId = 4;
+  final int typeId = 12;
 
   @override
   Workout read(BinaryReader reader) {

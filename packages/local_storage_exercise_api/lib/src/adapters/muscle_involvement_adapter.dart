@@ -5,7 +5,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 /// from database.
 class MuscleInvolvementAdapter extends TypeAdapter<MuscleInvolvement> {
   @override
-  final int typeId = 4;
+  final int typeId = 3;
 
   @override
   MuscleInvolvement read(BinaryReader reader) {

@@ -5,7 +5,7 @@ import 'package:workout_api/workout_api.dart';
 /// from database.
 class SeriesIntensityAdapter extends TypeAdapter<SeriesIntensity> {
   @override
-  final int typeId = 4;
+  final int typeId = 11;
 
   @override
   SeriesIntensity read(BinaryReader reader) {

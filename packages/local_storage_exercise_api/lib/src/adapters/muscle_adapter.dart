@@ -4,7 +4,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 /// Custom [TypeAdapter] for writing and reading [Muscle] from database.
 class MuscleAdapter extends TypeAdapter<Muscle> {
   @override
-  final int typeId = 0;
+  final int typeId = 2;
 
   @override
   Muscle read(BinaryReader reader) {

@@ -5,7 +5,7 @@ import 'package:workout_api/workout_api.dart';
 /// from local database.
 class WorkoutExerciseAdapter extends TypeAdapter<WorkoutExercise> {
   @override
-  final int typeId = 3;
+  final int typeId = 13;
 
   @override
   WorkoutExercise read(BinaryReader reader) {
