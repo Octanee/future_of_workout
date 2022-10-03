@@ -1,5 +1,5 @@
-name: exercise_api
-description: The interface and models for an API providing access to exercises.
+name: body_api
+description: Models of Body with muscles. 
 version: 1.0.0+1
 publish_to: none
 
@@ -7,13 +7,8 @@ environment:
   sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
-  body_api: 
-    path: ../body_api
   equatable: ^2.0.3
   json_annotation: ^4.6.0
-  meta: ^1.3.0
-  uuid: ^3.0.4
-  
 
 dev_dependencies:
   build_runner: ^2.2.0

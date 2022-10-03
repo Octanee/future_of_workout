@@ -9,6 +9,8 @@ environment:
   sdk: ">=2.17.1 <3.0.0"
 
 dependencies:
+  body_api: 
+    path: packages/body_api
   equatable: ^2.0.5
   exercise_api:
     path: packages/exercise_api
