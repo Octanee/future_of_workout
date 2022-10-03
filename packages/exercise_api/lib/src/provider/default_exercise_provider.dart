@@ -1,5 +1,4 @@
 import 'package:exercise_api/exercise_api.dart';
-import 'package:exercise_api/src/models/muscle_involcement.dart';
 
 /// {@template default_exercise_provider}
 /// Provider of default [Exercise]s.
