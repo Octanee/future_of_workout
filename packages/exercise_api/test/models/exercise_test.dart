@@ -14,6 +14,7 @@ void main() {
         id: id,
         name: name,
         primaryMuscle: primaryMuscle,
+        muscles: {primaryMuscle: MuscleInvolvement.primary},
         imagePath: imagePath,
         imagePathSecondary: imagePathSecondary,
       );

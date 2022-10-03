@@ -28,6 +28,7 @@ class Exercise extends Equatable {
     String? id,
     required this.name,
     required this.primaryMuscle,
+    required this.muscles,
     this.imagePath = 'assets/exercises/default.svg',
     this.imagePathSecondary = 'assets/exercises/default.svg',
   })  : assert(
@@ -65,13 +66,17 @@ class Exercise extends Equatable {
   /// Value of primary muscle in exercise
   final Muscle primaryMuscle;
 
+  /// Map of
+  final Map<Muscle, MuscleInvolvement> muscles;
+
   @override
   List<Object?> get props => [
         id,
         name,
+        primaryMuscle,
+        muscles,
         imagePath,
         imagePathSecondary,
-        primaryMuscle,
       ];
 
   /// Return a copy of this [Exercise] with the given values updated.
@@ -83,13 +88,15 @@ class Exercise extends Equatable {
     String? imagePath,
     String? imagePathSecondary,
     Muscle? primaryMuscle,
+    Map<Muscle, MuscleInvolvement>? muscles,
   }) {
     return Exercise(
       id: id ?? this.id,
       name: name ?? this.name,
+      primaryMuscle: primaryMuscle ?? this.primaryMuscle,
+      muscles: muscles ?? this.muscles,
       imagePath: imagePath ?? this.imagePath,
       imagePathSecondary: imagePathSecondary ?? this.imagePathSecondary,
-      primaryMuscle: primaryMuscle ?? this.primaryMuscle,
     );
   }
 

@@ -15,16 +15,17 @@ class ExerciseAdapter extends TypeAdapter<Exercise> {
     return Exercise(
       id: fields[1] as String?,
       name: fields[2] as String,
-      primaryMuscle: fields[5] as Muscle,
       imagePath: fields[3] as String,
       imagePathSecondary: fields[4] as String,
+      primaryMuscle: fields[5] as Muscle,
+      muscles: (fields[6] as Map).cast<Muscle, MuscleInvolvement>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, Exercise obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(1)
       ..write(obj.id)
       ..writeByte(2)
@@ -34,6 +35,8 @@ class ExerciseAdapter extends TypeAdapter<Exercise> {
       ..writeByte(4)
       ..write(obj.imagePathSecondary)
       ..writeByte(5)
-      ..write(obj.primaryMuscle);
+      ..write(obj.primaryMuscle)
+      ..writeByte(6)
+      ..write(obj.muscles);
   }
 }
