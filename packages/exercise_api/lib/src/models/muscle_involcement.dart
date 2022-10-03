@@ -1,5 +1,5 @@
 /// {@template muscle_involvement}
-/// List of body muscles.
+/// Types pf involvement muscle in exercise.
 ///
 /// Contains a [value] property.
 /// {@endtemplate}

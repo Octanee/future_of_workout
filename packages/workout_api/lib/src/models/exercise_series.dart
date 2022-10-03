@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:uuid/uuid.dart';
+import 'package:workout_api/src/models/series_intensity.dart';
 import 'package:workout_api/workout_api.dart';
 
 part 'exercise_series.g.dart';
@@ -9,7 +10,8 @@ part 'exercise_series.g.dart';
 /// {@template exercise_series}
 /// A single exerciseSeries item.
 ///
-/// Contains a [id], [index], [weight], [reps] and [rest] time.
+/// Contains a [id], [index], [weight], [reps], [rest] time
+/// and [intensity] of series.
 ///
 /// [ExerciseSeries]s are immutable and can be copied using [copyWith],
 /// in addition to being serialized and deserialized using [toJson]
@@ -25,6 +27,7 @@ class ExerciseSeries extends Equatable {
     this.weight = 20,
     this.reps = 12,
     this.rest = 120,
+    this.intensity = SeriesIntensity.moderate,
   })  : assert(
           id == null || id.isNotEmpty,
           '"id" can not be null and should be empty',
@@ -53,6 +56,11 @@ class ExerciseSeries extends Equatable {
   ///
   /// Defaults to `120`.
   final int rest;
+
+  /// Intensity of series.
+  ///
+  /// Defaults to `moderate`.
+  final SeriesIntensity intensity;
 
   /// Returns a copy of this [ExerciseSeries] with the given values updated.
   ///
