@@ -5,7 +5,7 @@ import 'package:workout_log_api/workout_log_api.dart';
 /// from local database.
 class ExerciseSeriesLogAdapter extends TypeAdapter<ExerciseSeriesLog> {
   @override
-  final int typeId = 13;
+  final int typeId = 21;
 
   @override
   ExerciseSeriesLog read(BinaryReader reader) {
