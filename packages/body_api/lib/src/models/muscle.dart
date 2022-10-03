@@ -15,6 +15,7 @@ enum Muscle {
   chest(
     name: 'Chest',
     imagePathFront: 'assets/body/front/chest.svg',
+    maximumRecoverableVolume: 22,
   ),
 
   /// Serratus
@@ -28,18 +29,21 @@ enum Muscle {
     name: 'Shoulders',
     imagePathFront: 'assets/body/front/shoulders.svg',
     imagePathBack: 'assets/body/back/shoulders.svg',
+    maximumRecoverableVolume: 26,
   ),
 
   /// Biceps
   biceps(
     name: 'Biceps',
     imagePathFront: 'assets/body/front/biceps.svg',
+    maximumRecoverableVolume: 26,
   ),
 
   /// Triceps
   triceps(
     name: 'Triceps',
     imagePathBack: 'assets/body/back/triceps.svg',
+    maximumRecoverableVolume: 18,
   ),
 
   /// Forearm
@@ -53,6 +57,7 @@ enum Muscle {
   abs(
     name: 'Abs',
     imagePathFront: 'assets/body/front/abs.svg',
+    maximumRecoverableVolume: 25,
   ),
 
   /// Obliques
@@ -67,12 +72,14 @@ enum Muscle {
     name: 'Trapezius',
     imagePathFront: 'assets/body/front/trapezius.svg',
     imagePathBack: 'assets/body/back/trapezius.svg',
+    maximumRecoverableVolume: 26,
   ),
 
   /// Lattisimus
   lattisimus(
     name: 'Lattisimus',
     imagePathBack: 'assets/body/back/latisimus.svg',
+    maximumRecoverableVolume: 22,
   ),
 
   /// Teres Major
@@ -105,18 +112,21 @@ enum Muscle {
   glutes(
     name: 'Glutes',
     imagePathBack: 'assets/body/back/glutes.svg',
+    maximumRecoverableVolume: 16,
   ),
 
   /// Quadriceps
   quadriceps(
     name: 'Quadriceps',
     imagePathFront: 'assets/body/front/quadriceps.svg',
+    maximumRecoverableVolume: 20,
   ),
 
   /// Hamstering
   hamstering(
     name: 'Hamstering',
     imagePathBack: 'assets/body/back/hamstering.svg',
+    maximumRecoverableVolume: 20,
   ),
 
   /// Calf
@@ -124,11 +134,13 @@ enum Muscle {
     name: 'Calf',
     imagePathFront: 'assets/body/front/calf.svg',
     imagePathBack: 'assets/body/back/calf.svg',
+    maximumRecoverableVolume: 18,
   );
 
   /// {@macro muscle}
   const Muscle({
     required this.name,
+    this.maximumRecoverableVolume = 10,
     this.imagePathFront,
     this.imagePathBack,
   });
@@ -147,4 +159,7 @@ enum Muscle {
   /// showing the muscle appearance from the
   /// `back` of the body.
   final String? imagePathBack;
+
+  /// Value of Maximum Recoverable Volume.
+  final int maximumRecoverableVolume;
 }
