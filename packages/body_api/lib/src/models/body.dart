@@ -1,3 +1,4 @@
+import 'package:body_api/body_api.dart';
 import 'package:equatable/equatable.dart';
 
 /// {@template body}
@@ -5,122 +6,55 @@ import 'package:equatable/equatable.dart';
 /// {@endtemplate}
 class Body extends Equatable {
   ///{@macro body}
-  const Body({
-    this.neckInvolvement = 0,
-    this.chestInvolvement = 0,
-    this.serratusInvolvement = 0,
-    this.shouldersInvolvement = 0,
-    this.bicepsInvolvement = 0,
-    this.tricepsInvolvement = 0,
-    this.forearmInvolvement = 0,
-    this.absInvolvement = 0,
-    this.obliquesInvolvement = 0,
-    this.trapeziusInvolvement = 0,
-    this.lattisimusInvolvement = 0,
-    this.teresMajorInvolvement = 0,
-    this.erectorSpinaeInvolvement = 0,
-    this.adductorsInvolvement = 0,
-    this.abductorsInvolvement = 0,
-    this.glutesInvolvement = 0,
-    this.hamsteringInvolvement = 0,
-    this.quadricepsInvolvement = 0,
-    this.calfInvolvement = 0,
-  });
+  Body({
+    int neckInvolvement = 0,
+    int chestInvolvement = 0,
+    int serratusInvolvement = 0,
+    int shouldersInvolvement = 0,
+    int bicepsInvolvement = 0,
+    int tricepsInvolvement = 0,
+    int forearmInvolvement = 0,
+    int absInvolvement = 0,
+    int obliquesInvolvement = 0,
+    int trapeziusInvolvement = 0,
+    int lattisimusInvolvement = 0,
+    int teresMajorInvolvement = 0,
+    int erectorSpinaeInvolvement = 0,
+    int adductorsInvolvement = 0,
+    int abductorsInvolvement = 0,
+    int glutesInvolvement = 0,
+    int hamsteringInvolvement = 0,
+    int quadricepsInvolvement = 0,
+    int calfInvolvement = 0,
+  }) : _muscles = {
+          Muscle.neck: neckInvolvement.clamp(0, 100),
+          Muscle.chest: chestInvolvement.clamp(0, 100),
+          Muscle.serratus: serratusInvolvement.clamp(0, 100),
+          Muscle.shoulders: shouldersInvolvement.clamp(0, 100),
+          Muscle.biceps: bicepsInvolvement.clamp(0, 100),
+          Muscle.triceps: tricepsInvolvement.clamp(0, 100),
+          Muscle.forearm: forearmInvolvement.clamp(0, 100),
+          Muscle.abs: absInvolvement.clamp(0, 100),
+          Muscle.obliques: obliquesInvolvement.clamp(0, 100),
+          Muscle.trapezius: trapeziusInvolvement.clamp(0, 100),
+          Muscle.lattisimus: lattisimusInvolvement.clamp(0, 100),
+          Muscle.teresMajor: teresMajorInvolvement.clamp(0, 100),
+          Muscle.erectorSpinae: erectorSpinaeInvolvement.clamp(0, 100),
+          Muscle.adductors: adductorsInvolvement.clamp(0, 100),
+          Muscle.abductors: abductorsInvolvement.clamp(0, 100),
+          Muscle.glutes: glutesInvolvement.clamp(0, 100),
+          Muscle.hamstering: hamsteringInvolvement.clamp(0, 100),
+          Muscle.quadriceps: quadricepsInvolvement.clamp(0, 100),
+          Muscle.calf: calfInvolvement.clamp(0, 100),
+        };
 
-  /// Involvement of neck
+  /// Map of Muscles and involvement value.
   ///
-  /// A value between 0 and 100
-  final int neckInvolvement;
+  /// The Value should be between `0` and `100`.
+  final Map<Muscle, int> _muscles;
 
-  /// Involvement of chest
-  ///
-  /// A value between 0 and 100
-  final int chestInvolvement;
-
-  /// Involvement of serratus
-  ///
-  /// A value between 0 and 100
-  final int serratusInvolvement;
-
-  /// Involvement of shoulders
-  ///
-  /// A value between 0 and 100
-  final int shouldersInvolvement;
-
-  /// Involvement of biceps
-  ///
-  /// A value between 0 and 100
-  final int bicepsInvolvement;
-
-  /// Involvement of triceps
-  ///
-  /// A value between 0 and 100
-  final int tricepsInvolvement;
-
-  /// Involvement of forearm
-  ///
-  /// A value between 0 and 100
-  final int forearmInvolvement;
-
-  /// Involvement of abs
-  ///
-  /// A value between 0 and 100
-  final int absInvolvement;
-
-  /// Involvement of obliques
-  ///
-  /// A value between 0 and 100
-  final int obliquesInvolvement;
-
-  /// Involvement of trapezius
-  ///
-  /// A value between 0 and 100
-  final int trapeziusInvolvement;
-
-  /// Involvement of lattisimus
-  ///
-  /// A value between 0 and 100
-  final int lattisimusInvolvement;
-
-  /// Involvement of teresMajor
-  ///
-  /// A value between 0 and 100
-  final int teresMajorInvolvement;
-
-  /// Involvement of erectorSpinae
-  ///
-  /// A value between 0 and 100
-  final int erectorSpinaeInvolvement;
-
-  /// Involvement of adductors
-  ///
-  /// A value between 0 and 100
-  final int adductorsInvolvement;
-
-  /// Involvement of abductors
-  ///
-  /// A value between 0 and 100
-  final int abductorsInvolvement;
-
-  /// Involvement of glutes
-  ///
-  /// A value between 0 and 100
-  final int glutesInvolvement;
-
-  /// Involvement of hamstering
-  ///
-  /// A value between 0 and 100
-  final int hamsteringInvolvement;
-
-  /// Involvement of quadriceps
-  ///
-  /// A value between 0 and 100
-  final int quadricepsInvolvement;
-
-  /// Involvement of calf
-  ///
-  /// A value between 0 and 100
-  final int calfInvolvement;
+  /// Return value of muscle involvemnt.
+  int involvement({required Muscle muscle}) => _muscles[muscle] ?? 0;
 
   /// Copy instance with given values.
   ///
@@ -145,84 +79,68 @@ class Body extends Equatable {
     int Function()? hamsteringInvolvement,
     int Function()? quadricepsInvolvement,
     int Function()? calfInvolvement,
-  }) =>
-      Body(
-        neckInvolvement:
-            neckInvolvement != null ? neckInvolvement() : this.neckInvolvement,
-        chestInvolvement: chestInvolvement != null
-            ? chestInvolvement()
-            : this.chestInvolvement,
-        serratusInvolvement: serratusInvolvement != null
-            ? serratusInvolvement()
-            : this.serratusInvolvement,
-        shouldersInvolvement: shouldersInvolvement != null
-            ? shouldersInvolvement()
-            : this.shouldersInvolvement,
-        bicepsInvolvement: bicepsInvolvement != null
-            ? bicepsInvolvement()
-            : this.bicepsInvolvement,
-        tricepsInvolvement: tricepsInvolvement != null
-            ? tricepsInvolvement()
-            : this.tricepsInvolvement,
-        forearmInvolvement: forearmInvolvement != null
-            ? forearmInvolvement()
-            : this.forearmInvolvement,
-        absInvolvement:
-            absInvolvement != null ? absInvolvement() : this.absInvolvement,
-        obliquesInvolvement: obliquesInvolvement != null
-            ? obliquesInvolvement()
-            : this.obliquesInvolvement,
-        trapeziusInvolvement: trapeziusInvolvement != null
-            ? trapeziusInvolvement()
-            : this.trapeziusInvolvement,
-        lattisimusInvolvement: lattisimusInvolvement != null
-            ? lattisimusInvolvement()
-            : this.lattisimusInvolvement,
-        teresMajorInvolvement: teresMajorInvolvement != null
-            ? teresMajorInvolvement()
-            : this.teresMajorInvolvement,
-        erectorSpinaeInvolvement: erectorSpinaeInvolvement != null
-            ? erectorSpinaeInvolvement()
-            : this.erectorSpinaeInvolvement,
-        adductorsInvolvement: adductorsInvolvement != null
-            ? adductorsInvolvement()
-            : this.adductorsInvolvement,
-        abductorsInvolvement: abductorsInvolvement != null
-            ? abductorsInvolvement()
-            : this.abductorsInvolvement,
-        glutesInvolvement: glutesInvolvement != null
-            ? glutesInvolvement()
-            : this.glutesInvolvement,
-        hamsteringInvolvement: hamsteringInvolvement != null
-            ? hamsteringInvolvement()
-            : this.hamsteringInvolvement,
-        quadricepsInvolvement: quadricepsInvolvement != null
-            ? quadricepsInvolvement()
-            : this.quadricepsInvolvement,
-        calfInvolvement:
-            calfInvolvement != null ? calfInvolvement() : this.calfInvolvement,
-      );
+  }) {
+    return Body(
+      neckInvolvement: neckInvolvement != null
+          ? neckInvolvement()
+          : involvement(muscle: Muscle.neck),
+      chestInvolvement: chestInvolvement != null
+          ? chestInvolvement()
+          : involvement(muscle: Muscle.chest),
+      serratusInvolvement: serratusInvolvement != null
+          ? serratusInvolvement()
+          : involvement(muscle: Muscle.serratus),
+      shouldersInvolvement: shouldersInvolvement != null
+          ? shouldersInvolvement()
+          : involvement(muscle: Muscle.shoulders),
+      bicepsInvolvement: bicepsInvolvement != null
+          ? bicepsInvolvement()
+          : involvement(muscle: Muscle.biceps),
+      tricepsInvolvement: tricepsInvolvement != null
+          ? tricepsInvolvement()
+          : involvement(muscle: Muscle.triceps),
+      forearmInvolvement: forearmInvolvement != null
+          ? forearmInvolvement()
+          : involvement(muscle: Muscle.forearm),
+      absInvolvement: absInvolvement != null
+          ? absInvolvement()
+          : involvement(muscle: Muscle.abs),
+      obliquesInvolvement: obliquesInvolvement != null
+          ? obliquesInvolvement()
+          : involvement(muscle: Muscle.obliques),
+      trapeziusInvolvement: trapeziusInvolvement != null
+          ? trapeziusInvolvement()
+          : involvement(muscle: Muscle.trapezius),
+      lattisimusInvolvement: lattisimusInvolvement != null
+          ? lattisimusInvolvement()
+          : involvement(muscle: Muscle.lattisimus),
+      teresMajorInvolvement: teresMajorInvolvement != null
+          ? teresMajorInvolvement()
+          : involvement(muscle: Muscle.teresMajor),
+      erectorSpinaeInvolvement: erectorSpinaeInvolvement != null
+          ? erectorSpinaeInvolvement()
+          : involvement(muscle: Muscle.erectorSpinae),
+      adductorsInvolvement: adductorsInvolvement != null
+          ? adductorsInvolvement()
+          : involvement(muscle: Muscle.adductors),
+      abductorsInvolvement: abductorsInvolvement != null
+          ? abductorsInvolvement()
+          : involvement(muscle: Muscle.abductors),
+      glutesInvolvement: glutesInvolvement != null
+          ? glutesInvolvement()
+          : involvement(muscle: Muscle.glutes),
+      hamsteringInvolvement: hamsteringInvolvement != null
+          ? hamsteringInvolvement()
+          : involvement(muscle: Muscle.hamstering),
+      quadricepsInvolvement: quadricepsInvolvement != null
+          ? quadricepsInvolvement()
+          : involvement(muscle: Muscle.quadriceps),
+      calfInvolvement: calfInvolvement != null
+          ? calfInvolvement()
+          : involvement(muscle: Muscle.calf),
+    );
+  }
 
   @override
-  List<Object?> get props => [
-        neckInvolvement,
-        chestInvolvement,
-        serratusInvolvement,
-        shouldersInvolvement,
-        bicepsInvolvement,
-        tricepsInvolvement,
-        forearmInvolvement,
-        absInvolvement,
-        obliquesInvolvement,
-        trapeziusInvolvement,
-        lattisimusInvolvement,
-        teresMajorInvolvement,
-        erectorSpinaeInvolvement,
-        adductorsInvolvement,
-        abductorsInvolvement,
-        glutesInvolvement,
-        hamsteringInvolvement,
-        quadricepsInvolvement,
-        calfInvolvement,
-      ];
+  List<Object?> get props => [_muscles];
 }
