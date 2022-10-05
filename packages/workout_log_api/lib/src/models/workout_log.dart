@@ -1,3 +1,4 @@
+import 'package:body_api/body_api.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
@@ -66,6 +67,11 @@ class WorkoutLog extends Equatable {
   ///
   /// Defaults to empty list.
   final List<WorkoutExerciseLog> workoutExerciseLogs;
+
+  /// Return a body with muscle involcement in this workout
+  Body body() {
+    return Body();
+  }
 
   /// Deserializes the given [JsonMap] into a [WorkoutLog].
   factory WorkoutLog.fromJson(JsonMap json) => _$WorkoutLogFromJson(json);
