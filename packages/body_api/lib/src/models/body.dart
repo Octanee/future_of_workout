@@ -27,31 +27,36 @@ class Body extends Equatable {
     int quadricepsInvolvement = 0,
     int calfInvolvement = 0,
   }) : _muscles = {
-          Muscle.neck: neckInvolvement.clamp(0, 100),
-          Muscle.chest: chestInvolvement.clamp(0, 100),
-          Muscle.serratus: serratusInvolvement.clamp(0, 100),
-          Muscle.shoulders: shouldersInvolvement.clamp(0, 100),
-          Muscle.biceps: bicepsInvolvement.clamp(0, 100),
-          Muscle.triceps: tricepsInvolvement.clamp(0, 100),
-          Muscle.forearm: forearmInvolvement.clamp(0, 100),
-          Muscle.abs: absInvolvement.clamp(0, 100),
-          Muscle.obliques: obliquesInvolvement.clamp(0, 100),
-          Muscle.trapezius: trapeziusInvolvement.clamp(0, 100),
-          Muscle.lattisimus: lattisimusInvolvement.clamp(0, 100),
-          Muscle.teresMajor: teresMajorInvolvement.clamp(0, 100),
-          Muscle.erectorSpinae: erectorSpinaeInvolvement.clamp(0, 100),
-          Muscle.adductors: adductorsInvolvement.clamp(0, 100),
-          Muscle.abductors: abductorsInvolvement.clamp(0, 100),
-          Muscle.glutes: glutesInvolvement.clamp(0, 100),
-          Muscle.hamstering: hamsteringInvolvement.clamp(0, 100),
-          Muscle.quadriceps: quadricepsInvolvement.clamp(0, 100),
-          Muscle.calf: calfInvolvement.clamp(0, 100),
-        };
+          Muscle.neck: neckInvolvement,
+          Muscle.chest: chestInvolvement,
+          Muscle.serratus: serratusInvolvement,
+          Muscle.shoulders: shouldersInvolvement,
+          Muscle.biceps: bicepsInvolvement,
+          Muscle.triceps: tricepsInvolvement,
+          Muscle.forearm: forearmInvolvement,
+          Muscle.abs: absInvolvement,
+          Muscle.obliques: obliquesInvolvement,
+          Muscle.trapezius: trapeziusInvolvement,
+          Muscle.lattisimus: lattisimusInvolvement,
+          Muscle.teresMajor: teresMajorInvolvement,
+          Muscle.erectorSpinae: erectorSpinaeInvolvement,
+          Muscle.adductors: adductorsInvolvement,
+          Muscle.abductors: abductorsInvolvement,
+          Muscle.glutes: glutesInvolvement,
+          Muscle.hamstering: hamsteringInvolvement,
+          Muscle.quadriceps: quadricepsInvolvement,
+          Muscle.calf: calfInvolvement,
+        } {
+    position = BodyPosition.calculate(_muscles);
+  }
 
   /// Map of Muscles and involvement value.
   ///
   /// The Value should be between `0` and `100`.
   final Map<Muscle, int> _muscles;
+
+  /// Body position with most muscles involved.
+  late final BodyPosition position;
 
   /// Return value of muscle involvemnt.
   int involvement({required Muscle muscle}) => _muscles[muscle] ?? 0;
