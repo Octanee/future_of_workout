@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:body_api/body_api.dart';
 
 /// Different body positions
@@ -25,7 +23,9 @@ enum BodyPosition {
   /// Calculate body position for the given `muscles`.
   static BodyPosition calculate(Map<Muscle, int> muscles) {
     // TODO(Octane): Calculate body position
-    final index = Random().nextInt(BodyPosition.values.length);
-    return BodyPosition.values[index];
+    // final index = Random().nextInt(BodyPosition.values.length);
+    // return BodyPosition.values[index];
+
+    return BodyPosition.front;
   }
 }

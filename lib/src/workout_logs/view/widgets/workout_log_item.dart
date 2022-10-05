@@ -1,4 +1,3 @@
-import 'package:body_api/body_api.dart';
 import 'package:flutter/material.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
@@ -77,10 +76,9 @@ class WorkoutLogItem extends StatelessWidget {
   }
 
   Widget _getBody(double size) {
-    final body = Body();
     return BodyContainer(
       size: size,
-      body: body,
+      body: log.body(),
     );
   }
 
