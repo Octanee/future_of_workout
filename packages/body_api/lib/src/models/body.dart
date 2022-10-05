@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:body_api/body_api.dart';
 import 'package:equatable/equatable.dart';
 
@@ -143,6 +145,49 @@ class Body extends Equatable {
       calfInvolvement: calfInvolvement != null
           ? calfInvolvement()
           : involvement(muscle: Muscle.calf),
+    );
+  }
+
+  /// Create body from `data`.
+  ///
+  /// Muscle -> MuscleInvolvement -> SeriesIntensity -> Number of series
+  factory Body.fromData({
+    required Map<Muscle, Map<double, Map<double, int>>> data,
+  }) {
+
+    int calculate({required Muscle muscle}) {
+      final muscleData = data[muscle]!;
+      if (muscleData.isEmpty) {
+        return 0;
+      }
+
+      log('Body.fromData - muscle { $muscle }');
+      return InvolvementCalculator.calculate(
+        muscle: muscle,
+        data: muscleData,
+      );
+    }
+
+    return Body(
+      neckInvolvement: calculate(muscle: Muscle.neck),
+      chestInvolvement: calculate(muscle: Muscle.chest),
+      serratusInvolvement: calculate(muscle: Muscle.serratus),
+      shouldersInvolvement: calculate(muscle: Muscle.shoulders),
+      bicepsInvolvement: calculate(muscle: Muscle.biceps),
+      tricepsInvolvement: calculate(muscle: Muscle.triceps),
+      forearmInvolvement: calculate(muscle: Muscle.forearm),
+      absInvolvement: calculate(muscle: Muscle.abs),
+      obliquesInvolvement: calculate(muscle: Muscle.obliques),
+      trapeziusInvolvement: calculate(muscle: Muscle.trapezius),
+      lattisimusInvolvement: calculate(muscle: Muscle.lattisimus),
+      teresMajorInvolvement: calculate(muscle: Muscle.teresMajor),
+      erectorSpinaeInvolvement: calculate(muscle: Muscle.erectorSpinae),
+      adductorsInvolvement: calculate(muscle: Muscle.adductors),
+      abductorsInvolvement: calculate(muscle: Muscle.abductors),
+      glutesInvolvement: calculate(muscle: Muscle.glutes),
+      hamsteringInvolvement: calculate(muscle: Muscle.hamstering),
+      quadricepsInvolvement: calculate(muscle: Muscle.quadriceps),
+      calfInvolvement: calculate(muscle: Muscle.calf),
     );
   }
 
