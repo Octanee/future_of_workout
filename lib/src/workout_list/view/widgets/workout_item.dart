@@ -1,3 +1,4 @@
+import 'package:body_api/body_api.dart';
 import 'package:flutter/material.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
@@ -68,7 +69,10 @@ class WorkoutItem extends StatelessWidget {
       left: size * -1,
       height: size * 1.25,
       top: 8,
-      child: const BodyWidget( isFront: false),
+      child: BodyContainer(
+        size: size / 2,
+        body: Body(),
+      ),
     );
   }
 }

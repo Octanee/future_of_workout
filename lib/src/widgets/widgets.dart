@@ -1,6 +1,7 @@
 export 'app_error.dart';
 export 'app_loading.dart';
 export 'app_scaffold.dart';
+export 'body_container.dart';
 export 'body_widget.dart';
 export 'buttons/buttons.dart';
 export 'cards/cards.dart';

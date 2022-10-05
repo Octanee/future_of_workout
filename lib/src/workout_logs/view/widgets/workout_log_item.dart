@@ -1,3 +1,4 @@
+import 'package:body_api/body_api.dart';
 import 'package:flutter/material.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
@@ -25,11 +26,8 @@ class WorkoutLogItem extends StatelessWidget {
           onTap: onTap,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(16),
-            child: Stack(
-              children: [
-                _getData(constraints),
-                _getBody(constraints),
-              ],
+            child: Row(
+              children: _getContent(constraints.maxWidth / 2),
             ),
           ),
         );
@@ -37,44 +35,52 @@ class WorkoutLogItem extends StatelessWidget {
     );
   }
 
-  Widget _getData(BoxConstraints constraints) {
-    return Align(
-      alignment: isReverse ? Alignment.topRight : Alignment.topLeft,
-      child: SizedBox(
-        width: constraints.maxWidth * 0.5,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 8,
-          ),
-          child: Column(
-            crossAxisAlignment:
-                isReverse ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-            children: [
-              Text(log.name, style: AppTextStyle.bold24),
-              const SizedBox(height: 16),
-              _buildDate(),
-              const SizedBox(height: 8),
-              _buildTime(),
-              const SizedBox(height: 8),
-              _buildExercises(),
-              const SizedBox(height: 8),
-            ],
-          ),
+  List<Widget> _getContent(double size) {
+    final list = [
+      Align(
+        alignment: isReverse ? Alignment.topRight : Alignment.topLeft,
+        child: _getData(size),
+      ),
+      _getBody(size),
+    ];
+
+    if (isReverse) {
+      return list.reversed.toList();
+    }
+    return list;
+  }
+
+  Widget _getData(double size) {
+    return SizedBox(
+      width: size,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 8,
+        ),
+        child: Column(
+          crossAxisAlignment:
+              isReverse ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+          children: [
+            Text(log.name, style: AppTextStyle.bold24),
+            const SizedBox(height: 16),
+            _buildDate(),
+            const SizedBox(height: 8),
+            _buildTime(),
+            const SizedBox(height: 8),
+            _buildExercises(),
+            const SizedBox(height: 8),
+          ],
         ),
       ),
     );
   }
 
-  Widget _getBody(BoxConstraints constraints) {
-    final size = constraints.maxWidth;
-    return Positioned(
-      right: isReverse ? size / 9 : null,
-      left: isReverse ? null : size / 9,
-      //width: constraints.maxWidth,
-      height: size,
-      top: -(size / 12),
-      child: const BodyWidget(),
+  Widget _getBody(double size) {
+    final body = Body();
+    return BodyContainer(
+      size: size,
+      body: body,
     );
   }
 
