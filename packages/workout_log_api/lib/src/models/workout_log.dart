@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:body_api/body_api.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -70,7 +72,39 @@ class WorkoutLog extends Equatable {
 
   /// Return a body with muscle involcement in this workout
   Body body() {
-    return Body();
+    final muscles = <Muscle, Map<double, Map<double, int>>>{};
+
+    for (final muscle in Muscle.values) {
+      final exercisesWithMuscle = workoutExerciseLogs.where(
+        (exerciseLog) => exerciseLog.exercise.muscles.containsKey(muscle),
+      );
+
+      muscles.putIfAbsent(muscle, () => {});
+
+      for (final exerciseLog in exercisesWithMuscle) {
+        final muscleInvolvement = exerciseLog.exercise.muscles[muscle]!;
+
+        muscles[muscle]!.putIfAbsent(muscleInvolvement.value, () => {});
+
+        final finishedSeries = exerciseLog.exerciseSeriesLogs
+            .where((seriesLog) => seriesLog.isFinished);
+
+        for (final seriesLog in finishedSeries) {
+          final seriesIntensity = seriesLog.intensity;
+
+          muscles[muscle]![muscleInvolvement.value]
+              ?.putIfAbsent(seriesIntensity.value, () => 0);
+
+          final count = muscles[muscle]![muscleInvolvement.value]![
+              seriesIntensity.value]!;
+
+          muscles[muscle]![muscleInvolvement.value]!
+              .update(seriesIntensity.value, (value) => count + 1);
+        }
+      }
+    }
+
+    return Body.fromData(data: muscles);
   }
 
   /// Deserializes the given [JsonMap] into a [WorkoutLog].
