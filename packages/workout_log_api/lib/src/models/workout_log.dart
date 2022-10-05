@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:body_api/body_api.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
