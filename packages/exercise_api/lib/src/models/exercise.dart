@@ -66,7 +66,7 @@ class Exercise extends Equatable {
   /// Value of primary muscle in exercise
   final Muscle primaryMuscle;
 
-  /// Map of
+  /// Map of muscle with involvement.
   final Map<Muscle, MuscleInvolvement> muscles;
 
   @override
