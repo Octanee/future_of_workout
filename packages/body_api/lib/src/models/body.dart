@@ -154,14 +154,12 @@ class Body extends Equatable {
   factory Body.fromData({
     required Map<Muscle, Map<double, Map<double, int>>> data,
   }) {
-
     int calculate({required Muscle muscle}) {
       final muscleData = data[muscle]!;
       if (muscleData.isEmpty) {
         return 0;
       }
 
-      log('Body.fromData - muscle { $muscle }');
       return InvolvementCalculator.calculate(
         muscle: muscle,
         data: muscleData,

@@ -21,8 +21,6 @@ class InvolvementCalculator {
       });
     });
 
-    log('InvolvementCalculator -> involvement { $involvement }');
-
     final value = involvement / (muscle.maximumRecoverableVolume / 2) * 100;
 
     return value.toInt();

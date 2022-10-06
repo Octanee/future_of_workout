@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'dart:developer';
 
 import 'package:body_api/body_api.dart';
 
@@ -108,27 +109,40 @@ enum BodyPosition {
       if (value > 0) keys.add(key);
     });
 
-    final front = BodyPosition.front._contains(muscles: keys) >=
-        BodyPosition.back._contains(muscles: keys);
+    BodyPosition? getHigher({
+      required BodyPosition a,
+      required BodyPosition b,
+    }) {
+      final aValue = a._contains(muscles: keys);
+      final bValue = b._contains(muscles: keys);
 
-    if (front) {
-      final upper = BodyPosition.frontUpper._contains(muscles: keys) >=
-          BodyPosition.frontLower._contains(muscles: keys);
+      if (aValue == bValue) return null;
 
-      return upper ? BodyPosition.frontUpper : BodyPosition.frontLower;
-    } else {
-      final upper = BodyPosition.backUpper._contains(muscles: keys) >=
-          BodyPosition.backLower._contains(muscles: keys);
-
-      return upper ? BodyPosition.backUpper : BodyPosition.backLower;
+      return aValue >= bValue ? a : b;
     }
+
+    final fullPosition =
+        getHigher(a: BodyPosition.front, b: BodyPosition.back) ??
+            BodyPosition.front;
+
+    final BodyPosition? partPosition;
+
+    if (fullPosition == BodyPosition.front) {
+      partPosition =
+          getHigher(a: BodyPosition.frontUpper, b: BodyPosition.frontLower);
+    } else {
+      partPosition =
+          getHigher(a: BodyPosition.backUpper, b: BodyPosition.backLower);
+    }
+
+    return partPosition ?? fullPosition;
   }
 
   int _contains({required Iterable<Muscle> muscles}) {
-    return muscles.fold<int>(
-      0,
-      (previousValue, muscle) =>
-          muscles.contains(muscle) ? previousValue + 1 : previousValue,
-    );
+    return this.muscles.fold<int>(
+          0,
+          (previousValue, muscle) =>
+              muscles.contains(muscle) ? previousValue + 1 : previousValue,
+        );
   }
 }
