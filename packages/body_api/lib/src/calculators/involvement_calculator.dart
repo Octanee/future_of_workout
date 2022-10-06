@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:body_api/src/models/muscle.dart';
 
 /// Helper class to calculate a involvement for the muscle.
