@@ -4,13 +4,13 @@
 /// Contains a [value] property.
 /// {@endtemplate}
 enum MuscleInvolvement {
-  /// PRIMARY
+  /// PRIMARY: `1`
   primary(value: 1),
 
-  /// SECONDARY
+  /// SECONDARY: `0.75`
   secondary(value: 0.75),
 
-  /// ADDITIONAL
+  /// ADDITIONAL: `0.5`
   additional(value: 0.5);
 
   ///{@macro muscle_involvement}
