@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:future_of_workout/src/logger.dart';
-import 'package:future_of_workout/src/styles/app_text_style.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:future_of_workout/src/workout_exercise_logs_details/workout_exercise_logs_details.dart';
 
@@ -22,27 +20,17 @@ class RemoveSeries extends StatelessWidget {
               false,
           child: Padding(
             padding: const EdgeInsets.only(bottom: 8),
-            child: RemoveSeriesButton(
-              onTap: () async {
+            child: RemoveButton(
+              text: 'Remove series',
+              dialogText: 'Are you sure you want to remove series?',
+              onConfirm: () async {
                 final bloc = context.read<WorkoutExerciseLogsDetailsBloc>();
                 final lastFinished = state.exerciseLog!.exerciseSeriesLogs
                     .lastWhere((series) => series.isFinished);
 
-                logger.d('RemoveSeries { lastFinished: $lastFinished }');
-                
-                await showDialog<void>(
-                  context: context,
-                  builder: (builderContext) => ConfirmDialog(
-                    title: 'Remove series',
-                    content: Text(
-                      'Do you want to delete the series?',
-                      style: AppTextStyle.medium16,
-                    ),
-                    onConfirm: () => bloc.add(
-                      WorkoutExerciseLogsDetailsUpdateSeries(
-                        seriesLog: lastFinished.copyWith(isFinished: false),
-                      ),
-                    ),
+                bloc.add(
+                  WorkoutExerciseLogsDetailsUpdateSeries(
+                    seriesLog: lastFinished.copyWith(isFinished: false),
                   ),
                 );
               },

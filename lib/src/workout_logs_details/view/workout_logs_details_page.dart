@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/logger.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:future_of_workout/src/workout_logs_details/workout_logs_details.dart';
 import 'package:workout_log_repository/workout_log_repository.dart';
@@ -29,6 +30,7 @@ class WorkoutLogsDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<WorkoutLogsDetailsBloc, WorkoutLogsDetailsState>(
+      buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
         switch (state.status) {
           case WorkoutLogsDetailsStatus.initial:
@@ -46,13 +48,7 @@ class WorkoutLogsDetailsView extends StatelessWidget {
                 physics: const BouncingScrollPhysics(),
                 children: [
                   WorkoutSummaryCard(workoutLog: log),
-                  const Header(text: 'Exercises'),
-                  ...log.workoutExerciseLogs.map<Widget>(
-                    (exerciseLog) => ExerciseLogItem(
-                      log: exerciseLog,
-                      workoutId: log.id,
-                    ),
-                  ),
+                  const ExercisesList(),
                   const AddExercise()
                 ],
               ),

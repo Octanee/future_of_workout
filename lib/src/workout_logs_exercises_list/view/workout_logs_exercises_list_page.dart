@@ -2,7 +2,6 @@ import 'package:exercise_repository/exercise_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
-import 'package:future_of_workout/src/widgets/app_scaffold.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:future_of_workout/src/workout_logs_details/workout_logs_details.dart';
 import 'package:future_of_workout/src/workout_logs_exercises_list/workout_logs_exercises_list.dart';
@@ -44,13 +43,7 @@ class WorkoutLogsExercisesListView extends StatelessWidget {
       listenWhen: (previous, current) => previous.status != current.status,
       listener: (context, state) {
         if (state.status == WorkoutLogsExercisesListStatus.updated) {
-          context.goNamed(
-            WorkoutLogsDetailsPage.name,
-            params: {
-              'homePageTab': WorkoutsPage.name,
-              'workoutLogId': state.workoutLog!.id,
-            },
-          );
+          context.pop();
         }
       },
       buildWhen: (previous, current) =>
@@ -80,7 +73,9 @@ class WorkoutLogsExercisesListView extends StatelessWidget {
             children: [
               for (final exercise in state.exercises)
                 ExerciseItem(
-                  onIconPressed: () {},
+                  onIconPressed: () {
+                    // TODO(Octane): Navigate to exercise details
+                  },
                   exercise: exercise,
                   isSelected: state.selected[exercise] ?? false,
                   onTap: () => context.read<WorkoutLogsExercisesListBloc>().add(

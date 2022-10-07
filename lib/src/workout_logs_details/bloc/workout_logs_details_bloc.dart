@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:future_of_workout/src/logger.dart';
 import 'package:workout_log_repository/workout_log_repository.dart';
 
 part 'workout_logs_details_event.dart';
@@ -26,13 +27,15 @@ class WorkoutLogsDetailsBloc
     await emit.forEach<WorkoutLog?>(
       _repository.getWorkout(id: event.id),
       onData: (log) {
+        logger.e('WorkoutLogsDetailsBloc onData');
         return state.copyWith(
           status: WorkoutLogsDetailsStatus.loaded,
           workoutLog: log,
         );
       },
-      onError: (_, __) =>
-          state.copyWith(status: WorkoutLogsDetailsStatus.failure),
+      onError: (_, __) => state.copyWith(
+        status: WorkoutLogsDetailsStatus.failure,
+      ),
     );
   }
 }

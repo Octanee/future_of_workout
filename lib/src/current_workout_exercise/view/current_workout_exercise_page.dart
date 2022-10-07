@@ -114,7 +114,7 @@ class CurrentWorkoutExerciseView extends StatelessWidget {
                 visible: workoutExerciseLog.isFinished,
                 child: Padding(
                   padding: const EdgeInsets.only(top: 8),
-                  child: AddSeriesButton(
+                  child: AddButton(
                     onTap: () {
                       // TODO(Octane): Add series
                     },
@@ -123,8 +123,8 @@ class CurrentWorkoutExerciseView extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 8),
-                child: RemoveSeriesButton(
-                  onTap: () {
+                child: RemoveButton(
+                  onConfirm: () {
                     // TODO(Octane): Remove series
                   },
                 ),

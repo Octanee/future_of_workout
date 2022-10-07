@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:future_of_workout/src/workout_exercise_logs_details/workout_exercise_logs_details.dart';
+import 'package:go_router/go_router.dart';
 import 'package:workout_log_repository/workout_log_repository.dart';
 
 class WorkoutExerciseLogsDetailsPage extends StatelessWidget {
@@ -45,8 +46,15 @@ class WorkoutExerciseLogsDetailsView extends StatelessWidget {
             .add(const WorkoutExerciseLogsDetailsPop());
         return true;
       },
-      child: BlocBuilder<WorkoutExerciseLogsDetailsBloc,
+      child: BlocConsumer<WorkoutExerciseLogsDetailsBloc,
           WorkoutExerciseLogsDetailsState>(
+        listenWhen: (previous, current) => previous.status != current.status,
+        listener: (context, state) {
+          if (state.status == WorkoutExerciseLogsDetailsStatus.deleted) {
+            context.pop();
+          }
+        },
+        buildWhen: (previous, current) => previous.status != current.status,
         builder: (context, state) {
           switch (state.status) {
             case WorkoutExerciseLogsDetailsStatus.initial:
@@ -54,8 +62,10 @@ class WorkoutExerciseLogsDetailsView extends StatelessWidget {
               return const AppScaffold(body: AppLoading());
             case WorkoutExerciseLogsDetailsStatus.failure:
               return const AppScaffold(body: AppError());
+            case WorkoutExerciseLogsDetailsStatus.deleting:
             case WorkoutExerciseLogsDetailsStatus.loaded:
             case WorkoutExerciseLogsDetailsStatus.updated:
+            case WorkoutExerciseLogsDetailsStatus.deleted:
               final log = state.exerciseLog!;
               return AppScaffold(
                 title: log.exercise.name,
@@ -65,12 +75,14 @@ class WorkoutExerciseLogsDetailsView extends StatelessWidget {
                   child: ListView(
                     physics: const BouncingScrollPhysics(),
                     children: [
-                      // TODO(Octane): OnTap only when previous series isFinished
-                      ...log.exerciseSeriesLogs
-                          .map<Widget>((series) => SeriesItem(series: series)),
+                      const SeriesList(),
                       const AddSeries(),
                       const RemoveSeries(),
-                      AboutExerciseButton(exerciseId: log.exercise.id),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 8),
+                        child: AboutExerciseButton(exerciseId: log.exercise.id),
+                      ),
+                      const DeleteExercise(),
                     ],
                   ),
                 ),

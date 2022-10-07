@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:future_of_workout/src/logger.dart';
 import 'package:workout_log_repository/workout_log_repository.dart';
 
 part 'workout_exercise_logs_details_event.dart';
@@ -18,6 +17,7 @@ class WorkoutExerciseLogsDetailsBloc extends Bloc<
     on<WorkoutExerciseLogsDetailsPop>(_onPop);
     on<WorkoutExerciseLogsDetailsUpdateSeries>(_onUpdateSeries);
     on<WorkoutExerciseLogsDetailsAddSeries>(_onAddSeries);
+    on<WorkoutExerciseLogsDetailsDelete>(_onDelete);
   }
 
   final WorkoutLogRepository _repository;
@@ -101,5 +101,22 @@ class WorkoutExerciseLogsDetailsBloc extends Bloc<
         exerciseLog: log,
       ),
     );
+  }
+
+  Future<void> _onDelete(
+    WorkoutExerciseLogsDetailsDelete event,
+    Emitter<WorkoutExerciseLogsDetailsState> emit,
+  ) async {
+    emit(state.copyWith(status: WorkoutExerciseLogsDetailsStatus.deleting));
+
+    final workoutExerciseLogs = state.workoutLog!.workoutExerciseLogs
+      ..removeWhere((exerciseLog) => exerciseLog.id == state.exerciseLog!.id);
+
+    final log =
+        state.workoutLog!.copyWith(workoutExerciseLogs: workoutExerciseLogs);
+
+    await _repository.saveWorkoutLog(workoutLog: log);
+
+    emit(state.copyWith(status: WorkoutExerciseLogsDetailsStatus.deleted));
   }
 }

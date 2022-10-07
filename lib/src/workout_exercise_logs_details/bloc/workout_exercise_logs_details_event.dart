@@ -44,3 +44,7 @@ class WorkoutExerciseLogsDetailsAddSeries
   @override
   List<Object> get props => [seriesLog];
 }
+
+class WorkoutExerciseLogsDetailsDelete extends WorkoutExerciseLogsDetailsEvent {
+  const WorkoutExerciseLogsDetailsDelete();
+}

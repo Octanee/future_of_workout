@@ -29,6 +29,7 @@ class WorkoutListBloc extends Bloc<WorkoutListEvent, WorkoutListState> {
     await emit.forEach<List<Workout>>(
       _workoutRepository.getWorkouts(),
       onData: (workouts) {
+        logger.i('WorkoutListBloc onData');
         final favoriteWorkouts = workouts
             .where((element) => element.isFavorite)
             .toList()

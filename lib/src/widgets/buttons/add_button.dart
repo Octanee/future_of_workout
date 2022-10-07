@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 
-class AddSeriesButton extends StatelessWidget {
-  const AddSeriesButton({required this.onTap, super.key});
+class AddButton extends StatelessWidget {
+  const AddButton({required this.onTap, this.text = 'Add', super.key});
 
   final VoidCallback onTap;
+  final String text;
 
   @override
   Widget build(BuildContext context) {
     return BarButton(
-      text: 'Add series',
+      text: text,
       icon: const Icon(Icons.add),
       onTap: onTap,
     );

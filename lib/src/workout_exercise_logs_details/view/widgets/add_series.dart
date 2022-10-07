@@ -18,7 +18,8 @@ class AddSeries extends StatelessWidget {
           visible: state.exerciseLog?.isFinished ?? false,
           child: Padding(
             padding: const EdgeInsets.only(bottom: 8),
-            child: AddSeriesButton(
+            child: AddButton(
+              text: 'Add series',
               onTap: () async {
                 final bloc = context.read<WorkoutExerciseLogsDetailsBloc>();
                 final lastSeries = state.exerciseLog!.exerciseSeriesLogs.last;
