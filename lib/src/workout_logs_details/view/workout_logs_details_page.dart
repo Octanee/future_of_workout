@@ -47,8 +47,12 @@ class WorkoutLogsDetailsView extends StatelessWidget {
                 children: [
                   WorkoutSummaryCard(workoutLog: log),
                   const Header(text: 'Exercises'),
-                  ...log.workoutExerciseLogs
-                      .map<Widget>((log) => ExerciseLogItem(log: log)),
+                  ...log.workoutExerciseLogs.map<Widget>(
+                    (exerciseLog) => ExerciseLogItem(
+                      log: exerciseLog,
+                      workoutId: log.id,
+                    ),
+                  ),
                   const AddExercise()
                 ],
               ),

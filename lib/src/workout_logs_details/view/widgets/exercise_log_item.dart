@@ -6,8 +6,13 @@ import 'package:go_router/go_router.dart';
 import 'package:workout_log_repository/workout_log_repository.dart';
 
 class ExerciseLogItem extends StatelessWidget {
-  const ExerciseLogItem({required this.log, super.key});
+  const ExerciseLogItem({
+    required this.log,
+    required this.workoutId,
+    super.key,
+  });
 
+  final String workoutId;
   final WorkoutExerciseLog log;
 
   @override
@@ -22,7 +27,7 @@ class ExerciseLogItem extends StatelessWidget {
             WorkoutExerciseLogsDetailsPage.name,
             params: {
               'homePageTab': WorkoutsPage.name,
-              'workoutLogId': log.id,
+              'workoutLogId': workoutId,
               'workoutExerciseLogId': log.id,
             },
           );
