@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:future_of_workout/src/widgets/widgets.dart';
-import 'package:future_of_workout/src/workout_exercise_logs_details/workout_exercise_logs_details.dart';
 import 'package:future_of_workout/src/workout_logs_details/workout_logs_details.dart';
-import 'package:future_of_workout/src/workouts/workouts.dart';
-import 'package:go_router/go_router.dart';
 import 'package:workout_log_repository/workout_log_repository.dart';
 
 class WorkoutLogsDetailsPage extends StatelessWidget {
@@ -37,13 +33,9 @@ class WorkoutLogsDetailsView extends StatelessWidget {
         switch (state.status) {
           case WorkoutLogsDetailsStatus.initial:
           case WorkoutLogsDetailsStatus.loading:
-            return const AppScaffold(
-              body: AppLoading(),
-            );
+            return const AppScaffold(body: AppLoading());
           case WorkoutLogsDetailsStatus.failure:
-            return const AppScaffold(
-              body: AppError(),
-            );
+            return const AppScaffold(body: AppError());
           case WorkoutLogsDetailsStatus.loaded:
             final log = state.workoutLog!;
             return AppScaffold(
@@ -55,22 +47,9 @@ class WorkoutLogsDetailsView extends StatelessWidget {
                 children: [
                   WorkoutSummaryCard(workoutLog: log),
                   const Header(text: 'Exercises'),
-                  ...log.workoutExerciseLogs.map<Widget>(
-                    (exerciseLog) => WorkoutExerciseLogItem(
-                      markCompleted: false,
-                      workoutExerciseLog: exerciseLog,
-                      onTap: () {
-                        context.goNamed(
-                          WorkoutExerciseLogsDetailsPage.name,
-                          params: {
-                            'homePageTab': WorkoutsPage.name,
-                            'workoutLogId': log.id,
-                            'workoutExerciseLogId': exerciseLog.id,
-                          },
-                        );
-                      },
-                    ),
-                  )
+                  ...log.workoutExerciseLogs
+                      .map<Widget>((log) => ExerciseLogItem(log: log)),
+                  const AddExercise()
                 ],
               ),
             );
