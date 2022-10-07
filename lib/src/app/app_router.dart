@@ -1,15 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:future_of_workout/src/app/app_transitions.dart';
-import 'package:future_of_workout/src/current_workout_exercise/view/current_workout_exercise_page.dart';
+import 'package:future_of_workout/src/current_workout_exercise/current_workout_exercise.dart';
 import 'package:future_of_workout/src/current_workout_rest/current_workout_rest.dart';
-import 'package:future_of_workout/src/current_workout_summary/view/view.dart';
+import 'package:future_of_workout/src/current_workout_summary/current_wokrout_summary.dart';
 import 'package:future_of_workout/src/exercise_details/exercise_details.dart';
 import 'package:future_of_workout/src/home/home.dart';
 import 'package:future_of_workout/src/workout_details/workout_details.dart';
 import 'package:future_of_workout/src/workout_exercise_details/workout_exercise_details.dart';
 import 'package:future_of_workout/src/workout_exercise_logs_details/workout_exercise_logs_details.dart';
 import 'package:future_of_workout/src/workout_exercises_list/workout_exercises_list.dart';
-import 'package:future_of_workout/src/workout_logs_details/view/workout_logs_details_page.dart';
+import 'package:future_of_workout/src/workout_logs_details/workout_logs_details.dart';
+import 'package:future_of_workout/src/workout_logs_exercises_list/workout_logs_exercises_list.dart';
 import 'package:future_of_workout/src/workouts/workouts.dart';
 
 import 'package:go_router/go_router.dart';
@@ -150,7 +151,10 @@ class AppRouter {
         child: WorkoutLogsDetailsPage(workoutLogId: id),
       );
     },
-    routes: [_workoutExerciseLogDetailsRoute],
+    routes: [
+      _workoutExerciseLogDetailsRoute,
+      _workoutLogExerciseListRoute,
+    ],
   );
 
   static final GoRoute _workoutExerciseLogDetailsRoute = GoRoute(
@@ -164,6 +168,20 @@ class AppRouter {
         child: WorkoutExerciseLogsDetailsPage(
           workoutLogId: workoutLogId,
           workoutExerciseLogId: workoutExerciseLogId,
+        ),
+      );
+    },
+  );
+
+  static final GoRoute _workoutLogExerciseListRoute = GoRoute(
+    name: WorkoutLogsExercisesListPage.name,
+    path: WorkoutLogsExercisesListPage.path,
+    pageBuilder: (context, state) {
+      final workoutLogId = state.params['workoutLogId']!;
+      return _buildTransition(
+        key: state.pageKey,
+        child: WorkoutLogsExercisesListPage(
+          workoutLogId: workoutLogId,
         ),
       );
     },

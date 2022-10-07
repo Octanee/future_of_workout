@@ -18,7 +18,6 @@ class AddFab extends StatelessWidget {
             state.selected.values.where((element) => element == true).length;
 
         return Visibility(
-          
           visible: length > 0,
           child: TextFloatingActionButton(
             text: 'Add $length exercises',

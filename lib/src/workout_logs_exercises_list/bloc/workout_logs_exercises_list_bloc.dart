@@ -101,7 +101,7 @@ class WorkoutLogsExercisesListBloc
             exerciseSeriesLogs: List.generate(
               3,
               (index) => ExerciseSeriesLog(
-                index: index,
+                index: index + 1,
                 weight: 20,
                 reps: 12,
                 rest: 120,
