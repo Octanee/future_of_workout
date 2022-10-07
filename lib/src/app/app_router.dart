@@ -1,18 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:future_of_workout/src/app/app_transitions.dart';
-import 'package:future_of_workout/src/current_workout_exercise/current_workout_exercise.dart';
-import 'package:future_of_workout/src/current_workout_rest/current_workout_rest.dart';
-import 'package:future_of_workout/src/current_workout_summary/current_wokrout_summary.dart';
-import 'package:future_of_workout/src/exercise_details/exercise_details.dart';
+import 'package:future_of_workout/src/current_workout/current_workout.dart';
+import 'package:future_of_workout/src/exercise/exercise.dart';
 import 'package:future_of_workout/src/home/home.dart';
-import 'package:future_of_workout/src/workout_details/workout_details.dart';
-import 'package:future_of_workout/src/workout_exercise_details/workout_exercise_details.dart';
-import 'package:future_of_workout/src/workout_exercise_logs_details/workout_exercise_logs_details.dart';
-import 'package:future_of_workout/src/workout_exercises_list/workout_exercises_list.dart';
-import 'package:future_of_workout/src/workout_logs_details/workout_logs_details.dart';
-import 'package:future_of_workout/src/workout_logs_exercises_list/workout_logs_exercises_list.dart';
-import 'package:future_of_workout/src/workouts/workouts.dart';
-
+import 'package:future_of_workout/src/workout/workout.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRouter {

@@ -3,7 +3,7 @@ import 'package:future_of_workout/src/body/body_screen.dart';
 import 'package:future_of_workout/src/current_workout/current_workout.dart';
 import 'package:future_of_workout/src/discover/discover_screen.dart';
 import 'package:future_of_workout/src/settings/settings_screen.dart';
-import 'package:future_of_workout/src/workouts/workouts.dart';
+import 'package:future_of_workout/src/workout/workouts/workouts.dart';
 
 enum HomeNavigationItem {
   workouts(
