@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:body_api/body_api.dart';
 
 /// Different body positions
@@ -106,6 +108,8 @@ enum BodyPosition {
       if (value > 0) keys.add(key);
     });
 
+    log('BodyPosition { muscles: $muscles }');
+
     BodyPosition? getHigher({
       required BodyPosition a,
       required BodyPosition b,
@@ -115,7 +119,7 @@ enum BodyPosition {
 
       if (aValue == bValue) return null;
 
-      return aValue >= bValue ? a : b;
+      return aValue > bValue ? a : b;
     }
 
     final fullPosition =
