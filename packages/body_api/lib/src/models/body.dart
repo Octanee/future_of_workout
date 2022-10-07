@@ -47,7 +47,7 @@ class Body extends Equatable {
           Muscle.quadriceps: quadricepsInvolvement,
           Muscle.calf: calfInvolvement,
         } {
-    position = BodyPosition.calculate(_muscles);
+    position = BodyPositionCalculator.calculate(_muscles);
   }
 
   /// Map of Muscles and involvement value.

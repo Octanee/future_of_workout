@@ -100,46 +100,9 @@ enum BodyPosition {
   /// List of muscle groups visible in specific position.
   final List<Muscle> muscles;
 
-  /// Calculate body position for the given `muscles`.
-  static BodyPosition calculate(Map<Muscle, int> muscles) {
-    final keys = <Muscle>[];
-
-    muscles.forEach((key, value) {
-      if (value > 0) keys.add(key);
-    });
-
-    log('BodyPosition { muscles: $muscles }');
-
-    BodyPosition? getHigher({
-      required BodyPosition a,
-      required BodyPosition b,
-    }) {
-      final aValue = a._contains(muscles: keys);
-      final bValue = b._contains(muscles: keys);
-
-      if (aValue == bValue) return null;
-
-      return aValue > bValue ? a : b;
-    }
-
-    final fullPosition =
-        getHigher(a: BodyPosition.front, b: BodyPosition.back) ??
-            BodyPosition.front;
-
-    final BodyPosition? partPosition;
-
-    if (fullPosition == BodyPosition.front) {
-      partPosition =
-          getHigher(a: BodyPosition.frontUpper, b: BodyPosition.frontLower);
-    } else {
-      partPosition =
-          getHigher(a: BodyPosition.backUpper, b: BodyPosition.backLower);
-    }
-
-    return partPosition ?? fullPosition;
-  }
-
-  int _contains({required Iterable<Muscle> muscles}) {
+  /// The function returns the number of muscles 
+  /// that belong to a given body position.
+  int contains({required Iterable<Muscle> muscles}) {
     return this.muscles.fold<int>(
           0,
           (previousValue, muscle) =>
