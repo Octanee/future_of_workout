@@ -25,50 +25,47 @@ class WorkoutExerciseLogItem extends StatelessWidget {
         .length;
     return LayoutBuilder(
       builder: (context, constraints) {
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 8),
-          child: CustomCard(
-            onTap: onTap,
-            child: Row(
-              children: [
-                Row(
-                  children: [
-                    _buildIcon(constraints.maxWidth * 0.25),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          workoutExerciseLog.exercise.name,
-                          style: AppTextStyle.bold20,
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              '$finished / ',
-                              style: AppTextStyle.medium16,
-                            ),
-                            Text(
-                              '$series series',
-                              style: AppTextStyle.medium16,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                const Spacer(),
-                if (onTap != null)
-                  const Padding(
-                    padding: EdgeInsets.all(8),
-                    child: Icon(
-                      Icons.arrow_forward_ios_rounded,
-                      color: AppColors.grey,
-                    ),
+        return CustomCard(
+          onTap: onTap,
+          child: Row(
+            children: [
+              Row(
+                children: [
+                  _buildIcon(constraints.maxWidth * 0.25),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        workoutExerciseLog.exercise.name,
+                        style: AppTextStyle.bold20,
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            '$finished / ',
+                            style: AppTextStyle.medium16,
+                          ),
+                          Text(
+                            '$series series',
+                            style: AppTextStyle.medium16,
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-              ],
-            ),
+                ],
+              ),
+              const Spacer(),
+              if (onTap != null)
+                const Padding(
+                  padding: EdgeInsets.all(8),
+                  child: Icon(
+                    Icons.arrow_forward_ios_rounded,
+                    color: AppColors.grey,
+                  ),
+                ),
+            ],
           ),
         );
       },
