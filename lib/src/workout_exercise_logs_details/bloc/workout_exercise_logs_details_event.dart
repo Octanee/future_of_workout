@@ -34,3 +34,13 @@ class WorkoutExerciseLogsDetailsUpdateSeries
   @override
   List<Object> get props => [seriesLog];
 }
+
+class WorkoutExerciseLogsDetailsAddSeries
+    extends WorkoutExerciseLogsDetailsEvent {
+  const WorkoutExerciseLogsDetailsAddSeries({required this.seriesLog});
+
+  final ExerciseSeriesLog seriesLog;
+
+  @override
+  List<Object> get props => [seriesLog];
+}

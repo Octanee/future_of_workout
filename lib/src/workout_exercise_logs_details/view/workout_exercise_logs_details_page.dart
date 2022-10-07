@@ -65,38 +65,10 @@ class WorkoutExerciseLogsDetailsView extends StatelessWidget {
                   child: ListView(
                     physics: const BouncingScrollPhysics(),
                     children: [
-                      ...log.exerciseSeriesLogs.map<Widget>(
-                        (series) => Padding(
-                          padding: const EdgeInsets.only(bottom: 8),
-                          child: ExerciseSeriesLogItem(
-                            series: series,
-                            onTap: () async {
-                              final bloc = context
-                                  .read<WorkoutExerciseLogsDetailsBloc>();
-                              await showDialog<void>(
-                                context: context,
-                                builder: (builderContext) => SeriesLogDialog(
-                                  weight: series.weight.toString(),
-                                  reps: series.reps.toString(),
-                                  intensity: series.intensity,
-                                  onConfirm: (reps, weight, intensity) {
-                                    bloc.add(
-                                      WorkoutExerciseLogsDetailsUpdateSeries(
-                                        seriesLog: series.copyWith(
-                                          weight: weight,
-                                          reps: reps,
-                                          intensity: intensity,
-                                          isFinished: true,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                      ),
+                      ...log.exerciseSeriesLogs
+                          .map<Widget>((series) => SeriesItem(series: series)),
+                      const AddSeries(),
+                      const RemoveSeries(),
                       AboutExerciseButton(exerciseId: log.exercise.id),
                     ],
                   ),

@@ -16,6 +16,7 @@ class WorkoutExerciseLogsDetailsBloc extends Bloc<
     on<WorkoutExerciseLogsDetailsSubscriptionRequest>(_onSubscriptionRequest);
     on<WorkoutExerciseLogsDetailsPop>(_onPop);
     on<WorkoutExerciseLogsDetailsUpdateSeries>(_onUpdateSeries);
+    on<WorkoutExerciseLogsDetailsAddSeries>(_onAddSeries);
   }
 
   final WorkoutLogRepository _repository;
@@ -74,6 +75,24 @@ class WorkoutExerciseLogsDetailsBloc extends Bloc<
 
     final log =
         exerciseLog.copyWith(exerciseSeriesLogs: logs, isFinished: complete);
+
+    emit(
+      state.copyWith(
+        status: WorkoutExerciseLogsDetailsStatus.updated,
+        exerciseLog: log,
+      ),
+    );
+  }
+
+  void _onAddSeries(
+    WorkoutExerciseLogsDetailsAddSeries event,
+    Emitter<WorkoutExerciseLogsDetailsState> emit,
+  ) {
+    final exerciseLog = state.exerciseLog!;
+
+    final logs = List.of(exerciseLog.exerciseSeriesLogs)..add(event.seriesLog);
+
+    final log = exerciseLog.copyWith(exerciseSeriesLogs: logs);
 
     emit(
       state.copyWith(
