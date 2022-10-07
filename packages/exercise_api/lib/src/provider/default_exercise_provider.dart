@@ -18,6 +18,8 @@ class DefaultExerciseProvider {
       primaryMuscle: Muscle.chest,
       muscles: const {
         Muscle.chest: MuscleInvolvement.primary,
+        Muscle.triceps: MuscleInvolvement.secondary,
+        Muscle.shoulders: MuscleInvolvement.additional,
       },
       imagePath:
           'assets/exercises/barbel_bench_press/barbel_bench_press_start.svg',
@@ -32,6 +34,8 @@ class DefaultExerciseProvider {
       name: 'Squat',
       muscles: const {
         Muscle.quadriceps: MuscleInvolvement.primary,
+        Muscle.glutes: MuscleInvolvement.secondary,
+        Muscle.hamstering: MuscleInvolvement.additional,
       },
       primaryMuscle: Muscle.quadriceps,
       imagePath: 'assets/exercises/squat/squat_end.svg',
@@ -46,6 +50,8 @@ class DefaultExerciseProvider {
       primaryMuscle: Muscle.quadriceps,
       muscles: const {
         Muscle.hamstering: MuscleInvolvement.primary,
+        Muscle.glutes: MuscleInvolvement.secondary,
+        Muscle.erectorSpinae: MuscleInvolvement.secondary,
       },
       imagePath: 'assets/exercises/deadlift/deadlift_start.svg',
       imagePathSecondary: 'assets/exercises/deadlift/deadlift_end.svg',
