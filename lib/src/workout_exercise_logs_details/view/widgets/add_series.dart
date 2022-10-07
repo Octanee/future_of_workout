@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:future_of_workout/src/workout_exercise_logs_details/workout_exercise_logs_details.dart';
+import 'package:workout_log_api/workout_log_api.dart';
 
 class AddSeries extends StatelessWidget {
   const AddSeries({super.key});
@@ -30,12 +31,13 @@ class AddSeries extends StatelessWidget {
                     onConfirm: (reps, weight, intensity) {
                       bloc.add(
                         WorkoutExerciseLogsDetailsAddSeries(
-                          seriesLog: lastSeries.copyWith(
+                          seriesLog: ExerciseSeriesLog(
                             index: lastSeries.index + 1,
+                            rest: lastSeries.rest,
+                            isFinished: true,
                             weight: weight,
                             reps: reps,
                             intensity: intensity,
-                            isFinished: true,
                           ),
                         ),
                       );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/logger.dart';
 import 'package:future_of_workout/src/styles/app_text_style.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:future_of_workout/src/workout_exercise_logs_details/workout_exercise_logs_details.dart';
@@ -26,6 +27,9 @@ class RemoveSeries extends StatelessWidget {
                 final bloc = context.read<WorkoutExerciseLogsDetailsBloc>();
                 final lastFinished = state.exerciseLog!.exerciseSeriesLogs
                     .lastWhere((series) => series.isFinished);
+
+                logger.d('RemoveSeries { lastFinished: $lastFinished }');
+                
                 await showDialog<void>(
                   context: context,
                   builder: (builderContext) => ConfirmDialog(

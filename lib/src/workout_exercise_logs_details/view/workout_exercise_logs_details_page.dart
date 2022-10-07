@@ -65,6 +65,7 @@ class WorkoutExerciseLogsDetailsView extends StatelessWidget {
                   child: ListView(
                     physics: const BouncingScrollPhysics(),
                     children: [
+                      // TODO(Octane): OnTap only when previous series isFinished
                       ...log.exerciseSeriesLogs
                           .map<Widget>((series) => SeriesItem(series: series)),
                       const AddSeries(),
