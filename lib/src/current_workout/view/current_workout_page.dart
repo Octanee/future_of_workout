@@ -100,17 +100,20 @@ class CurrentWorkoutView extends StatelessWidget {
             const FinishButton(),
             ...workoutLog.workoutExerciseLogs
                 .map<Widget>(
-                  (workoutExerciseLog) => WorkoutExerciseLogItem(
-                    workoutExerciseLog: workoutExerciseLog,
-                    onTap: () {
-                      context.goNamed(
-                        CurrentWorkoutExercisePage.name,
-                        params: {
-                          'homePageTab': CurrentWorkoutPage.name,
-                          'currentWorkoutExerciseId': workoutExerciseLog.id
-                        },
-                      );
-                    },
+                  (workoutExerciseLog) => Padding(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: WorkoutExerciseLogItem(
+                      workoutExerciseLog: workoutExerciseLog,
+                      onTap: () {
+                        context.goNamed(
+                          CurrentWorkoutExercisePage.name,
+                          params: {
+                            'homePageTab': CurrentWorkoutPage.name,
+                            'currentWorkoutExerciseId': workoutExerciseLog.id
+                          },
+                        );
+                      },
+                    ),
                   ),
                 )
                 .toList(),
