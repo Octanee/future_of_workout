@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:body_api/body_api.dart';
 
 /// Different body positions
@@ -100,7 +98,7 @@ enum BodyPosition {
   /// List of muscle groups visible in specific position.
   final List<Muscle> muscles;
 
-  /// The function returns the number of muscles 
+  /// The function returns the number of muscles
   /// that belong to a given body position.
   int contains({required Iterable<Muscle> muscles}) {
     return this.muscles.fold<int>(
