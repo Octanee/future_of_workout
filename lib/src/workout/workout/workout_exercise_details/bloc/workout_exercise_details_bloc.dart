@@ -47,8 +47,6 @@ class WorkoutExerciseDetailsBloc
             .any((element) => element != workoutExercise.exerciseSeries.first);
       }
 
-      logger.d('IsAdvanced : $isAdvanced');
-
       emit(
         state.copyWith(
           status: WorkoutExerciseDetailsStatus.loaded,
@@ -80,7 +78,7 @@ class WorkoutExerciseDetailsBloc
   ) {
     final exerciseSeries = List.of(state.workoutExercise!.exerciseSeries);
     if (exerciseSeries.isEmpty) {
-      exerciseSeries.add( ExerciseSeries(index: 1));
+      exerciseSeries.add(ExerciseSeries(index: 1));
     } else {
       final lastSeries = exerciseSeries.last;
       exerciseSeries.add(lastSeries.copyWith(index: lastSeries.index + 1));
