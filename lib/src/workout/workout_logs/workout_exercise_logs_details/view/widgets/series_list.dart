@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/workout/workout.dart';
+import 'package:workout_log_api/workout_log_api.dart';
 
 class SeriesList extends StatelessWidget {
   const SeriesList({super.key});
@@ -14,10 +15,18 @@ class SeriesList extends StatelessWidget {
           current.exerciseLog!.exerciseSeriesLogs,
       builder: (context, state) {
         final logs = state.exerciseLog!.exerciseSeriesLogs;
+        ExerciseSeriesLog? previousSeries;
         return Column(
-          // TODO(Octane): OnTap only when previous series isFinished
-          children:
-              logs.map<Widget>((series) => SeriesItem(series: series)).toList(),
+          children: logs.map<Widget>((series) {
+            final item = SeriesItem(
+              series: series,
+              isClickable: previousSeries?.isFinished ?? true,
+            );
+
+            previousSeries = series;
+
+            return item;
+          }).toList(),
         );
       },
     );
