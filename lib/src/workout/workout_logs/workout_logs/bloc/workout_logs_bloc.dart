@@ -25,6 +25,9 @@ class WorkoutLogsBloc extends Bloc<WorkoutLogsEvent, WorkoutLogsState> {
     await emit.forEach<List<WorkoutLog>>(
       _repository.getWorkoutLogs(),
       onData: (logs) {
+        if (logs.isEmpty) {
+          return state.copyWith(status: WorkoutLogsStatus.empty);
+        }
         logs.sort(
           (a, b) => b.startDate.compareTo(a.startDate),
         );

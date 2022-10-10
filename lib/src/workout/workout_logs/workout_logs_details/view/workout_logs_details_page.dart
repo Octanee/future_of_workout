@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:future_of_workout/src/workout/workout.dart';
+import 'package:go_router/go_router.dart';
 import 'package:workout_log_repository/workout_log_repository.dart';
 
 class WorkoutLogsDetailsPage extends StatelessWidget {
@@ -28,7 +29,12 @@ class WorkoutLogsDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<WorkoutLogsDetailsBloc, WorkoutLogsDetailsState>(
+    return BlocConsumer<WorkoutLogsDetailsBloc, WorkoutLogsDetailsState>(
+      listener: (context, state) {
+        if (state.status == WorkoutLogsDetailsStatus.deleted) {
+          context.pop();
+        }
+      },
       buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
         switch (state.status) {
@@ -37,6 +43,7 @@ class WorkoutLogsDetailsView extends StatelessWidget {
             return const AppScaffold(body: AppLoading());
           case WorkoutLogsDetailsStatus.failure:
             return const AppScaffold(body: AppError());
+          case WorkoutLogsDetailsStatus.deleted:
           case WorkoutLogsDetailsStatus.loaded:
             final log = state.workoutLog!;
             return AppScaffold(
@@ -48,7 +55,8 @@ class WorkoutLogsDetailsView extends StatelessWidget {
                 children: [
                   WorkoutSummaryCard(workoutLog: log),
                   const ExercisesList(),
-                  const AddExercise()
+                  const AddExercise(),
+                  const DeleteWorkoutLog(),
                 ],
               ),
             );

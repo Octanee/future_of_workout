@@ -33,7 +33,11 @@ class WorkoutsLogsView extends StatelessWidget {
           case WorkoutLogsStatus.loaded:
             return const WorkoutLogsList();
           case WorkoutLogsStatus.empty:
-            return const AppScaffold(body: AppEmptyList());
+            return const AppScaffold(
+              body: AppEmptyList(
+                text: 'No workout has been done yet.',
+              ),
+            );
           case WorkoutLogsStatus.failure:
             return const AppScaffold(body: AppError());
         }

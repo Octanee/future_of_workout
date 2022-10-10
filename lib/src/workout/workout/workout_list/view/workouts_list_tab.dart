@@ -53,7 +53,6 @@ class WorkoutListView extends StatelessWidget {
               floatingActionButton: AddWorkout(),
               body: AppEmptyList(
                 text: 'No workout was found..',
-                buttonText: 'Add workout',
               ),
             );
           case WorkoutListStatus.loaded:

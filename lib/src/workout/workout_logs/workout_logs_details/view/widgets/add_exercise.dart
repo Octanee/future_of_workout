@@ -14,13 +14,16 @@ class AddExercise extends StatelessWidget {
         .state
         .workoutLog!
         .id;
-    return AddExerciseButton(
-      onTap: () => context.goNamed(
-        WorkoutLogsExercisesListPage.name,
-        params: {
-          'homePageTab': WorkoutsPage.name,
-          'workoutLogId': workoutLogId,
-        },
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: AddExerciseButton(
+        onTap: () => context.goNamed(
+          WorkoutLogsExercisesListPage.name,
+          params: {
+            'homePageTab': WorkoutsPage.name,
+            'workoutLogId': workoutLogId,
+          },
+        ),
       ),
     );
   }

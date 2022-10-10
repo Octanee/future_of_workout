@@ -13,6 +13,7 @@ class WorkoutLogsDetailsBloc
       : _repository = workoutLogRepository,
         super(const WorkoutLogsDetailsState()) {
     on<WorkoutLogsDetailsSubscriptionRequest>(_onSubscriptionRequest);
+    on<WorkoutLogsDetailsDelete>(_onDelete);
   }
 
   final WorkoutLogRepository _repository;
@@ -35,5 +36,17 @@ class WorkoutLogsDetailsBloc
         status: WorkoutLogsDetailsStatus.failure,
       ),
     );
+  }
+
+  Future<void> _onDelete(
+    WorkoutLogsDetailsDelete event,
+    Emitter<WorkoutLogsDetailsState> emit,
+  ) async {
+    try {
+      await _repository.deleteWorkoutLog(id: state.workoutLog!.id);
+      emit(state.copyWith(status: WorkoutLogsDetailsStatus.deleted));
+    } catch (e) {
+      emit(state.copyWith(status: WorkoutLogsDetailsStatus.failure));
+    }
   }
 }

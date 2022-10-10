@@ -15,3 +15,7 @@ class WorkoutLogsDetailsSubscriptionRequest extends WorkoutLogsDetailsEvent {
   @override
   List<Object> get props => [id];
 }
+
+class WorkoutLogsDetailsDelete extends WorkoutLogsDetailsEvent {
+  const WorkoutLogsDetailsDelete();
+}
