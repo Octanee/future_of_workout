@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:workout_api/workout_api.dart';
 import 'package:workout_log_repository/workout_log_repository.dart';
 
 part 'workout_exercise_logs_details_event.dart';
@@ -17,6 +18,7 @@ class WorkoutExerciseLogsDetailsBloc extends Bloc<
     on<WorkoutExerciseLogsDetailsPop>(_onPop);
     on<WorkoutExerciseLogsDetailsUpdateSeries>(_onUpdateSeries);
     on<WorkoutExerciseLogsDetailsAddSeries>(_onAddSeries);
+    on<WorkoutExerciseLogsDetailsRemoveSeries>(_onRemoveSeries);
     on<WorkoutExerciseLogsDetailsDelete>(_onDelete);
   }
 
@@ -92,6 +94,28 @@ class WorkoutExerciseLogsDetailsBloc extends Bloc<
     final exerciseLog = state.exerciseLog!;
 
     final logs = List.of(exerciseLog.exerciseSeriesLogs)..add(event.seriesLog);
+
+    final log = exerciseLog.copyWith(exerciseSeriesLogs: logs);
+
+    emit(
+      state.copyWith(
+        status: WorkoutExerciseLogsDetailsStatus.updated,
+        exerciseLog: log,
+      ),
+    );
+  }
+
+  void _onRemoveSeries(
+    WorkoutExerciseLogsDetailsRemoveSeries event,
+    Emitter<WorkoutExerciseLogsDetailsState> emit,
+  ) {
+    final exerciseLog = state.exerciseLog!;
+
+    final logs = List.of(exerciseLog.exerciseSeriesLogs);
+
+    final last = logs.last;
+
+    logs.remove(last);
 
     final log = exerciseLog.copyWith(exerciseSeriesLogs: logs);
 

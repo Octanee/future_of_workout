@@ -45,6 +45,11 @@ class WorkoutExerciseLogsDetailsAddSeries
   List<Object> get props => [seriesLog];
 }
 
+class WorkoutExerciseLogsDetailsRemoveSeries
+    extends WorkoutExerciseLogsDetailsEvent {
+  const WorkoutExerciseLogsDetailsRemoveSeries();
+}
+
 class WorkoutExerciseLogsDetailsDelete extends WorkoutExerciseLogsDetailsEvent {
   const WorkoutExerciseLogsDetailsDelete();
 }

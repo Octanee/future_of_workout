@@ -44,51 +44,66 @@ class WorkoutExerciseLogsDetailsView extends StatelessWidget {
         context
             .read<WorkoutExerciseLogsDetailsBloc>()
             .add(const WorkoutExerciseLogsDetailsPop());
+
         return true;
       },
-      child: BlocConsumer<WorkoutExerciseLogsDetailsBloc,
+      child: BlocListener<WorkoutExerciseLogsDetailsBloc,
           WorkoutExerciseLogsDetailsState>(
-        listenWhen: (previous, current) => previous.status != current.status,
+        listenWhen: (previous, current) =>
+            previous.exerciseLog?.exerciseSeriesLogs !=
+            current.exerciseLog?.exerciseSeriesLogs,
         listener: (context, state) {
-          if (state.status == WorkoutExerciseLogsDetailsStatus.deleted) {
-            context.pop();
+          if (state.exerciseLog!.exerciseSeriesLogs.isEmpty) {
+            context
+                .read<WorkoutExerciseLogsDetailsBloc>()
+                .add(const WorkoutExerciseLogsDetailsDelete());
           }
         },
-        buildWhen: (previous, current) => previous.status != current.status,
-        builder: (context, state) {
-          switch (state.status) {
-            case WorkoutExerciseLogsDetailsStatus.initial:
-            case WorkoutExerciseLogsDetailsStatus.loading:
-              return const AppScaffold(body: AppLoading());
-            case WorkoutExerciseLogsDetailsStatus.failure:
-              return const AppScaffold(body: AppError());
-            case WorkoutExerciseLogsDetailsStatus.deleting:
-            case WorkoutExerciseLogsDetailsStatus.loaded:
-            case WorkoutExerciseLogsDetailsStatus.updated:
-            case WorkoutExerciseLogsDetailsStatus.deleted:
-              final log = state.exerciseLog!;
-              return AppScaffold(
-                title: log.exercise.name,
-                body: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: ListView(
-                    physics: const BouncingScrollPhysics(),
-                    children: [
-                      const SeriesList(),
-                      const AddSeries(),
-                      const RemoveSeries(),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 8),
-                        child: AboutExerciseButton(exerciseId: log.exercise.id),
-                      ),
-                      const DeleteExercise(),
-                    ],
+        child: BlocConsumer<WorkoutExerciseLogsDetailsBloc,
+            WorkoutExerciseLogsDetailsState>(
+          listenWhen: (previous, current) => previous.status != current.status,
+          listener: (context, state) {
+            if (state.status == WorkoutExerciseLogsDetailsStatus.deleted) {
+              context.pop();
+            }
+          },
+          buildWhen: (previous, current) => previous.status != current.status,
+          builder: (context, state) {
+            switch (state.status) {
+              case WorkoutExerciseLogsDetailsStatus.initial:
+              case WorkoutExerciseLogsDetailsStatus.loading:
+                return const AppScaffold(body: AppLoading());
+              case WorkoutExerciseLogsDetailsStatus.failure:
+                return const AppScaffold(body: AppError());
+              case WorkoutExerciseLogsDetailsStatus.deleting:
+              case WorkoutExerciseLogsDetailsStatus.loaded:
+              case WorkoutExerciseLogsDetailsStatus.updated:
+              case WorkoutExerciseLogsDetailsStatus.deleted:
+                final log = state.exerciseLog!;
+                return AppScaffold(
+                  title: log.exercise.name,
+                  body: Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    child: ListView(
+                      physics: const BouncingScrollPhysics(),
+                      children: [
+                        const SeriesList(),
+                        const AddSeries(),
+                        const RemoveSeries(),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 8),
+                          child:
+                              AboutExerciseButton(exerciseId: log.exercise.id),
+                        ),
+                        const DeleteExercise(),
+                      ],
+                    ),
                   ),
-                ),
-              );
-          }
-        },
+                );
+            }
+          },
+        ),
       ),
     );
   }
