@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
-import 'package:future_of_workout/src/workout/workout.dart';
+import 'package:future_of_workout/src/workout/workout/workout.dart';
 
 class FavoriteButton extends StatelessWidget {
   const FavoriteButton({super.key});

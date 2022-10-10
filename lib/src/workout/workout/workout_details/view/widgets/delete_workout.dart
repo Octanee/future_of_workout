@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/widgets/buttons/buttons.dart';
-import 'package:future_of_workout/src/workout/workout.dart';
+import 'package:future_of_workout/src/workout/workout/workout.dart';
 
 class DeleteWorkout extends StatelessWidget {
   const DeleteWorkout({super.key});

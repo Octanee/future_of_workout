@@ -3,7 +3,9 @@ import 'package:future_of_workout/src/app/app_transitions.dart';
 import 'package:future_of_workout/src/current_workout/current_workout.dart';
 import 'package:future_of_workout/src/exercise/exercise.dart';
 import 'package:future_of_workout/src/home/home.dart';
-import 'package:future_of_workout/src/workout/workout.dart';
+import 'package:future_of_workout/src/workout/workout/workout.dart';
+import 'package:future_of_workout/src/workout/workout_logs/workout_logs.dart';
+import 'package:future_of_workout/src/workout/workouts/workouts.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRouter {

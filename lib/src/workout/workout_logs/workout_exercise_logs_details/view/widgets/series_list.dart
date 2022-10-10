@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:future_of_workout/src/workout/workout.dart';
+import 'package:future_of_workout/src/workout/workout_logs/workout_logs.dart';
 import 'package:workout_log_api/workout_log_api.dart';
 
 class SeriesList extends StatelessWidget {
