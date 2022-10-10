@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
-import 'package:future_of_workout/src/widgets/buttons/add_button.dart';
-import 'package:future_of_workout/src/widgets/buttons/buttons.dart';
 
 class AppEmptyList extends StatelessWidget {
   const AppEmptyList({
