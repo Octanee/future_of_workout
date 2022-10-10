@@ -1,6 +1,13 @@
 part of 'workout_list_bloc.dart';
 
-enum WorkoutListStatus { initial, loading, loaded, adding, added, failure }
+enum WorkoutListStatus {
+  initial,
+  loading,
+  loaded,
+  empty,
+  added,
+  failure,
+}
 
 class WorkoutListState extends Equatable {
   const WorkoutListState({

@@ -29,7 +29,10 @@ class WorkoutListBloc extends Bloc<WorkoutListEvent, WorkoutListState> {
     await emit.forEach<List<Workout>>(
       _workoutRepository.getWorkouts(),
       onData: (workouts) {
-        logger.i('WorkoutListBloc onData');
+        if (workouts.isEmpty) {
+          return state.copyWith(status: WorkoutListStatus.empty);
+        }
+
         final favoriteWorkouts = workouts
             .where((element) => element.isFavorite)
             .toList()
@@ -64,8 +67,6 @@ class WorkoutListBloc extends Bloc<WorkoutListEvent, WorkoutListState> {
     WorkoutListNewWorkoutAdding event,
     Emitter<WorkoutListState> emit,
   ) async {
-    emit(state.copyWith(status: WorkoutListStatus.adding));
-
     final name = event.name.withDefault('Workout');
     final workout = Workout(name: name);
 

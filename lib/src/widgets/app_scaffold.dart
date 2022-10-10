@@ -9,7 +9,6 @@ class AppScaffold extends StatelessWidget {
     this.actions,
     this.leading,
     this.floatingActionButton,
-    this.hasAppBar = true,
     super.key,
   });
 
@@ -17,7 +16,6 @@ class AppScaffold extends StatelessWidget {
   final Widget? body;
   final List<Widget>? actions;
   final Widget? leading;
-  final bool hasAppBar;
   final Widget? floatingActionButton;
 
   @override
@@ -31,18 +29,21 @@ class AppScaffold extends StatelessWidget {
     );
   }
 
-  AppBar? _getAppBar() => hasAppBar
-      ? AppBar(
-          actions: actions,
-          leading: leading,
-          iconTheme: const IconThemeData(color: AppColors.grey),
-          elevation: 1,
-          backgroundColor: AppColors.white,
-          title: Text(
-            title ?? '',
-            style: AppTextStyle.bold28,
-          ),
-          centerTitle: true,
-        )
-      : null;
+  AppBar? _getAppBar() {
+    if (title?.isNotEmpty ?? false) {
+      return AppBar(
+        actions: actions,
+        leading: leading,
+        iconTheme: const IconThemeData(color: AppColors.grey),
+        elevation: 1,
+        backgroundColor: AppColors.white,
+        title: Text(
+          title ?? '',
+          style: AppTextStyle.bold28,
+        ),
+        centerTitle: true,
+      );
+    }
+    return null;
+  }
 }

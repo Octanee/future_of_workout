@@ -7,7 +7,6 @@ class WorkoutsRecordsTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-      hasAppBar: false,
       body: ListView.separated(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         separatorBuilder: (context, index) => const SizedBox(
