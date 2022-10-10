@@ -107,16 +107,22 @@ class WorkoutExerciseLogsDetailsBloc extends Bloc<
     WorkoutExerciseLogsDetailsDelete event,
     Emitter<WorkoutExerciseLogsDetailsState> emit,
   ) async {
-    emit(state.copyWith(status: WorkoutExerciseLogsDetailsStatus.deleting));
+    try {
+      emit(state.copyWith(status: WorkoutExerciseLogsDetailsStatus.deleting));
+      final workoutExerciseLogs =
+          List.of(state.workoutLog!.workoutExerciseLogs);
+      final index = workoutExerciseLogs
+          .indexWhere((element) => element.id == state.exerciseLog!.id);
 
-    final workoutExerciseLogs = state.workoutLog!.workoutExerciseLogs
-      ..removeWhere((exerciseLog) => exerciseLog.id == state.exerciseLog!.id);
+      workoutExerciseLogs.removeAt(index);
 
-    final log =
-        state.workoutLog!.copyWith(workoutExerciseLogs: workoutExerciseLogs);
+      final workoutLog =
+          state.workoutLog!.copyWith(workoutExerciseLogs: workoutExerciseLogs);
 
-    await _repository.saveWorkoutLog(workoutLog: log);
-
-    emit(state.copyWith(status: WorkoutExerciseLogsDetailsStatus.deleted));
+      await _repository.saveWorkoutLog(workoutLog: workoutLog);
+      emit(state.copyWith(status: WorkoutExerciseLogsDetailsStatus.deleted));
+    } catch (e) {
+      emit(state.copyWith(status: WorkoutExerciseLogsDetailsStatus.failure));
+    }
   }
 }
