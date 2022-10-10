@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:future_of_workout/src/logger.dart';
 import 'package:workout_api/workout_api.dart';
 import 'package:workout_repository/workout_repository.dart';
 
@@ -16,16 +15,12 @@ class WorkoutExerciseDetailsBloc
         super(const WorkoutExerciseDetailsState()) {
     on<WorkoutExerciseDetailsLoading>(_onLoading);
     on<WorkoutExerciseDetailsExerciseSeriesChanged>(_onExerciseSeriesChanged);
-    on<WorkoutExerciseDetailsAllExerciseSeriesChanged>(
-      _onAllExerciseSeriesChanged,
-    );
     on<WorkoutExerciseDetailsAddingSeries>(_onAddingSeries);
     on<WorkoutExerciseDetailsRemovedSeries>(_onRemovedSeries);
     on<WorkoutExerciseDetailsDeleteWorkoutExercise>(_onDeleteWorkoutExercise);
     on<WorkoutExerciseDetailsChangeDisplayMode>(_onChangeDisplayMode);
-    on<WorkoutExerciseDetailsUpdatetingWorkoutRequested>(
-      _onUpdatetingWorkoutRequested,
-    );
+    on<WorkoutExerciseDetailsAllSeriesChanged>(_onAllSeriesChanged);
+    on<WorkoutExerciseDetailsPop>(_onPop);
   }
 
   final WorkoutRepository _workoutRepository;
@@ -43,8 +38,13 @@ class WorkoutExerciseDetailsBloc
 
       var isAdvanced = false;
       if (workoutExercise.exerciseSeries.isNotEmpty) {
-        isAdvanced = workoutExercise.exerciseSeries
-            .any((element) => element != workoutExercise.exerciseSeries.first);
+        final first = workoutExercise.exerciseSeries.first;
+        isAdvanced = workoutExercise.exerciseSeries.any(
+          (element) =>
+              element.reps != first.reps ||
+              element.weight != first.weight ||
+              element.rest != first.rest,
+        );
       }
 
       emit(
@@ -65,7 +65,7 @@ class WorkoutExerciseDetailsBloc
     Emitter<WorkoutExerciseDetailsState> emit,
   ) {
     final exerciseSeries = List.of(state.workoutExercise!.exerciseSeries);
-    exerciseSeries[event.index] = event.series;
+    exerciseSeries[event.index - 1] = event.series;
     final newWorkoutExercise =
         state.workoutExercise!.copyWith(exerciseSeries: exerciseSeries);
 
@@ -84,38 +84,10 @@ class WorkoutExerciseDetailsBloc
       exerciseSeries.add(lastSeries.copyWith(index: lastSeries.index + 1));
     }
 
-    logger.d('_onAddingSeries { exerciseSeries: $exerciseSeries }');
-
     final newWorkoutExercise =
         state.workoutExercise!.copyWith(exerciseSeries: exerciseSeries);
 
     emit(state.copyWith(workoutExercise: newWorkoutExercise));
-  }
-
-  Future<void> _onUpdatetingWorkoutRequested(
-    WorkoutExerciseDetailsUpdatetingWorkoutRequested event,
-    Emitter<WorkoutExerciseDetailsState> emit,
-  ) async {
-    logger.i('_onUpdatetingWorkoutRequested');
-
-    emit(state.copyWith(status: WorkoutExerciseDetailsStatus.updating));
-    try {
-      final workoutExercises = List.of(state.workout!.workoutExercises);
-
-      final index = workoutExercises
-          .indexWhere((element) => element.id == state.workoutExercise!.id);
-
-      workoutExercises[index] = state.workoutExercise!;
-
-      final workout =
-          state.workout!.copyWith(workoutExercises: workoutExercises);
-
-      await _workoutRepository.saveWorkout(workout);
-      emit(state.copyWith(status: WorkoutExerciseDetailsStatus.updated));
-    } catch (e) {
-      logger.e(e);
-      emit(state.copyWith(status: WorkoutExerciseDetailsStatus.failure));
-    }
   }
 
   Future<void> _onDeleteWorkoutExercise(
@@ -144,29 +116,52 @@ class WorkoutExerciseDetailsBloc
     Emitter<WorkoutExerciseDetailsState> emit,
   ) {
     final isAdvanced = state.isAdvanced;
+    WorkoutExercise? newWorkoutExercise;
 
-    if (isAdvanced) {
-      add(
-        WorkoutExerciseDetailsAllExerciseSeriesChanged(
-          series: state.workoutExercise!.exerciseSeries.first,
+    if (!isAdvanced) {
+      final list = <ExerciseSeries>[];
+
+      final first = state.workoutExercise!.exerciseSeries.first;
+
+      for (final series in state.workoutExercise!.exerciseSeries) {
+        list.add(
+          series.copyWith(
+            reps: first.reps,
+            weight: first.weight,
+            rest: first.rest,
+          ),
+        );
+      }
+
+      newWorkoutExercise =
+          state.workoutExercise!.copyWith(exerciseSeries: list);
+    }
+    emit(
+      state.copyWith(
+        workoutExercise: newWorkoutExercise,
+        isAdvanced: !isAdvanced,
+      ),
+    );
+  }
+
+  void _onAllSeriesChanged(
+    WorkoutExerciseDetailsAllSeriesChanged event,
+    Emitter<WorkoutExerciseDetailsState> emit,
+  ) {
+    final list = <ExerciseSeries>[];
+
+    for (final series in state.workoutExercise!.exerciseSeries) {
+      list.add(
+        series.copyWith(
+          reps: event.series.reps,
+          weight: event.series.weight,
+          rest: event.series.rest,
         ),
       );
     }
 
-    emit(state.copyWith(isAdvanced: !isAdvanced));
-  }
-
-  void _onAllExerciseSeriesChanged(
-    WorkoutExerciseDetailsAllExerciseSeriesChanged event,
-    Emitter<WorkoutExerciseDetailsState> emit,
-  ) {
-    final numberOfSeries = state.workoutExercise!.exerciseSeries.length;
-
-    final exerciseSeries =
-        List.generate(numberOfSeries, (index) => event.series);
-
     final newWorkoutExercise =
-        state.workoutExercise!.copyWith(exerciseSeries: exerciseSeries);
+        state.workoutExercise!.copyWith(exerciseSeries: list);
 
     emit(state.copyWith(workoutExercise: newWorkoutExercise));
   }
@@ -184,5 +179,28 @@ class WorkoutExerciseDetailsBloc
         state.workoutExercise!.copyWith(exerciseSeries: exerciseSeries);
 
     emit(state.copyWith(workoutExercise: newWorkoutExercise));
+  }
+
+  Future<void> _onPop(
+    WorkoutExerciseDetailsPop event,
+    Emitter<WorkoutExerciseDetailsState> emit,
+  ) async {
+    emit(state.copyWith(status: WorkoutExerciseDetailsStatus.updating));
+    try {
+      final workoutExercises = List.of(state.workout!.workoutExercises);
+
+      final index = workoutExercises
+          .indexWhere((element) => element.id == state.workoutExercise!.id);
+
+      workoutExercises[index] = state.workoutExercise!;
+
+      final workout =
+          state.workout!.copyWith(workoutExercises: workoutExercises);
+
+      await _workoutRepository.saveWorkout(workout);
+      emit(state.copyWith(status: WorkoutExerciseDetailsStatus.updated));
+    } catch (e) {
+      emit(state.copyWith(status: WorkoutExerciseDetailsStatus.failure));
+    }
   }
 }

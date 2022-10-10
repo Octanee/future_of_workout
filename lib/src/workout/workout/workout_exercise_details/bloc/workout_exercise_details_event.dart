@@ -20,18 +20,6 @@ class WorkoutExerciseDetailsLoading extends WorkoutExerciseDetailsEvent {
   List<Object> get props => [workoutId, workoutExerciseId];
 }
 
-class WorkoutExerciseDetailsAllExerciseSeriesChanged
-    extends WorkoutExerciseDetailsEvent {
-  const WorkoutExerciseDetailsAllExerciseSeriesChanged({
-    required this.series,
-  });
-
-  final ExerciseSeries series;
-
-  @override
-  List<Object> get props => [series];
-}
-
 class WorkoutExerciseDetailsExerciseSeriesChanged
     extends WorkoutExerciseDetailsEvent {
   const WorkoutExerciseDetailsExerciseSeriesChanged({
@@ -46,6 +34,18 @@ class WorkoutExerciseDetailsExerciseSeriesChanged
   List<Object> get props => [index, series];
 }
 
+class WorkoutExerciseDetailsAllSeriesChanged
+    extends WorkoutExerciseDetailsEvent {
+  const WorkoutExerciseDetailsAllSeriesChanged({
+    required this.series,
+  });
+
+  final ExerciseSeries series;
+
+  @override
+  List<Object> get props => [series];
+}
+
 class WorkoutExerciseDetailsAddingSeries extends WorkoutExerciseDetailsEvent {
   const WorkoutExerciseDetailsAddingSeries();
 }
@@ -54,9 +54,8 @@ class WorkoutExerciseDetailsRemovedSeries extends WorkoutExerciseDetailsEvent {
   const WorkoutExerciseDetailsRemovedSeries();
 }
 
-class WorkoutExerciseDetailsUpdatetingWorkoutRequested
-    extends WorkoutExerciseDetailsEvent {
-  const WorkoutExerciseDetailsUpdatetingWorkoutRequested();
+class WorkoutExerciseDetailsPop extends WorkoutExerciseDetailsEvent {
+  const WorkoutExerciseDetailsPop();
 }
 
 class WorkoutExerciseDetailsDeleteWorkoutExercise

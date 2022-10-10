@@ -1,6 +1,7 @@
 part of 'workout_exercise_details_bloc.dart';
 
 enum WorkoutExerciseDetailsStatus {
+  initial,
   loading,
   loaded,
   updating,
@@ -11,7 +12,7 @@ enum WorkoutExerciseDetailsStatus {
 
 class WorkoutExerciseDetailsState extends Equatable {
   const WorkoutExerciseDetailsState({
-    this.status = WorkoutExerciseDetailsStatus.loading,
+    this.status = WorkoutExerciseDetailsStatus.initial,
     this.isAdvanced = false,
     this.workoutExercise,
     this.workout,
