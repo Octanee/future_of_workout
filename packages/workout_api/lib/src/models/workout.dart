@@ -1,3 +1,4 @@
+import 'package:body_api/body_api.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
@@ -52,6 +53,40 @@ class Workout extends Equatable {
   ///
   /// Defaults to `false`.
   final bool isFavorite;
+
+  /// Return a body with muscle involcement in this workout
+  Body body() {
+    final muscles = <Muscle, Map<double, Map<double, int>>>{};
+
+    for (final muscle in Muscle.values) {
+      final exercisesWithMuscle = workoutExercises.where(
+        (exerciseLog) => exerciseLog.exercise.muscles.containsKey(muscle),
+      );
+
+      muscles.putIfAbsent(muscle, () => {});
+
+      for (final exercise in exercisesWithMuscle) {
+        final muscleInvolvement = exercise.exercise.muscles[muscle]!;
+
+        muscles[muscle]!.putIfAbsent(muscleInvolvement.value, () => {});
+
+        for (final seriesLog in exercise.exerciseSeries) {
+          final seriesIntensity = seriesLog.intensity;
+
+          muscles[muscle]![muscleInvolvement.value]
+              ?.putIfAbsent(seriesIntensity.value, () => 0);
+
+          final count = muscles[muscle]![muscleInvolvement.value]![
+              seriesIntensity.value]!;
+
+          muscles[muscle]![muscleInvolvement.value]!
+              .update(seriesIntensity.value, (value) => count + 1);
+        }
+      }
+    }
+
+    return Body.fromData(data: muscles);
+  }
 
   @override
   List<Object?> get props => [id, name, workoutExercises, isFavorite];
