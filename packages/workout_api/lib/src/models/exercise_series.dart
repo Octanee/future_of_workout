@@ -26,7 +26,7 @@ class ExerciseSeries extends Equatable {
     this.weight = 20,
     this.reps = 12,
     this.rest = 120,
-    this.intensity = SeriesIntensity.moderate,
+    this.intensity = SeriesIntensity.vigorous,
   })  : assert(
           id == null || id.isNotEmpty,
           '"id" can not be null and should be empty',
