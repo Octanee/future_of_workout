@@ -1,10 +1,12 @@
 part of 'workout_details_bloc.dart';
 
 enum WorkoutDetailsStatus {
+  init,
   loading,
   loaded,
   updating,
   updated,
+  empty,
   delete,
   failure,
 }
@@ -12,7 +14,7 @@ enum WorkoutDetailsStatus {
 class WorkoutDetailsState extends Equatable {
   const WorkoutDetailsState({
     this.workout,
-    this.status = WorkoutDetailsStatus.loading,
+    this.status = WorkoutDetailsStatus.init,
   });
 
   final WorkoutDetailsStatus status;
@@ -21,7 +23,6 @@ class WorkoutDetailsState extends Equatable {
   WorkoutDetailsState copyWith({
     WorkoutDetailsStatus? status,
     Workout? workout,
-    
   }) {
     return WorkoutDetailsState(
       status: status ?? this.status,

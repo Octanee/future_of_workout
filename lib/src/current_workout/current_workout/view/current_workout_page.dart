@@ -65,7 +65,7 @@ class CurrentWorkoutView extends StatelessWidget {
   Widget _buildInitial() {
     return const AppScaffold(
       title: 'Workout',
-      body: Center(child: StartWorkoutButton()),
+      body: Center(child: StartWorkout()),
     );
   }
 

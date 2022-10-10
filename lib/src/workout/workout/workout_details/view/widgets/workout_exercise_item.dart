@@ -10,12 +10,10 @@ class WorkoutExerciseItem extends StatelessWidget {
     super.key,
     required this.workoutExercise,
     this.onTap,
-    this.onDismissed,
   });
 
   final WorkoutExercise workoutExercise;
   final VoidCallback? onTap;
-  final DismissDirectionCallback? onDismissed;
 
   @override
   Widget build(BuildContext context) {
