@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:workout_api/workout_api.dart';
 import 'package:workout_log_repository/workout_log_repository.dart';
 
 part 'workout_exercise_logs_details_event.dart';

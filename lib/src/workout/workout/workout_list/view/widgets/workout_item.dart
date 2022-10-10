@@ -81,16 +81,6 @@ class WorkoutItem extends StatelessWidget {
     );
   }
 
-  Widget _getFavorit() {
-    return IconButton(
-      padding: EdgeInsets.zero,
-      icon: workout.isFavorite
-          ? const Icon(Icons.star, color: AppColors.yellow)
-          : const Icon(Icons.star_border, color: AppColors.grey),
-      onPressed: () => onToggleFavorite(!workout.isFavorite),
-    );
-  }
-
   Widget _buildExercises() {
     final exercises = workout.workoutExercises.length;
     final text = _buildText(
