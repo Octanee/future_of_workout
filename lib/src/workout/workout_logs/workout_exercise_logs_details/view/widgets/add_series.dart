@@ -12,7 +12,7 @@ class AddSeries extends StatelessWidget {
     return BlocBuilder<WorkoutExerciseLogsDetailsBloc,
         WorkoutExerciseLogsDetailsState>(
       buildWhen: (previous, current) =>
-          previous.exerciseLog?.isFinished != current.exerciseLog?.isFinished,
+          current.exerciseLog?.isFinished ?? false,
       builder: (context, state) {
         return Visibility(
           visible: state.exerciseLog?.isFinished ?? false,
