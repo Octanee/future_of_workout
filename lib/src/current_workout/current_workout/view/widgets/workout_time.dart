@@ -11,15 +11,18 @@ class WorkoutTime extends StatelessWidget {
     return BlocBuilder<CurrentWorkoutBloc, CurrentWorkoutState>(
       buildWhen: (previous, current) => previous.time != current.time,
       builder: (context, state) {
-        final time = state.time;
-        final hourStr = ''.padLeft(2, '0');
-        final minutesStr =
-            ((time / 60) % 60).floor().toString().padLeft(2, '0');
-        final secondStr = (time % 60).toString().padLeft(2, '0');
+        final time = Duration(seconds: state.time);
+
+        String twoDigits(int n) => n.toString().padLeft(2, '0');
+
+        final hours = twoDigits(time.inHours.remainder(24));
+        final minutes = twoDigits(time.inMinutes.remainder(60));
+        final seconds = twoDigits(time.inSeconds.remainder(60));
+
         return Padding(
           padding: const EdgeInsets.all(16),
           child: Text(
-            '$hourStr:$minutesStr:$secondStr',
+            '$hours:$minutes:$seconds',
             style: AppTextStyle.semiBold20,
           ),
         );
