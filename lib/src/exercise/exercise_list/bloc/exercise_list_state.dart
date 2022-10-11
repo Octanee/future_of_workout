@@ -4,6 +4,7 @@ enum ExerciseListStatus {
   initial,
   loading,
   success,
+  confirm,
   failure,
 }
 
@@ -12,28 +13,29 @@ class ExerciseListState extends Equatable {
     this.status = ExerciseListStatus.initial,
     this.exercises = const [],
     this.selected = const {},
-    this.multiSelected = true,
+    required this.extra,
   });
 
   final ExerciseListStatus status;
   final List<Exercise> exercises;
   final Map<Exercise, bool> selected;
-  final bool multiSelected;
+
+  final ExerciseListExtra extra;
 
   @override
-  List<Object> get props => [status, exercises, selected, multiSelected];
+  List<Object> get props => [status, exercises, selected, extra];
 
   ExerciseListState copyWith({
     ExerciseListStatus? status,
     List<Exercise>? exercises,
     Map<Exercise, bool>? selected,
-    bool? multiSelected,
+    ExerciseListExtra? extra,
   }) {
     return ExerciseListState(
       status: status ?? this.status,
       exercises: exercises ?? this.exercises,
       selected: selected ?? this.selected,
-      multiSelected: multiSelected ?? this.multiSelected,
+      extra: extra ?? this.extra,
     );
   }
 }

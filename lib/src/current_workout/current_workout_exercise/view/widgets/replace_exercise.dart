@@ -17,7 +17,7 @@ class ReplaceExercise extends StatelessWidget {
             ExerciseListPage.name,
             params: {},
             extra: ExerciseListExtra(
-              onConfirm: () {},
+              onConfirm: (selected) {},
               multiSelected: false,
             ),
           );

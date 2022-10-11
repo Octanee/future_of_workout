@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:exercise_repository/exercise_repository.dart';
+import 'package:future_of_workout/src/exercise/exercise.dart';
 
 part 'exercise_list_event.dart';
 part 'exercise_list_state.dart';
@@ -10,11 +11,12 @@ part 'exercise_list_state.dart';
 class ExerciseListBloc extends Bloc<ExerciseListEvent, ExerciseListState> {
   ExerciseListBloc({
     required ExerciseRepository exerciseRepository,
-    bool multiSelected = true,
+    required ExerciseListExtra extra,
   })  : _repository = exerciseRepository,
-        super(ExerciseListState(multiSelected: multiSelected)) {
+        super(ExerciseListState(extra: extra)) {
     on<ExerciseListSubscriptionRequested>(_onSubscriptionRequested);
     on<ExerciseListSelect>(_onSelect);
+    on<ExerciseListConfirm>(_onConfirm);
   }
 
   final ExerciseRepository _repository;
@@ -42,7 +44,7 @@ class ExerciseListBloc extends Bloc<ExerciseListEvent, ExerciseListState> {
     final exercise = event.exercise;
     final selected = Map.of(state.selected);
 
-    if (state.multiSelected) {
+    if (state.extra.multiSelected) {
       final isSelected = state.selected[exercise];
 
       if (isSelected == null) {
@@ -56,5 +58,16 @@ class ExerciseListBloc extends Bloc<ExerciseListEvent, ExerciseListState> {
     }
 
     emit(state.copyWith(selected: selected));
+  }
+
+  void _onConfirm(ExerciseListConfirm event, Emitter<ExerciseListState> emit) {
+    final selected = Map.of(state.selected)
+      ..removeWhere((key, value) => value == false);
+
+    final list = selected.keys.toList();
+
+    state.extra.onConfirm(list);
+
+    emit(state.copyWith(status: ExerciseListStatus.confirm));
   }
 }

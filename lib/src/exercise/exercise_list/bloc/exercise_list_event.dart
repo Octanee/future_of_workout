@@ -19,3 +19,7 @@ class ExerciseListSelect extends ExerciseListEvent {
   @override
   List<Object> get props => [exercise];
 }
+
+class ExerciseListConfirm extends ExerciseListEvent {
+  const ExerciseListConfirm();
+}

@@ -1,8 +1,11 @@
+import 'dart:math';
+
 import 'package:exercise_repository/exercise_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/exercise/exercise.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:go_router/go_router.dart';
 
 class ExerciseListPage extends StatelessWidget {
   const ExerciseListPage({required this.extra, super.key});
@@ -17,21 +20,24 @@ class ExerciseListPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => ExerciseListBloc(
         exerciseRepository: context.read<ExerciseRepository>(),
-        multiSelected: extra.multiSelected,
+        extra: extra,
       )..add(const ExerciseListSubscriptionRequested()),
-      child: ExerciseListView(onConfirm: extra.onConfirm),
+      child: const ExerciseListView(),
     );
   }
 }
 
 class ExerciseListView extends StatelessWidget {
-  const ExerciseListView({super.key, required this.onConfirm});
-
-  final VoidCallback onConfirm;
+  const ExerciseListView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ExerciseListBloc, ExerciseListState>(
+    return BlocConsumer<ExerciseListBloc, ExerciseListState>(
+      listener: (context, state) {
+        if (state.status == ExerciseListStatus.confirm) {
+          context.pop();
+        }
+      },
       buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
         switch (state.status) {
@@ -40,11 +46,12 @@ class ExerciseListView extends StatelessWidget {
           case ExerciseListStatus.initial:
           case ExerciseListStatus.loading:
             return const AppScaffold(body: AppLoading());
+          case ExerciseListStatus.confirm:
           case ExerciseListStatus.success:
-            return AppScaffold(
+            return const AppScaffold(
               title: 'Exercises',
-              floatingActionButton: ConfirmFab(onConfirm: onConfirm),
-              body: const ExerciseList(),
+              floatingActionButton: ConfirmFab(),
+              body: ExerciseList(),
             );
         }
       },
