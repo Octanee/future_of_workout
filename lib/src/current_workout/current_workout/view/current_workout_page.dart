@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:future_of_workout/src/current_workout/current_workout/current_workout.dart';
-import 'package:future_of_workout/src/current_workout/current_workout_exercise/current_workout_exercise.dart';
-import 'package:future_of_workout/src/current_workout/current_workout_summary/current_wokrout_summary.dart';
-import 'package:future_of_workout/src/styles/styles.dart';
+import 'package:future_of_workout/src/current_workout/current_workout.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:go_router/go_router.dart';
 
@@ -47,79 +44,36 @@ class CurrentWorkoutView extends StatelessWidget {
           previous.status != current.status ||
           previous.workoutLog != current.workoutLog,
       builder: (context, state) {
-        if (state.status == CurrentWorkoutStatus.initial) {
-          return _buildInitial();
-        } else if (state.status == CurrentWorkoutStatus.loading) {
-          return _buildLoading();
-        } else if (state.status == CurrentWorkoutStatus.failure) {
-          return _buildFailure();
+        switch (state.status) {
+          case CurrentWorkoutStatus.initial:
+          case CurrentWorkoutStatus.finish:
+            return const StartWorkout();
+          case CurrentWorkoutStatus.loading:
+          case CurrentWorkoutStatus.start:
+          case CurrentWorkoutStatus.started:
+            return const AppScaffold(body: AppLoading());
+          case CurrentWorkoutStatus.failure:
+            return const AppScaffold(body: AppError());
+          case CurrentWorkoutStatus.loaded:
+          case CurrentWorkoutStatus.updating:
+          case CurrentWorkoutStatus.updated:
+            final workout = state.workoutLog!;
+            return AppScaffold(
+              title: workout.name,
+              actions: const [WorkoutTime()],
+              body: ListView(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                physics: const BouncingScrollPhysics(),
+                children: const [
+                  FinishButton(),
+                  ExerciseLogsList(),
+                  AddExercise(),
+                ],
+              ),
+            );
         }
-        if (state.workoutLog != null) {
-          return _buildContent(context, state);
-        }
-        return const AppScaffold();
       },
-    );
-  }
-
-  Widget _buildInitial() {
-    return const AppScaffold(
-      title: 'Workout',
-      body: Center(child: StartWorkout()),
-    );
-  }
-
-  Widget _buildLoading() {
-    return const AppScaffold(
-      body: AppLoading(),
-    );
-  }
-
-  Widget _buildFailure() {
-    return AppScaffold(
-      body: Center(
-        child: Text(
-          'Something gone wrong...',
-          style: AppTextStyle.semiBold20,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildContent(BuildContext context, CurrentWorkoutState state) {
-    final workoutLog = state.workoutLog!;
-
-    return AppScaffold(
-      title: workoutLog.name,
-      actions: const [WorkoutTime()],
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        child: ListView(
-          physics: const BouncingScrollPhysics(),
-          children: [
-            const FinishButton(),
-            ...workoutLog.workoutExerciseLogs
-                .map<Widget>(
-                  (workoutExerciseLog) => Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: WorkoutExerciseLogItem(
-                      workoutExerciseLog: workoutExerciseLog,
-                      onTap: () {
-                        context.goNamed(
-                          CurrentWorkoutExercisePage.name,
-                          params: {
-                            'homePageTab': CurrentWorkoutPage.name,
-                            'currentWorkoutExerciseId': workoutExerciseLog.id
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                )
-                .toList(),
-          ],
-        ),
-      ),
     );
   }
 }
