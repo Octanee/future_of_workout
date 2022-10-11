@@ -20,7 +20,9 @@ class DeleteExercise extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 8),
             child: DeleteButton(
               onConfirm: () {
-                //TODO(Octane): Delete exercise
+                context
+                    .read<CurrentWorkoutExerciseBloc>()
+                    .add(const CurrentWorkoutExerciseDelete());
               },
             ),
           ),

@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:future_of_workout/src/logger.dart';
 import 'package:workout_api/workout_api.dart';
 import 'package:workout_log_repository/workout_log_repository.dart';
 
@@ -19,6 +18,8 @@ class CurrentWorkoutExerciseBloc
     on<CurrentWorkoutExerciseAddSeries>(_onAddSeries);
     on<CurrentWorkoutExerciseRemoveSeries>(_onRemoveSeries);
     on<CurrentWorkoutExerciseUpdateSeries>(_onUpdateSeries);
+    on<CurrentWorkoutExerciseDelete>(_onDelete);
+    on<CurrentWorkoutExerciseReplace>(_onReplace);
   }
 
   final WorkoutLogRepository _workoutLogRepository;
@@ -141,6 +142,49 @@ class CurrentWorkoutExerciseBloc
 
     final exerciseLog = state.workoutExerciseLog!
         .copyWith(exerciseSeriesLogs: list, isFinished: isFinished);
+
+    final exerciseIndex = state.workoutLog!.workoutExerciseLogs
+        .indexWhere((log) => log.id == exerciseLog.id);
+
+    final exerciseLogs = List.of(state.workoutLog!.workoutExerciseLogs);
+    exerciseLogs[exerciseIndex] = exerciseLog;
+
+    final log = state.workoutLog!.copyWith(workoutExerciseLogs: exerciseLogs);
+
+    await _workoutLogRepository.saveWorkoutLog(workoutLog: log);
+
+    emit(
+      state.copyWith(
+        status: CurrentWorkoutExerciseStatus.updated,
+        workoutLog: log,
+      ),
+    );
+  }
+
+  Future<void> _onDelete(
+    CurrentWorkoutExerciseDelete event,
+    Emitter<CurrentWorkoutExerciseState> emit,
+  ) async {
+    final exerciseLog = state.workoutExerciseLog!;
+
+    final exerciseLogs = List.of(state.workoutLog!.workoutExerciseLogs)
+      ..removeWhere((log) => log.id == exerciseLog.id);
+
+    final log = state.workoutLog!.copyWith(workoutExerciseLogs: exerciseLogs);
+
+    await _workoutLogRepository.saveWorkoutLog(workoutLog: log);
+
+    emit(state.copyWith(status: CurrentWorkoutExerciseStatus.delete));
+  }
+
+  Future<void> _onReplace(
+    CurrentWorkoutExerciseReplace event,
+    Emitter<CurrentWorkoutExerciseState> emit,
+  ) async {
+    emit(state.copyWith(status: CurrentWorkoutExerciseStatus.updating));
+
+    final exerciseLog =
+        state.workoutExerciseLog!.copyWith(exercise: event.exercise);
 
     final exerciseIndex = state.workoutLog!.workoutExerciseLogs
         .indexWhere((log) => log.id == exerciseLog.id);

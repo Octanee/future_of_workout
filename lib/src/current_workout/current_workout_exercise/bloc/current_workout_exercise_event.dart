@@ -9,9 +9,7 @@ abstract class CurrentWorkoutExerciseEvent extends Equatable {
 
 class CurrentWorkoutExerciseSubscriptionRequested
     extends CurrentWorkoutExerciseEvent {
-  const CurrentWorkoutExerciseSubscriptionRequested({
-    required this.id,
-  });
+  const CurrentWorkoutExerciseSubscriptionRequested({required this.id});
 
   final String id;
 
@@ -20,9 +18,7 @@ class CurrentWorkoutExerciseSubscriptionRequested
 }
 
 class CurrentWorkoutExerciseUpdateSeries extends CurrentWorkoutExerciseEvent {
-  const CurrentWorkoutExerciseUpdateSeries({
-    required this.series,
-  });
+  const CurrentWorkoutExerciseUpdateSeries({required this.series});
 
   final ExerciseSeriesLog series;
 
@@ -40,4 +36,17 @@ class CurrentWorkoutExerciseRemoveSeries extends CurrentWorkoutExerciseEvent {
 
 class CurrentWorkoutExerciseComplete extends CurrentWorkoutExerciseEvent {
   const CurrentWorkoutExerciseComplete();
+}
+
+class CurrentWorkoutExerciseReplace extends CurrentWorkoutExerciseEvent {
+  const CurrentWorkoutExerciseReplace({required this.exercise});
+
+  final Exercise exercise;
+
+  @override
+  List<Object> get props => [exercise];
+}
+
+class CurrentWorkoutExerciseDelete extends CurrentWorkoutExerciseEvent {
+  const CurrentWorkoutExerciseDelete();
 }

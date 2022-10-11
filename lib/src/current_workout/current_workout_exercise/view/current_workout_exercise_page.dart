@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/current_workout/current_workout.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:go_router/go_router.dart';
 import 'package:workout_log_repository/workout_log_repository.dart';
 
 class CurrentWorkoutExercisePage extends StatelessWidget {
@@ -39,7 +40,9 @@ class CurrentWorkoutExerciseView extends StatelessWidget {
         CurrentWorkoutExerciseState>(
       listenWhen: (previous, current) => previous.status != current.status,
       listener: (context, state) {
-        // TODO: implement listener
+        if (state.status == CurrentWorkoutExerciseStatus.delete) {
+          context.pop();
+        }
       },
       buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
@@ -52,6 +55,7 @@ class CurrentWorkoutExerciseView extends StatelessWidget {
           case CurrentWorkoutExerciseStatus.loaded:
           case CurrentWorkoutExerciseStatus.updating:
           case CurrentWorkoutExerciseStatus.updated:
+          case CurrentWorkoutExerciseStatus.delete:
             final exerciseLog = state.workoutExerciseLog!;
             return AppScaffold(
               title: exerciseLog.exercise.name,

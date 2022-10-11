@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/current_workout/current_workout.dart';
 import 'package:future_of_workout/src/exercise/exercise.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 
@@ -17,7 +19,11 @@ class ReplaceExercise extends StatelessWidget {
             ExerciseListPage.name,
             params: {},
             extra: ExerciseListExtra(
-              onConfirm: (selected) {},
+              onConfirm: (selected) {
+                context.read<CurrentWorkoutExerciseBloc>().add(
+                      CurrentWorkoutExerciseReplace(exercise: selected.first),
+                    );
+              },
               multiSelected: false,
             ),
           );

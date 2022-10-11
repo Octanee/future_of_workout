@@ -6,6 +6,7 @@ enum CurrentWorkoutExerciseStatus {
   loaded,
   updating,
   updated,
+  delete,
   failure,
 }
 
