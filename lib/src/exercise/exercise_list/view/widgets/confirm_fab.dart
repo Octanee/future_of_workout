@@ -24,7 +24,7 @@ class ConfirmFab extends StatelessWidget {
           );
         } else {
           return FloatingActionButton(
-            child: const Icon(Icons.add),
+            child: const Icon(Icons.repeat),
             onPressed: () {
               context.read<ExerciseListBloc>().add(const ExerciseListConfirm());
             },
