@@ -19,7 +19,6 @@ class DeleteExercise extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(bottom: 8),
             child: DeleteButton(
-              text: 'Delete exercise',
               onConfirm: () {
                 //TODO(Octane): Delete exercise
               },
