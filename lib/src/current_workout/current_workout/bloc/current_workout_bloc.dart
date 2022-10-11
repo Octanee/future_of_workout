@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:exercise_api/exercise_api.dart';
 import 'package:future_of_workout/src/ticker.dart';
 import 'package:workout_log_repository/workout_log_repository.dart';
 import 'package:workout_repository/workout_repository.dart';
@@ -23,6 +24,7 @@ class CurrentWorkoutBloc
     on<CurrentWorkoutFinish>(_onFinish);
     on<CurrentWorkoutClear>(_onClear);
     on<CurrentWorkoutTicked>(_onTicked);
+    on<CurrentWorkoutAdd>(_onAdd);
   }
 
   final WorkoutRepository _workoutRepository;
@@ -129,5 +131,34 @@ class CurrentWorkoutBloc
     Emitter<CurrentWorkoutState> emit,
   ) {
     emit(state.copyWith(time: event.time));
+  }
+
+  Future<void> _onAdd(
+    CurrentWorkoutAdd event,
+    Emitter<CurrentWorkoutState> emit,
+  ) async {
+    emit(state.copyWith(status: CurrentWorkoutStatus.updating));
+
+    final log = state.workoutLog!;
+
+    final exercises = List.of(log.workoutExerciseLogs);
+
+    for (final exercise in event.exercises) {
+      final item = WorkoutExerciseLog.fromWorkoutExercise(
+        WorkoutExercise(
+          index: exercises.length,
+          exercise: exercise,
+        ),
+      );
+      exercises.add(item);
+    }
+
+    final workout = log.copyWith(workoutExerciseLogs: exercises);
+
+    await _workoutLogRepository.saveWorkoutLog(workoutLog: workout);
+
+    emit(
+      state.copyWith(status: CurrentWorkoutStatus.updated, workoutLog: workout),
+    );
   }
 }

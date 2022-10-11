@@ -36,3 +36,12 @@ class CurrentWorkoutTicked extends CurrentWorkoutEvent {
   @override
   List<Object?> get props => [time];
 }
+
+class CurrentWorkoutAdd extends CurrentWorkoutEvent {
+  const CurrentWorkoutAdd({required this.exercises});
+
+  final List<Exercise> exercises;
+
+  @override
+  List<Object?> get props => exercises;
+}
