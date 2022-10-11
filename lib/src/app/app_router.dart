@@ -15,7 +15,32 @@ class AppRouter {
     routes: [
       _homeRoute,
       _exerciseDetailsRoute,
+      _exerciseListRoute,
     ],
+  );
+
+  static final GoRoute _exerciseDetailsRoute = GoRoute(
+    name: ExerciseDetailsPage.name,
+    path: ExerciseDetailsPage.path,
+    pageBuilder: (context, state) {
+      final exerciseId = state.params['exerciseId']!;
+      return _buildTransition(
+        key: state.pageKey,
+        child: ExerciseDetailsPage(exerciseId: exerciseId),
+      );
+    },
+  );
+
+  static final GoRoute _exerciseListRoute = GoRoute(
+    name: ExerciseListPage.name,
+    path: ExerciseListPage.path,
+    pageBuilder: (context, state) {
+      final extra = state.extra! as ExerciseListExtra;
+      return _buildTransition(
+        key: state.pageKey,
+        child: ExerciseListPage(extra: extra),
+      );
+    },
   );
 
   static final GoRoute _homeRoute = GoRoute(
@@ -75,18 +100,6 @@ class AppRouter {
           workoutId: workoutId,
           workoutExerciseId: workoutExerciseId,
         ),
-      );
-    },
-  );
-
-  static final GoRoute _exerciseDetailsRoute = GoRoute(
-    name: ExerciseDetailsPage.name,
-    path: ExerciseDetailsPage.path,
-    pageBuilder: (context, state) {
-      final exerciseId = state.params['exerciseId']!;
-      return _buildTransition(
-        key: state.pageKey,
-        child: ExerciseDetailsPage(exerciseId: exerciseId),
       );
     },
   );
