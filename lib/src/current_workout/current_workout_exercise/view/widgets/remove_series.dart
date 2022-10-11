@@ -13,15 +13,17 @@ class RemoveSeries extends StatelessWidget {
           previous.workoutExerciseLog?.exerciseSeriesLogs !=
           current.workoutExerciseLog?.exerciseSeriesLogs,
       builder: (context, state) {
+        final list = state.workoutExerciseLog!.exerciseSeriesLogs;
         return Visibility(
-          visible:
-              state.workoutExerciseLog?.exerciseSeriesLogs.isNotEmpty ?? false,
+          visible: list.isNotEmpty && !list.last.isFinished,
           child: Padding(
             padding: const EdgeInsets.only(bottom: 8),
             child: RemoveButton(
               text: 'Remove series',
               onConfirm: () {
-                // TODO(Octane): Remove series
+                context
+                    .read<CurrentWorkoutExerciseBloc>()
+                    .add(const CurrentWorkoutExerciseRemoveSeries());
               },
             ),
           ),

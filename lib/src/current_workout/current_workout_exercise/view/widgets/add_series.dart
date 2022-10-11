@@ -20,7 +20,9 @@ class AddSeries extends StatelessWidget {
             child: AddButton(
               text: 'Add series',
               onTap: () {
-                //TODO(Octane): Add series
+                context
+                    .read<CurrentWorkoutExerciseBloc>()
+                    .add(const CurrentWorkoutExerciseAddSeries());
               },
             ),
           ),

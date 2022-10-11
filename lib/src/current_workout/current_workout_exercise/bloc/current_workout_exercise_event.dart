@@ -19,8 +19,8 @@ class CurrentWorkoutExerciseSubscriptionRequested
   List<Object> get props => [id];
 }
 
-class CurrentWorkoutExerciseSeriesComplete extends CurrentWorkoutExerciseEvent {
-  const CurrentWorkoutExerciseSeriesComplete({
+class CurrentWorkoutExerciseUpdateSeries extends CurrentWorkoutExerciseEvent {
+  const CurrentWorkoutExerciseUpdateSeries({
     required this.series,
   });
 
@@ -28,6 +28,14 @@ class CurrentWorkoutExerciseSeriesComplete extends CurrentWorkoutExerciseEvent {
 
   @override
   List<Object> get props => [series];
+}
+
+class CurrentWorkoutExerciseAddSeries extends CurrentWorkoutExerciseEvent {
+  const CurrentWorkoutExerciseAddSeries();
+}
+
+class CurrentWorkoutExerciseRemoveSeries extends CurrentWorkoutExerciseEvent {
+  const CurrentWorkoutExerciseRemoveSeries();
 }
 
 class CurrentWorkoutExerciseComplete extends CurrentWorkoutExerciseEvent {

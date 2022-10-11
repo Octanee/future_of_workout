@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:future_of_workout/src/logger.dart';
+import 'package:workout_api/workout_api.dart';
 import 'package:workout_log_repository/workout_log_repository.dart';
 
 part 'current_workout_exercise_event.dart';
@@ -14,7 +16,9 @@ class CurrentWorkoutExerciseBloc
   })  : _workoutLogRepository = workoutLogRepository,
         super(const CurrentWorkoutExerciseState()) {
     on<CurrentWorkoutExerciseSubscriptionRequested>(_onSubscriptionRequested);
-    on<CurrentWorkoutExerciseSeriesComplete>(_onSeriesComplete);
+    on<CurrentWorkoutExerciseAddSeries>(_onAddSeries);
+    on<CurrentWorkoutExerciseRemoveSeries>(_onRemoveSeries);
+    on<CurrentWorkoutExerciseUpdateSeries>(_onUpdateSeries);
   }
 
   final WorkoutLogRepository _workoutLogRepository;
@@ -43,14 +47,15 @@ class CurrentWorkoutExerciseBloc
     );
   }
 
-  Future<void> _onSeriesComplete(
-    CurrentWorkoutExerciseSeriesComplete event,
+  Future<void> _onUpdateSeries(
+    CurrentWorkoutExerciseUpdateSeries event,
     Emitter<CurrentWorkoutExerciseState> emit,
   ) async {
     emit(state.copyWith(status: CurrentWorkoutExerciseStatus.updating));
 
     final index = state.workoutExerciseLog!.exerciseSeriesLogs
         .indexWhere((series) => series.id == event.series.id);
+
     final seriesLogs = List.of(state.workoutExerciseLog!.exerciseSeriesLogs);
     seriesLogs[index] = event.series;
 
@@ -69,6 +74,89 @@ class CurrentWorkoutExerciseBloc
 
     await _workoutLogRepository.saveWorkoutLog(workoutLog: log);
 
-    emit(state.copyWith(status: CurrentWorkoutExerciseStatus.updated));
+    emit(
+      state.copyWith(
+        status: CurrentWorkoutExerciseStatus.updated,
+        workoutLog: log,
+      ),
+    );
+  }
+
+  Future<void> _onAddSeries(
+    CurrentWorkoutExerciseAddSeries event,
+    Emitter<CurrentWorkoutExerciseState> emit,
+  ) async {
+    emit(state.copyWith(status: CurrentWorkoutExerciseStatus.updating));
+    final list = List.of(state.workoutExerciseLog!.exerciseSeriesLogs);
+
+    ExerciseSeriesLog last;
+
+    try {
+      last = list.last;
+    } catch (_) {
+      last = ExerciseSeriesLog.fromExerciseSeries(ExerciseSeries(index: 0));
+    }
+
+    list.add(
+      ExerciseSeriesLog(
+        index: last.index + 1,
+        weight: last.weight,
+        reps: last.reps,
+        rest: last.rest,
+        intensity: last.intensity,
+      ),
+    );
+
+    final exerciseLog = state.workoutExerciseLog!
+        .copyWith(exerciseSeriesLogs: list, isFinished: false);
+
+    final exerciseIndex = state.workoutLog!.workoutExerciseLogs
+        .indexWhere((log) => log.id == exerciseLog.id);
+
+    final exerciseLogs = List.of(state.workoutLog!.workoutExerciseLogs);
+    exerciseLogs[exerciseIndex] = exerciseLog;
+
+    final log = state.workoutLog!.copyWith(workoutExerciseLogs: exerciseLogs);
+
+    await _workoutLogRepository.saveWorkoutLog(workoutLog: log);
+
+    emit(
+      state.copyWith(
+        status: CurrentWorkoutExerciseStatus.updated,
+        workoutLog: log,
+      ),
+    );
+  }
+
+  Future<void> _onRemoveSeries(
+    CurrentWorkoutExerciseRemoveSeries event,
+    Emitter<CurrentWorkoutExerciseState> emit,
+  ) async {
+    emit(state.copyWith(status: CurrentWorkoutExerciseStatus.updating));
+
+    final list = List.of(state.workoutExerciseLog!.exerciseSeriesLogs)
+      ..removeLast();
+
+    final isFinished = !list.any((series) => series.isFinished == false);
+
+    final exerciseLog = state.workoutExerciseLog!
+        .copyWith(exerciseSeriesLogs: list, isFinished: isFinished);
+
+    final exerciseIndex = state.workoutLog!.workoutExerciseLogs
+        .indexWhere((log) => log.id == exerciseLog.id);
+
+    final exerciseLogs = List.of(state.workoutLog!.workoutExerciseLogs);
+    exerciseLogs[exerciseIndex] = exerciseLog;
+
+    final log = state.workoutLog!.copyWith(workoutExerciseLogs: exerciseLogs);
+
+    await _workoutLogRepository.saveWorkoutLog(workoutLog: log);
+
+    emit(
+      state.copyWith(
+        status: CurrentWorkoutExerciseStatus.updated,
+        workoutLog: log,
+      ),
+    );
   }
 }

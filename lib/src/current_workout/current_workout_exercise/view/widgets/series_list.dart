@@ -8,6 +8,9 @@ class SeriesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CurrentWorkoutExerciseBloc, CurrentWorkoutExerciseState>(
+      buildWhen: (previous, current) =>
+          previous.workoutExerciseLog?.exerciseSeriesLogs !=
+          current.workoutExerciseLog?.exerciseSeriesLogs,
       builder: (context, state) {
         final list = state.workoutExerciseLog!.exerciseSeriesLogs;
         return Column(

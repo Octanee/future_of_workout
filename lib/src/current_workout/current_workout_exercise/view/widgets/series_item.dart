@@ -32,7 +32,7 @@ class SeriesItem extends StatelessWidget {
                     intensity: series.intensity,
                     onConfirm: (reps, weight, intensity) {
                       bloc.add(
-                        CurrentWorkoutExerciseSeriesComplete(
+                        CurrentWorkoutExerciseUpdateSeries(
                           series: series.copyWith(
                             weight: weight,
                             reps: reps,
