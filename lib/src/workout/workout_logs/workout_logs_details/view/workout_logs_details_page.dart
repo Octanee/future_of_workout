@@ -45,6 +45,7 @@ class WorkoutLogsDetailsView extends StatelessWidget {
             return const AppScaffold(body: AppError());
           case WorkoutLogsDetailsStatus.deleted:
           case WorkoutLogsDetailsStatus.loaded:
+          case WorkoutLogsDetailsStatus.updated:
             final log = state.workoutLog!;
             return AppScaffold(
               title: log.name,

@@ -19,3 +19,12 @@ class WorkoutLogsDetailsSubscriptionRequest extends WorkoutLogsDetailsEvent {
 class WorkoutLogsDetailsDelete extends WorkoutLogsDetailsEvent {
   const WorkoutLogsDetailsDelete();
 }
+
+class WorkoutLogsDetailsAddExercises extends WorkoutLogsDetailsEvent {
+  const WorkoutLogsDetailsAddExercises({required this.exercises});
+
+  final List<Exercise> exercises;
+
+  @override
+  List<Object> get props => [exercises];
+}

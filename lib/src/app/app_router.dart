@@ -148,7 +148,6 @@ class AppRouter {
     },
     routes: [
       _workoutExerciseLogDetailsRoute,
-      _workoutLogExerciseListRoute,
     ],
   );
 
@@ -163,20 +162,6 @@ class AppRouter {
         child: WorkoutExerciseLogsDetailsPage(
           workoutLogId: workoutLogId,
           workoutExerciseLogId: workoutExerciseLogId,
-        ),
-      );
-    },
-  );
-
-  static final GoRoute _workoutLogExerciseListRoute = GoRoute(
-    name: WorkoutLogsExercisesListPage.name,
-    path: WorkoutLogsExercisesListPage.path,
-    pageBuilder: (context, state) {
-      final workoutLogId = state.params['workoutLogId']!;
-      return _buildTransition(
-        key: state.pageKey,
-        child: WorkoutLogsExercisesListPage(
-          workoutLogId: workoutLogId,
         ),
       );
     },

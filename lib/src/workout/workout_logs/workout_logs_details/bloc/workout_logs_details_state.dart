@@ -4,6 +4,7 @@ enum WorkoutLogsDetailsStatus {
   initial,
   loading,
   loaded,
+  updated,
   deleted,
   failure,
 }
