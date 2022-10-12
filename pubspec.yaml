@@ -26,6 +26,8 @@ dependencies:
   intl: ^0.17.0
   local_storage_exercise_api:
     path: packages/local_storage_exercise_api
+  local_storage_goal_api:
+    path: packages/local_storage_goal_api
   local_storage_workout_api:
     path: packages/local_storage_workout_api
   local_storage_workout_log_api:

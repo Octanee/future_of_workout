@@ -296,6 +296,13 @@ packages:
       relative: true
     source: path
     version: "1.0.0+1"
+  local_storage_goal_api:
+    dependency: "direct main"
+    description:
+      path: "packages/local_storage_goal_api"
+      relative: true
+    source: path
+    version: "1.0.0+1"
   local_storage_workout_api:
     dependency: "direct main"
     description:

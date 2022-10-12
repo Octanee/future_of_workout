@@ -1,4 +1,4 @@
-library local_storage_goal_api.dart;
+library local_storage_goal_api;
 
 export 'package:hive_flutter/hive_flutter.dart' show Hive, HiveX;
 export 'src/adapters/adapters.dart';
