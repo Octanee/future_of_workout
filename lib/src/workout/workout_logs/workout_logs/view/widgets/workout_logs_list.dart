@@ -19,6 +19,9 @@ class WorkoutLogsList extends StatelessWidget {
           itemCount: state.logs.length,
           itemBuilder: (context, index) {
             final item = state.logs[index];
+
+            if (item.endDate == null) return Container();
+            
             return WorkoutLogItem(
               log: item,
               isReverse: index.isOdd,
