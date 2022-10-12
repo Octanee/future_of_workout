@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:exercise_api/exercise_api.dart';
 import 'package:future_of_workout/src/extensions.dart';
 import 'package:workout_repository/workout_repository.dart';
 
@@ -20,6 +21,7 @@ class WorkoutDetailsBloc
     on<WorkoutDetailsRenameWorkout>(_onRenameWorkout);
     on<WorkoutDetailsFavoritToggled>(_onFavoritToggled);
     on<WorkoutDetailsDelete>(_onDelete);
+    on<WorkoutDetailsAddExercises>(_onAddExercises);
   }
 
   final WorkoutRepository _workoutRepository;
@@ -73,6 +75,25 @@ class WorkoutDetailsBloc
     } catch (e) {
       emit(state.copyWith(status: WorkoutDetailsStatus.failure));
     }
+  }
+
+  Future<void> _onAddExercises(
+    WorkoutDetailsAddExercises event,
+    Emitter<WorkoutDetailsState> emit,
+  ) async {
+    final workoutExercises = List.of(state.workout!.workoutExercises);
+
+    for (final exercise in event.exercises) {
+      final item = WorkoutExercise(
+        index: workoutExercises.length,
+        exercise: exercise,
+      );
+      workoutExercises.add(item);
+    }
+
+    final workout = state.workout!.copyWith(workoutExercises: workoutExercises);
+
+    await _updateWorkout(workout: workout, emit: emit);
   }
 
   Future<void> _updateWorkout({

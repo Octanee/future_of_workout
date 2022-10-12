@@ -33,29 +33,11 @@ class WorkoutDetailsDelete extends WorkoutDetailsEvent {
   const WorkoutDetailsDelete();
 }
 
-class WorkoutDetailsWorkoutExerciseAdded extends WorkoutDetailsEvent {
-  const WorkoutDetailsWorkoutExerciseAdded({required this.workoutExercise});
+class WorkoutDetailsAddExercises extends WorkoutDetailsEvent {
+  const WorkoutDetailsAddExercises({required this.exercises});
 
-  final WorkoutExercise workoutExercise;
-
-  @override
-  List<Object> get props => [workoutExercise];
-}
-
-class WorkoutDetailsWorkoutExerciseEdited extends WorkoutDetailsEvent {
-  const WorkoutDetailsWorkoutExerciseEdited({required this.workoutExercise});
-
-  final WorkoutExercise workoutExercise;
+  final List<Exercise> exercises;
 
   @override
-  List<Object> get props => [workoutExercise];
-}
-
-class WorkoutDetailsWorkoutExerciseRemoved extends WorkoutDetailsEvent {
-  const WorkoutDetailsWorkoutExerciseRemoved({required this.workoutExercise});
-
-  final WorkoutExercise workoutExercise;
-
-  @override
-  List<Object> get props => [workoutExercise];
+  List<Object> get props => [exercises];
 }

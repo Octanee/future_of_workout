@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/exercise/exercise.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:future_of_workout/src/workout/workout/workout.dart';
-import 'package:future_of_workout/src/workout/workouts/workouts.dart';
 import 'package:go_router/go_router.dart';
 
 class AddWorkoutExercise extends StatelessWidget {
@@ -19,11 +19,14 @@ class AddWorkoutExercise extends StatelessWidget {
             icon: const Icon(Icons.add),
             onTap: () {
               context.pushNamed(
-                WorkoutExercisesListPage.name,
-                params: {
-                  'homePageTab': WorkoutsPage.name,
-                  'workoutId': state.workout!.id,
-                },
+                ExerciseListPage.name,
+                extra: ExerciseListExtra(
+                  onConfirm: (selected) {
+                    context
+                        .read<WorkoutDetailsBloc>()
+                        .add(WorkoutDetailsAddExercises(exercises: selected));
+                  },
+                ),
               );
             },
           ),

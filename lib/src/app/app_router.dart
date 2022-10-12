@@ -71,21 +71,8 @@ class AppRouter {
       );
     },
     routes: [
-      _workoutExercisesListRoute,
       _workoutExerciseDetailsRoute,
     ],
-  );
-
-  static final GoRoute _workoutExercisesListRoute = GoRoute(
-    name: WorkoutExercisesListPage.name,
-    path: WorkoutExercisesListPage.path,
-    pageBuilder: (context, state) {
-      final workoutId = state.params['workoutId']!;
-      return _buildTransition(
-        key: state.pageKey,
-        child: WorkoutExercisesListPage(workoutId: workoutId),
-      );
-    },
   );
 
   static final GoRoute _workoutExerciseDetailsRoute = GoRoute(
