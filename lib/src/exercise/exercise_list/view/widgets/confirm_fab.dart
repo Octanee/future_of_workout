@@ -12,6 +12,8 @@ class ConfirmFab extends StatelessWidget {
       builder: (context, state) {
         final lenght = state.selected.values.where((element) => element).length;
 
+        if(lenght <1) return Container();
+
         if (state.extra.multiSelected) {
           return FloatingActionButton.extended(
             label: Text(
