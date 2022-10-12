@@ -3,6 +3,7 @@ import 'package:future_of_workout/src/app/app_transitions.dart';
 import 'package:future_of_workout/src/current_workout/current_workout.dart';
 import 'package:future_of_workout/src/exercise/exercise.dart';
 import 'package:future_of_workout/src/home/home.dart';
+import 'package:future_of_workout/src/logger.dart';
 import 'package:future_of_workout/src/workout/workout/workout.dart';
 import 'package:future_of_workout/src/workout/workout_logs/workout_logs.dart';
 import 'package:future_of_workout/src/workout/workouts/workouts.dart';
@@ -35,7 +36,8 @@ class AppRouter {
     name: ExerciseListPage.name,
     path: ExerciseListPage.path,
     pageBuilder: (context, state) {
-      final extra = state.extra! as ExerciseListExtra;
+      final extra = (state.extra as ExerciseListExtra?) ??
+          ExerciseListExtra(onConfirm: (_) => logger.e('Implement onConfirm'));
       return _buildTransition(
         key: state.pageKey,
         child: ExerciseListPage(extra: extra),

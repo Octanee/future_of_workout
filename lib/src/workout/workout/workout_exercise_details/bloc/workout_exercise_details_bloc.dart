@@ -20,6 +20,7 @@ class WorkoutExerciseDetailsBloc
     on<WorkoutExerciseDetailsDeleteWorkoutExercise>(_onDeleteWorkoutExercise);
     on<WorkoutExerciseDetailsChangeDisplayMode>(_onChangeDisplayMode);
     on<WorkoutExerciseDetailsAllSeriesChanged>(_onAllSeriesChanged);
+    on<WorkoutExerciseDetailsReplace>(_onReplace);
     on<WorkoutExerciseDetailsPop>(_onPop);
   }
 
@@ -202,5 +203,15 @@ class WorkoutExerciseDetailsBloc
     } catch (e) {
       emit(state.copyWith(status: WorkoutExerciseDetailsStatus.failure));
     }
+  }
+
+  void _onReplace(
+    WorkoutExerciseDetailsReplace event,
+    Emitter<WorkoutExerciseDetailsState> emit,
+  ) {
+    final workoutExercise =
+        state.workoutExercise!.copyWith(exercise: event.exercise);
+
+    emit(state.copyWith(workoutExercise: workoutExercise));
   }
 }

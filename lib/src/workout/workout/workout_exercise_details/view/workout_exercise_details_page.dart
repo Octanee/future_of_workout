@@ -55,7 +55,10 @@ class WorkoutExerciseDetailsView extends StatelessWidget {
             context.pop();
           }
         },
-        buildWhen: (previous, current) => previous.status != current.status,
+        buildWhen: (previous, current) =>
+            previous.status != current.status ||
+            previous.workoutExercise?.exercise !=
+                current.workoutExercise?.exercise,
         builder: (context, state) {
           switch (state.status) {
             case WorkoutExerciseDetailsStatus.initial:

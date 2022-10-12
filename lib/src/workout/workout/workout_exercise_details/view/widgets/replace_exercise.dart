@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/exercise/exercise.dart';
 import 'package:future_of_workout/src/widgets/buttons/replace_button.dart';
+import 'package:future_of_workout/src/workout/workout/workout.dart';
+import 'package:go_router/go_router.dart';
 
 class ReplaceExercise extends StatelessWidget {
   const ReplaceExercise({super.key});
@@ -10,7 +14,17 @@ class ReplaceExercise extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 8),
       child: ReplaceButton(
         onTap: () {
-          // TODO(Octane): Replace exercise
+          context.pushNamed(
+            ExerciseListPage.name,
+            extra: ExerciseListExtra(
+              multiSelected: false,
+              onConfirm: (selected) {
+                context.read<WorkoutExerciseDetailsBloc>().add(
+                      WorkoutExerciseDetailsReplace(exercise: selected.first),
+                    );
+              },
+            ),
+          );
         },
       ),
     );

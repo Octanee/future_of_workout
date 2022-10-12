@@ -67,3 +67,12 @@ class WorkoutExerciseDetailsChangeDisplayMode
     extends WorkoutExerciseDetailsEvent {
   const WorkoutExerciseDetailsChangeDisplayMode();
 }
+
+class WorkoutExerciseDetailsReplace extends WorkoutExerciseDetailsEvent {
+  const WorkoutExerciseDetailsReplace({required this.exercise});
+  
+  final Exercise exercise;
+
+  @override
+  List<Object> get props => [exercise];
+}
