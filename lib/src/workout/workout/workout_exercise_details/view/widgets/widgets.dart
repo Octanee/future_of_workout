@@ -1,3 +1,4 @@
+export 'about_exercise.dart';
 export 'add_series.dart';
 export 'advanced_exercise_series_item.dart';
 export 'delete_exercise.dart';

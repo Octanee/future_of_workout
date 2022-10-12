@@ -77,14 +77,14 @@ class WorkoutExerciseDetailsView extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   physics: const BouncingScrollPhysics(),
-                  children: [
-                    const AddSeries(),
-                    const RemoveSeries(),
-                    const SeriesList(),
-                    const DisplayMode(),
-                    const ReplaceExercise(),
-                    const DeleteExercise(),
-                    AboutExerciseButton(exerciseId: workoutExercise.exercise.id)
+                  children: const [
+                    AddSeries(),
+                    RemoveSeries(),
+                    SeriesList(),
+                    DisplayMode(),
+                    AboutExercise(),
+                    ReplaceExercise(),
+                    DeleteExercise(),
                   ],
                 ),
               );
