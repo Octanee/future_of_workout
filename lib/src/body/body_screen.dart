@@ -6,8 +6,9 @@ class BodyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const AppScaffold(
+    return AppScaffold(
       title: 'My Body',
+      body: Container(),
     );
   }
 }

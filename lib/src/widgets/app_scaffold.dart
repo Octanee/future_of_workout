@@ -4,8 +4,8 @@ import 'package:future_of_workout/src/styles/styles.dart';
 
 class AppScaffold extends StatelessWidget {
   const AppScaffold({
+    required this.body,
     this.title,
-    this.body,
     this.actions,
     this.leading,
     this.floatingActionButton,
