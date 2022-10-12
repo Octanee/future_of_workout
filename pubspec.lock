@@ -114,7 +114,7 @@ packages:
     source: hosted
     version: "2.0.5"
   exercise_api:
-    dependency: "direct main"
+    dependency: transitive
     description:
       path: "packages/exercise_api"
       relative: true
@@ -205,6 +205,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.3.0"
+  goal_api:
+    dependency: transitive
+    description:
+      path: "packages/goal_api"
+      relative: true
+    source: path
+    version: "1.0.0+1"
+  goal_repository:
+    dependency: "direct main"
+    description:
+      path: "packages/goal_repository"
+      relative: true
+    source: path
+    version: "1.0.0+1"
   google_fonts:
     dependency: "direct main"
     description:
@@ -666,14 +680,14 @@ packages:
     source: hosted
     version: "2.7.0"
   workout_api:
-    dependency: "direct main"
+    dependency: transitive
     description:
       path: "packages/workout_api"
       relative: true
     source: path
     version: "1.0.0+1"
   workout_log_api:
-    dependency: "direct main"
+    dependency: transitive
     description:
       path: "packages/workout_log_api"
       relative: true
