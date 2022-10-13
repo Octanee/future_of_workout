@@ -63,7 +63,7 @@ class WorkoutExerciseLogDetailsItem extends StatelessWidget {
                         _buildColumn(
                           header: _buildColumnName(
                             name: 'Rest',
-                            icon: const Icon(Icons.repeat_rounded),
+                            icon: const Icon(Icons.timer_outlined),
                           ),
                           items: finished
                               .map<Widget>(
