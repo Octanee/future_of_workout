@@ -22,7 +22,7 @@ class GoalRepository {
   ///
   /// If a [Goal] with the same `id` already exists,
   /// it will be replaced.
-  Future<void> savegoal(Goal goal) => _goalApi.saveGoal(goal);
+  Future<void> saveGoal(Goal goal) => _goalApi.saveGoal(goal);
 
   /// Deletes the `goal` with the given [id].
   ///
