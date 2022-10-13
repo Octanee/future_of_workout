@@ -4,16 +4,25 @@ import 'package:future_of_workout/src/formatter.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 
-class NewGoalDialog extends StatelessWidget {
-  const NewGoalDialog({required this.onConfirm, super.key});
+class GoalDialog extends StatelessWidget {
+  const GoalDialog({
+    required this.onConfirm,
+    required this.title,
+    this.confirmButtonText = 'Add',
+    this.value,
+    super.key,
+  });
 
+  final String? value;
+  final String title;
   final ValueChanged<double> onConfirm;
+  final String confirmButtonText;
 
   @override
   Widget build(BuildContext context) {
-    final controller = TextEditingController();
+    final controller = TextEditingController(text: value);
     return CustomDialog(
-      title: 'New Goal',
+      title: title,
       content: TextField(
         controller: controller,
         keyboardType: TextInputType.number,
@@ -31,7 +40,7 @@ class NewGoalDialog extends StatelessWidget {
           counterText: '',
         ),
       ),
-      confirmButtonText: 'Add',
+      confirmButtonText: confirmButtonText,
       onConfirm: () {
         final value = double.tryParse(controller.text) ?? 0;
 
