@@ -17,6 +17,7 @@ class AppRouter {
       _homeRoute,
       _exerciseDetailsRoute,
       _exerciseListRoute,
+      _exerciseStatsRoute
     ],
   );
 
@@ -28,6 +29,18 @@ class AppRouter {
       return _buildTransition(
         key: state.pageKey,
         child: ExerciseDetailsPage(exerciseId: exerciseId),
+      );
+    },
+  );
+
+  static final GoRoute _exerciseStatsRoute = GoRoute(
+    name: ExerciseStatsPage.name,
+    path: ExerciseStatsPage.path,
+    pageBuilder: (context, state) {
+      final exerciseId = state.params['exerciseId']!;
+      return _buildTransition(
+        key: state.pageKey,
+        child: ExerciseStatsPage(exerciseId: exerciseId),
       );
     },
   );

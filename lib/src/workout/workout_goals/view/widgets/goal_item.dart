@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:future_of_workout/src/exercise/exercise.dart';
 import 'package:future_of_workout/src/styles/app_text_style.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:go_router/go_router.dart';
 import 'package:goal_repository/goal_repository.dart';
 
 class GoalItem extends StatelessWidget {
@@ -30,6 +32,12 @@ class GoalItem extends StatelessWidget {
                 _getText(),
               ],
             ),
+            onTap: () {
+              context.pushNamed(
+                ExerciseStatsPage.name,
+                params: {'exerciseId': goal.exercise.id},
+              );
+            },
           ),
         );
       },
