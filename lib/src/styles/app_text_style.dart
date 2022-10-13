@@ -38,6 +38,11 @@ class AppTextStyle {
     fontWeight: FontWeight.w500,
   );
 
+  static TextStyle medium20 = _workSans(
+    fontSize: 20,
+    fontWeight: FontWeight.w500,
+  );
+
   static TextStyle _workSans({
     double fontSize = 16,
     FontWeight fontWeight = FontWeight.normal,
