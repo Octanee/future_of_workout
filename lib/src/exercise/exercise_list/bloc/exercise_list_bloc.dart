@@ -60,13 +60,16 @@ class ExerciseListBloc extends Bloc<ExerciseListEvent, ExerciseListState> {
     emit(state.copyWith(selected: selected));
   }
 
-  void _onConfirm(ExerciseListConfirm event, Emitter<ExerciseListState> emit) {
+  Future<void> _onConfirm(
+    ExerciseListConfirm event,
+    Emitter<ExerciseListState> emit,
+  ) async {
     final selected = Map.of(state.selected)
       ..removeWhere((key, value) => value == false);
 
     final list = selected.keys.toList();
 
-    state.extra.onConfirm(list);
+    await state.extra.onConfirm(list);
 
     emit(state.copyWith(status: ExerciseListStatus.confirm));
   }

@@ -18,7 +18,7 @@ class ReplaceExercise extends StatelessWidget {
             ExerciseListPage.name,
             extra: ExerciseListExtra(
               multiSelected: false,
-              onConfirm: (selected) {
+              onConfirm: (selected) async {
                 context.read<WorkoutExerciseDetailsBloc>().add(
                       WorkoutExerciseDetailsReplace(exercise: selected.first),
                     );

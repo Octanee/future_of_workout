@@ -19,7 +19,7 @@ class ReplaceExercise extends StatelessWidget {
             ExerciseListPage.name,
             params: {},
             extra: ExerciseListExtra(
-              onConfirm: (selected) {
+              onConfirm: (selected) async {
                 context.read<CurrentWorkoutExerciseBloc>().add(
                       CurrentWorkoutExerciseReplace(exercise: selected.first),
                     );

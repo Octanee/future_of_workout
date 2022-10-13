@@ -37,7 +37,9 @@ class AppRouter {
     path: ExerciseListPage.path,
     pageBuilder: (context, state) {
       final extra = (state.extra as ExerciseListExtra?) ??
-          ExerciseListExtra(onConfirm: (_) => logger.e('Implement onConfirm'));
+          ExerciseListExtra(
+            onConfirm: (_) async => logger.e('Implement onConfirm'),
+          );
       return _buildTransition(
         key: state.pageKey,
         child: ExerciseListPage(extra: extra),
