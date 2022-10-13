@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/exercise/exercise.dart';
-import 'package:future_of_workout/src/logger.dart';
+import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:future_of_workout/src/workout/workout_goals/workout_goals.dart';
 import 'package:go_router/go_router.dart';
 
@@ -22,7 +22,8 @@ class AddFab extends StatelessWidget {
               await showDialog<void>(
                 context: context,
                 builder: (_) {
-                  return NewGoalDialog(
+                  return GoalDialog(
+                    title: exercise.name,
                     onConfirm: (value) {
                       context.read<WorkoutGoalsBloc>().add(
                             WorkoutGoalsAdd(exercise: exercise, goal: value),
