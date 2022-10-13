@@ -17,16 +17,13 @@ class AddFab extends StatelessWidget {
           extra: ExerciseListExtra(
             multiSelected: false,
             onConfirm: (selected) async {
-              logger.e('onConfirm');
               final exercise = selected.first;
 
               await showDialog<void>(
                 context: context,
                 builder: (_) {
-                  logger.e('showDialog');
                   return NewGoalDialog(
                     onConfirm: (value) {
-                      logger.e('NewGoalDialog onConfirm');
                       context.read<WorkoutGoalsBloc>().add(
                             WorkoutGoalsAdd(exercise: exercise, goal: value),
                           );
