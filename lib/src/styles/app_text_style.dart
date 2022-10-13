@@ -25,6 +25,15 @@ class AppTextStyle {
     fontWeight: FontWeight.w700,
   );
 
+  static TextStyle bold16 = _workSans(
+    fontWeight: FontWeight.w700,
+  );
+
+  static TextStyle semiBold12 = _workSans(
+    fontSize: 12,
+    fontWeight: FontWeight.w600,
+  );
+
   static TextStyle semiBold16 = _workSans(
     fontWeight: FontWeight.w600,
   );
