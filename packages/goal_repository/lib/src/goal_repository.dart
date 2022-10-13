@@ -10,7 +10,7 @@ class GoalRepository {
   final GoalApi _goalApi;
 
   /// Provides a [Stream] of all goals
-  Stream<List<Goal>> getgoals() => _goalApi.getGoals();
+  Stream<List<Goal>> getGoals() => _goalApi.getGoals();
 
   /// Get the goal with the given `id`.
   ///
