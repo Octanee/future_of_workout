@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:future_of_workout/src/home/home.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:future_of_workout/src/workout/workout/workout.dart';
+import 'package:future_of_workout/src/workout/workout_goals/workout_goals.dart';
 import 'package:future_of_workout/src/workout/workout_logs/workout_logs.dart';
-import 'package:future_of_workout/src/workout/workout_records/workout_records.dart';
 
 class WorkoutsPage extends StatelessWidget {
   const WorkoutsPage({super.key});
@@ -36,14 +36,14 @@ class WorkoutsView extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             tabs: [
               Tab(text: 'Created'),
-              Tab(text: 'Records'),
+              Tab(text: 'Goals'),
               Tab(text: 'Saved'),
             ],
           ),
           CustomTabBarView(
             children: [
               WorkoutsListTab(),
-              WorkoutsRecordsTab(),
+              WorkoutGoalsTab(),
               WorkoutsLogsTab(),
             ],
           )
