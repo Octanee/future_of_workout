@@ -32,9 +32,9 @@ class DayliChart extends StatelessWidget {
 
     final values = data.map((e) => e.value).toList();
 
-    final minY = values.reduce(min);
+    final minY = values.reduce(min).floor();
 
-    final maxY = values.reduce(max);
+    final maxY = values.reduce(max).ceil();
 
     final maxX = now.difference(firstDay).inDays.toDouble();
 
@@ -167,7 +167,7 @@ class DayliChart extends StatelessWidget {
     var title = '';
 
     if (value % intervalY == 0) {
-      title = '$value $suffix';
+      title = '${value.toStringAsFixed(1)} $suffix';
     }
 
     return Text(
