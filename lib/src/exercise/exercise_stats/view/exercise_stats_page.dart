@@ -54,6 +54,7 @@ class ExerciseStatsView extends StatelessWidget {
                 physics: const BouncingScrollPhysics(),
                 children: const [
                   AboutExercise(),
+                  AddGoal(),
                   GoalCard(),
                   DataList(),
                 ],

@@ -43,6 +43,15 @@ class ExerciseStatsGoalChange extends ExerciseStatsEvent {
   List<Object> get props => [value];
 }
 
+class ExerciseStatsAddGoal extends ExerciseStatsEvent {
+  const ExerciseStatsAddGoal({required this.value});
+
+  final double value;
+
+  @override
+  List<Object> get props => [value];
+}
+
 class ExerciseStatsGoalDelete extends ExerciseStatsEvent {
   const ExerciseStatsGoalDelete();
 }

@@ -185,7 +185,20 @@ class DayliChart extends StatelessWidget {
       return null;
     }
 
-    return ExtraLinesData(horizontalLines: [HorizontalLine(y: goal!)]);
+    return ExtraLinesData(
+      horizontalLines: [
+        HorizontalLine(
+          y: goal!,
+          label: HorizontalLineLabel(
+            show: true,
+            labelResolver: (value) => '${value.y} $suffix',
+            style: AppTextStyle.medium12,
+          ),
+          dashArray: [5, 1],
+          color: AppColors.grey.withOpacity(0.75),
+        )
+      ],
+    );
   }
 }
 

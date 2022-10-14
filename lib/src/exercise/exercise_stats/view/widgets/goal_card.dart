@@ -13,6 +13,7 @@ class GoalCard extends StatelessWidget {
       buildWhen: (previous, current) => previous.goal != current.goal,
       builder: (context, state) {
         final goal = state.goal;
+
         if (goal == null) {
           return Container();
         }

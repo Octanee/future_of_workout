@@ -20,8 +20,7 @@ class DataList extends StatelessWidget {
           );
         }
 
-        return ListView(
-          shrinkWrap: true,
+        return Column(
           children: const [
             DataPeriod(),
             ChartTypeBar(),

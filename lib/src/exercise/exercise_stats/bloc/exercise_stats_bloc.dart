@@ -28,6 +28,7 @@ class ExerciseStatsBloc extends Bloc<ExerciseStatsEvent, ExerciseStatsState> {
     on<ExerciseStatsChartTypeChange>(_onChartTypeChange);
     on<ExerciseStatsGoalChange>(_onGoalChange);
     on<ExerciseStatsGoalDelete>(_onGoalDelete);
+    on<ExerciseStatsAddGoal>(_onAddGoal);
   }
 
   final ExerciseRepository _exerciseRepository;
@@ -130,7 +131,7 @@ class ExerciseStatsBloc extends Bloc<ExerciseStatsEvent, ExerciseStatsState> {
     Emitter<ExerciseStatsState> emit,
   ) async {
     await _goalRepository.deleteGoal(state.goal!.id);
-    emit(state.copyWith(goal: null));
+    emit(state.copyWith(goal: () => null));
   }
 
   Future<void> _onGoalChange(
@@ -140,5 +141,18 @@ class ExerciseStatsBloc extends Bloc<ExerciseStatsEvent, ExerciseStatsState> {
     final goal = state.goal!.copyWith(goal: event.value);
 
     await _goalRepository.saveGoal(goal);
+
+    emit(state.copyWith(goal: () => goal));
+  }
+
+  Future<void> _onAddGoal(
+    ExerciseStatsAddGoal event,
+    Emitter<ExerciseStatsState> emit,
+  ) async {
+    final goal = Goal(exercise: state.exercise!, goal: event.value);
+
+    await _goalRepository.saveGoal(goal);
+
+    emit(state.copyWith(goal: () => goal));
   }
 }
