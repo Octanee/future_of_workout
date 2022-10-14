@@ -34,8 +34,17 @@ class ExerciseStatsLoadWorkoutLogs extends ExerciseStatsEvent {
   List<Object> get props => [exerciseId];
 }
 
-class ExerciseStatsPop extends ExerciseStatsEvent {
-  const ExerciseStatsPop();
+class ExerciseStatsGoalChange extends ExerciseStatsEvent {
+  const ExerciseStatsGoalChange({required this.value});
+
+  final double value;
+
+  @override
+  List<Object> get props => [value];
+}
+
+class ExerciseStatsGoalDelete extends ExerciseStatsEvent {
+  const ExerciseStatsGoalDelete();
 }
 
 class ExerciseStatsPeriodChange extends ExerciseStatsEvent {

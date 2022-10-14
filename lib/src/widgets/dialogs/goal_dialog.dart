@@ -9,6 +9,7 @@ class GoalDialog extends StatelessWidget {
     required this.onConfirm,
     required this.title,
     this.confirmButtonText = 'Add',
+    this.onDelete,
     this.value,
     super.key,
   });
@@ -16,6 +17,7 @@ class GoalDialog extends StatelessWidget {
   final String? value;
   final String title;
   final ValueChanged<double> onConfirm;
+  final VoidCallback? onDelete;
   final String confirmButtonText;
 
   @override
@@ -23,22 +25,46 @@ class GoalDialog extends StatelessWidget {
     final controller = TextEditingController(text: value);
     return CustomDialog(
       title: title,
-      content: TextField(
-        controller: controller,
-        keyboardType: TextInputType.number,
-        inputFormatters: [
-          FilteringTextInputFormatter.allow(
-            RegExp(r'^\d*\.?\d{0,2}'),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          TextField(
+            controller: controller,
+            keyboardType: TextInputType.number,
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(
+                RegExp(r'^\d*\.?\d{0,2}'),
+              ),
+              NumericalRangeFormatter(min: 0, max: 999)
+            ],
+            textAlign: TextAlign.center,
+            style: AppTextStyle.bold28,
+            decoration: const InputDecoration(
+              hintText: 'Weight',
+              suffixText: 'kg',
+              counterText: '',
+            ),
           ),
-          NumericalRangeFormatter(min: 0, max: 999)
+          Visibility(
+            visible: onDelete != null,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Delete?',
+                  style: AppTextStyle.semiBold16,
+                ),
+                IconButton(
+                  onPressed: () {
+                    onDelete!();
+                    Navigator.of(context).pop();
+                  },
+                  icon: const Icon(Icons.delete),
+                ),
+              ],
+            ),
+          ),
         ],
-        textAlign: TextAlign.center,
-        style: AppTextStyle.bold28,
-        decoration: const InputDecoration(
-          hintText: 'Weight',
-          suffixText: 'kg',
-          counterText: '',
-        ),
       ),
       confirmButtonText: confirmButtonText,
       onConfirm: () {

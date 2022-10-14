@@ -1,5 +1,6 @@
 export 'about_exercise.dart';
 export 'chart_type_bar.dart';
+export 'data_list.dart';
 export 'data_period.dart';
 export 'goal_card.dart';
 export 'log_item.dart';

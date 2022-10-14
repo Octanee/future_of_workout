@@ -14,6 +14,7 @@ class DayliChart extends StatelessWidget {
     this.verticalCells = 4,
     this.suffix = 'kg',
     this.isCurved = true,
+    this.goal,
     super.key,
   });
 
@@ -24,6 +25,7 @@ class DayliChart extends StatelessWidget {
   final double aspectRatio;
   final String suffix;
   final bool isCurved;
+  final double? goal;
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +47,7 @@ class DayliChart extends StatelessWidget {
       aspectRatio: aspectRatio,
       child: LineChart(
         LineChartData(
+          extraLinesData: _getExtraLine(),
           gridData: _getGridData(
             horizontalInterval: intervalY,
             verticalInterval: intervalX,
@@ -175,6 +178,14 @@ class DayliChart extends StatelessWidget {
       style: AppTextStyle.regular12,
       textAlign: TextAlign.left,
     );
+  }
+
+  ExtraLinesData? _getExtraLine() {
+    if (goal == null) {
+      return null;
+    }
+
+    return ExtraLinesData(horizontalLines: [HorizontalLine(y: goal!)]);
   }
 }
 

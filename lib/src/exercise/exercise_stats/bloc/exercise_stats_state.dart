@@ -46,7 +46,7 @@ class ExerciseStatsState extends Equatable {
     ExerciseStatsStatus? status,
     Exercise? exercise,
     List<MapEntry<WorkoutExerciseLog, DateTime>>? workoutExerciseLogs,
-    Goal? goal,
+    Goal? Function()? goal,
     Period? period,
     ChartType? chartType,
   }) {
@@ -54,7 +54,7 @@ class ExerciseStatsState extends Equatable {
       status: status ?? this.status,
       exercise: exercise ?? this.exercise,
       workoutExerciseLogs: workoutExerciseLogs ?? this.workoutExerciseLogs,
-      goal: goal ?? this.goal,
+      goal: goal != null ? goal() : this.goal,
       period: period ?? this.period,
       chartType: chartType ?? this.chartType,
     );

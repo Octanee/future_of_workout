@@ -35,41 +35,32 @@ class ExerciseStatsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        context.read<ExerciseStatsBloc>().add(const ExerciseStatsPop());
-        return true;
+    return BlocBuilder<ExerciseStatsBloc, ExerciseStatsState>(
+      buildWhen: (previous, current) => previous.status != current.status,
+      builder: (context, state) {
+        switch (state.status) {
+          case ExerciseStatsStatus.initial:
+          case ExerciseStatsStatus.loading:
+            return const AppScaffold(body: AppLoading());
+          case ExerciseStatsStatus.failure:
+            return const AppScaffold(body: AppError());
+          case ExerciseStatsStatus.loaded:
+            final exercise = state.exercise;
+            return AppScaffold(
+              title: exercise?.name ?? 'Exercise',
+              body: ListView(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                physics: const BouncingScrollPhysics(),
+                children: const [
+                  AboutExercise(),
+                  GoalCard(),
+                  DataList(),
+                ],
+              ),
+            );
+        }
       },
-      child: BlocBuilder<ExerciseStatsBloc, ExerciseStatsState>(
-        buildWhen: (previous, current) => previous.status != current.status,
-        builder: (context, state) {
-          switch (state.status) {
-            case ExerciseStatsStatus.initial:
-            case ExerciseStatsStatus.loading:
-              return const AppScaffold(body: AppLoading());
-            case ExerciseStatsStatus.failure:
-              return const AppScaffold(body: AppError());
-            case ExerciseStatsStatus.loaded:
-              final exercise = state.exercise;
-              return AppScaffold(
-                title: exercise?.name ?? 'Exercise',
-                body: ListView(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  physics: const BouncingScrollPhysics(),
-                  children: const [
-                    AboutExercise(),
-                    GoalCard(),
-                    DataPeriod(),
-                    ChartTypeBar(),
-                    WeightChart(),
-                    LogsList(),
-                  ],
-                ),
-              );
-          }
-        },
-      ),
     );
   }
 }

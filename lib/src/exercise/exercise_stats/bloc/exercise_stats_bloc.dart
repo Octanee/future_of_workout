@@ -26,7 +26,8 @@ class ExerciseStatsBloc extends Bloc<ExerciseStatsEvent, ExerciseStatsState> {
     on<ExerciseStatsLoadGoal>(_onLoadGoal);
     on<ExerciseStatsPeriodChange>(_onPeriodChange);
     on<ExerciseStatsChartTypeChange>(_onChartTypeChange);
-    on<ExerciseStatsPop>(_onPop);
+    on<ExerciseStatsGoalChange>(_onGoalChange);
+    on<ExerciseStatsGoalDelete>(_onGoalDelete);
   }
 
   final ExerciseRepository _exerciseRepository;
@@ -103,7 +104,7 @@ class ExerciseStatsBloc extends Bloc<ExerciseStatsEvent, ExerciseStatsState> {
 
         return state.copyWith(
           status: ExerciseStatsStatus.loaded,
-          goal: goal,
+          goal: () => goal,
         );
       },
       onError: (_, __) => state.copyWith(status: ExerciseStatsStatus.failure),
@@ -124,10 +125,20 @@ class ExerciseStatsBloc extends Bloc<ExerciseStatsEvent, ExerciseStatsState> {
     emit(state.copyWith(chartType: event.chartType));
   }
 
-  Future<void> _onPop(
-    ExerciseStatsPop event,
+  Future<void> _onGoalDelete(
+    ExerciseStatsGoalDelete event,
     Emitter<ExerciseStatsState> emit,
   ) async {
-    // TODO(Octane): Save all changes
+    await _goalRepository.deleteGoal(state.goal!.id);
+    emit(state.copyWith(goal: null));
+  }
+
+  Future<void> _onGoalChange(
+    ExerciseStatsGoalChange event,
+    Emitter<ExerciseStatsState> emit,
+  ) async {
+    final goal = state.goal!.copyWith(goal: event.value);
+
+    await _goalRepository.saveGoal(goal);
   }
 }

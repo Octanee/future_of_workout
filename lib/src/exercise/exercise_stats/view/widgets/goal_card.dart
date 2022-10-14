@@ -21,15 +21,18 @@ class GoalCard extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 8),
           child: CustomCard(
             onTap: () async {
+              final bloc = context.read<ExerciseStatsBloc>();
+
               await showDialog<void>(
                 context: context,
                 builder: (_) {
                   return GoalDialog(
-                    title: goal.exercise.name,
+                    title: 'Update goal',
+                    confirmButtonText: 'Save',
                     value: goal.goal.toString(),
-                    onConfirm: (value) {
-                      // TODO(Octane): Edit goal value
-                    },
+                    onConfirm: (value) =>
+                        bloc.add(ExerciseStatsGoalChange(value: value)),
+                    onDelete: () => bloc.add(const ExerciseStatsGoalDelete()),
                   );
                 },
               );
