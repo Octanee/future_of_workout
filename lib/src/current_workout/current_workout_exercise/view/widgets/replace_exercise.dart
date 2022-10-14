@@ -24,7 +24,6 @@ class ReplaceExercise extends StatelessWidget {
                       CurrentWorkoutExerciseReplace(exercise: selected.first),
                     );
               },
-              multiSelected: false,
             ),
           );
         },

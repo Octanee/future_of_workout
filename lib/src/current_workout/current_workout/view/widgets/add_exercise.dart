@@ -17,6 +17,7 @@ class AddExercise extends StatelessWidget {
         context.pushNamed(
           ExerciseListPage.name,
           extra: ExerciseListExtra(
+            selectionType: SelectionType.multiple,
             onConfirm: (selected) async {
               context
                   .read<CurrentWorkoutBloc>()

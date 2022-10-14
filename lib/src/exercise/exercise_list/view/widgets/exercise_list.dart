@@ -22,9 +22,16 @@ class ExerciseList extends StatelessWidget {
               exercise: exercise,
               isSelected: isSelected,
               onTap: () {
-                context
-                    .read<ExerciseListBloc>()
-                    .add(ExerciseListSelect(exercise: exercise));
+                if (state.extra.selectionType == SelectionType.none) {
+                  context.pushNamed(
+                    ExerciseStatsPage.name,
+                    params: {'exerciseId': exercise.id},
+                  );
+                } else {
+                  context
+                      .read<ExerciseListBloc>()
+                      .add(ExerciseListSelect(exercise: exercise));
+                }
               },
               onIconPressed: () {
                 context.pushNamed(

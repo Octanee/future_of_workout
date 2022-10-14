@@ -12,25 +12,34 @@ class ConfirmFab extends StatelessWidget {
       builder: (context, state) {
         final lenght = state.selected.values.where((element) => element).length;
 
-        if(lenght <1) return Container();
+        if (lenght < 1) {
+          return Container();
+        }
 
-        if (state.extra.multiSelected) {
-          return FloatingActionButton.extended(
-            label: Text(
-              'Add $lenght exercises',
-              style: AppTextStyle.semiBold16,
-            ),
-            onPressed: () {
-              context.read<ExerciseListBloc>().add(const ExerciseListConfirm());
-            },
-          );
-        } else {
-          return FloatingActionButton(
-            child: const Icon(Icons.repeat),
-            onPressed: () {
-              context.read<ExerciseListBloc>().add(const ExerciseListConfirm());
-            },
-          );
+        switch (state.extra.selectionType) {
+          case SelectionType.none:
+            return Container();
+          case SelectionType.single:
+            return FloatingActionButton(
+              child: state.extra.icon,
+              onPressed: () {
+                context
+                    .read<ExerciseListBloc>()
+                    .add(const ExerciseListConfirm());
+              },
+            );
+          case SelectionType.multiple:
+            return FloatingActionButton.extended(
+              label: Text(
+                'Add $lenght exercises',
+                style: AppTextStyle.semiBold16,
+              ),
+              onPressed: () {
+                context
+                    .read<ExerciseListBloc>()
+                    .add(const ExerciseListConfirm());
+              },
+            );
         }
       },
     );

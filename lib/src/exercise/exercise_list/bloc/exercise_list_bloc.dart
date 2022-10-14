@@ -44,7 +44,7 @@ class ExerciseListBloc extends Bloc<ExerciseListEvent, ExerciseListState> {
     final exercise = event.exercise;
     final selected = Map.of(state.selected);
 
-    if (state.extra.multiSelected) {
+    if (state.extra.selectionType == SelectionType.multiple) {
       final isSelected = state.selected[exercise];
 
       if (isSelected == null) {
@@ -69,7 +69,9 @@ class ExerciseListBloc extends Bloc<ExerciseListEvent, ExerciseListState> {
 
     final list = selected.keys.toList();
 
-    await state.extra.onConfirm(list);
+    if (state.extra.onConfirm != null) {
+      await state.extra.onConfirm!(list);
+    }
 
     emit(state.copyWith(status: ExerciseListStatus.confirm));
   }

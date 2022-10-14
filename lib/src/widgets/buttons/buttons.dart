@@ -5,4 +5,5 @@ export 'circle_button.dart';
 export 'delete_button.dart';
 export 'remove_button.dart';
 export 'replace_button.dart';
+export 'search_button.dart';
 export 'text_floating_action_button.dart';

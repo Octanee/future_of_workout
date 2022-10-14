@@ -34,7 +34,7 @@ class WorkoutGoalsView extends StatelessWidget {
             return const AppScaffold(body: AppError());
           case WorkoutGoalsStatus.empty:
             return const AppScaffold(
-              floatingActionButton: AddFab(),
+              floatingActionButton: SearchFab(),
               body: AppEmptyList(
                 text: 'No one goals has been set yet.',
               ),
@@ -42,8 +42,11 @@ class WorkoutGoalsView extends StatelessWidget {
           case WorkoutGoalsStatus.loaded:
           case WorkoutGoalsStatus.add:
             return const AppScaffold(
-              floatingActionButton: AddFab(),
-              body: GoalsList(),
+              floatingActionButton: SearchFab(),
+              body: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                child: GoalsList(),
+              ),
             );
         }
       },
