@@ -1,6 +1,6 @@
 import 'package:body_api/body_api.dart';
 import 'package:flutter/material.dart';
-import 'package:future_of_workout/src/widgets/body_widget.dart';
+import 'package:future_of_workout/src/widgets/body/body_widget.dart';
 
 class BodyContainer extends StatelessWidget {
   const BodyContainer({

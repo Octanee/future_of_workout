@@ -5,12 +5,14 @@ import 'package:future_of_workout/src/styles/styles.dart';
 class CustomTabBar extends StatelessWidget {
   const CustomTabBar({
     required this.tabs,
-    this.padding = const EdgeInsets.symmetric(vertical: 8),
+    this.padding = EdgeInsets.zero,
+    this.controller,
     super.key,
   });
 
   final List<Tab> tabs;
   final EdgeInsets padding;
+  final TabController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -26,21 +28,12 @@ class CustomTabBar extends StatelessWidget {
           boxShadow: [AppShadows.shadow15],
         ),
         child: TabBar(
-          //    isScrollable: true,
+          controller: controller,
           labelPadding: EdgeInsets.zero,
           labelColor: AppColors.grey,
           labelStyle: AppTextStyle.semiBold16,
           indicator: BoxDecoration(
             color: AppColors.yellow,
-            // gradient: LinearGradient(
-            //   begin: Alignment.topLeft,
-            //   end: Alignment.bottomRight,
-            //   colors: [
-            //     AppColors.yellow.darken(amount: 0.04),
-            //     AppColors.yellow,
-            //     AppColors.yellow.lighten(),
-            //   ],
-            // ),
             borderRadius: BorderRadius.circular(16),
           ),
           tabs: tabs,
