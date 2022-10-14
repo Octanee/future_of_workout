@@ -37,3 +37,21 @@ class ExerciseStatsLoadWorkoutLogs extends ExerciseStatsEvent {
 class ExerciseStatsPop extends ExerciseStatsEvent {
   const ExerciseStatsPop();
 }
+
+class ExerciseStatsPeriodChange extends ExerciseStatsEvent {
+  const ExerciseStatsPeriodChange({required this.period});
+
+  final Period period;
+
+  @override
+  List<Object> get props => [period];
+}
+
+class ExerciseStatsChartTypeChange extends ExerciseStatsEvent {
+  const ExerciseStatsChartTypeChange({required this.chartType});
+
+  final ChartType chartType;
+
+  @override
+  List<Object> get props => [chartType];
+}

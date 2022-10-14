@@ -4,6 +4,8 @@ import 'package:bloc/bloc.dart';
 import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:exercise_repository/exercise_repository.dart';
+import 'package:future_of_workout/src/exercise/exercise.dart';
+import 'package:future_of_workout/src/period.dart';
 import 'package:goal_repository/goal_repository.dart';
 import 'package:workout_log_repository/workout_log_repository.dart';
 
@@ -22,6 +24,8 @@ class ExerciseStatsBloc extends Bloc<ExerciseStatsEvent, ExerciseStatsState> {
     on<ExerciseStatsLoadExercise>(_onLoadExercise);
     on<ExerciseStatsLoadWorkoutLogs>(_onLoadWorkoutLogs);
     on<ExerciseStatsLoadGoal>(_onLoadGoal);
+    on<ExerciseStatsPeriodChange>(_onPeriodChange);
+    on<ExerciseStatsChartTypeChange>(_onChartTypeChange);
     on<ExerciseStatsPop>(_onPop);
   }
 
@@ -104,6 +108,20 @@ class ExerciseStatsBloc extends Bloc<ExerciseStatsEvent, ExerciseStatsState> {
       },
       onError: (_, __) => state.copyWith(status: ExerciseStatsStatus.failure),
     );
+  }
+
+  void _onPeriodChange(
+    ExerciseStatsPeriodChange event,
+    Emitter<ExerciseStatsState> emit,
+  ) {
+    emit(state.copyWith(period: event.period));
+  }
+
+  void _onChartTypeChange(
+    ExerciseStatsChartTypeChange event,
+    Emitter<ExerciseStatsState> emit,
+  ) {
+    emit(state.copyWith(chartType: event.chartType));
   }
 
   Future<void> _onPop(

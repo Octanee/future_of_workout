@@ -60,6 +60,8 @@ class ExerciseStatsView extends StatelessWidget {
                   children: const [
                     AboutExercise(),
                     GoalCard(),
+                    DataPeriod(),
+                    ChartTypeBar(),
                     WeightChart(),
                     LogsList(),
                   ],

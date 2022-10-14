@@ -9,9 +9,9 @@ class LogsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ExerciseStatsBloc, ExerciseStatsState>(
-      buildWhen: (previous, current) => previous.goal != current.goal,
+      buildWhen: (previous, current) => previous.data != current.data,
       builder: (context, state) {
-        final list = state.workoutExerciseLogs;
+        final list = state.data;
         if (list.isEmpty) {
           return const Padding(
             padding: EdgeInsets.symmetric(vertical: 32),
@@ -24,12 +24,17 @@ class LogsList extends StatelessWidget {
         return ListView(
           shrinkWrap: true,
           physics: const BouncingScrollPhysics(),
-          children: list
-              .map<Widget>(
-                (entry) =>
-                    LogItem(workoutExerciseLog: entry.key, date: entry.value),
-              )
-              .toList(),
+          children: [
+            Header(text: 'Logs (${list.length})'),
+            ...list
+                .map<Widget>(
+                  (entry) => LogItem(
+                    workoutExerciseLog: entry.key,
+                    date: entry.value,
+                  ),
+                )
+                .toList(),
+          ],
         );
       },
     );
