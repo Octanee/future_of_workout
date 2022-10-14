@@ -6,6 +6,7 @@ export 'body_container.dart';
 export 'body_widget.dart';
 export 'buttons/buttons.dart';
 export 'cards/cards.dart';
+export 'charts/charts.dart';
 export 'custom_bar.dart';
 export 'custom_search_bar.dart';
 export 'custom_tab_bar.dart';

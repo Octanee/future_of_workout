@@ -43,6 +43,17 @@ class AppTextStyle {
     fontWeight: FontWeight.w600,
   );
 
+  static TextStyle regular12 = _workSans(
+    fontSize: 12,
+  );
+
+  static TextStyle regular16 = _workSans();
+
+  static TextStyle medium12 = _workSans(
+    fontWeight: FontWeight.w500,
+    fontSize: 12,
+  );
+
   static TextStyle medium16 = _workSans(
     fontWeight: FontWeight.w500,
   );
@@ -54,7 +65,7 @@ class AppTextStyle {
 
   static TextStyle _workSans({
     double fontSize = 16,
-    FontWeight fontWeight = FontWeight.normal,
+    FontWeight fontWeight = FontWeight.w400,
   }) {
     return GoogleFonts.workSans(
       fontSize: fontSize,
