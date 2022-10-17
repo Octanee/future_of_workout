@@ -27,3 +27,9 @@ extension EmptyString on String {
     return temp;
   }
 }
+
+extension TodayDateTime on DateTime {
+  DateTime toDay() {
+    return DateTime(year, month, day);
+  }
+}

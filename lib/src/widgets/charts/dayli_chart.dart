@@ -39,7 +39,7 @@ class DayliChart extends StatelessWidget {
 
     var maxY = values.reduce(max).ceil();
 
-    if (minY == maxY) {
+    if (maxY-minY < 1.5) {
       minY -= 1;
       maxY += 1;
     }

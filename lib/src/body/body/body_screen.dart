@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:future_of_workout/src/body/body_recovery/body_recovery.dart';
+import 'package:future_of_workout/src/body/body_weight/body_weight.dart';
 import 'package:future_of_workout/src/home/home.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 
@@ -26,8 +27,8 @@ class BodyPage extends StatelessWidget {
             ),
             CustomTabBarView(
               children: [
-                const BodyRecoveryTab(),
-                AppScaffold(body: Container()),
+                BodyRecoveryTab(),
+                BodyWeightTab(),
                 AppScaffold(body: Container()),
               ],
             )
