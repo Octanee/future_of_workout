@@ -1,5 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:measurement_api/measurement_api.dart';
+import 'package:local_storage_measurement_api/local_storage_measurement_api.dart';
 
 /// Custom [TypeAdapter] for writing and reading
 /// [Measurement] from local database.
@@ -19,7 +19,7 @@ class MeasurementAdapter extends TypeAdapter<Measurement> {
     }
 
     return Measurement(
-      date: fields[1] as DateTime,
+      date: (fields[1] as String).toDateTime(),
       weight: fields[2] as double?,
       neckCircuit: fields[3] as double?,
       chestCircuit: fields[4] as double?,

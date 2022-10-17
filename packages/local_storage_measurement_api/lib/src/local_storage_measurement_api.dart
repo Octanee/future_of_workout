@@ -1,6 +1,6 @@
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:local_storage_measurement_api/src/adapters/adapters.dart';
-import 'package:measurement_api/measurement_api.dart';
+import 'package:local_storage_measurement_api/local_storage_measurement_api.dart';
+
 import 'package:rxdart/rxdart.dart';
 
 /// {@template local_storage_measurement_api}
@@ -45,17 +45,17 @@ class LocalStorageMeasurementApi extends MeasurementApi {
   Future<void> deleteMeasurement(DateTime date) async {
     _checkInit();
     try {
-      await _measurementBox.delete(date);
+      await _measurementBox.delete(date.toKey());
     } catch (e) {
       throw MeasurementNotFoundException();
     }
   }
 
   @override
-  Measurement get({required DateTime dateTime}) {
+  Measurement get({required DateTime date}) {
     _checkInit();
 
-    final measurement = _measurementBox.get(dateTime);
+    final measurement = _measurementBox.get(date.toKey());
     if (measurement == null) {
       throw MeasurementNotFoundException();
     }
@@ -80,6 +80,6 @@ class LocalStorageMeasurementApi extends MeasurementApi {
   @override
   Future<void> saveMeasurement(Measurement measurement) async {
     _checkInit();
-    await _measurementBox.put(measurement.date, measurement);
+    await _measurementBox.put(measurement.date.toKey(), measurement);
   }
 }
