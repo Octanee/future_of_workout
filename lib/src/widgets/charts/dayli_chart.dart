@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:future_of_workout/src/logger.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
 import 'package:intl/intl.dart';
 
@@ -34,14 +35,22 @@ class DayliChart extends StatelessWidget {
 
     final values = data.map((e) => e.value).toList();
 
-    final minY = values.reduce(min).floor();
+    var minY = values.reduce(min).floor();
 
-    final maxY = values.reduce(max).ceil();
+    var maxY = values.reduce(max).ceil();
+
+    if (minY == maxY) {
+      minY -= 1;
+      maxY += 1;
+    }
 
     final maxX = now.difference(firstDay).inDays.toDouble();
 
-    final intervalY = (maxY - minY) / verticalCells;
-    final intervalX = maxX / horizontalCells;
+    var intervalY = (maxY - minY) / verticalCells;
+    if (intervalY == 0) intervalY = 5;
+
+    var intervalX = maxX / horizontalCells;
+    if (intervalX == 0) intervalX = 5;
 
     return AspectRatio(
       aspectRatio: aspectRatio,
@@ -57,7 +66,7 @@ class DayliChart extends StatelessWidget {
           ),
           titlesData: _getTitlesData(
             firstDay: firstDay,
-            intervalX: intervalX,
+            intervalX: intervalX.roundToDouble(),
             intervalY: intervalY,
           ),
           minX: -(intervalX / horizontalCells),
@@ -73,7 +82,7 @@ class DayliChart extends StatelessWidget {
   LineChartBarData _getBarData({required DateTime firstDay}) {
     final spots = data.map<FlSpot>((data) {
       final y = data.value;
-      final x = data.date.difference(firstDay).inDays.toDouble();
+      final x = data.date.difference(firstDay).inDays.toDouble() + 1;
 
       return FlSpot(x, y);
     }).toList();
