@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:future_of_workout/src/body/body_screen.dart';
+import 'package:future_of_workout/src/body/body/body_screen.dart';
 import 'package:future_of_workout/src/current_workout/current_workout.dart';
 import 'package:future_of_workout/src/discover/discover_screen.dart';
 import 'package:future_of_workout/src/settings/settings_screen.dart';
@@ -15,7 +15,7 @@ enum HomeNavigationItem {
   body(
     icon: Icon(Icons.sports_gymnastics),
     itemIndex: 1,
-    view: BodyScreen(),
+    view: BodyPage(),
     label: 'Body',
   ),
   currentWorkout(
