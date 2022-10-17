@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:future_of_workout/bootstrap.dart';
 import 'package:local_storage_exercise_api/local_storage_exercise_api.dart';
 import 'package:local_storage_goal_api/local_storage_goal_api.dart';
+import 'package:local_storage_measurement_api/local_storage_measurement_api.dart';
 import 'package:local_storage_workout_api/local_storage_workout_api.dart';
 import 'package:local_storage_workout_log_api/local_storage_workout_log_api.dart';
 
@@ -22,10 +23,14 @@ Future<void> main() async {
   final goalApi = LocalStorageGoalApi();
   await goalApi.init();
 
+  final measurementApi = LocalStorageMeasurementApi();
+  await measurementApi.init();
+
   bootstrap(
     workoutApi: workoutApi,
     exerciseApi: exerciseApi,
     workoutLogApi: workoutLogApi,
     goalApi: goalApi,
+    measurementApi: measurementApi,
   );
 }

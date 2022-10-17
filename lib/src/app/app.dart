@@ -6,6 +6,7 @@ import 'package:future_of_workout/src/current_workout/current_workout.dart';
 import 'package:future_of_workout/src/home/home.dart';
 import 'package:future_of_workout/src/styles/app_theme.dart';
 import 'package:goal_repository/goal_repository.dart';
+import 'package:measurement_repository/measurement_repository.dart';
 import 'package:workout_log_repository/workout_log_repository.dart';
 import 'package:workout_repository/workout_repository.dart';
 
@@ -16,15 +17,18 @@ class FutureOfWorkoutApp extends StatelessWidget {
     required WorkoutRepository workoutRepository,
     required WorkoutLogRepository workoutLogRepository,
     required GoalRepository goalRepository,
+    required MeasurementRepository measurementRepository,
   })  : _workoutRepository = workoutRepository,
         _exerciseRepository = exerciseRepository,
         _workoutLogRepository = workoutLogRepository,
-        _goalRepository = goalRepository;
+        _goalRepository = goalRepository,
+        _measurementRepository = measurementRepository;
 
   final ExerciseRepository _exerciseRepository;
   final WorkoutRepository _workoutRepository;
   final WorkoutLogRepository _workoutLogRepository;
   final GoalRepository _goalRepository;
+  final MeasurementRepository _measurementRepository;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +38,7 @@ class FutureOfWorkoutApp extends StatelessWidget {
         RepositoryProvider.value(value: _workoutRepository),
         RepositoryProvider.value(value: _workoutLogRepository),
         RepositoryProvider.value(value: _goalRepository),
+        RepositoryProvider.value(value: _measurementRepository),
       ],
       child: MultiBlocProvider(
         providers: [
