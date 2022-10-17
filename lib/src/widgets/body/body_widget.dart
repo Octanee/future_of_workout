@@ -7,26 +7,30 @@ class BodyWidget extends StatelessWidget {
   const BodyWidget({
     required this.body,
     this.height = 926,
+    this.isFront,
     super.key,
   });
 
   final Body body;
   final double height;
+  final bool? isFront;
 
   @override
   Widget build(BuildContext context) {
-    final isFront = body.position == BodyPosition.front ||
-        body.position == BodyPosition.frontUpper ||
-        body.position == BodyPosition.frontLower;
+    final isFrontPosition = isFront ??
+        body.position == BodyPosition.front ||
+            body.position == BodyPosition.frontUpper ||
+            body.position == BodyPosition.frontLower;
 
-    final contourPath = isFront
+    final contourPath = isFrontPosition
         ? 'assets/body/front/contour.svg'
         : 'assets/body/back/contour.svg';
 
     final children = <Widget>[_getSvg(path: contourPath)];
 
     for (final muscle in Muscle.values) {
-      final path = isFront ? muscle.imagePathFront : muscle.imagePathBack;
+      final path =
+          isFrontPosition ? muscle.imagePathFront : muscle.imagePathBack;
 
       if (path != null) {
         final color = _getColor(involvement: body.involvement(muscle: muscle));
