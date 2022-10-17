@@ -310,6 +310,13 @@ packages:
       relative: true
     source: path
     version: "1.0.0+1"
+  local_storage_measurement_api:
+    dependency: "direct main"
+    description:
+      path: "packages/local_storage_measurement_api"
+      relative: true
+    source: path
+    version: "1.0.0+1"
   local_storage_workout_api:
     dependency: "direct main"
     description:
@@ -352,6 +359,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.5"
+  measurement_api:
+    dependency: transitive
+    description:
+      path: "packages/measurement_api"
+      relative: true
+    source: path
+    version: "1.0.0+1"
+  measurement_repository:
+    dependency: "direct main"
+    description:
+      path: "packages/measurement_repository"
+      relative: true
+    source: path
+    version: "1.0.0+1"
   meta:
     dependency: transitive
     description:
