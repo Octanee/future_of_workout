@@ -19,7 +19,7 @@ class MeasurementRepository {
   /// If no Measurement with the given `dateTime` exists,
   /// a [MeasurementNotFoundException] error is thrown.
   Measurement get({required DateTime dateTime}) =>
-      _measurementApi.get(dateTime: dateTime);
+      _measurementApi.get(date: dateTime);
 
   /// Saves a [Measurement].
   ///

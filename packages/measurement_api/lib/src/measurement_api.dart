@@ -14,7 +14,7 @@ abstract class MeasurementApi {
   ///
   /// If no Measurement with the given `date` exists,
   /// a [MeasurementNotFoundException] error is thrown.
-  Measurement get({required DateTime dateTime});
+  Measurement get({required DateTime date});
 
   /// Saves a [Measurement].
   ///
