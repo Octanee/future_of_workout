@@ -2,6 +2,7 @@ export 'app_scaffold.dart';
 export 'bars/bars.dart';
 export 'body/body.dart';
 export 'body/body.dart';
+export 'bold_text.dart';
 export 'buttons/buttons.dart';
 export 'cards/cards.dart';
 export 'charts/charts.dart';

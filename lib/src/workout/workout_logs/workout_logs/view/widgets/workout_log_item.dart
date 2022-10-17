@@ -85,8 +85,8 @@ class WorkoutLogItem extends StatelessWidget {
   Widget _buildDate() {
     final formatter = DateFormat('dd MMM');
 
-    final text = _buildText(
-      bold: formatter.format(log.startDate),
+    final text = BoldText(
+      boldText: formatter.format(log.startDate),
     );
     return _buildRow(
       text: text,
@@ -97,9 +97,9 @@ class WorkoutLogItem extends StatelessWidget {
   Widget _buildTime() {
     final time = log.endDate!.difference(log.startDate);
 
-    final text = _buildText(
-      bold: '${time.inMinutes} ',
-      medium: 'min',
+    final text = BoldText(
+      boldText: '${time.inMinutes} ',
+      mediumText: 'min',
     );
     return _buildRow(
       text: text,
@@ -112,9 +112,9 @@ class WorkoutLogItem extends StatelessWidget {
         .where((exercise) => exercise.isFinished)
         .toList()
         .length;
-    final text = _buildText(
-      bold: '$exercises ',
-      medium: 'exercises',
+    final text = BoldText(
+      boldText: '$exercises ',
+      mediumText: 'exercises',
     );
     return _buildRow(
       text: text,
@@ -136,17 +136,6 @@ class WorkoutLogItem extends StatelessWidget {
           isReverse ? MainAxisAlignment.end : MainAxisAlignment.start,
       textBaseline: TextBaseline.alphabetic,
       children: isReverse ? children : children.reversed.toList(),
-    );
-  }
-
-  Widget _buildText({required String bold, String medium = ''}) {
-    return RichText(
-      text: TextSpan(
-        children: [
-          TextSpan(text: bold, style: AppTextStyle.semiBold20),
-          TextSpan(text: medium, style: AppTextStyle.medium16),
-        ],
-      ),
     );
   }
 }
