@@ -26,7 +26,7 @@ class BodyWeightState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [status, weights, period];
+  List<Object> get props => [status, weights, period];
 
   BodyWeightState copyWith({
     BodyWeightStatus? status,
