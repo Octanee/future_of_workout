@@ -1,9 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:future_of_workout/src/formatter.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:intl/intl.dart';
 
 class WeightDialog extends StatefulWidget {
   const WeightDialog({
@@ -41,43 +41,88 @@ class _WeightDialogState extends State<WeightDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final formatter = DateFormat('EEE, d MMM');
     return CustomDialog(
       title: widget.title,
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          TextField(
-            controller: controller,
-            keyboardType: TextInputType.number,
-            inputFormatters: [
-              FilteringTextInputFormatter.allow(
-                RegExp(r'^\d*\.?\d{0,1}'),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: TextField(
+              controller: controller,
+              keyboardType: TextInputType.number,
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(
+                  RegExp(r'^\d*\.?\d{0,1}'),
+                ),
+                NumericalRangeFormatter(min: 0, max: 999)
+              ],
+              textAlign: TextAlign.center,
+              style: AppTextStyle.bold28,
+              decoration: const InputDecoration(
+                hintText: 'Weight',
+                suffixText: 'kg',
+                counterText: '',
               ),
-              NumericalRangeFormatter(min: 0, max: 999)
-            ],
-            textAlign: TextAlign.center,
-            style: AppTextStyle.bold28,
-            decoration: const InputDecoration(
-              hintText: 'Weight',
-              suffixText: 'kg',
-              counterText: '',
             ),
           ),
           Visibility(
             visible: widget.dateTime == null,
-            child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              height: 100,
-              child: CupertinoDatePicker(
-                minimumYear: 2010,
-                maximumYear: 2040,
-                initialDateTime: dateTime,
-                mode: CupertinoDatePickerMode.date,
-                onDateTimeChanged: (date) {
+            child: InkWell(
+              borderRadius: BorderRadius.circular(8),
+              onTap: () async {
+                final date = await showDatePicker(
+                  context: context,
+                  initialDate: dateTime,
+                  firstDate: DateTime.now().subtract(
+                    const Duration(days: 365 * 10),
+                  ),
+                  lastDate: DateTime.now().add(
+                    const Duration(days: 365 * 10),
+                  ),
+                  builder: (context, child) {
+                    return Theme(
+                      data: Theme.of(context).copyWith(
+                        colorScheme: const ColorScheme.light(
+                          primary: AppColors.yellow, // <-- SEE HERE
+                          onPrimary: AppColors.grey, // <-- SEE HERE
+                          onSurface: AppColors.grey, // <-- SEE HERE
+                        ),
+                        textButtonTheme: TextButtonThemeData(
+                          style: TextButton.styleFrom(
+                            foregroundColor:
+                                AppColors.yellow, // button text color
+                          ),
+                        ),
+                        dialogTheme: DialogTheme(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                      ),
+                      child: child!,
+                    );
+                  },
+                );
+                if (date != null) {
                   setState(() {
                     dateTime = date;
                   });
-                },
+                }
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(4),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Icon(Icons.calendar_month_rounded),
+                    Text(
+                      formatter.format(dateTime),
+                      style: AppTextStyle.semiBold20,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -104,9 +149,9 @@ class _WeightDialogState extends State<WeightDialog> {
       ),
       confirmButtonText: widget.confirmButtonText,
       onConfirm: () {
-        final value = double.tryParse(controller.text) ?? 0;
+        final value = double.tryParse(controller.text);
 
-        if (value > 25) {
+        if (value != null) {
           widget.onConfirm(value, dateTime);
         }
       },
