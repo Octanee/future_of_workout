@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:future_of_workout/src/logger.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
 import 'package:intl/intl.dart';
 
@@ -39,7 +38,7 @@ class DayliChart extends StatelessWidget {
 
     var maxY = values.reduce(max).ceil();
 
-    if (maxY-minY < 1.5) {
+    if (maxY - minY < 1.5) {
       minY -= 1;
       maxY += 1;
     }
@@ -89,6 +88,7 @@ class DayliChart extends StatelessWidget {
 
     return LineChartBarData(
       isCurved: isCurved,
+      curveSmoothness: 0.2,
       color: AppColors.yellow,
       spots: spots,
     );
