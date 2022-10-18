@@ -38,8 +38,12 @@ class Measurement extends Equatable {
   final Map<MeasurementPlace, double?> _bodyCircuits;
 
   /// Return value of measurement in specific place.
-  double? circuit({required MeasurementPlace place}) =>
-      _bodyCircuits[place];
+  double? circuit({required MeasurementPlace place}) => _bodyCircuits[place];
+
+  /// Return `true` when any circuits its added.
+  bool hasCircuits() {
+    return _bodyCircuits.values.any((element) => element != null);
+  }
 
   /// Copy instance with given values.
   ///
@@ -61,8 +65,7 @@ class Measurement extends Equatable {
       weight: weight ?? this.weight,
       neckCircuit: neckCircuit ?? circuit(place: MeasurementPlace.neck),
       chestCircuit: chestCircuit ?? circuit(place: MeasurementPlace.chest),
-      bicepsCircuit:
-          bicepsCircuit ?? circuit(place: MeasurementPlace.biceps),
+      bicepsCircuit: bicepsCircuit ?? circuit(place: MeasurementPlace.biceps),
       waistCircuit: waistCircuit ?? circuit(place: MeasurementPlace.waist),
       bellyCircuit: bellyCircuit ?? circuit(place: MeasurementPlace.belly),
       hipCircuit: hipCircuit ?? circuit(place: MeasurementPlace.hip),
