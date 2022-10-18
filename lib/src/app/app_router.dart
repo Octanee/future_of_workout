@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:future_of_workout/src/app/app_transitions.dart';
+import 'package:future_of_workout/src/body/body_circuit/body_circuit.dart';
 import 'package:future_of_workout/src/current_workout/current_workout.dart';
 import 'package:future_of_workout/src/exercise/exercise.dart';
 import 'package:future_of_workout/src/home/home.dart';
@@ -74,7 +75,21 @@ class AppRouter {
       _workoutLogDetailsRoute,
       _currentWorkoutExerciseRoute,
       _currentWorkoutSummaryRoute,
+      _bodyCircuitDetailsRoute,
     ],
+  );
+
+  static final GoRoute _bodyCircuitDetailsRoute = GoRoute(
+    name: BodyCircuitDetailsPage.name,
+    path: BodyCircuitDetailsPage.path,
+    pageBuilder: (context, state) {
+      final measurementKey = state.params['measurementKey']!;
+      return _buildTransition(
+        key: state.pageKey,
+        child: BodyCircuitDetailsPage(measurementKey: measurementKey),
+      );
+    },
+    routes: [],
   );
 
   static final GoRoute _workoutDetailsRoute = GoRoute(
