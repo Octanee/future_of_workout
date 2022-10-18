@@ -19,7 +19,7 @@ class MeasurementAdapter extends TypeAdapter<Measurement> {
     }
 
     return Measurement(
-      date: (fields[1] as String).toDateTime(),
+      date: fields[1] as DateTime,
       weight: fields[2] as double?,
       neckCircuit: fields[3] as double?,
       chestCircuit: fields[4] as double?,
