@@ -73,6 +73,33 @@ class Measurement extends Equatable {
     );
   }
 
+  /// Copy instance with given value of place.
+  ///
+  /// {@macro body}
+  Measurement copyWithPlace({
+    required MeasurementPlace place,
+    double? value,
+  }) {
+    switch (place) {
+      case MeasurementPlace.neck:
+        return copyWith(neckCircuit: value);
+      case MeasurementPlace.chest:
+        return copyWith(chestCircuit: value);
+      case MeasurementPlace.biceps:
+        return copyWith(bicepsCircuit: value);
+      case MeasurementPlace.waist:
+        return copyWith(waistCircuit: value);
+      case MeasurementPlace.belly:
+        return copyWith(bellyCircuit: value);
+      case MeasurementPlace.hip:
+        return copyWith(hipCircuit: value);
+      case MeasurementPlace.thigh:
+        return copyWith(thighCircuit: value);
+      case MeasurementPlace.calf:
+        return copyWith(calfCircuit: value);
+    }
+  }
+
   @override
   List<Object?> get props => [date, weight, _bodyCircuits];
 }
