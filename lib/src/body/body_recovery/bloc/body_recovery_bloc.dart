@@ -2,8 +2,9 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:body_api/body_api.dart';
+import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:future_of_workout/src/logger.dart';
 import 'package:workout_log_repository/workout_log_repository.dart';
 
 part 'body_recovery_event.dart';
@@ -54,7 +55,7 @@ class BodyRecoveryBloc extends Bloc<BodyRecoveryEvent, BodyRecoveryState> {
 
       map.forEach((date, body) {
         final involvement = body.involvement(muscle: muscle);
-        final timeElapsed = date.difference(DateTime.now()).inHours;
+        final timeElapsed = DateTime.now().difference(date).inHours;
 
         final value = involvement * (1 - (timeElapsed / recoveryTime));
 
