@@ -27,14 +27,15 @@ class MeasurementAdapter extends TypeAdapter<Measurement> {
       waistCircuit: fields[6] as double?,
       bellyCircuit: fields[7] as double?,
       hipCircuit: fields[8] as double?,
-      calfCircuit: fields[9] as double?,
+      thighCircuit: fields[9] as double?,
+      calfCircuit: fields[10] as double?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Measurement obj) {
     writer
-      ..writeByte(9)
+      ..writeByte(10)
       ..writeByte(1)
       ..write(obj.date)
       ..writeByte(2)
@@ -52,6 +53,8 @@ class MeasurementAdapter extends TypeAdapter<Measurement> {
       ..writeByte(8)
       ..write(obj.circuit(place: MeasurementPlace.hip))
       ..writeByte(9)
+      ..write(obj.circuit(place: MeasurementPlace.thigh))
+      ..writeByte(10)
       ..write(obj.circuit(place: MeasurementPlace.calf));
   }
 }

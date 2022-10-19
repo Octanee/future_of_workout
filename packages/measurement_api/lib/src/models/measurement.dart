@@ -69,6 +69,7 @@ class Measurement extends Equatable {
       waistCircuit: waistCircuit ?? circuit(place: MeasurementPlace.waist),
       bellyCircuit: bellyCircuit ?? circuit(place: MeasurementPlace.belly),
       hipCircuit: hipCircuit ?? circuit(place: MeasurementPlace.hip),
+      thighCircuit: thighCircuit ?? circuit(place: MeasurementPlace.thigh),
       calfCircuit: calfCircuit ?? circuit(place: MeasurementPlace.calf),
     );
   }
