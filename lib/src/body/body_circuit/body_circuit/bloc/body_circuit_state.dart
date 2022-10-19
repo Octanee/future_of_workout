@@ -18,11 +18,34 @@ class BodyCircuitState extends Equatable {
   final List<Measurement> measurements;
   final Period period;
 
-  List<Measurement> get data {
-    return measurements.where((element) {
+  List<CircuitChange> get data {
+    final measurementsInPeriod = measurements.where((element) {
       final difference = DateTime.now().difference(element.date).inDays;
       return difference <= period.days && element.hasCircuits();
-    }).toList();
+    }).sorted((a, b) => a.date.compareTo(b.date));
+
+    final list = <CircuitChange>[];
+
+    for (final place in MeasurementPlace.values) {
+      final first = measurementsInPeriod
+          .firstWhereOrNull((element) => element.circuit(place: place) != null)
+          ?.circuit(place: place);
+      final last = measurementsInPeriod
+          .lastWhereOrNull((element) => element.circuit(place: place) != null)
+          ?.circuit(place: place);
+
+      if (first != null && last != null) {
+        final item = CircuitChange(
+          place: place,
+          firstValue: first,
+          lastValue: last,
+        );
+
+        list.add(item);
+      }
+    }
+
+    return list;
   }
 
   @override

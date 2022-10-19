@@ -20,10 +20,12 @@ class CircuitsContent extends StatelessWidget {
         }
 
         return ListView(
+          shrinkWrap: true,
           physics: const BouncingScrollPhysics(),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           children: const [
             DataPeriod(),
+            CircuitChangeList(),
           ],
         );
       },
