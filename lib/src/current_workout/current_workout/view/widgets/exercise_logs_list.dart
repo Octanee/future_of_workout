@@ -14,19 +14,8 @@ class ExerciseLogsList extends StatelessWidget {
           previous.workoutLog?.workoutExerciseLogs !=
           current.workoutLog?.workoutExerciseLogs,
       builder: (context, state) {
-        final list = state.workoutLog!.workoutExerciseLogs;
-
-        if (list.isEmpty) {
-          return const Padding(
-            padding: EdgeInsets.symmetric(vertical: 100),
-            child: AppEmptyList(
-              text: 'Add some exercises.',
-            ),
-          );
-        }
-
         return Column(
-          children: list
+          children: state.workoutLog!.workoutExerciseLogs
               .map<Widget>(
                 (workoutExerciseLog) => Padding(
                   padding: const EdgeInsets.only(bottom: 8),

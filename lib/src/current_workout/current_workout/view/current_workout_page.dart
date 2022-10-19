@@ -67,8 +67,7 @@ class CurrentWorkoutView extends StatelessWidget {
                 physics: const BouncingScrollPhysics(),
                 children: const [
                   FinishButton(),
-                  ExerciseLogsList(),
-                  AddExercise(),
+                  CurrentWorkoutContent(),
                 ],
               ),
             );
