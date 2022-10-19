@@ -10,32 +10,35 @@ enum BodyWeightStatus {
 class BodyWeightState extends Equatable {
   const BodyWeightState({
     this.status = BodyWeightStatus.initial,
-    this.weights = const [],
+    this.measurements = const [],
     this.period = Period.oneMounth,
   });
 
   final BodyWeightStatus status;
-  final List<MapEntry<DateTime, double>> weights;
+  final List<Measurement> measurements;
   final Period period;
 
   List<MapEntry<DateTime, double>> get data {
-    return weights.where((element) {
-      final difference = DateTime.now().difference(element.key).inDays;
-      return difference <= period.days;
-    }).toList();
+    return measurements
+        .where((element) {
+          final difference = DateTime.now().difference(element.date).inDays;
+          return difference <= period.days;
+        })
+        .map<MapEntry<DateTime, double>>((e) => MapEntry(e.date, e.weight!))
+        .toList();
   }
 
   @override
-  List<Object> get props => [status, weights, period];
+  List<Object> get props => [status, measurements, period];
 
   BodyWeightState copyWith({
     BodyWeightStatus? status,
-    List<MapEntry<DateTime, double>>? weights,
+    List<Measurement>? measurements,
     Period? period,
   }) {
     return BodyWeightState(
       status: status ?? this.status,
-      weights: weights ?? this.weights,
+      measurements: measurements ?? this.measurements,
       period: period ?? this.period,
     );
   }

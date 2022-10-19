@@ -11,9 +11,9 @@ class WeightContent extends StatelessWidget {
     return BlocBuilder<BodyWeightBloc, BodyWeightState>(
       buildWhen: (previous, current) =>
           previous.period != current.period ||
-          previous.weights != current.weights,
+          previous.measurements != current.measurements,
       builder: (context, state) {
-        if (state.weights.isEmpty) {
+        if (state.data.isEmpty) {
           return const AppEmptyList(
             text: 'Weight measurement has not yet been added.',
           );

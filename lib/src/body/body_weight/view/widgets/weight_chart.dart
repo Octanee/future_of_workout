@@ -12,7 +12,7 @@ class WeightChart extends StatelessWidget {
     return BlocBuilder<BodyWeightBloc, BodyWeightState>(
       buildWhen: (previous, current) =>
           previous.period != current.period ||
-          previous.weights != current.weights,
+          previous.measurements != current.measurements,
       builder: (context, state) {
         final data = _getData(data: state.data);
         return Padding(

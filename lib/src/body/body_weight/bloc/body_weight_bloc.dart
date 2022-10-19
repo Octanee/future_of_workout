@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:future_of_workout/src/period.dart';
 import 'package:measurement_repository/measurement_repository.dart';
+import 'package:collection/collection.dart';
 
 part 'body_weight_event.dart';
 part 'body_weight_state.dart';
@@ -29,17 +30,14 @@ class BodyWeightBloc extends Bloc<BodyWeightEvent, BodyWeightState> {
     await emit.forEach<List<Measurement>>(
       _repository.getMeasurements(),
       onData: (data) {
-        final list = <MapEntry<DateTime, double>>[];
-        for (final element in data) {
-          if (element.weight != null) {
-            list.add(MapEntry(element.date, element.weight!));
-          }
-        }
+        final list = data
+            .where((element) => element.weight != null)
+            .sorted((a, b) => a.date.compareTo(b.date));
 
-        list.sort(
-          (a, b) => b.key.compareTo(a.key),
+        return state.copyWith(
+          status: BodyWeightStatus.success,
+          measurements: list,
         );
-        return state.copyWith(status: BodyWeightStatus.success, weights: list);
       },
       onError: (_, __) => state.copyWith(status: BodyWeightStatus.failure),
     );
