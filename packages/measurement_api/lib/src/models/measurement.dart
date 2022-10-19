@@ -50,27 +50,43 @@ class Measurement extends Equatable {
   /// {@macro body}
   Measurement copyWith({
     DateTime? date,
-    double? weight,
-    double? neckCircuit,
-    double? chestCircuit,
-    double? bicepsCircuit,
-    double? waistCircuit,
-    double? bellyCircuit,
-    double? hipCircuit,
-    double? thighCircuit,
-    double? calfCircuit,
+    double? Function()? weight,
+    double? Function()? neckCircuit,
+    double? Function()? chestCircuit,
+    double? Function()? bicepsCircuit,
+    double? Function()? waistCircuit,
+    double? Function()? bellyCircuit,
+    double? Function()? hipCircuit,
+    double? Function()? thighCircuit,
+    double? Function()? calfCircuit,
   }) {
     return Measurement(
       date: date ?? this.date,
-      weight: weight ?? this.weight,
-      neckCircuit: neckCircuit ?? circuit(place: MeasurementPlace.neck),
-      chestCircuit: chestCircuit ?? circuit(place: MeasurementPlace.chest),
-      bicepsCircuit: bicepsCircuit ?? circuit(place: MeasurementPlace.biceps),
-      waistCircuit: waistCircuit ?? circuit(place: MeasurementPlace.waist),
-      bellyCircuit: bellyCircuit ?? circuit(place: MeasurementPlace.belly),
-      hipCircuit: hipCircuit ?? circuit(place: MeasurementPlace.hip),
-      thighCircuit: thighCircuit ?? circuit(place: MeasurementPlace.thigh),
-      calfCircuit: calfCircuit ?? circuit(place: MeasurementPlace.calf),
+      weight: weight != null ? weight() : this.weight,
+      neckCircuit: neckCircuit != null
+          ? neckCircuit()
+          : circuit(place: MeasurementPlace.neck),
+      chestCircuit: chestCircuit != null
+          ? chestCircuit()
+          : circuit(place: MeasurementPlace.chest),
+      bicepsCircuit: bicepsCircuit != null
+          ? bicepsCircuit()
+          : circuit(place: MeasurementPlace.biceps),
+      waistCircuit: waistCircuit != null
+          ? waistCircuit()
+          : circuit(place: MeasurementPlace.waist),
+      bellyCircuit: bellyCircuit != null
+          ? bellyCircuit()
+          : circuit(place: MeasurementPlace.belly),
+      hipCircuit: hipCircuit != null
+          ? hipCircuit()
+          : circuit(place: MeasurementPlace.hip),
+      thighCircuit: thighCircuit != null
+          ? thighCircuit()
+          : circuit(place: MeasurementPlace.thigh),
+      calfCircuit: calfCircuit != null
+          ? calfCircuit()
+          : circuit(place: MeasurementPlace.calf),
     );
   }
 
@@ -83,21 +99,21 @@ class Measurement extends Equatable {
   }) {
     switch (place) {
       case MeasurementPlace.neck:
-        return copyWith(neckCircuit: value);
+        return copyWith(neckCircuit: () => value);
       case MeasurementPlace.chest:
-        return copyWith(chestCircuit: value);
+        return copyWith(chestCircuit: () => value);
       case MeasurementPlace.biceps:
-        return copyWith(bicepsCircuit: value);
+        return copyWith(bicepsCircuit: () => value);
       case MeasurementPlace.waist:
-        return copyWith(waistCircuit: value);
+        return copyWith(waistCircuit: () => value);
       case MeasurementPlace.belly:
-        return copyWith(bellyCircuit: value);
+        return copyWith(bellyCircuit: () => value);
       case MeasurementPlace.hip:
-        return copyWith(hipCircuit: value);
+        return copyWith(hipCircuit: () => value);
       case MeasurementPlace.thigh:
-        return copyWith(thighCircuit: value);
+        return copyWith(thighCircuit: () => value);
       case MeasurementPlace.calf:
-        return copyWith(calfCircuit: value);
+        return copyWith(calfCircuit: () => value);
     }
   }
 
