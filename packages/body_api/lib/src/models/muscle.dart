@@ -42,6 +42,7 @@ enum Muscle {
   /// Triceps
   triceps(
     name: 'Triceps',
+    imagePathFront: 'assets/body/front/triceps.svg',
     imagePathBack: 'assets/body/back/triceps.svg',
     maximumRecoverableVolume: 18,
   ),
