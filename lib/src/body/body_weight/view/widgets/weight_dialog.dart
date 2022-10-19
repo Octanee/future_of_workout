@@ -78,9 +78,7 @@ class _WeightDialogState extends State<WeightDialog> {
                   firstDate: DateTime.now().subtract(
                     const Duration(days: 365 * 10),
                   ),
-                  lastDate: DateTime.now().add(
-                    const Duration(days: 365 * 10),
-                  ),
+                  lastDate: DateTime.now(),
                   builder: (context, child) {
                     return Theme(
                       data: Theme.of(context).copyWith(
