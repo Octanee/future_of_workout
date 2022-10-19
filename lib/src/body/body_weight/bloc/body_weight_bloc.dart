@@ -32,7 +32,7 @@ class BodyWeightBloc extends Bloc<BodyWeightEvent, BodyWeightState> {
       onData: (data) {
         final list = data
             .where((element) => element.weight != null)
-            .sorted((a, b) => a.date.compareTo(b.date));
+            .sorted((a, b) => b.date.compareTo(a.date));
 
         return state.copyWith(
           status: BodyWeightStatus.success,
