@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:future_of_workout/src/body/body_circuit/body_circuit_details/body_circuit_details.dart';
+import 'package:future_of_workout/src/body/body_circuit/body_circuit.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
 import 'package:future_of_workout/src/widgets/cards/cards.dart';
 import 'package:intl/intl.dart';
@@ -12,20 +12,20 @@ class DateCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final formatter = DateFormat('EEE, d MMM');
 
-    return BlocBuilder<BodyCircuitDetailsBloc, BodyCircuitDetailsState>(
+    return BlocBuilder<BodyCircuitAddBloc, BodyCircuitAddState>(
       buildWhen: (previous, current) =>
-          previous.currentMeasurement?.date != current.currentMeasurement?.date,
+          previous.measurement?.date != current.measurement?.date,
       builder: (context, state) {
         return Padding(
           padding: const EdgeInsets.only(bottom: 8),
           child: CustomCard(
             padding: const EdgeInsets.all(16),
             onTap: () async {
-              final bloc = context.read<BodyCircuitDetailsBloc>();
+              final bloc = context.read<BodyCircuitAddBloc>();
 
               final date = await showDatePicker(
                 context: context,
-                initialDate: state.currentMeasurement!.date,
+                initialDate: state.measurement!.date,
                 firstDate: DateTime.now().subtract(
                   const Duration(days: 365 * 10),
                 ),
@@ -55,7 +55,7 @@ class DateCard extends StatelessWidget {
                 },
               );
               if (date != null) {
-                bloc.add(BodyCircuitDetailsDateChange(dateTime: date));
+                bloc.add(BodyCircuitAddLoading(dateTime: date));
               }
             },
             child: Row(
@@ -63,7 +63,7 @@ class DateCard extends StatelessWidget {
               children: [
                 const Icon(Icons.calendar_month_rounded),
                 Text(
-                  formatter.format(state.currentMeasurement!.date),
+                  formatter.format(state.measurement!.date),
                   style: AppTextStyle.semiBold20,
                 ),
               ],

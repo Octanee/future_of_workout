@@ -5,10 +5,10 @@ import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:local_storage_measurement_api/local_storage_measurement_api.dart';
 import 'package:measurement_repository/measurement_repository.dart';
 
-class BodyCircuitDetailsPage extends StatelessWidget {
-  const BodyCircuitDetailsPage({required this.measurementKey, super.key});
+class BodyCircuitAddPage extends StatelessWidget {
+  const BodyCircuitAddPage({required this.measurementKey, super.key});
 
-  static String name = 'body-circuit-details';
+  static String name = 'body-circuit-add';
   static String path = '$name/:measurementKey';
 
   final String measurementKey;
@@ -16,29 +16,29 @@ class BodyCircuitDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => BodyCircuitDetailsBloc(
+      create: (context) => BodyCircuitAddBloc(
         measurementRepository: context.read<MeasurementRepository>(),
-      )..add(BodyCircuitDetailsLoading(dateTime: measurementKey.toDateTime())),
-      child: const BodyCircuitDetailsView(),
+      )..add(BodyCircuitAddLoading(dateTime: measurementKey.toDateTime())),
+      child: const BodyCircuitAddView(),
     );
   }
 }
 
-class BodyCircuitDetailsView extends StatelessWidget {
-  const BodyCircuitDetailsView({super.key});
+class BodyCircuitAddView extends StatelessWidget {
+  const BodyCircuitAddView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
         context
-            .read<BodyCircuitDetailsBloc>()
-            .add(const BodyCircuitDetailsPop());
+            .read<BodyCircuitAddBloc>()
+            .add(const BodyCircuitAddPop());
         return true;
       },
       child: AppScaffold(
         title: 'Circuits',
-        body: BlocBuilder<BodyCircuitDetailsBloc, BodyCircuitDetailsState>(
+        body: BlocBuilder<BodyCircuitAddBloc, BodyCircuitAddState>(
           buildWhen: (previous, current) => previous.status != current.status,
           builder: (context, state) {
             switch (state.status) {

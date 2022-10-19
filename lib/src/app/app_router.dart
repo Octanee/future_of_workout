@@ -80,13 +80,13 @@ class AppRouter {
   );
 
   static final GoRoute _bodyCircuitDetailsRoute = GoRoute(
-    name: BodyCircuitDetailsPage.name,
-    path: BodyCircuitDetailsPage.path,
+    name: BodyCircuitAddPage.name,
+    path: BodyCircuitAddPage.path,
     pageBuilder: (context, state) {
       final measurementKey = state.params['measurementKey']!;
       return _buildTransition(
         key: state.pageKey,
-        child: BodyCircuitDetailsPage(measurementKey: measurementKey),
+        child: BodyCircuitAddPage(measurementKey: measurementKey),
       );
     },
     routes: [],

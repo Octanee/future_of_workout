@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:future_of_workout/src/body/body_circuit/body_circuit_details/body_circuit_details.dart';
+import 'package:future_of_workout/src/body/body_circuit/body_circuit.dart';
 import 'package:local_storage_measurement_api/local_storage_measurement_api.dart';
 
 class CircuitsList extends StatelessWidget {
@@ -8,11 +8,11 @@ class CircuitsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<BodyCircuitDetailsBloc, BodyCircuitDetailsState>(
+    return BlocBuilder<BodyCircuitAddBloc, BodyCircuitAddState>(
       buildWhen: (previous, current) =>
-          previous.currentMeasurement != current.currentMeasurement,
+          previous.measurement != current.measurement,
       builder: (context, state) {
-        final measurement = state.currentMeasurement!;
+        final measurement = state.measurement!;
         return Column(
           children: MeasurementPlace.values
               .map<Widget>(

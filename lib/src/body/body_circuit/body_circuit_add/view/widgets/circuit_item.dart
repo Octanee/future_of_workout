@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:future_of_workout/src/body/body_circuit/body_circuit_details/body_circuit_details.dart';
+import 'package:future_of_workout/src/body/body_circuit/body_circuit.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:local_storage_measurement_api/local_storage_measurement_api.dart';
@@ -19,7 +19,7 @@ class CircuitItem extends StatelessWidget {
       child: CustomCard(
         padding: const EdgeInsets.all(16),
         onTap: () async {
-          final bloc = context.read<BodyCircuitDetailsBloc>();
+          final bloc = context.read<BodyCircuitAddBloc>();
 
           await showDialog<void>(
             context: context,
@@ -29,7 +29,7 @@ class CircuitItem extends StatelessWidget {
                 title: place.name,
                 onConfirm: (value) {
                   bloc.add(
-                    BodyCircuitDetailsMeasurementPlaceChange(
+                    BodyCircuitAddMeasurementPlaceChange(
                       place: place,
                       value: value,
                     ),

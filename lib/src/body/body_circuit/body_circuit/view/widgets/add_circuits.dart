@@ -13,7 +13,7 @@ class AddCircuits extends StatelessWidget {
       child: const Icon(Icons.add),
       onPressed: () {
         context.goNamed(
-          BodyCircuitDetailsPage.name,
+          BodyCircuitAddPage.name,
           params: {
             'homePageTab': BodyPage.name,
             'measurementKey': DateTime.now().toKey(),
