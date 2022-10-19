@@ -42,12 +42,12 @@ class BodyCircuitAddView extends StatelessWidget {
           buildWhen: (previous, current) => previous.status != current.status,
           builder: (context, state) {
             switch (state.status) {
-              case BodyCircuitDetailsStatus.initial:
-              case BodyCircuitDetailsStatus.loading:
+              case BodyCircuitAddStatus.initial:
+              case BodyCircuitAddStatus.loading:
                 return const AppLoading();
-              case BodyCircuitDetailsStatus.failure:
+              case BodyCircuitAddStatus.failure:
                 return const AppError();
-              case BodyCircuitDetailsStatus.success:
+              case BodyCircuitAddStatus.success:
                 return ListView(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 8),

@@ -24,7 +24,7 @@ class BodyCircuitAddBloc
     BodyCircuitAddLoading event,
     Emitter<BodyCircuitAddState> emit,
   ) {
-    emit(state.copyWith(status: BodyCircuitDetailsStatus.loading));
+    emit(state.copyWith(status: BodyCircuitAddStatus.loading));
 
     Measurement item;
 
@@ -36,7 +36,7 @@ class BodyCircuitAddBloc
 
     emit(
       state.copyWith(
-        status: BodyCircuitDetailsStatus.success,
+        status: BodyCircuitAddStatus.success,
         measurement: item,
       ),
     );
@@ -70,7 +70,7 @@ class BodyCircuitAddBloc
 
       await _repository.saveMeasurement(measurement);
     } catch (_) {
-      emit(state.copyWith(status: BodyCircuitDetailsStatus.failure));
+      emit(state.copyWith(status: BodyCircuitAddStatus.failure));
     }
   }
 }
