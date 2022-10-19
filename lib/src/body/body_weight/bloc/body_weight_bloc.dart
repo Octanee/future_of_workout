@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:future_of_workout/src/period.dart';
 import 'package:measurement_repository/measurement_repository.dart';
-import 'package:collection/collection.dart';
 
 part 'body_weight_event.dart';
 part 'body_weight_state.dart';
@@ -63,7 +63,7 @@ class BodyWeightBloc extends Bloc<BodyWeightEvent, BodyWeightState> {
     }
 
     await _repository
-        .saveMeasurement(measurement.copyWith(weight: event.weight));
+        .saveMeasurement(measurement.copyWith(weight: () => event.weight));
   }
 
   Future<void> _onDelete(
@@ -71,7 +71,8 @@ class BodyWeightBloc extends Bloc<BodyWeightEvent, BodyWeightState> {
     Emitter<BodyWeightState> emit,
   ) async {
     try {
-      await _repository.deleteMeasurement(event.date);
+      final item = _repository.get(dateTime: event.date);
+      await _repository.saveMeasurement(item.copyWith(weight: () => null));
     } on MeasurementNotFoundException catch (_) {
       emit(state.copyWith(status: BodyWeightStatus.failure));
     }
