@@ -29,22 +29,39 @@ class BodyCircuitDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<BodyCircuitDetailsBloc, BodyCircuitDetailsState>(
-      buildWhen: (previous, current) => previous.status != current.status,
-      builder: (context, state) {
-        switch (state.status) {
-          case BodyCircuitDetailsStatus.initial:
-          case BodyCircuitDetailsStatus.loading:
-            return const AppScaffold(body: AppLoading());
-          case BodyCircuitDetailsStatus.failure:
-            return const AppScaffold(body: AppError());
-          case BodyCircuitDetailsStatus.success:
-            return AppScaffold(
-              title: 'Circuits',
-              body: Container(),
-            );
-        }
+    return WillPopScope(
+      onWillPop: () async {
+        context
+            .read<BodyCircuitDetailsBloc>()
+            .add(const BodyCircuitDetailsPop());
+        return true;
       },
+      child: AppScaffold(
+        title: 'Circuits',
+        body: BlocBuilder<BodyCircuitDetailsBloc, BodyCircuitDetailsState>(
+          buildWhen: (previous, current) => previous.status != current.status,
+          builder: (context, state) {
+            switch (state.status) {
+              case BodyCircuitDetailsStatus.initial:
+              case BodyCircuitDetailsStatus.loading:
+                return const AppLoading();
+              case BodyCircuitDetailsStatus.failure:
+                return const AppError();
+              case BodyCircuitDetailsStatus.success:
+                return ListView(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  physics: const BouncingScrollPhysics(),
+                  children: const [
+                    DateCard(),
+                    Header(text: 'Circuits'),
+                    CircuitsList(),
+                  ],
+                );
+            }
+          },
+        ),
+      ),
     );
   }
 }

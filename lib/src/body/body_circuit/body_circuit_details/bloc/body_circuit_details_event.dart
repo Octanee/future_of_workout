@@ -20,6 +20,15 @@ class BodyCircuitDetailsPop extends BodyCircuitDetailsEvent {
   const BodyCircuitDetailsPop();
 }
 
+class BodyCircuitDetailsDateChange extends BodyCircuitDetailsEvent {
+  const BodyCircuitDetailsDateChange({required this.dateTime});
+
+  final DateTime dateTime;
+
+  @override
+  List<Object> get props => [dateTime];
+}
+
 class BodyCircuitDetailsMeasurementPlaceChange extends BodyCircuitDetailsEvent {
   const BodyCircuitDetailsMeasurementPlaceChange({
     required this.place,

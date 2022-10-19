@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:future_of_workout/src/logger.dart';
 import 'package:measurement_repository/measurement_repository.dart';
 
 part 'body_circuit_details_event.dart';
@@ -15,15 +16,16 @@ class BodyCircuitDetailsBloc
     on<BodyCircuitDetailsLoading>(_onLoading);
     on<BodyCircuitDetailsPop>(_onPop);
     on<BodyCircuitDetailsMeasurementPlaceChange>(_onMeasurementPlaceChange);
+    on<BodyCircuitDetailsDateChange>(_onDateChange);
     on<BodyCircuitDetailsDelete>(_onDelete);
   }
 
   final MeasurementRepository _repository;
 
-  FutureOr<void> _onLoading(
+  void _onLoading(
     BodyCircuitDetailsLoading event,
     Emitter<BodyCircuitDetailsState> emit,
-  ) async {
+  ) {
     emit(state.copyWith(status: BodyCircuitDetailsStatus.loading));
 
     Measurement item;
@@ -38,27 +40,21 @@ class BodyCircuitDetailsBloc
       state.copyWith(
         status: BodyCircuitDetailsStatus.success,
         measurement: item,
+        currentMeasurement: item,
       ),
     );
-  }
-
-  Future<void> _onPop(
-    BodyCircuitDetailsPop event,
-    Emitter<BodyCircuitDetailsState> emit,
-  ) async {
-    // TODO(Octane): Hangle Pop Event
   }
 
   void _onMeasurementPlaceChange(
     BodyCircuitDetailsMeasurementPlaceChange event,
     Emitter<BodyCircuitDetailsState> emit,
   ) {
-    final item = state.measurement!.copyWithPlace(
+    final item = state.currentMeasurement!.copyWithPlace(
       place: event.place,
       value: event.value,
     );
 
-    emit(state.copyWith(measurement: item));
+    emit(state.copyWith(currentMeasurement: item));
   }
 
   Future<void> _onDelete(
@@ -66,5 +62,33 @@ class BodyCircuitDetailsBloc
     Emitter<BodyCircuitDetailsState> emit,
   ) async {
     // TODO(Octane): Hangle Delete Event
+  }
+
+  void _onDateChange(
+    BodyCircuitDetailsDateChange event,
+    Emitter<BodyCircuitDetailsState> emit,
+  ) {
+    final item = state.currentMeasurement!.copyWith(date: event.dateTime);
+    emit(state.copyWith(currentMeasurement: item));
+  }
+
+  Future<void> _onPop(
+    BodyCircuitDetailsPop event,
+    Emitter<BodyCircuitDetailsState> emit,
+  ) async {
+    try {
+      final current = state.currentMeasurement!;
+      if (!current.hasCircuits()) {
+        await _repository.deleteMeasurement(current.date);
+      } else {
+        final measurement = state.measurement!;
+        if (measurement.date != current.date) {
+          await _repository.deleteMeasurement(measurement.date);
+        }
+        await _repository.saveMeasurement(current);
+      }
+    } catch (_) {
+      emit(state.copyWith(status: BodyCircuitDetailsStatus.failure));
+    }
   }
 }
