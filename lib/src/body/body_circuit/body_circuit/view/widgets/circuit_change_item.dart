@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:future_of_workout/src/body/body/body.dart';
 import 'package:future_of_workout/src/body/body_circuit/body_circuit.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
 import 'package:future_of_workout/src/widgets/bold_text.dart';
 import 'package:future_of_workout/src/widgets/cards/cards.dart';
+import 'package:go_router/go_router.dart';
 
 class CircuitChangeItem extends StatelessWidget {
   const CircuitChangeItem({required this.circuitChange, super.key});
@@ -16,6 +18,15 @@ class CircuitChangeItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: CustomCard(
+        onTap: () {
+          context.goNamed(
+            BodyCircuitDetailsPage.name,
+            params: {
+              'homePageTab': BodyPage.name,
+              'measurementPlace': circuitChange.place.name,
+            },
+          );
+        },
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

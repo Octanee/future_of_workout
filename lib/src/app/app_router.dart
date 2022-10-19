@@ -75,11 +75,12 @@ class AppRouter {
       _workoutLogDetailsRoute,
       _currentWorkoutExerciseRoute,
       _currentWorkoutSummaryRoute,
-      _bodyCircuitDetailsRoute,
+      _bodyCircuitAddRoute,
+      _bodyCircuitDetailsRoute
     ],
   );
 
-  static final GoRoute _bodyCircuitDetailsRoute = GoRoute(
+  static final GoRoute _bodyCircuitAddRoute = GoRoute(
     name: BodyCircuitAddPage.name,
     path: BodyCircuitAddPage.path,
     pageBuilder: (context, state) {
@@ -89,7 +90,18 @@ class AppRouter {
         child: BodyCircuitAddPage(measurementKey: measurementKey),
       );
     },
-    routes: [],
+  );
+
+  static final GoRoute _bodyCircuitDetailsRoute = GoRoute(
+    name: BodyCircuitDetailsPage.name,
+    path: BodyCircuitDetailsPage.path,
+    pageBuilder: (context, state) {
+      final measurementPlace = state.params['measurementPlace']!;
+      return _buildTransition(
+        key: state.pageKey,
+        child: BodyCircuitDetailsPage(measurementPlace: measurementPlace),
+      );
+    },
   );
 
   static final GoRoute _workoutDetailsRoute = GoRoute(
