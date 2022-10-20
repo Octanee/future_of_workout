@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:future_of_workout/src/body/body_circuit/body_circuit/body_circuit.dart';
-import 'package:future_of_workout/src/period.dart';
+import 'package:future_of_workout/src/shared/shared.dart';
 import 'package:measurement_repository/measurement_repository.dart';
 
 part 'body_circuit_event.dart';

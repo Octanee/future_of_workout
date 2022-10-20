@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:future_of_workout/src/formatter.dart';
+import 'package:future_of_workout/src/shared/formatter.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
 import 'package:future_of_workout/src/widgets/dialogs/custom_dialog.dart';
 

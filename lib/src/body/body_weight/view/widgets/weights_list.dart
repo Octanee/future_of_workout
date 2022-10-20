@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/body/body_weight/body_weight.dart';
-import 'package:future_of_workout/src/extensions.dart';
+import 'package:future_of_workout/src/shared/extensions.dart';
 
 class WeightsList extends StatelessWidget {
   const WeightsList({super.key});

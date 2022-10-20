@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/current_workout/current_workout.dart';
-import 'package:future_of_workout/src/ticker.dart';
+import 'package:future_of_workout/src/shared/shared.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 
 class CurrentWorkoutRestPage extends StatelessWidget {

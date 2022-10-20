@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:future_of_workout/src/period.dart';
+import 'package:future_of_workout/src/shared/period.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 
 class PeriodBar extends StatelessWidget {

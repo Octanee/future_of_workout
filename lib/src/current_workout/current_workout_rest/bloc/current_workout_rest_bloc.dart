@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:future_of_workout/src/ticker.dart';
+import 'package:future_of_workout/src/shared/shared.dart';
 
 part 'current_workout_rest_event.dart';
 part 'current_workout_rest_state.dart';

@@ -4,7 +4,7 @@ import 'package:future_of_workout/src/body/body_circuit/body_circuit.dart';
 import 'package:future_of_workout/src/current_workout/current_workout.dart';
 import 'package:future_of_workout/src/exercise/exercise.dart';
 import 'package:future_of_workout/src/home/home.dart';
-import 'package:future_of_workout/src/logger.dart';
+import 'package:future_of_workout/src/shared/shared.dart';
 import 'package:future_of_workout/src/workout/workout/workout.dart';
 import 'package:future_of_workout/src/workout/workout_logs/workout_logs.dart';
 import 'package:future_of_workout/src/workout/workouts/workouts.dart';

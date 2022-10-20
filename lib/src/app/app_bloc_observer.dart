@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:future_of_workout/src/logger.dart';
+import 'package:future_of_workout/src/shared/shared.dart';
 
 class AppBlocObserver extends BlocObserver {
   @override

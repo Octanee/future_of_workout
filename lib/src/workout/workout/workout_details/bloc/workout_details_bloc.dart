@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:exercise_api/exercise_api.dart';
-import 'package:future_of_workout/src/extensions.dart';
+import 'package:future_of_workout/src/shared/extensions.dart';
 import 'package:workout_repository/workout_repository.dart';
 
 part 'workout_details_event.dart';

@@ -5,7 +5,7 @@ import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:exercise_repository/exercise_repository.dart';
 import 'package:future_of_workout/src/exercise/exercise.dart';
-import 'package:future_of_workout/src/period.dart';
+import 'package:future_of_workout/src/shared/period.dart';
 import 'package:goal_repository/goal_repository.dart';
 import 'package:workout_log_repository/workout_log_repository.dart';
 

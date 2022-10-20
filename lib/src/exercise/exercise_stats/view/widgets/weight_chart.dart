@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/exercise/exercise.dart';
 
-import 'package:future_of_workout/src/one_rep_max_calculator.dart';
+import 'package:future_of_workout/src/shared/one_rep_max_calculator.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:workout_log_repository/workout_log_repository.dart';
 
