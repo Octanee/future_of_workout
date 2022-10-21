@@ -1,7 +1,7 @@
 class UnitConverter {
   const UnitConverter._();
 
-  static const double _kilogramsToPoundsConversionValue = 2.2;
+  static const double _kilogramsToPoundsConversionValue = 2.204622622;
   static const double _inchesToCentimetersConversionValue = 2.54;
 
   static double kilogramsToPounds({required double weight}) {
