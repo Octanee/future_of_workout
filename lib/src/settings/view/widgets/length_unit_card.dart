@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/settings/settings.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:user_repository/user_repository.dart';
 
 class LengthUnitCard extends StatelessWidget {
   const LengthUnitCard({super.key});
@@ -10,15 +11,32 @@ class LengthUnitCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsBloc, SettingsState>(
-      buildWhen: (previous, current) =>
-          previous.user?.lengthUnit != current.user?.lengthUnit,
       builder: (context, state) {
+        final user = state.user!;
         return Padding(
           padding: const EdgeInsets.only(bottom: 8),
           child: CustomCard(
             padding: const EdgeInsets.all(16),
-            onTap: () {
-              //TODO(Octane): Handle onTap
+            onTap: () async {
+              final bloc = context.read<SettingsBloc>();
+
+              await showDialog<void>(
+                context: context,
+                builder: (context) {
+                  return EnumDialog<LengthUnit>(
+                    values: {
+                      for (var unit in LengthUnit.values) unit: unit.name
+                    },
+                    title: 'Select lenght unit',
+                    selected: user.lengthUnit,
+                    onConfirm: (value) => bloc.add(
+                      SettingsChangeData(
+                        user: user.copyWith(lengthUnit: value),
+                      ),
+                    ),
+                  );
+                },
+              );
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -28,7 +46,7 @@ class LengthUnitCard extends StatelessWidget {
                   style: AppTextStyle.bold24,
                 ),
                 Text(
-                  state.user?.lengthUnit.name ?? '?',
+                  user.lengthUnit.name,
                   style: AppTextStyle.semiBold20,
                 ),
               ],

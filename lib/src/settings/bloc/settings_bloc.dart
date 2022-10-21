@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:future_of_workout/src/shared/logger.dart';
 import 'package:measurement_repository/measurement_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -39,11 +40,17 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     SettingsChangeData event,
     Emitter<SettingsState> emit,
   ) async {
-    if (state.user!.weight != event.user.weight) {
-      await _updateMeasurement(weight: event.user.weight);
+    final user = event.user;
+    if (state.user!.weight != user.weight) {
+      await _updateMeasurement(weight: user.weight);
     }
 
-    await _userRepository.saveUser(event.user);
+    //  await _userRepository.saveUser(user);
+    // TODO(Octane): Implement user onboarding.
+
+    logger.d('_onChangeData $user');
+
+    emit(state.copyWith(user: user));
   }
 
   Future<void> _updateMeasurement({required double weight}) async {
@@ -56,6 +63,6 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       item = Measurement(date: DateTime.now());
     }
 
-    await _measurementRepository.saveMeasurement(item);
+    // await _measurementRepository.saveMeasurement(item);
   }
 }

@@ -10,15 +10,31 @@ class WeightCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsBloc, SettingsState>(
-      buildWhen: (previous, current) =>
-          previous.user?.weight != current.user?.weight,
       builder: (context, state) {
+        final user = state.user!;
+
         return Padding(
           padding: const EdgeInsets.only(bottom: 8),
           child: CustomCard(
             padding: const EdgeInsets.all(16),
-            onTap: () {
-              //TODO(Octane): Handle onTap
+            onTap: () async {
+              final bloc = context.read<SettingsBloc>();
+
+              await showDialog<void>(
+                context: context,
+                builder: (context) {
+                  return NumberDialog<double>(
+                    title: 'Change weight',
+                    value: user.weight,
+                    confirmButtonText: 'Save',
+                    hintText: 'Weight',
+                    suffixText: user.weightUnit.sufix,
+                    onConfirm: (value) => bloc.add(
+                      SettingsChangeData(user: user.copyWith(weight: value)),
+                    ),
+                  );
+                },
+              );
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -28,8 +44,8 @@ class WeightCard extends StatelessWidget {
                   style: AppTextStyle.bold24,
                 ),
                 BoldText(
-                  boldText: '${state.user?.weight ?? '?'}',
-                  mediumText: state.user?.weightUnit.sufix ?? '',
+                  boldText: user.weight.toString(),
+                  mediumText: user.weightUnit.sufix,
                 ),
               ],
             ),

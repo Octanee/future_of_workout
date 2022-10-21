@@ -10,14 +10,31 @@ class AgeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsBloc, SettingsState>(
-      buildWhen: (previous, current) => previous.user?.age != current.user?.age,
       builder: (context, state) {
+        final user = state.user!;
         return Padding(
           padding: const EdgeInsets.only(bottom: 8),
           child: CustomCard(
             padding: const EdgeInsets.all(16),
-            onTap: () {
-              //TODO(Octane): Handle onTap
+            onTap: () async {
+              final bloc = context.read<SettingsBloc>();
+
+              await showDialog<void>(
+                context: context,
+                builder: (context) {
+                  return NumberDialog<int>(
+                    title: 'Change age',
+                    value: user.age,
+                    confirmButtonText: 'Save',
+                    hintText: 'Age',
+                    maxValue: 99,
+                    suffixText: user.lengthUnit.sufix,
+                    onConfirm: (value) => bloc.add(
+                      SettingsChangeData(user: user.copyWith(age: value)),
+                    ),
+                  );
+                },
+              );
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -27,7 +44,7 @@ class AgeCard extends StatelessWidget {
                   style: AppTextStyle.bold24,
                 ),
                 Text(
-                  state.user?.age.toString() ?? '?',
+                  '${user.age}',
                   style: AppTextStyle.semiBold20,
                 ),
               ],
