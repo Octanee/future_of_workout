@@ -67,6 +67,10 @@ class User extends Equatable {
     return User(
       height: height ?? this.height,
       weight: weight ?? this.weight,
+      age: age ?? this.age,
+      gender: gender ?? this.gender,
+      lengthUnit: lengthUnit ?? this.lengthUnit,
+      weightUnit: weightUnit ?? this.weightUnit,
     );
   }
 
