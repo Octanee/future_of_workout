@@ -31,6 +31,8 @@ dependencies:
     path: packages/local_storage_goal_api
   local_storage_measurement_api:
     path: packages/local_storage_measurement_api
+  local_storage_user_api:
+    path: packages/local_storage_user_api
   local_storage_workout_api:
     path: packages/local_storage_workout_api
   local_storage_workout_log_api:
@@ -38,6 +40,8 @@ dependencies:
   logger: ^1.1.0
   measurement_repository:
     path: packages/measurement_repository
+  user_repository:
+    path: packages/user_repository
   uuid: ^3.0.6
   workout_log_repository:
     path: packages/workout_log_repository
