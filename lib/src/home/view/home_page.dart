@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/home/home.dart';
-import 'package:future_of_workout/src/styles/styles.dart';
+import 'package:future_of_workout/src/styles/app_colors.dart';
 import 'package:go_router/go_router.dart';
 
 class HomePage extends StatelessWidget {
@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<NavigationCubit>().changeDestination(index: item.itemIndex);
+    context.read<NavigationCubit>().changeDestination(item: item);
     return const HomeView();
   }
 }
@@ -39,45 +39,22 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<NavigationCubit, NavigationState>(
+      listenWhen: (previous, current) => previous.item != current.item,
       listener: (context, state) {
         final name = state.item.name;
         context.goNamed(HomePage.name, params: {'homePageTab': name});
       },
       child: Scaffold(
-        bottomNavigationBar: _getNavigationBar(context),
+        floatingActionButton: const CurrentWorkoutFab(),
+        floatingActionButtonLocation:
+            FloatingActionButtonLocation.miniStartDocked,
+        backgroundColor: AppColors.background,
+        bottomNavigationBar: const BottomNavigation(),
         body: BlocBuilder<NavigationCubit, NavigationState>(
+          buildWhen: (previous, current) => previous.item != current.item,
           builder: (context, state) => state.item.view,
         ),
       ),
-    );
-  }
-
-  Widget _getNavigationBar(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        boxShadow: [AppShadows.shadow50],
-      ),
-      child: NavigationBarTheme(
-        data: const NavigationBarThemeData(
-          elevation: 2,
-          indicatorColor: AppColors.yellow,
-          backgroundColor: AppColors.white,
-        ),
-        child: NavigationBar(
-          selectedIndex: context
-              .select<NavigationCubit, int>((value) => value.state.index),
-          onDestinationSelected: (index) =>
-              context.read<NavigationCubit>().changeDestination(index: index),
-          destinations: _getDestinations,
-        ),
-      ),
-    );
-  }
-
-  List<Widget> get _getDestinations {
-    return List.generate(
-      HomeNavigationItem.values.length,
-      (index) => HomeNavigationItem.values[index].getNavigationDestination(),
     );
   }
 }

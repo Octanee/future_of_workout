@@ -6,10 +6,8 @@ part 'navigation_state.dart';
 
 class NavigationCubit extends Cubit<NavigationState> {
   NavigationCubit({required HomeNavigationItem item})
-      : super(NavigationState(item: item, index: item.index));
+      : super(NavigationState(item: item));
 
-  void changeDestination({required int index}) {
-    final item = HomeNavigationItem.values.elementAt(index);
-    emit(NavigationState(item: item, index: index));
-  }
+  void changeDestination({required HomeNavigationItem item}) =>
+      emit(NavigationState(item: item));
 }
