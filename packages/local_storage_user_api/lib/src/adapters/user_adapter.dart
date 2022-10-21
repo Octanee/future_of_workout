@@ -38,6 +38,6 @@ class UserAdapter extends TypeAdapter<User> {
       ..writeByte(5)
       ..write(obj.lengthUnit)
       ..writeByte(6)
-      ..write(obj.weight);
+      ..write(obj.weightUnit);
   }
 }
