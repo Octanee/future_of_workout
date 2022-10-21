@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:future_of_workout/src/body/body/body_screen.dart';
 import 'package:future_of_workout/src/current_workout/current_workout.dart';
 import 'package:future_of_workout/src/discover/discover_screen.dart';
-import 'package:future_of_workout/src/settings/settings_screen.dart';
+import 'package:future_of_workout/src/settings/view/settings_page.dart';
 import 'package:future_of_workout/src/workout/workouts/workouts.dart';
 
 enum HomeNavigationItem {
@@ -33,7 +33,7 @@ enum HomeNavigationItem {
   settings(
     icon: Icon(Icons.settings),
     itemIndex: 4,
-    view: SettingsScreen(),
+    view: SettingsPage(),
     label: 'Settings',
   );
 
