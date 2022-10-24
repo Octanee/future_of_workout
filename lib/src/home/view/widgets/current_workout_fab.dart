@@ -14,6 +14,7 @@ class CurrentWorkoutFab extends StatelessWidget {
         final isSelected = state.item == HomeNavigationItem.currentWorkout;
 
         return FloatingActionButton(
+          heroTag: 'homeNavigationItem_currentWorkout_floatingActionButton',
           backgroundColor: isSelected ? AppColors.yellow : AppColors.grey,
           child: Icon(
             HomeNavigationItem.currentWorkout.icon,
