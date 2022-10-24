@@ -10,6 +10,8 @@ class WorkoutsPage extends StatelessWidget {
 
   static String name = HomeNavigationItem.workouts.name;
 
+  static Map<String, String> params = {'homePageTab': name};
+
   @override
   Widget build(BuildContext context) {
     return const WorkoutsView();
