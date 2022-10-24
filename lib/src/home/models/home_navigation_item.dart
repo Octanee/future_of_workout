@@ -6,7 +6,7 @@ import 'package:future_of_workout/src/workout/workouts/workouts.dart';
 
 enum HomeNavigationItem {
   currentWorkout(
-    icon: Icons.play_arrow,
+    icon: Icons.play_arrow_rounded,
     view: CurrentWorkoutPage(),
     label: 'Workout',
   ),
@@ -16,13 +16,13 @@ enum HomeNavigationItem {
     label: 'Plans',
   ),
   body(
-    icon: Icons.sports_gymnastics,
+    icon: Icons.sports_gymnastics_rounded,
     view: BodyPage(),
     label: 'Body',
   ),
 
   settings(
-    icon: Icons.settings,
+    icon: Icons.settings_rounded,
     view: SettingsPage(),
     label: 'Settings',
   );

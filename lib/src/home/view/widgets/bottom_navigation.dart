@@ -10,17 +10,11 @@ class BottomNavigation extends StatelessWidget {
       elevation: 2,
       shape: const CircularNotchedRectangle(),
       child: Row(
-        children: [
-          const Flexible(fit: FlexFit.tight, child: SizedBox()),
-          NavigationItem(
-            item: HomeNavigationItem.workouts,
-          ),
-          NavigationItem(
-            item: HomeNavigationItem.body,
-          ),
-          NavigationItem(
-            item: HomeNavigationItem.settings,
-          ),
+        children: const [
+          Flexible(fit: FlexFit.tight, child: SizedBox()),
+          NavigationItem(item: HomeNavigationItem.workouts),
+          NavigationItem(item: HomeNavigationItem.body),
+          NavigationItem(item: HomeNavigationItem.settings),
         ],
       ),
     );
