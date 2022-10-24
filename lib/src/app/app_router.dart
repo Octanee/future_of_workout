@@ -4,22 +4,34 @@ import 'package:future_of_workout/src/body/body_circuit/body_circuit.dart';
 import 'package:future_of_workout/src/current_workout/current_workout.dart';
 import 'package:future_of_workout/src/exercise/exercise.dart';
 import 'package:future_of_workout/src/home/home.dart';
+import 'package:future_of_workout/src/onbording/onboarding.dart';
 import 'package:future_of_workout/src/shared/shared.dart';
 import 'package:future_of_workout/src/workout/workout/workout.dart';
 import 'package:future_of_workout/src/workout/workout_logs/workout_logs.dart';
-import 'package:future_of_workout/src/workout/workouts/workouts.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRouter {
   static GoRouter router = GoRouter(
     debugLogDiagnostics: true,
-    initialLocation: '/${WorkoutsPage.name}',
+    initialLocation: _onboardingRoute.name,
     routes: [
+      _onboardingRoute,
       _homeRoute,
       _exerciseDetailsRoute,
       _exerciseListRoute,
       _exerciseStatsRoute
     ],
+  );
+
+  static final GoRoute _onboardingRoute = GoRoute(
+    name: OnboardingPage.name,
+    path: OnboardingPage.path,
+    pageBuilder: (context, state) {
+      return _buildTransition(
+        key: state.pageKey,
+        child: const OnboardingPage(),
+      );
+    },
   );
 
   static final GoRoute _exerciseDetailsRoute = GoRoute(
