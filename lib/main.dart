@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:future_of_workout/bootstrap.dart';
 import 'package:local_storage_exercise_api/local_storage_exercise_api.dart';
 import 'package:local_storage_goal_api/local_storage_goal_api.dart';
@@ -9,6 +10,7 @@ import 'package:local_storage_workout_log_api/local_storage_workout_log_api.dart
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
 
   await Hive.initFlutter();
 
