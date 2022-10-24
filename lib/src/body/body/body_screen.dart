@@ -13,27 +13,28 @@ class BodyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-      title: 'My Body',
-      body: DefaultTabController(
-        length: 3,
-        child: Column(
-          children: const [
-            CustomTabBar(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              tabs: [
-                Tab(text: 'Recovery'),
-                Tab(text: 'Weight'),
-                Tab(text: 'Circuit'),
-              ],
-            ),
-            CustomTabBarView(
-              children: [
-                BodyRecoveryTab(),
-                BodyWeightTab(),
-                BodyCircuitTab(),
-              ],
-            )
-          ],
+      body: SafeArea(
+        child: DefaultTabController(
+          length: 3,
+          child: Column(
+            children: const [
+              CustomTabBar(
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                tabs: [
+                  Tab(text: 'Recovery'),
+                  Tab(text: 'Weight'),
+                  Tab(text: 'Circuit'),
+                ],
+              ),
+              CustomTabBarView(
+                children: [
+                  BodyRecoveryTab(),
+                  BodyWeightTab(),
+                  BodyCircuitTab(),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );

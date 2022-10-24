@@ -10,31 +10,33 @@ class StartWorkout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-      title: 'Workout',
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // TODO(Octane): Display fancy image
-            const Icon(
-              Icons.play_arrow_outlined,
-              color: AppColors.yellow,
-              size: 72,
-            ),
-            const SizedBox(height: 32),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: BarButton(
-                text: 'Start workout',
-                icon: const Icon(Icons.play_arrow),
-                onTap: () {
-                  context
-                      .read<CurrentWorkoutBloc>()
-                      .add(const CurrentWorkoutStartWorkout());
-                },
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // TODO(Octane): Display fancy image
+              const Icon(
+                Icons.play_arrow_outlined,
+                color: AppColors.yellow,
+                size: 72,
               ),
-            )
-          ],
+              const SizedBox(height: 32),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                child: BarButton(
+                  text: 'Start workout',
+                  icon: const Icon(Icons.play_arrow),
+                  onTap: () {
+                    context
+                        .read<CurrentWorkoutBloc>()
+                        .add(const CurrentWorkoutStartWorkout());
+                  },
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

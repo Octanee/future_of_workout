@@ -22,32 +22,29 @@ class WorkoutsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-      title: 'My Workouts',
-      body: _buildContent(),
-    );
-  }
-
-  Widget _buildContent() {
-    return DefaultTabController(
-      length: 3,
-      child: Column(
-        children: const [
-          CustomTabBar(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            tabs: [
-              Tab(text: 'Created'),
-              Tab(text: 'Goals'),
-              Tab(text: 'Saved'),
+      body: SafeArea(
+        child: DefaultTabController(
+          length: 3,
+          child: Column(
+            children: const [
+              CustomTabBar(
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                tabs: [
+                  Tab(text: 'Created'),
+                  Tab(text: 'Goals'),
+                  Tab(text: 'Saved'),
+                ],
+              ),
+              CustomTabBarView(
+                children: [
+                  WorkoutsListTab(),
+                  WorkoutGoalsTab(),
+                  WorkoutsLogsTab(),
+                ],
+              )
             ],
           ),
-          CustomTabBarView(
-            children: [
-              WorkoutsListTab(),
-              WorkoutGoalsTab(),
-              WorkoutsLogsTab(),
-            ],
-          )
-        ],
+        ),
       ),
     );
   }
