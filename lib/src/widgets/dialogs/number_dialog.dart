@@ -35,7 +35,7 @@ class _NumberDialogState<T extends num> extends State<NumberDialog<T>> {
 
   @override
   void initState() {
-    controller = TextEditingController(text: widget.value?.toStringAsFixed(1));
+    controller = TextEditingController(text: widget.value?.toString());
     super.initState();
   }
 
