@@ -4,7 +4,7 @@ import 'package:future_of_workout/src/body/body_circuit/body_circuit.dart';
 import 'package:future_of_workout/src/current_workout/current_workout.dart';
 import 'package:future_of_workout/src/exercise/exercise.dart';
 import 'package:future_of_workout/src/home/home.dart';
-import 'package:future_of_workout/src/onbording/onboarding.dart';
+import 'package:future_of_workout/src/setup/setup.dart';
 import 'package:future_of_workout/src/shared/shared.dart';
 import 'package:future_of_workout/src/workout/workout/workout.dart';
 import 'package:future_of_workout/src/workout/workout_logs/workout_logs.dart';
@@ -24,12 +24,12 @@ class AppRouter {
   );
 
   static final GoRoute _onboardingRoute = GoRoute(
-    name: OnboardingPage.name,
-    path: OnboardingPage.path,
+    name: SetupPage.name,
+    path: SetupPage.path,
     pageBuilder: (context, state) {
       return _buildTransition(
         key: state.pageKey,
-        child: const OnboardingPage(),
+        child: const SetupPage(),
       );
     },
   );

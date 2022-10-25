@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:future_of_workout/src/onbording/view/widgets/widgets.dart';
+import 'package:future_of_workout/src/setup/view/widgets/widgets.dart';
 
 class ButtonsRow extends StatelessWidget {
   const ButtonsRow({
@@ -7,6 +7,7 @@ class ButtonsRow extends StatelessWidget {
     required this.length,
     required this.nextPage,
     required this.previousPage,
+    required this.onFinish,
     super.key,
   });
 
@@ -14,9 +15,11 @@ class ButtonsRow extends StatelessWidget {
   final int length;
   final VoidCallback nextPage;
   final VoidCallback previousPage;
+  final VoidCallback onFinish;
 
   @override
   Widget build(BuildContext context) {
+    final isLastPage = pageIndex == length - 1;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -25,8 +28,8 @@ class ButtonsRow extends StatelessWidget {
           onPressed: previousPage,
         ),
         ContinueButton(
-          isVisible: pageIndex != length - 1,
-          onPressed: nextPage,
+          onPressed: isLastPage ? onFinish : nextPage,
+          text: isLastPage ? 'Finish Setup' : 'Continue',
         ),
       ],
     );

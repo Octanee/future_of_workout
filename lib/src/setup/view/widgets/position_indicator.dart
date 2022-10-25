@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:future_of_workout/src/onbording/view/widgets/widgets.dart';
+import 'package:future_of_workout/src/setup/view/widgets/widgets.dart';
 
 class PositionIndicator extends StatelessWidget {
   const PositionIndicator({

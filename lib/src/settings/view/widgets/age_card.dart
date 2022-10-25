@@ -28,7 +28,6 @@ class AgeCard extends StatelessWidget {
                     confirmButtonText: 'Save',
                     hintText: 'Age',
                     maxValue: 99,
-                    suffixText: user.lengthUnit.sufix,
                     onConfirm: (value) => bloc.add(
                       SettingsChangeData(user: user.copyWith(age: value)),
                     ),

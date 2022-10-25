@@ -18,11 +18,11 @@ class DotIndicator extends StatelessWidget {
       child: AnimatedContainer(
         curve: Curves.ease,
         duration: const Duration(milliseconds: 300),
-        height: isSelected ? 32 : 16,
-        width: 4,
+        width: isSelected ? 64 : 16,
+        height: 16,
         decoration: BoxDecoration(
           color: isCompleted ? AppColors.yellow : AppColors.grey,
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(16),
         ),
       ),
     );

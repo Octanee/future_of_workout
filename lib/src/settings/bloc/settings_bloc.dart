@@ -29,9 +29,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   ) async {
     emit(state.copyWith(status: SettingsStatus.loading));
 
-    //final user = _userRepository.get();
-    // TODO(Octane): Implement user onboarding.
-    const user = User();
+    final user = _userRepository.get();
 
     emit(state.copyWith(status: SettingsStatus.success, user: user));
   }
@@ -45,8 +43,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       await _updateMeasurement(weight: user.weight);
     }
 
-    //  await _userRepository.saveUser(user);
-    // TODO(Octane): Implement user onboarding.
+    await _userRepository.saveUser(user);
 
     logger.d('_onChangeData $user');
 
@@ -63,6 +60,6 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       item = Measurement(date: DateTime.now());
     }
 
-    // await _measurementRepository.saveMeasurement(item);
+    await _measurementRepository.saveMeasurement(item);
   }
 }
