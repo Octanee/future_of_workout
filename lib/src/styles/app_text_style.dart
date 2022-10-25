@@ -10,6 +10,11 @@ class AppTextStyle {
     fontWeight: FontWeight.bold,
   );
 
+  static TextStyle bold48 = _workSans(
+    fontSize: 48,
+    fontWeight: FontWeight.bold,
+  );
+
   static TextStyle bold28 = _workSans(
     fontSize: 28,
     fontWeight: FontWeight.bold,
