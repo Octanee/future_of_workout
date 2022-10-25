@@ -33,3 +33,9 @@ extension TodayDateTime on DateTime {
     return DateTime(year, month, day);
   }
 }
+
+extension Precision on double {
+  double toPrecision(int precision) {
+    return double.parse(toStringAsFixed(precision));
+  }
+}
