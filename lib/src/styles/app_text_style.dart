@@ -48,6 +48,11 @@ class AppTextStyle {
     fontWeight: FontWeight.w600,
   );
 
+  static TextStyle semiBold24 = _workSans(
+    fontSize: 24,
+    fontWeight: FontWeight.w600,
+  );
+
   static TextStyle regular12 = _workSans(
     fontSize: 12,
   );
