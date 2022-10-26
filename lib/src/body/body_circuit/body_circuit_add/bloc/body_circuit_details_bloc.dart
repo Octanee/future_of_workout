@@ -15,7 +15,6 @@ class BodyCircuitAddBloc
     on<BodyCircuitAddLoading>(_onLoading);
     on<BodyCircuitAddPop>(_onPop);
     on<BodyCircuitAddMeasurementPlaceChange>(_onMeasurementPlaceChange);
-    on<BodyCircuitAddDelete>(_onDelete);
   }
 
   final MeasurementRepository _repository;
@@ -52,13 +51,6 @@ class BodyCircuitAddBloc
     );
 
     emit(state.copyWith(measurement: item));
-  }
-
-  Future<void> _onDelete(
-    BodyCircuitAddDelete event,
-    Emitter<BodyCircuitAddState> emit,
-  ) async {
-    // TODO(Octane): Hangle Delete Event
   }
 
   Future<void> _onPop(

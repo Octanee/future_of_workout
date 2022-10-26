@@ -32,7 +32,3 @@ class BodyCircuitAddMeasurementPlaceChange extends BodyCircuitAddEvent {
   @override
   List<Object?> get props => [place, value];
 }
-
-class BodyCircuitAddDelete extends BodyCircuitAddEvent {
-  const BodyCircuitAddDelete();
-}
