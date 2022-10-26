@@ -63,7 +63,7 @@ class _SetupPageViewState extends State<SetupPageView> {
       listenWhen: (previous, current) => previous.status != current.status,
       listener: (context, state) {
         if (state.status == SetupStatus.finish) {
-          context.goNamed(HomePage.name, params: WorkoutsPage.params);
+         // context.goNamed(HomePage.name, params: WorkoutsPage.params);
         }
       },
       child: AppScaffold(

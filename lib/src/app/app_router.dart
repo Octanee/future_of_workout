@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:future_of_workout/src/app/app_transitions.dart';
+import 'package:future_of_workout/src/app/bloc/app_bloc.dart';
 import 'package:future_of_workout/src/body/body_circuit/body_circuit.dart';
 import 'package:future_of_workout/src/current_workout/current_workout.dart';
 import 'package:future_of_workout/src/exercise/exercise.dart';
@@ -8,20 +9,44 @@ import 'package:future_of_workout/src/setup/setup.dart';
 import 'package:future_of_workout/src/shared/shared.dart';
 import 'package:future_of_workout/src/workout/workout/workout.dart';
 import 'package:future_of_workout/src/workout/workout_logs/workout_logs.dart';
+import 'package:future_of_workout/src/workout/workouts/workouts.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRouter {
-  static GoRouter router = GoRouter(
-    debugLogDiagnostics: true,
-    initialLocation: _setupRoute.name,
-    routes: [
-      _setupRoute,
-      _homeRoute,
-      _exerciseDetailsRoute,
-      _exerciseListRoute,
-      _exerciseStatsRoute
-    ],
-  );
+  factory AppRouter({required AppBloc bloc}) {
+    _instance.router = _router(bloc: bloc);
+    return _instance;
+  }
+
+  AppRouter._();
+
+  static final AppRouter _instance = AppRouter._();
+
+  late GoRouter router;
+
+  static GoRouter _router({required AppBloc bloc}) {
+    return GoRouter(
+      debugLogDiagnostics: true,
+      refreshListenable: GoRouterRefreshStream(bloc.stream),
+      initialLocation: '/${WorkoutsPage.name}',
+      routes: [
+        _setupRoute,
+        _homeRoute,
+        _exerciseDetailsRoute,
+        _exerciseListRoute,
+        _exerciseStatsRoute
+      ],
+      redirect: (state) {
+        if (state.location != SetupPage.name &&
+            bloc.state.status == AppStatus.loaded &&
+            bloc.state.user == null) {
+          return SetupPage.name;
+        }
+
+        return null;
+      },
+    );
+  }
 
   static final GoRoute _setupRoute = GoRoute(
     name: SetupPage.name,
