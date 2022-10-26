@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/app/app.dart';
 import 'package:future_of_workout/src/app/app_bloc_observer.dart';
+import 'package:future_of_workout/src/shared/logger.dart';
 import 'package:goal_api/goal_api.dart';
 import 'package:goal_repository/goal_repository.dart';
 import 'package:measurement_repository/measurement_repository.dart';
@@ -49,6 +50,6 @@ void bootstrap({
         userRepository: userRepository,
       ),
     ),
-    (error, stack) => log(error.toString(), stackTrace: stack),
+    (error, stack) => logger.e(error.toString(), error, stack),
   );
 }

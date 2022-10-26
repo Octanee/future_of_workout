@@ -6,7 +6,6 @@ import 'package:future_of_workout/src/app/bloc/app_bloc.dart';
 import 'package:future_of_workout/src/current_workout/current_workout.dart';
 import 'package:future_of_workout/src/home/home.dart';
 import 'package:future_of_workout/src/styles/app_theme.dart';
-import 'package:go_router/go_router.dart';
 import 'package:goal_repository/goal_repository.dart';
 import 'package:measurement_repository/measurement_repository.dart';
 import 'package:user_repository/user_repository.dart';
