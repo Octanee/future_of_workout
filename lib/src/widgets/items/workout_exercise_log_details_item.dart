@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/app/bloc/app_bloc.dart';
+import 'package:future_of_workout/src/shared/unit_converter.dart';
 import 'package:future_of_workout/src/styles/app_colors.dart';
 import 'package:future_of_workout/src/styles/app_text_style.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
@@ -33,47 +36,9 @@ class WorkoutExerciseLogDetailsItem extends StatelessWidget {
                         const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     child: Row(
                       children: [
-                        _buildColumn(
-                          header: _buildColumnName(
-                            name: 'Reps',
-                            icon: const Icon(Icons.repeat_rounded),
-                          ),
-                          items: finished
-                              .map<Widget>(
-                                (series) =>
-                                    _buildText(bold: series.reps.toString()),
-                              )
-                              .toList(),
-                        ),
-                        _buildColumn(
-                          isMiddle: true,
-                          header: _buildColumnName(
-                            name: 'Weight',
-                            icon: const Icon(Icons.accessibility_new_rounded),
-                          ),
-                          items: finished
-                              .map<Widget>(
-                                (series) => _buildText(
-                                  bold: series.weight.toString(),
-                                  medium: 'kg',
-                                ),
-                              )
-                              .toList(),
-                        ),
-                        _buildColumn(
-                          header: _buildColumnName(
-                            name: 'Rest',
-                            icon: const Icon(Icons.timer_outlined),
-                          ),
-                          items: finished
-                              .map<Widget>(
-                                (series) => _buildText(
-                                  bold: series.rest.toString(),
-                                  medium: 's',
-                                ),
-                              )
-                              .toList(),
-                        ),
+                        _RepsColumn(items: finished),
+                        _WeightColumn(items: finished),
+                        _RestColumn(items: finished),
                       ],
                     ),
                   ),
@@ -83,12 +48,119 @@ class WorkoutExerciseLogDetailsItem extends StatelessWidget {
           )
         : header;
   }
+}
 
-  Widget _buildColumn({
-    required Widget header,
-    required List<Widget> items,
-    bool isMiddle = false,
-  }) {
+class _RestColumn extends StatelessWidget {
+  const _RestColumn({required this.items});
+
+  final Iterable<ExerciseSeriesLog> items;
+
+  @override
+  Widget build(BuildContext context) {
+    return _SeriesColumn(
+      header: const _ColumnHeader(
+        name: 'Rest',
+        icon: Icon(Icons.timer_outlined),
+      ),
+      items: items
+          .map<Widget>(
+            (series) => BoldText(
+              boldText: series.rest.toString(),
+              mediumText: 's',
+            ),
+          )
+          .toList(),
+    );
+  }
+}
+
+class _WeightColumn extends StatelessWidget {
+  const _WeightColumn({required this.items});
+
+  final Iterable<ExerciseSeriesLog> items;
+
+  @override
+  Widget build(BuildContext context) {
+    final unit = context.read<AppBloc>().state.user!.weightUnit;
+
+    return _SeriesColumn(
+      isMiddle: true,
+      header: const _ColumnHeader(
+        name: 'Weight',
+        icon: Icon(Icons.accessibility_new_rounded),
+      ),
+      items: items
+          .map<Widget>(
+            (series) => BoldText(
+              boldText: UnitConverter.dispalyedWeight(
+                unit: unit,
+                value: series.weight,
+              ).toString(),
+              mediumText: unit.sufix,
+            ),
+          )
+          .toList(),
+    );
+  }
+}
+
+class _RepsColumn extends StatelessWidget {
+  const _RepsColumn({required this.items});
+
+  final Iterable<ExerciseSeriesLog> items;
+
+  @override
+  Widget build(BuildContext context) {
+    return _SeriesColumn(
+      header: const _ColumnHeader(
+        name: 'Reps',
+        icon: Icon(Icons.repeat_rounded),
+      ),
+      items: items
+          .map<Widget>(
+            (series) => BoldText(
+              boldText: series.reps.toString(),
+            ),
+          )
+          .toList(),
+    );
+  }
+}
+
+class _ColumnHeader extends StatelessWidget {
+  const _ColumnHeader({required this.name, required this.icon});
+
+  final String name;
+  final Widget icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          name,
+          style: AppTextStyle.semiBold20,
+        ),
+        icon,
+      ],
+    );
+  }
+}
+
+class _SeriesColumn extends StatelessWidget {
+  const _SeriesColumn({
+    required this.header,
+    required this.items,
+    this.isMiddle = false,
+  });
+
+  final bool isMiddle;
+  final Widget header;
+  final List<Widget> items;
+
+  @override
+  Widget build(BuildContext context) {
     return Flexible(
       child: DecoratedBox(
         decoration: BoxDecoration(
@@ -106,30 +178,6 @@ class WorkoutExerciseLogDetailsItem extends StatelessWidget {
             ...items,
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildColumnName({required String name, required Icon icon}) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          name,
-          style: AppTextStyle.semiBold20,
-        ),
-        icon,
-      ],
-    );
-  }
-
-  Widget _buildText({required String bold, String medium = ''}) {
-    return RichText(
-      text: TextSpan(
-        children: [
-          TextSpan(text: bold, style: AppTextStyle.semiBold16),
-          TextSpan(text: medium, style: AppTextStyle.medium16),
-        ],
       ),
     );
   }
