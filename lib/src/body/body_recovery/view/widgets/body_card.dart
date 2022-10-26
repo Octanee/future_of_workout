@@ -21,7 +21,7 @@ class BodyCard extends StatelessWidget {
                 child: BodyWidget(
                   isFront: state.isFront,
                   body: state.body!,
-                  height: constraints.maxWidth * 1.5,
+                  height: constraints.maxWidth * 1.75,
                 ),
               ),
             ),
