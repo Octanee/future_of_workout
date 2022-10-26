@@ -13,9 +13,9 @@ import 'package:go_router/go_router.dart';
 class AppRouter {
   static GoRouter router = GoRouter(
     debugLogDiagnostics: true,
-    initialLocation: _onboardingRoute.name,
+    initialLocation: _setupRoute.name,
     routes: [
-      _onboardingRoute,
+      _setupRoute,
       _homeRoute,
       _exerciseDetailsRoute,
       _exerciseListRoute,
@@ -23,7 +23,7 @@ class AppRouter {
     ],
   );
 
-  static final GoRoute _onboardingRoute = GoRoute(
+  static final GoRoute _setupRoute = GoRoute(
     name: SetupPage.name,
     path: SetupPage.path,
     pageBuilder: (context, state) {
