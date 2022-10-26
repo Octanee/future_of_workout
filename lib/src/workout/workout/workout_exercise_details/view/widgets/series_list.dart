@@ -16,16 +16,18 @@ class SeriesList extends StatelessWidget {
         final list = state.workoutExercise!.exerciseSeries;
 
         if (!state.isAdvanced) {
-          return SimpleExerciseSeriesItem(
+          return ExerciseSeriesItem(
             series: list.first,
             value: list.length,
+            isMulti: true,
           );
         }
 
         return Column(
           children: list.map<Widget>((series) {
-            return AdvancedExerciseSeriesItem(
+            return ExerciseSeriesItem(
               series: series,
+              value: series.index,
             );
           }).toList(),
         );

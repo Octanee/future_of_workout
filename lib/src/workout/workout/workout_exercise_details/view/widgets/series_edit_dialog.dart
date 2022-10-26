@@ -11,6 +11,7 @@ class SeriesEditDialog extends StatelessWidget {
     required this.rest,
     required this.onConfirm,
     this.title = 'Change Series',
+    this.weightSuffix = 'kg',
     super.key,
   });
 
@@ -18,6 +19,7 @@ class SeriesEditDialog extends StatelessWidget {
   final String reps;
   final String rest;
   final String title;
+  final String weightSuffix;
 
   final void Function(int reps, double weight, int rest) onConfirm;
 
@@ -32,9 +34,9 @@ class SeriesEditDialog extends StatelessWidget {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          _getWeight(controller: weightController),
-          _getReps(controller: repsController),
-          _getRest(controller: restController)
+          _WeightRow(controller: weightController, suffix: weightSuffix),
+          _RepsRow(controller: repsController),
+          _RestRow(controller: restController)
         ],
       ),
       onConfirm: () {
@@ -46,27 +48,37 @@ class SeriesEditDialog extends StatelessWidget {
       },
     );
   }
+}
 
-  Widget _getRest({required TextEditingController controller}) {
+class _WeightRow extends StatelessWidget {
+  const _WeightRow({required this.controller, required this.suffix});
+
+  final TextEditingController controller;
+  final String suffix;
+
+  @override
+  Widget build(BuildContext context) {
     return Row(
       children: [
         const Padding(
           padding: EdgeInsets.only(right: 16),
-          child: Icon(Icons.timer_outlined),
+          child: Icon(Icons.sports_bar_outlined),
         ),
         Flexible(
           child: TextField(
             controller: controller,
             keyboardType: TextInputType.number,
             inputFormatters: [
-              FilteringTextInputFormatter.digitsOnly,
+              FilteringTextInputFormatter.allow(
+                RegExp(r'^\d*\.?\d{0,2}'),
+              ),
               NumericalRangeFormatter(min: 0, max: 999)
             ],
             textAlign: TextAlign.center,
             style: AppTextStyle.bold28,
-            decoration: const InputDecoration(
-              hintText: 'Rest time',
-              suffixText: 's',
+            decoration: InputDecoration(
+              hintText: 'Weight',
+              suffixText: suffix,
               counterText: '',
             ),
           ),
@@ -74,8 +86,15 @@ class SeriesEditDialog extends StatelessWidget {
       ],
     );
   }
+}
 
-  Widget _getReps({required TextEditingController controller}) {
+class _RepsRow extends StatelessWidget {
+  const _RepsRow({required this.controller});
+
+  final TextEditingController controller;
+
+  @override
+  Widget build(BuildContext context) {
     return Row(
       children: [
         const Padding(
@@ -102,29 +121,34 @@ class SeriesEditDialog extends StatelessWidget {
       ],
     );
   }
+}
 
-  Widget _getWeight({required TextEditingController controller}) {
+class _RestRow extends StatelessWidget {
+  const _RestRow({required this.controller});
+
+  final TextEditingController controller;
+
+  @override
+  Widget build(BuildContext context) {
     return Row(
       children: [
         const Padding(
           padding: EdgeInsets.only(right: 16),
-          child: Icon(Icons.sports_bar_outlined),
+          child: Icon(Icons.timer_outlined),
         ),
         Flexible(
           child: TextField(
             controller: controller,
             keyboardType: TextInputType.number,
             inputFormatters: [
-              FilteringTextInputFormatter.allow(
-                RegExp(r'^\d*\.?\d{0,2}'),
-              ),
+              FilteringTextInputFormatter.digitsOnly,
               NumericalRangeFormatter(min: 0, max: 999)
             ],
             textAlign: TextAlign.center,
             style: AppTextStyle.bold28,
             decoration: const InputDecoration(
-              hintText: 'Weight',
-              suffixText: 'kg',
+              hintText: 'Rest time',
+              suffixText: 's',
               counterText: '',
             ),
           ),
