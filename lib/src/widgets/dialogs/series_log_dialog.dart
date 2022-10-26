@@ -12,6 +12,7 @@ class SeriesLogDialog extends StatefulWidget {
     required this.intensity,
     required this.onConfirm,
     this.title = 'Complete Series',
+    this.weightSuffix = 'kg',
     super.key,
   });
 
@@ -19,6 +20,7 @@ class SeriesLogDialog extends StatefulWidget {
   final String reps;
   final String title;
   final SeriesLogIntensity intensity;
+  final String weightSuffix;
 
   final void Function(int reps, double weight, SeriesLogIntensity intensity)
       onConfirm;
@@ -31,7 +33,7 @@ class _SeriesLogDialogState extends State<SeriesLogDialog> {
   late double _value;
   late TextEditingController weightController;
   late TextEditingController repsController;
-  
+
   @override
   void initState() {
     _value = widget.intensity.index.toDouble();
@@ -51,76 +53,14 @@ class _SeriesLogDialogState extends State<SeriesLogDialog> {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Row(
-            children: [
-              const Padding(
-                padding: EdgeInsets.only(right: 16),
-                child: Icon(Icons.sports_bar_outlined),
-              ),
-              Flexible(
-                child: TextField(
-                  controller: weightController,
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.allow(
-                      RegExp(r'^\d*\.?\d{0,2}'),
-                    ),
-                    NumericalRangeFormatter(min: 0, max: 999)
-                  ],
-                  textAlign: TextAlign.center,
-                  style: AppTextStyle.bold28,
-                  decoration: const InputDecoration(
-                    hintText: 'Weight',
-                    suffixText: 'kg',
-                    counterText: '',
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              const Padding(
-                padding: EdgeInsets.only(right: 16),
-                child: Icon(Icons.repeat_rounded),
-              ),
-              Flexible(
-                child: TextField(
-                  controller: repsController,
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.digitsOnly,
-                    NumericalRangeFormatter(min: 0, max: 999)
-                  ],
-                  textAlign: TextAlign.center,
-                  style: AppTextStyle.bold28,
-                  decoration: const InputDecoration(
-                    hintText: 'Reps',
-                    suffixText: 'reps',
-                    counterText: '',
-                  ),
-                ),
-              ),
-            ],
-          ),
+          _WeightRow(
+              weightController: weightController, suffix: widget.weightSuffix),
+          _RepsRow(repsController: repsController),
           const SizedBox(height: 16),
-          Row(
-            children: [
-              const Padding(
-                padding: EdgeInsets.only(right: 16),
-                child: Icon(Icons.speed_rounded),
-              ),
-              Slider(
-                label: SeriesLogIntensity.values[_value.round()].name,
-                max: 5,
-                divisions: 5,
-                value: _value,
-                onChanged: (value) => setState(
-                  () => _value = value,
-                ),
-              ),
-            ],
-          )
+          _SliderRow(
+            value: _value,
+            onChanged: (value) => setState(() => _value = value),
+          ),
         ],
       ),
       onConfirm: () {
@@ -130,6 +70,108 @@ class _SeriesLogDialogState extends State<SeriesLogDialog> {
 
         widget.onConfirm(reps, weight, intensity);
       },
+    );
+  }
+}
+
+class _SliderRow extends StatelessWidget {
+  const _SliderRow({
+    required this.value,
+    required this.onChanged,
+  });
+
+  final double value;
+  final ValueChanged<double> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        const Padding(
+          padding: EdgeInsets.only(right: 16),
+          child: Icon(Icons.speed_rounded),
+        ),
+        Slider(
+          label: SeriesLogIntensity.values[value.round()].name,
+          max: 5,
+          divisions: 5,
+          value: value,
+          onChanged: onChanged,
+        ),
+      ],
+    );
+  }
+}
+
+class _RepsRow extends StatelessWidget {
+  const _RepsRow({required this.repsController});
+
+  final TextEditingController repsController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        const Padding(
+          padding: EdgeInsets.only(right: 16),
+          child: Icon(Icons.repeat_rounded),
+        ),
+        Flexible(
+          child: TextField(
+            controller: repsController,
+            keyboardType: TextInputType.number,
+            inputFormatters: [
+              FilteringTextInputFormatter.digitsOnly,
+              NumericalRangeFormatter(min: 0, max: 999)
+            ],
+            textAlign: TextAlign.center,
+            style: AppTextStyle.bold28,
+            decoration: const InputDecoration(
+              hintText: 'Reps',
+              suffixText: 'reps',
+              counterText: '',
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _WeightRow extends StatelessWidget {
+  const _WeightRow({required this.weightController, required this.suffix});
+
+  final TextEditingController weightController;
+  final String suffix;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        const Padding(
+          padding: EdgeInsets.only(right: 16),
+          child: Icon(Icons.sports_bar_outlined),
+        ),
+        Flexible(
+          child: TextField(
+            controller: weightController,
+            keyboardType: TextInputType.number,
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(
+                RegExp(r'^\d*\.?\d{0,2}'),
+              ),
+              NumericalRangeFormatter(min: 0, max: 999)
+            ],
+            textAlign: TextAlign.center,
+            style: AppTextStyle.bold28,
+            decoration: InputDecoration(
+              hintText: 'Weight',
+              suffixText: suffix,
+              counterText: '',
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
