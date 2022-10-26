@@ -12,6 +12,9 @@ class HeightCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsBloc, SettingsState>(
+      buildWhen: (previous, current) =>
+          previous.user?.height != current.user?.height ||
+          previous.user?.lengthUnit != current.user?.lengthUnit,
       builder: (context, state) {
         final user = state.user!;
 
@@ -25,18 +28,22 @@ class HeightCard extends StatelessWidget {
               await showDialog<void>(
                 context: context,
                 builder: (context) {
-                  return NumberDialog<double>(
+                  return DoubleDialog(
                     title: 'Change height',
-                    value: user.height,
+                    value: UnitConverter.dispalyedHeight(
+                      unit: user.lengthUnit,
+                      value: user.height,
+                    ),
                     confirmButtonText: 'Save',
                     hintText: 'Height',
                     suffixText: user.lengthUnit.sufix,
+                    decimalPoint:
+                        user.lengthUnit == LengthUnit.centimeter ? 1 : 2,
                     onConfirm: (value) {
-                      final height = user.lengthUnit == LengthUnit.centimeter
-                          ? value
-                          : UnitConverter.centimetersToInches(
-                              length: value,
-                            );
+                      final height = UnitConverter.dataHeight(
+                        unit: user.lengthUnit,
+                        value: value,
+                      );
 
                       bloc.add(
                         SettingsChangeData(user: user.copyWith(height: height)),
@@ -54,7 +61,10 @@ class HeightCard extends StatelessWidget {
                   style: AppTextStyle.bold24,
                 ),
                 BoldText(
-                  boldText: user.height.toString(),
+                  boldText: UnitConverter.dispalyedHeight(
+                    unit: user.lengthUnit,
+                    value: user.height,
+                  ).toString(),
                   mediumText: user.lengthUnit.sufix,
                 ),
               ],

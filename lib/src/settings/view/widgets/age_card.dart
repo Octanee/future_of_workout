@@ -22,7 +22,7 @@ class AgeCard extends StatelessWidget {
               await showDialog<void>(
                 context: context,
                 builder: (context) {
-                  return NumberDialog<int>(
+                  return IntDialog(
                     title: 'Change age',
                     value: user.age,
                     confirmButtonText: 'Save',

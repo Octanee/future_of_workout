@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/settings/settings.dart';
+import 'package:future_of_workout/src/shared/unit_converter.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 
@@ -10,6 +11,9 @@ class WeightCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsBloc, SettingsState>(
+      buildWhen: (previous, current) =>
+          previous.user?.weight != current.user?.weight ||
+          previous.user?.weightUnit != current.user?.weightUnit,
       builder: (context, state) {
         final user = state.user!;
 
@@ -23,15 +27,27 @@ class WeightCard extends StatelessWidget {
               await showDialog<void>(
                 context: context,
                 builder: (context) {
-                  return NumberDialog<double>(
+                  return DoubleDialog(
                     title: 'Change weight',
-                    value: user.weight,
+                    value: UnitConverter.dispalyedWeight(
+                      unit: user.weightUnit,
+                      value: user.weight,
+                    ),
                     confirmButtonText: 'Save',
                     hintText: 'Weight',
                     suffixText: user.weightUnit.sufix,
-                    onConfirm: (value) => bloc.add(
-                      SettingsChangeData(user: user.copyWith(weight: value)),
-                    ),
+                    onConfirm: (value) {
+                      final weight = UnitConverter.dataWeight(
+                        unit: user.weightUnit,
+                        value: value,
+                      );
+
+                      bloc.add(
+                        SettingsChangeData(
+                          user: user.copyWith(weight: weight),
+                        ),
+                      );
+                    },
                   );
                 },
               );
@@ -44,7 +60,10 @@ class WeightCard extends StatelessWidget {
                   style: AppTextStyle.bold24,
                 ),
                 BoldText(
-                  boldText: user.weight.toString(),
+                  boldText: UnitConverter.dispalyedWeight(
+                    unit: user.weightUnit,
+                    value: user.weight,
+                  ).toString(),
                   mediumText: user.weightUnit.sufix,
                 ),
               ],

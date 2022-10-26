@@ -4,8 +4,8 @@ import 'package:future_of_workout/src/shared/formatter.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
 import 'package:future_of_workout/src/widgets/dialogs/custom_dialog.dart';
 
-class NumberDialog<T extends num> extends StatefulWidget {
-  const NumberDialog({
+class DoubleDialog extends StatefulWidget {
+  const DoubleDialog({
     required this.onConfirm,
     this.title = 'Add value',
     this.value,
@@ -14,23 +14,25 @@ class NumberDialog<T extends num> extends StatefulWidget {
     this.hintText,
     this.suffixText,
     this.maxValue = 999,
+    this.decimalPoint = 1,
     super.key,
   });
 
   final String title;
-  final T? value;
-  final ValueChanged<T> onConfirm;
+  final double? value;
+  final ValueChanged<double> onConfirm;
   final String confirmButtonText;
   final String negativeButtonText;
   final String? hintText;
   final String? suffixText;
   final int maxValue;
+  final int decimalPoint;
 
   @override
-  State<NumberDialog<T>> createState() => _NumberDialogState<T>();
+  State<DoubleDialog> createState() => _DoubleDialogState();
 }
 
-class _NumberDialogState<T extends num> extends State<NumberDialog<T>> {
+class _DoubleDialogState extends State<DoubleDialog> {
   late final TextEditingController controller;
 
   @override
@@ -46,7 +48,7 @@ class _NumberDialogState<T extends num> extends State<NumberDialog<T>> {
       confirmButtonText: widget.confirmButtonText,
       negativeButtonText: widget.negativeButtonText,
       onConfirm: () {
-        final value = num.tryParse(controller.text) as T?;
+        final value = double.tryParse(controller.text);
 
         if (value != null) {
           widget.onConfirm(value);
@@ -62,7 +64,7 @@ class _NumberDialogState<T extends num> extends State<NumberDialog<T>> {
               keyboardType: TextInputType.number,
               inputFormatters: [
                 FilteringTextInputFormatter.allow(
-                  RegExp(r'^\d*\.?\d{0,1}'),
+                  RegExp(r'^\d*\.?\d{0,' '${widget.decimalPoint}' '}'),
                 ),
                 NumericalRangeFormatter(min: 0, max: widget.maxValue)
               ],
