@@ -4,14 +4,18 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:future_of_workout/src/shared/shared.dart';
 import 'package:future_of_workout/src/shared/unit_converter.dart';
+import 'package:measurement_repository/measurement_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
 part 'setup_event.dart';
 part 'setup_state.dart';
 
 class SetupBloc extends Bloc<SetupEvent, SetupState> {
-  SetupBloc({required UserRepository userRepository})
-      : _userRepository = userRepository,
+  SetupBloc({
+    required UserRepository userRepository,
+    required MeasurementRepository measurementRepository,
+  })  : _userRepository = userRepository,
+        _measurementRepository = measurementRepository,
         super(const SetupState()) {
     on<SetupGenderChange>(_onGenderChange);
     on<SetupAgeChange>(_onAgeChange);
@@ -23,6 +27,7 @@ class SetupBloc extends Bloc<SetupEvent, SetupState> {
   }
 
   final UserRepository _userRepository;
+  final MeasurementRepository _measurementRepository;
 
   void _onGenderChange(
     SetupGenderChange event,
@@ -125,7 +130,17 @@ class SetupBloc extends Bloc<SetupEvent, SetupState> {
       user = user.copyWith(weight: weight);
     }
 
+    Measurement measurement;
+
+    try {
+      measurement = _measurementRepository.get(dateTime: DateTime.now());
+    } on MeasurementNotFoundException catch (_) {
+      measurement = Measurement(date: DateTime.now().toDay());
+    }
+
     await _userRepository.saveUser(user);
+    await _measurementRepository
+        .saveMeasurement(measurement.copyWith(weight: () => user.weight));
 
     emit(state.copyWith(status: SetupStatus.finish));
   }
