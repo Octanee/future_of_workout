@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:future_of_workout/src/shared/logger.dart';
 import 'package:measurement_repository/measurement_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -44,8 +43,6 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     }
 
     await _userRepository.saveUser(user);
-
-    logger.d('_onChangeData $user');
 
     emit(state.copyWith(user: user));
   }

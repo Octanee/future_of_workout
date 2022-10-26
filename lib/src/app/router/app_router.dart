@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:future_of_workout/src/app/app_transitions.dart';
 import 'package:future_of_workout/src/app/bloc/app_bloc.dart';
 import 'package:future_of_workout/src/body/body_circuit/body_circuit.dart';
 import 'package:future_of_workout/src/current_workout/current_workout.dart';
@@ -12,19 +11,10 @@ import 'package:future_of_workout/src/workout/workout_logs/workout_logs.dart';
 import 'package:future_of_workout/src/workout/workouts/workouts.dart';
 import 'package:go_router/go_router.dart';
 
+part 'app_transitions.dart';
+
 class AppRouter {
-  factory AppRouter({required AppBloc bloc}) {
-    _instance.router = _router(bloc: bloc);
-    return _instance;
-  }
-
-  AppRouter._();
-
-  static final AppRouter _instance = AppRouter._();
-
-  late GoRouter router;
-
-  static GoRouter _router({required AppBloc bloc}) {
+  static GoRouter router({required AppBloc bloc}) {
     return GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: GoRouterRefreshStream(bloc.stream),
@@ -37,10 +27,15 @@ class AppRouter {
         _exerciseStatsRoute
       ],
       redirect: (state) {
-        if (state.location != SetupPage.name &&
-            bloc.state.status == AppStatus.loaded &&
-            bloc.state.user == null) {
+        final status = bloc.state.status;
+        final location = state.location;
+
+        if (status == AppStatus.newUser && location != SetupPage.name) {
           return SetupPage.name;
+        }
+
+        if (status == AppStatus.loaded && location == SetupPage.name) {
+          return '/${WorkoutsPage.name}';
         }
 
         return null;

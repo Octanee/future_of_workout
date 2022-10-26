@@ -24,8 +24,13 @@ class AppBloc extends Bloc<AppEvent, AppState> {
 
     await emit.forEach<User?>(
       _userRepository.getUser(),
-      onData: (user) =>
-          state.copyWith(status: AppStatus.loaded, user: () => user),
+      onData: (user) {
+        if (user == null) {
+          return state.copyWith(status: AppStatus.newUser);
+        }
+
+        return state.copyWith(status: AppStatus.loaded, user: user);
+      },
       onError: (_, __) => state.copyWith(status: AppStatus.failure),
     );
   }

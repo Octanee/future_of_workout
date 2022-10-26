@@ -4,6 +4,7 @@ enum AppStatus {
   initial,
   loading,
   loaded,
+  newUser,
   failure,
 }
 
@@ -21,11 +22,11 @@ class AppState extends Equatable {
 
   AppState copyWith({
     AppStatus? status,
-    User? Function()? user,
+    User? user,
   }) {
     return AppState(
       status: status ?? this.status,
-      user: user != null ? user() : this.user,
+      user: user ?? this.user,
     );
   }
 }

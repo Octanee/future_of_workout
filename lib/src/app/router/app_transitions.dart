@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of 'app_router.dart';
 
 class AppTransitions {
   AppTransitions({

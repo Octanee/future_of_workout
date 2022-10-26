@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/app/app.dart';
 import 'package:future_of_workout/src/app/app_bloc_observer.dart';
+import 'package:future_of_workout/src/app/bloc/app_bloc.dart';
 import 'package:future_of_workout/src/shared/logger.dart';
 import 'package:goal_api/goal_api.dart';
 import 'package:goal_repository/goal_repository.dart';
@@ -39,6 +40,9 @@ void bootstrap({
       MeasurementRepository(measurementApi: measurementApi);
   final userRepository = UserRepository(userApi: userApi);
 
+  final appBloc = AppBloc(userRepository: userRepository)
+    ..add(const AppLoading());
+
   runZonedGuarded(
     () => runApp(
       FutureOfWorkoutApp(
@@ -48,6 +52,7 @@ void bootstrap({
         goalRepository: goalRepository,
         measurementRepository: measurementRepository,
         userRepository: userRepository,
+        appBloc: appBloc,
       ),
     ),
     (error, stack) => logger.e(error.toString(), error, stack),
