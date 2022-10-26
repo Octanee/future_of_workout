@@ -3,15 +3,19 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
-import 'package:future_of_workout/src/shared/period.dart';
+import 'package:future_of_workout/src/shared/shared.dart';
 import 'package:measurement_repository/measurement_repository.dart';
+import 'package:user_repository/user_repository.dart';
 
 part 'body_weight_event.dart';
 part 'body_weight_state.dart';
 
 class BodyWeightBloc extends Bloc<BodyWeightEvent, BodyWeightState> {
-  BodyWeightBloc({required MeasurementRepository measurementRepository})
-      : _repository = measurementRepository,
+  BodyWeightBloc({
+    required MeasurementRepository measurementRepository,
+    required UserRepository userRepository,
+  })  : _measurementRepository = measurementRepository,
+        _userRepository = userRepository,
         super(const BodyWeightState()) {
     on<BodyWeightLoading>(_onLoading);
     on<BodyWeightPeriodChange>(_onPeriodChange);
@@ -19,7 +23,8 @@ class BodyWeightBloc extends Bloc<BodyWeightEvent, BodyWeightState> {
     on<BodyWeightDelete>(_onDelete);
   }
 
-  final MeasurementRepository _repository;
+  final MeasurementRepository _measurementRepository;
+  final UserRepository _userRepository;
 
   Future<void> _onLoading(
     BodyWeightLoading event,
@@ -28,7 +33,7 @@ class BodyWeightBloc extends Bloc<BodyWeightEvent, BodyWeightState> {
     emit(state.copyWith(status: BodyWeightStatus.loading));
 
     await emit.forEach<List<Measurement>>(
-      _repository.getMeasurements(),
+      _measurementRepository.getMeasurements(),
       onData: (data) {
         final list = data
             .where((element) => element.weight != null)
@@ -54,15 +59,22 @@ class BodyWeightBloc extends Bloc<BodyWeightEvent, BodyWeightState> {
     BodyWeightAdd event,
     Emitter<BodyWeightState> emit,
   ) async {
+    final date = event.date;
+
     Measurement measurement;
 
     try {
-      measurement = _repository.get(dateTime: event.date);
+      measurement = _measurementRepository.get(dateTime: date);
     } on MeasurementNotFoundException catch (_) {
-      measurement = Measurement(date: event.date);
+      measurement = Measurement(date: date);
     }
 
-    await _repository
+    if (date.isToday()) {
+      final user = _userRepository.get();
+      await _userRepository.saveUser(user.copyWith(weight: event.weight));
+    }
+
+    await _measurementRepository
         .saveMeasurement(measurement.copyWith(weight: () => event.weight));
   }
 
@@ -71,8 +83,9 @@ class BodyWeightBloc extends Bloc<BodyWeightEvent, BodyWeightState> {
     Emitter<BodyWeightState> emit,
   ) async {
     try {
-      final item = _repository.get(dateTime: event.date);
-      await _repository.saveMeasurement(item.copyWith(weight: () => null));
+      final item = _measurementRepository.get(dateTime: event.date);
+      await _measurementRepository
+          .saveMeasurement(item.copyWith(weight: () => null));
     } on MeasurementNotFoundException catch (_) {
       emit(state.copyWith(status: BodyWeightStatus.failure));
     }

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/body/body_weight/body_weight.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:measurement_repository/measurement_repository.dart';
+import 'package:user_repository/user_repository.dart';
 
 class BodyWeightTab extends StatelessWidget {
   const BodyWeightTab({super.key});
@@ -12,6 +13,7 @@ class BodyWeightTab extends StatelessWidget {
     return BlocProvider(
       create: (context) => BodyWeightBloc(
         measurementRepository: context.read<MeasurementRepository>(),
+        userRepository: context.read<UserRepository>(),
       )..add(const BodyWeightLoading()),
       child: const BodyWeightView(),
     );
