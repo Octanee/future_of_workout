@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/setup/setup.dart';
 import 'package:future_of_workout/src/setup/view/widgets/widgets.dart';
-import 'package:future_of_workout/src/shared/logger.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
 import 'package:future_of_workout/src/widgets/bars/bars.dart';
 import 'package:numberpicker/numberpicker.dart';
