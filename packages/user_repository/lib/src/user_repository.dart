@@ -15,6 +15,9 @@ class UserRepository {
   /// a [UserNotFoundException] error is thrown.
   User get() => _userApi.get();
 
+  /// Provides a [Stream] of user.
+  Stream<User?> getUser() => _userApi.getUser();
+
   /// Save a [User]
   Future<void> saveUser(User user) => _userApi.saveUser(user);
 }

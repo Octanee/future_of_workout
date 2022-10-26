@@ -1,5 +1,6 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:local_storage_user_api/local_storage_user_api.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:user_api/user_api.dart';
 
 /// {@template local_storage_user_api}
@@ -20,6 +21,8 @@ class LocalStorageUserApi extends UserApi {
   static const kUserBoxName = 'user_box_name';
 
   final _kUserKey = 'user';
+
+  final _userStreamController = BehaviorSubject<User?>();
 
   /// Initialization function registers adapters and opens user [Box].
   Future<void> init() async {
@@ -54,5 +57,20 @@ class LocalStorageUserApi extends UserApi {
   Future<void> saveUser(User user) async {
     _checkInit();
     await _userBox.put(_kUserKey, user);
+  }
+
+  @override
+  Stream<User?> getUser() {
+    _checkInit();
+
+    final user = _userBox.get(_kUserKey);
+    _userStreamController.add(user);
+
+    _userBox.watch(key: _kUserKey).listen((_) {
+      final user = _userBox.get(_kUserKey);
+      _userStreamController.add(user);
+    });
+
+    return _userStreamController.asBroadcastStream();
   }
 }

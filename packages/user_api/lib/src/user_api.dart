@@ -13,6 +13,9 @@ abstract class UserApi {
   /// a [UserNotFoundException] error is thrown.
   User get();
 
+  /// Provides a [Stream] of user;
+  Stream<User?> getUser();
+
   /// Save a [User]
   Future<void> saveUser(User user);
 }
