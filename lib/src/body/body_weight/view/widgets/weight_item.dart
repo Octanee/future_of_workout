@@ -8,12 +8,14 @@ class WeightItem extends StatelessWidget {
     required this.dateTime,
     required this.weight,
     this.onTap,
+    this.suffix = 'kg',
     super.key,
   });
 
   final VoidCallback? onTap;
   final DateTime dateTime;
   final double weight;
+  final String suffix;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,7 @@ class WeightItem extends StatelessWidget {
               fit: FlexFit.tight,
               child: BoldText(
                 boldText: '$weight',
-                mediumText: 'kg',
+                mediumText: suffix,
                 textAlign: TextAlign.center,
               ),
             )

@@ -14,14 +14,16 @@ class WeightDialog extends StatefulWidget {
     this.onDelete,
     this.value,
     this.dateTime,
+    this.suffix = 'kg',
   });
 
-  final String? value;
+  final double? value;
   final DateTime? dateTime;
   final String title;
   final void Function(double weight, DateTime dateTime) onConfirm;
   final VoidCallback? onDelete;
   final String confirmButtonText;
+  final String suffix;
 
   @override
   State<WeightDialog> createState() => _WeightDialogState();
@@ -33,7 +35,7 @@ class _WeightDialogState extends State<WeightDialog> {
 
   @override
   void initState() {
-    controller = TextEditingController(text: widget.value);
+    controller = TextEditingController(text: widget.value.toString());
     dateTime = widget.dateTime ?? DateTime.now();
 
     super.initState();
@@ -60,9 +62,9 @@ class _WeightDialogState extends State<WeightDialog> {
               ],
               textAlign: TextAlign.center,
               style: AppTextStyle.bold28,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 hintText: 'Weight',
-                suffixText: 'kg',
+                suffixText: widget.suffix,
                 counterText: '',
               ),
             ),
