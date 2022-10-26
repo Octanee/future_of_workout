@@ -32,6 +32,14 @@ extension TodayDateTime on DateTime {
   DateTime toDay() {
     return DateTime(year, month, day);
   }
+
+  bool isTheSameDay(DateTime date) {
+    return difference(date).inDays == 0;
+  }
+
+  bool isToday() {
+    return isTheSameDay(DateTime.now());
+  }
 }
 
 extension Precision on double {
