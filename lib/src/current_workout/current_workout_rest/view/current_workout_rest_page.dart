@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/current_workout/current_workout.dart';
 import 'package:future_of_workout/src/shared/shared.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:lottie/lottie.dart';
 
 class CurrentWorkoutRestPage extends StatelessWidget {
   const CurrentWorkoutRestPage({required this.duration, super.key});
@@ -31,9 +32,16 @@ class CurrentWorkoutRestView extends StatelessWidget {
     return AppScaffold(
       title: 'Rest',
       body: Stack(
-        children: const [
-          Center(child: TimerText()),
-          Align(
+        children: [
+          Center(
+            child: Column(
+              children: [
+                Lottie.asset('assets/lottie/timer.json'),
+                const TimerText(),
+              ],
+            ),
+          ),
+          const Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
               padding: EdgeInsets.all(16),

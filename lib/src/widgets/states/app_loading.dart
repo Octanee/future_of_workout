@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
+import 'package:lottie/lottie.dart';
 
 class AppLoading extends StatelessWidget {
-  const AppLoading({this.text, super.key});
+  const AppLoading({
+    this.lottieName = 'assets/lottie/loading.json',
+    this.text,
+    super.key,
+  });
 
   final String? text;
+  final String lottieName;
 
   @override
   Widget build(BuildContext context) {
@@ -12,8 +18,9 @@ class AppLoading extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const CircularProgressIndicator(
-            color: AppColors.yellow,
+          Lottie.asset(
+            lottieName,
+            repeat: true,
           ),
           const SizedBox(height: 16),
           if (text != null)

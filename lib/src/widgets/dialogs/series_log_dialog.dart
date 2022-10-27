@@ -54,7 +54,9 @@ class _SeriesLogDialogState extends State<SeriesLogDialog> {
         mainAxisSize: MainAxisSize.min,
         children: [
           _WeightRow(
-              weightController: weightController, suffix: widget.weightSuffix),
+            weightController: weightController,
+            suffix: widget.weightSuffix,
+          ),
           _RepsRow(repsController: repsController),
           const SizedBox(height: 16),
           _SliderRow(

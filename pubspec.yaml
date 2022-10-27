@@ -38,6 +38,7 @@ dependencies:
   local_storage_workout_log_api:
     path: packages/local_storage_workout_log_api
   logger: ^1.1.0
+  lottie: ^1.4.3
   measurement_repository:
     path: packages/measurement_repository
   numberpicker: ^2.1.1
@@ -67,3 +68,4 @@ flutter:
     - assets/exercises/barbel_bench_press/
     - assets/exercises/squat/
     - assets/exercises/deadlift/
+    - assets/lottie/

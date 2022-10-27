@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
+import 'package:lottie/lottie.dart';
 
 class AppEmptyList extends StatelessWidget {
   const AppEmptyList({
     this.text = 'Empty list',
+    this.lottieName = 'assets/lottie/empty_list.json',
     super.key,
   });
 
+  final String lottieName;
   final String text;
 
   @override
@@ -15,11 +18,9 @@ class AppEmptyList extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Icon(
-            // TODO(Octane): Change empty list icon
-            Icons.cloud_outlined,
-            color: AppColors.yellow,
-            size: 72,
+          Lottie.asset(
+            lottieName,
+            repeat: false,
           ),
           const SizedBox(height: 16),
           Text(

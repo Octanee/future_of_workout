@@ -45,6 +45,7 @@ class HomeView extends StatelessWidget {
         context.goNamed(HomePage.name, params: {'homePageTab': name});
       },
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         floatingActionButton: const CurrentWorkoutFab(),
         floatingActionButtonLocation:
             FloatingActionButtonLocation.miniStartDocked,
