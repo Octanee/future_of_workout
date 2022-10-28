@@ -8,19 +8,25 @@ class BodyPositionBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: ToggleBar(
-        onChange: (index) {
-          context
-              .read<BodyRecoveryBloc>()
-              .add(BodyRecoveryChangePosition(isFront: index == 0));
-        },
-        tabs: const [
-          Tab(text: 'Front'),
-          Tab(text: 'Back'),
-        ],
-      ),
+    return BlocBuilder<BodyRecoveryBloc, BodyRecoveryState>(
+      buildWhen: (previous, current) => previous.isFront != current.isFront,
+      builder: (context, state) {
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 8),
+          child: ToggleBar(
+            initialIndex: state.isFront ? 0 : 1,
+            onChange: (index) {
+              context
+                  .read<BodyRecoveryBloc>()
+                  .add(BodyRecoveryChangePosition(isFront: index == 0));
+            },
+            tabs: const [
+              Tab(text: 'Front'),
+              Tab(text: 'Back'),
+            ],
+          ),
+        );
+      },
     );
   }
 }

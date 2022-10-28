@@ -45,7 +45,7 @@ class ExerciseItem extends StatelessWidget {
                       const Padding(
                         padding: EdgeInsets.all(4),
                         child: AppIcon(
-                          iconData: AppIcons.right,
+                          iconData: AppIcons.checkBox,
                           color: AppColors.yellow,
                         ),
                       ),

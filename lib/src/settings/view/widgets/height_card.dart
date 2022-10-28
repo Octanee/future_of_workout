@@ -30,7 +30,7 @@ class HeightCard extends StatelessWidget {
                 builder: (context) {
                   return DoubleDialog(
                     title: 'Change height',
-                    value: UnitConverter.dispalyedHeight(
+                    value: UnitConverter.dispalyedLength(
                       unit: user.lengthUnit,
                       value: user.height,
                     ),
@@ -40,7 +40,7 @@ class HeightCard extends StatelessWidget {
                     decimalPoint:
                         user.lengthUnit == LengthUnit.centimeter ? 1 : 2,
                     onConfirm: (value) {
-                      final height = UnitConverter.dataHeight(
+                      final height = UnitConverter.dataLength(
                         unit: user.lengthUnit,
                         value: value,
                       );
@@ -61,7 +61,7 @@ class HeightCard extends StatelessWidget {
                   style: AppTextStyle.bold24,
                 ),
                 BoldText(
-                  boldText: UnitConverter.dispalyedHeight(
+                  boldText: UnitConverter.dispalyedLength(
                     unit: user.lengthUnit,
                     value: user.height,
                   ).toString(),

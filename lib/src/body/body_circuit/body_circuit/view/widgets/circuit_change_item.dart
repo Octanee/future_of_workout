@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/app/bloc/app_bloc.dart';
 import 'package:future_of_workout/src/body/body/body.dart';
 import 'package:future_of_workout/src/body/body_circuit/body_circuit.dart';
+import 'package:future_of_workout/src/settings/settings.dart';
+import 'package:future_of_workout/src/shared/unit_converter.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
 import 'package:future_of_workout/src/widgets/bold_text.dart';
 import 'package:future_of_workout/src/widgets/cards/cards.dart';
 import 'package:go_router/go_router.dart';
+import 'package:user_repository/user_repository.dart';
 
 class CircuitChangeItem extends StatelessWidget {
   const CircuitChangeItem({required this.circuitChange, super.key});
@@ -14,6 +19,7 @@ class CircuitChangeItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final difference = circuitChange.lastValue - circuitChange.firstValue;
+    final unit = context.read<AppBloc>().state.user!.lengthUnit;
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
@@ -41,18 +47,22 @@ class CircuitChangeItem extends StatelessWidget {
               padding: const EdgeInsets.all(8),
               child: Row(
                 children: [
-                  _buildColumn(
+                  _CircuitColumn(
+                    unit: unit,
                     title: 'First:',
-                    value: '${circuitChange.firstValue}',
+                    value: circuitChange.firstValue,
                   ),
-                  _buildColumn(
+                  _CircuitColumn(
+                    unit: unit,
                     isMiddle: true,
                     title: 'Last:',
-                    value: '${circuitChange.lastValue}',
+                    value: circuitChange.lastValue,
                   ),
-                  _buildColumn(
+                  _CircuitColumn(
+                    unit: unit,
                     title: 'Change',
-                    value: '${difference > 0 ? '+' : ''}$difference',
+                    value: difference,
+                    isChange: difference > 0,
                   ),
                 ],
               ),
@@ -62,12 +72,31 @@ class CircuitChangeItem extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget _buildColumn({
-    required String title,
-    required String value,
-    bool isMiddle = false,
-  }) {
+class _CircuitColumn extends StatelessWidget {
+  const _CircuitColumn({
+    required this.title,
+    required this.value,
+    required this.unit,
+    this.isMiddle = false,
+    this.isChange = false,
+  });
+
+  final String title;
+  final double value;
+  final bool isMiddle;
+  final bool isChange;
+  final LengthUnit unit;
+
+  @override
+  Widget build(BuildContext context) {
+    final plus = isChange ? '+' : '';
+    final displayed =
+        UnitConverter.dispalyedLength(unit: unit, value: value).toString();
+
+    final text = plus + displayed;
+
     return Flexible(
       fit: FlexFit.tight,
       child: DecoratedBox(
@@ -86,8 +115,8 @@ class CircuitChangeItem extends StatelessWidget {
               style: AppTextStyle.regular16,
             ),
             BoldText(
-              boldText: value,
-              mediumText: ' cm',
+              boldText: text,
+              mediumText: unit.sufix,
             ),
           ],
         ),

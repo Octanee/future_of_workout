@@ -47,7 +47,7 @@ class UnitConverter {
     }
   }
 
-  static double dispalyedHeight({
+  static double dispalyedLength({
     required LengthUnit unit,
     required double value,
   }) {
@@ -59,7 +59,7 @@ class UnitConverter {
     }
   }
 
-  static double dataHeight({
+  static double dataLength({
     required LengthUnit unit,
     required double value,
   }) {

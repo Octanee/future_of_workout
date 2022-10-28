@@ -59,7 +59,7 @@ class ExerciseSeriesItem extends StatelessWidget {
               weight: value,
               rest: rest,
             );
-            
+
             final event = isMulti
                 ? WorkoutExerciseDetailsAllSeriesChanged(series: newSeries)
                 : WorkoutExerciseDetailsExerciseSeriesChanged(
@@ -165,7 +165,7 @@ class _RestData extends StatelessWidget {
         children: [
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 8),
-            child: Icon(Icons.timer_outlined),
+            child: AppIcon(iconData: AppIcons.stopwatch),
           ),
           Text(
             'REST',
