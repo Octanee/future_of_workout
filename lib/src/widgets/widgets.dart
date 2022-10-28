@@ -1,3 +1,4 @@
+export 'app_icon.dart';
 export 'app_scaffold.dart';
 export 'bars/bars.dart';
 export 'body/body.dart';

@@ -11,7 +11,7 @@ class SearchButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BarButton(
       text: text,
-      icon: const Icon(Icons.search_rounded),
+      icon: const AppIcon(iconData: AppIcons.search),
       onTap: onTap,
     );
   }

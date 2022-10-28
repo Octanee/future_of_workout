@@ -18,7 +18,7 @@ class RemoveSeries extends StatelessWidget {
           visible: state.exerciseLog?.exerciseSeriesLogs.isNotEmpty ?? false,
           child: Padding(
             padding: const EdgeInsets.only(bottom: 8),
-            child: RemoveButton(
+            child: ListRemoveButton(
               text: 'Remove series',
               dialogText: 'Are you sure you want to remove series?',
               onConfirm: () async {

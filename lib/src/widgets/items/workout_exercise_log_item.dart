@@ -35,10 +35,7 @@ class WorkoutExerciseLogItem extends StatelessWidget {
               if (onTap != null)
                 const Padding(
                   padding: EdgeInsets.all(8),
-                  child: Icon(
-                    Icons.arrow_forward_ios_rounded,
-                    color: AppColors.grey,
-                  ),
+                  child: AppIcon(iconData: AppIcons.right),
                 ),
             ],
           ),
@@ -138,7 +135,7 @@ class _CompleteIcon extends StatelessWidget {
             borderRadius: BorderRadius.circular(64),
             color: AppColors.yellow,
           ),
-          child: const Icon(Icons.check),
+          child: const AppIcon(iconData: AppIcons.check,),
         ),
       ),
     );

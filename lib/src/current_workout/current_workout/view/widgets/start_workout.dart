@@ -27,9 +27,9 @@ class StartWorkout extends StatelessWidget {
                     'assets/lottie/workout.json',
                   ),
                   const SizedBox(height: 64),
-                  const BarButton(
+                  StartButton(
                     text: 'Start workout',
-                    icon: Icon(Icons.play_arrow),
+                    onTap: () {},
                   ),
                 ],
               ),

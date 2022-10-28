@@ -60,7 +60,7 @@ class _RestColumn extends StatelessWidget {
     return _SeriesColumn(
       header: const _ColumnHeader(
         name: 'Rest',
-        icon: Icon(Icons.timer_outlined),
+        icon: AppIcon(iconData: AppIcons.stopwatch),
       ),
       items: items
           .map<Widget>(
@@ -87,7 +87,7 @@ class _WeightColumn extends StatelessWidget {
       isMiddle: true,
       header: const _ColumnHeader(
         name: 'Weight',
-        icon: Icon(Icons.accessibility_new_rounded),
+        icon: AppIcon(iconData: AppIcons.scale),
       ),
       items: items
           .map<Widget>(
@@ -114,7 +114,7 @@ class _RepsColumn extends StatelessWidget {
     return _SeriesColumn(
       header: const _ColumnHeader(
         name: 'Reps',
-        icon: Icon(Icons.repeat_rounded),
+        icon: AppIcon(iconData: AppIcons.repeat),
       ),
       items: items
           .map<Widget>(

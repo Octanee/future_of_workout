@@ -12,7 +12,7 @@ class AboutExerciseButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BarButton(
       text: 'About exercise',
-      icon: const Icon(Icons.info_outline),
+      icon: const AppIcon(iconData: AppIcons.info),
       onTap: () {
         context.pushNamed(
           ExerciseDetailsPage.name,

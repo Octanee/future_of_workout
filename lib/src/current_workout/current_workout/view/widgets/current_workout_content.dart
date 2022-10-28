@@ -13,24 +13,21 @@ class CurrentWorkoutContent extends StatelessWidget {
           previous.workoutLog?.workoutExerciseLogs !=
           current.workoutLog?.workoutExerciseLogs,
       builder: (context, state) {
-        if (state.workoutLog!.workoutExerciseLogs.isEmpty) {
-          return Column(
-            children: const [
-              AddExercise(),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 200),
-                child: AppEmptyList(
-                  text: 'Add some exercises.',
-                ),
-              ),
-            ],
-          );
-        }
+        final isEmpty = state.workoutLog!.workoutExerciseLogs.isEmpty;
 
         return Column(
-          children: const [
-            ExerciseLogsList(),
-            AddExercise(),
+          children: [
+            Visibility(
+              visible: !isEmpty,
+              child: const ExerciseLogsList(),
+            ),
+            const AddExercise(),
+            Visibility(
+              visible: isEmpty,
+              child: const AppEmptyList(
+                text: 'Add some exercises.',
+              ),
+            ),
           ],
         );
       },

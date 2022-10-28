@@ -91,7 +91,7 @@ class _SliderRow extends StatelessWidget {
       children: [
         const Padding(
           padding: EdgeInsets.only(right: 16),
-          child: Icon(Icons.speed_rounded),
+          child: AppIcon(iconData: AppIcons.intensity),
         ),
         Slider(
           label: SeriesLogIntensity.values[value.round()].name,
@@ -116,7 +116,7 @@ class _RepsRow extends StatelessWidget {
       children: [
         const Padding(
           padding: EdgeInsets.only(right: 16),
-          child: Icon(Icons.repeat_rounded),
+          child: AppIcon(iconData: AppIcons.repeat),
         ),
         Flexible(
           child: TextField(
@@ -152,7 +152,7 @@ class _WeightRow extends StatelessWidget {
       children: [
         const Padding(
           padding: EdgeInsets.only(right: 16),
-          child: Icon(Icons.sports_bar_outlined),
+          child: AppIcon(iconData: AppIcons.weight),
         ),
         Flexible(
           child: TextField(

@@ -42,7 +42,7 @@ class WorkoutSummaryCard extends StatelessWidget {
 
     return _CardRow(
       boldText: formatter.format(workoutLog.startDate),
-      icon: const Icon(Icons.calendar_month_outlined),
+      icon: const AppIcon(iconData: AppIcons.calendar),
     );
   }
 
@@ -53,7 +53,7 @@ class WorkoutSummaryCard extends StatelessWidget {
       isReverse: true,
       boldText: '${time.inMinutes} ',
       mediumText: 'min',
-      icon: const Icon(Icons.watch_later_outlined),
+      icon: const AppIcon(iconData: AppIcons.clock),
     );
   }
 
@@ -64,7 +64,7 @@ class WorkoutSummaryCard extends StatelessWidget {
     return _CardRow(
       boldText: '$kcal ',
       mediumText: 'kcal',
-      icon: const Icon(Icons.local_fire_department_outlined),
+      icon: const AppIcon(iconData: AppIcons.flame),
       isReverse: true,
     );
   }
@@ -80,7 +80,7 @@ class WorkoutSummaryCard extends StatelessWidget {
     return _CardRow(
       boldText: '$exercises ',
       mediumText: 'exercises',
-      icon: const Icon(Icons.repeat_rounded),
+      icon: const AppIcon(iconData: AppIcons.gym),
     );
   }
 }

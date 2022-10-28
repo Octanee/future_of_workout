@@ -18,7 +18,7 @@ class DeleteButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BarButton(
       text: text,
-      icon: const Icon(Icons.delete_outline),
+      icon: const AppIcon(iconData: AppIcons.trash),
       onTap: () async {
         await showDialog<void>(
           context: context,

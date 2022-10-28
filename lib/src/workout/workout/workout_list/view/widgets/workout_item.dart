@@ -89,13 +89,13 @@ class WorkoutItem extends StatelessWidget {
     );
     return _buildRow(
       text: text,
-      icon: const Icon(Icons.repeat_rounded),
+      icon: const AppIcon(iconData: AppIcons.gym),
     );
   }
 
   Widget _buildRow({
     required Widget text,
-    required Icon icon,
+    required Widget icon,
   }) {
     final children = [
       text,
@@ -120,56 +120,4 @@ class WorkoutItem extends StatelessWidget {
       ),
     );
   }
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return LayoutBuilder(
-  //     builder: (context, constraints) => CustomCard(
-  //       onTap: onTap,
-  //       child: ClipRRect(
-  //         borderRadius: BorderRadius.circular(16),
-  //         child: Row(
-  //           crossAxisAlignment: CrossAxisAlignment.start,
-  //           children: _getContent(constraints.maxWidth / 2),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  // List<Widget> _getContent(double size) {
-  //   return [
-  //     _getBody(size),
-  //     Column(
-  //       crossAxisAlignment: CrossAxisAlignment.end,
-  //       children: [
-  //         _getFavorit(),
-  //         _getName(size),
-  //       ],
-  //     ),
-  //   ];
-  // }
-
-  // Widget _getName(double size) {
-  //   return Align(
-  //     alignment: Alignment.centerRight,
-  //     child: Container(
-  //       padding: const EdgeInsets.only(right: 8),
-  //       width: size,
-  //       child: Text(
-  //         workout.name,
-  //         style: AppTextStyle.bold20,
-  //         softWrap: true,
-  //         textAlign: TextAlign.right,
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  // Widget _getBody(double size) {
-  //   return BodyContainer(
-  //     size: size,
-  //     body: workout.body(),
-  //   );
-  // }
 }

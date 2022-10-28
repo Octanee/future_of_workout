@@ -35,7 +35,7 @@ class _WeightDialogState extends State<WeightDialog> {
 
   @override
   void initState() {
-    controller = TextEditingController(text: widget.value.toString());
+    controller = TextEditingController(text: widget.value?.toString());
     dateTime = widget.dateTime ?? DateTime.now();
 
     super.initState();
@@ -116,7 +116,7 @@ class _WeightDialogState extends State<WeightDialog> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Icon(Icons.calendar_month_rounded),
+                    const AppIcon(iconData: AppIcons.calendarEdit),
                     Text(
                       formatter.format(dateTime),
                       style: AppTextStyle.semiBold20,
@@ -140,7 +140,7 @@ class _WeightDialogState extends State<WeightDialog> {
                     widget.onDelete!();
                     Navigator.of(context).pop();
                   },
-                  icon: const Icon(Icons.delete),
+                  icon: const AppIcon(iconData: AppIcons.trash),
                 ),
               ],
             ),

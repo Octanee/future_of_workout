@@ -61,6 +61,7 @@ class CurrentWorkoutView extends StatelessWidget {
             return AppScaffold(
               title: workout.name,
               actions: const [WorkoutTime()],
+              leading: null,
               body: ListView(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 8),

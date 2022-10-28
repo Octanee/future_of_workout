@@ -44,10 +44,9 @@ class ExerciseItem extends StatelessWidget {
                     if (isSelected)
                       const Padding(
                         padding: EdgeInsets.all(4),
-                        child: Icon(
-                          Icons.check_circle_rounded,
+                        child: AppIcon(
+                          iconData: AppIcons.right,
                           color: AppColors.yellow,
-                          size: 24,
                         ),
                       ),
                   ],
@@ -63,10 +62,7 @@ class ExerciseItem extends StatelessWidget {
               padding: const EdgeInsets.all(8),
               child: IconButton(
                 onPressed: onIconPressed,
-                icon: const Icon(
-                  Icons.keyboard_arrow_right,
-                  color: AppColors.grey,
-                ),
+                icon: const AppIcon(iconData: AppIcons.right),
               ),
             ),
           ],

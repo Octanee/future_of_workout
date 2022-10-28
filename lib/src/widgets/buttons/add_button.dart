@@ -11,7 +11,7 @@ class AddButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BarButton(
       text: text,
-      icon: const Icon(Icons.add),
+      icon: const AppIcon(iconData: AppIcons.plus),
       onTap: onTap,
     );
   }

@@ -90,7 +90,7 @@ class WorkoutLogItem extends StatelessWidget {
     );
     return _buildRow(
       text: text,
-      icon: const Icon(Icons.calendar_month_outlined),
+      icon: const AppIcon(iconData: AppIcons.calendar),
     );
   }
 
@@ -103,7 +103,7 @@ class WorkoutLogItem extends StatelessWidget {
     );
     return _buildRow(
       text: text,
-      icon: const Icon(Icons.watch_later_outlined),
+      icon: const AppIcon(iconData: AppIcons.clock),
     );
   }
 
@@ -118,13 +118,13 @@ class WorkoutLogItem extends StatelessWidget {
     );
     return _buildRow(
       text: text,
-      icon: const Icon(Icons.repeat_rounded),
+      icon: const AppIcon(iconData: AppIcons.gym),
     );
   }
 
   Widget _buildRow({
     required Widget text,
-    required Icon icon,
+    required Widget icon,
   }) {
     final children = [
       text,

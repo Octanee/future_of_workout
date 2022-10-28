@@ -7,45 +7,38 @@ class BarButton extends StatelessWidget {
     required this.text,
     required this.icon,
     this.onTap,
-    this.padding = EdgeInsets.zero,
+    this.size = 40,
     super.key,
   });
 
   final String text;
-  final Icon icon;
-  final void Function()? onTap;
-  final EdgeInsets padding;
+  final Widget icon;
+  final VoidCallback? onTap;
+  final double size;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: padding,
-      child: CustomBar(
-        padding: const EdgeInsets.fromLTRB(16, 8, 8, 8),
-        onTap: onTap,
-        child: _getContent(),
-      ),
-    );
-  }
-
-  Widget _getContent() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          text,
-          style: AppTextStyle.semiBold20,
-        ),
-        Container(
-          height: 44,
-          width: 44,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(64),
-            color: AppColors.yellow,
+    return CustomBar(
+      padding: const EdgeInsets.fromLTRB(16, 8, 8, 8),
+      onTap: onTap,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            text,
+            style: AppTextStyle.semiBold20,
           ),
-          child: icon,
-        ),
-      ],
+          Container(
+            height: size,
+            width: size,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(64),
+              color: AppColors.yellow,
+            ),
+            child: icon,
+          ),
+        ],
+      ),
     );
   }
 }

@@ -14,9 +14,8 @@ class RenameWorkout extends StatelessWidget {
       builder: (context, state) {
         return Padding(
           padding: const EdgeInsets.only(bottom: 8),
-          child: BarButton(
+          child: EditButton(
             text: 'Rename',
-            icon: const Icon(Icons.edit_outlined),
             onTap: () async {
               final bloc = context.read<WorkoutDetailsBloc>();
 

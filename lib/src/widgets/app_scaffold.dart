@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
 import 'package:future_of_workout/src/styles/styles.dart';
+import 'package:future_of_workout/src/widgets/widgets.dart';
 
 class AppScaffold extends StatelessWidget {
   const AppScaffold({
     required this.body,
     this.title,
     this.actions,
-    this.leading,
+    this.leading = const AppIcon(iconData: AppIcons.left),
     this.floatingActionButton,
     super.key,
   });
@@ -23,17 +24,22 @@ class AppScaffold extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       floatingActionButton: floatingActionButton,
-      appBar: _getAppBar(),
+      appBar: _getAppBar(context),
       backgroundColor: AppColors.background,
       body: body,
     );
   }
 
-  AppBar? _getAppBar() {
+  AppBar? _getAppBar(BuildContext context) {
     if (title?.isNotEmpty ?? false) {
       return AppBar(
         actions: actions,
-        leading: leading,
+        leading: leading != null
+            ? IconButton(
+                onPressed: () => Navigator.of(context).maybePop(),
+                icon: leading!,
+              )
+            : null,
         iconTheme: const IconThemeData(color: AppColors.grey),
         elevation: 1,
         backgroundColor: AppColors.white,

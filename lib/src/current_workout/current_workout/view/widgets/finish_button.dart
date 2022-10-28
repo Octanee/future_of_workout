@@ -13,7 +13,7 @@ class FinishButton extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 8),
       child: BarButton(
         text: 'Finish workout',
-        icon: const Icon(Icons.stop_circle_outlined),
+        icon: const AppIcon(iconData: AppIcons.stop),
         onTap: () async {
           final bloc = context.read<CurrentWorkoutBloc>();
 

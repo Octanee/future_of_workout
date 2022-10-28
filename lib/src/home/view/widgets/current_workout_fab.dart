@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/home/home.dart';
 import 'package:future_of_workout/src/styles/app_colors.dart';
+import 'package:future_of_workout/src/widgets/widgets.dart';
 
 class CurrentWorkoutFab extends StatelessWidget {
   const CurrentWorkoutFab({super.key});
@@ -16,8 +17,8 @@ class CurrentWorkoutFab extends StatelessWidget {
         return FloatingActionButton(
           heroTag: 'homeNavigationItem_currentWorkout_floatingActionButton',
           backgroundColor: isSelected ? AppColors.yellow : AppColors.grey,
-          child: Icon(
-            HomeNavigationItem.currentWorkout.icon,
+          child: AppIcon(
+          iconData:   HomeNavigationItem.currentWorkout.icon,
             color: isSelected ? AppColors.grey : AppColors.yellow,
           ),
           onPressed: () => context

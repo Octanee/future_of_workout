@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/home/home.dart';
 import 'package:future_of_workout/src/styles/app_colors.dart';
 import 'package:future_of_workout/src/styles/app_text_style.dart';
+import 'package:future_of_workout/src/widgets/widgets.dart';
 
 class NavigationItem extends StatelessWidget {
   const NavigationItem({
@@ -30,8 +31,10 @@ class NavigationItem extends StatelessWidget {
               icon: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Icon(
-                    item.icon,
+                  AppIcon(
+                    height: 20,
+                    widht: 20,
+                    iconData: item.icon,
                     color: isSelected ? AppColors.yellow : AppColors.grey,
                   ),
                   Text(

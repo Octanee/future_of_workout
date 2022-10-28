@@ -20,7 +20,6 @@ class AppLoading extends StatelessWidget {
         children: [
           Lottie.asset(
             lottieName,
-            repeat: true,
           ),
           const SizedBox(height: 16),
           if (text != null)

@@ -10,9 +10,8 @@ class AddExercise extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BarButton(
+    return ListAddButton(
       text: 'Add exercise',
-      icon: const Icon(Icons.add),
       onTap: () {
         context.pushNamed(
           ExerciseListPage.name,

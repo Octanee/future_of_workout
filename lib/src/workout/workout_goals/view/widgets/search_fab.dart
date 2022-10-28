@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:future_of_workout/src/exercise/exercise.dart';
+import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:go_router/go_router.dart';
 
 class SearchFab extends StatelessWidget {
@@ -16,7 +17,7 @@ class SearchFab extends StatelessWidget {
           ),
         );
       },
-      child: const Icon(Icons.search_rounded),
+      child: const AppIcon(iconData: AppIcons.search),
     );
   }
 }

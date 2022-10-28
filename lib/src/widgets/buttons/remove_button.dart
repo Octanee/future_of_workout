@@ -18,7 +18,7 @@ class RemoveButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BarButton(
       text: text,
-      icon: const Icon(Icons.remove),
+      icon: const AppIcon(iconData: AppIcons.minus),
       onTap: () async {
         await showDialog<void>(
           context: context,

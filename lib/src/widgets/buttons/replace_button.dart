@@ -11,7 +11,7 @@ class ReplaceButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BarButton(
       text: text,
-      icon: const Icon(Icons.repeat_rounded),
+      icon: const AppIcon(iconData: AppIcons.repeat),
       onTap: onTap,
     );
   }
