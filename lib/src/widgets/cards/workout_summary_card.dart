@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/app/bloc/app_bloc.dart';
+import 'package:future_of_workout/src/shared/calories_calculator.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:workout_log_api/workout_log_api.dart';
@@ -10,6 +13,8 @@ class WorkoutSummaryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userWeight = context.read<AppBloc>().state.user!.weight;
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
       child: CustomCard(
@@ -28,7 +33,7 @@ class WorkoutSummaryCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _buildExercises(),
-                _buildKcal(),
+                _buildKcal(userWeight: userWeight),
               ],
             ),
           ],
@@ -57,9 +62,11 @@ class WorkoutSummaryCard extends StatelessWidget {
     );
   }
 
-  Widget _buildKcal() {
-    final time = workoutLog.endDate!.difference(workoutLog.startDate).inMinutes;
-    final kcal = 200 * time ~/ 60;
+  Widget _buildKcal({required double userWeight}) {
+    final kcal = CaloriesCalculator.inWorkout(
+      workout: workoutLog,
+      userWeight: userWeight,
+    );
 
     return _CardRow(
       boldText: '$kcal ',
