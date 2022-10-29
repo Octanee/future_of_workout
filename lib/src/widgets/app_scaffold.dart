@@ -8,7 +8,7 @@ class AppScaffold extends StatelessWidget {
     required this.body,
     this.title,
     this.actions,
-    this.leading = const AppIcon(iconData: AppIcons.left),
+    this.leadingIcon = const AppIcon(iconData: AppIcons.left),
     this.floatingActionButton,
     super.key,
   });
@@ -16,7 +16,7 @@ class AppScaffold extends StatelessWidget {
   final String? title;
   final Widget? body;
   final List<Widget>? actions;
-  final Widget? leading;
+  final Widget? leadingIcon;
   final Widget? floatingActionButton;
 
   @override
@@ -34,10 +34,10 @@ class AppScaffold extends StatelessWidget {
     if (title?.isNotEmpty ?? false) {
       return AppBar(
         actions: actions,
-        leading: leading != null
+        leading: leadingIcon != null
             ? IconButton(
                 onPressed: () => Navigator.of(context).maybePop(),
-                icon: leading!,
+                icon: leadingIcon!,
               )
             : null,
         iconTheme: const IconThemeData(color: AppColors.grey),

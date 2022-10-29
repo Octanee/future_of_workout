@@ -167,17 +167,7 @@ class _RestData extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 8),
             child: AppIcon(iconData: AppIcons.stopwatch),
           ),
-          Text(
-            'REST',
-            style: AppTextStyle.semiBold20,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: Text(
-              ':',
-              style: AppTextStyle.bold20.copyWith(color: AppColors.yellow),
-            ),
-          ),
+
           BoldText(
             boldText: series.rest.toString(),
             mediumText: 's',

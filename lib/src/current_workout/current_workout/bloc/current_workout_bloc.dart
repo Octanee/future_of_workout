@@ -61,6 +61,7 @@ class CurrentWorkoutBloc
 
     await _workoutLogRepository.saveWorkoutLog(workoutLog: workoutLog);
     emit(state.copyWith(status: CurrentWorkoutStatus.started));
+    add(const CurrentWorkoutSubscriptionRequested());
   }
 
   Future<void> _onSubscriptionRequested(

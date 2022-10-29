@@ -58,9 +58,17 @@ class WorkoutListView extends StatelessWidget {
             );
           case WorkoutListStatus.loaded:
           case WorkoutListStatus.added:
-            return const AppScaffold(
-              floatingActionButton: AddWorkout(),
-              body: WorkoutList(),
+            return AppScaffold(
+              floatingActionButton: const AddWorkout(),
+              body: ListView(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                physics: const BouncingScrollPhysics(),
+                children: const [
+                  StartWorkout(),
+                  WorkoutList(),
+                ],
+              ),
             );
         }
       },

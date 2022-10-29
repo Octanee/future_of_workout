@@ -59,7 +59,7 @@ class FutureOfWorkoutApp extends StatelessWidget {
             create: (context) => CurrentWorkoutBloc(
               workoutRepository: _workoutRepository,
               workoutLogRepository: _workoutLogRepository,
-            ),
+            )..add(const CurrentWorkoutSubscriptionRequested()),
           ),
           BlocProvider(
             create: (context) =>

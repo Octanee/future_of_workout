@@ -7,13 +7,11 @@ class WorkoutItem extends StatelessWidget {
   const WorkoutItem({
     super.key,
     required this.workout,
-    required this.onToggleFavorite,
     this.isReverse = false,
     this.onTap,
   });
 
   final Workout workout;
-  final ValueChanged<bool> onToggleFavorite;
   final VoidCallback? onTap;
   final bool isReverse;
 

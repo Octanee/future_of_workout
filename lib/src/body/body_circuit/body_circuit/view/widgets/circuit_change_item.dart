@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/app/bloc/app_bloc.dart';
 import 'package:future_of_workout/src/body/body/body.dart';
 import 'package:future_of_workout/src/body/body_circuit/body_circuit.dart';
-import 'package:future_of_workout/src/settings/settings.dart';
 import 'package:future_of_workout/src/shared/unit_converter.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
 import 'package:future_of_workout/src/widgets/bold_text.dart';

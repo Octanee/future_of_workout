@@ -24,40 +24,37 @@ class CurrentWorkoutSummaryView extends StatelessWidget {
       onWillPop: () async {
         context.read<CurrentWorkoutBloc>().add(const CurrentWorkoutClear());
 
-        return true;
+        return false;
       },
-      child: BlocBuilder<CurrentWorkoutBloc, CurrentWorkoutState>(
-        builder: (context, state) {
-          if (state.workoutLog != null) {
+      child: AppScaffold(
+        title: 'Summary',
+        body: BlocBuilder<CurrentWorkoutBloc, CurrentWorkoutState>(
+          buildWhen: (previous, current) => previous.status != current.status,
+          builder: (context, state) {
+            if (state.workoutLog == null) {
+              return const AppLoading();
+            }
             final log = state.workoutLog!;
-            return AppScaffold(
-              title: 'Summary',
-              body: ListView(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                physics: const BouncingScrollPhysics(),
-                children: [
-                  WorkoutSummaryCard(workoutLog: log),
-                  const Header(text: 'Exercises'),
-                  ...log.workoutExerciseLogs.map<Widget>(
-                    (exerciseLog) => WorkoutExerciseLogDetailsItem(
-                      header: WorkoutExerciseLogItem(
-                        markCompleted: false,
-                        workoutExerciseLog: exerciseLog,
-                      ),
+
+            return ListView(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              physics: const BouncingScrollPhysics(),
+              children: [
+                WorkoutSummaryCard(workoutLog: log),
+                const Header(text: 'Exercises'),
+                ...log.workoutExerciseLogs.map<Widget>(
+                  (exerciseLog) => WorkoutExerciseLogDetailsItem(
+                    header: WorkoutExerciseLogItem(
+                      markCompleted: false,
                       workoutExerciseLog: exerciseLog,
                     ),
-                  )
-                ],
-              ),
+                    workoutExerciseLog: exerciseLog,
+                  ),
+                )
+              ],
             );
-          }
-
-          return const AppScaffold(
-            title: 'Summary',
-            body: AppLoading(),
-          );
-        },
+          },
+        ),
       ),
     );
   }

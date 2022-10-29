@@ -1,4 +1,3 @@
-import 'package:future_of_workout/src/shared/logger.dart';
 import 'package:workout_log_repository/workout_log_repository.dart';
 
 class CaloriesCalculator {
@@ -9,6 +8,10 @@ class CaloriesCalculator {
     required WorkoutLog workout,
   }) {
     final finished = <ExerciseSeriesLog>[];
+
+    if (finished.isEmpty) {
+      return 0;
+    }
 
     for (final exercise in workout.workoutExerciseLogs) {
       final series =
@@ -30,13 +33,6 @@ class CaloriesCalculator {
         60;
 
     final calories = (time * met * userWeight) / 200;
-
-    logger.i({
-      'finished': finished,
-      'met': met,
-      'time': time,
-      'calories': calories,
-    });
 
     return calories.round();
   }

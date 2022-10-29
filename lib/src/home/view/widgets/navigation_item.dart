@@ -26,14 +26,11 @@ class NavigationItem extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(bottom: 4),
             child: IconButton(
-              iconSize: 24,
               padding: EdgeInsets.zero,
               icon: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   AppIcon(
-                    height: 20,
-                    widht: 20,
                     iconData: item.icon,
                     color: isSelected ? AppColors.yellow : AppColors.grey,
                   ),

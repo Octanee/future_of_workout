@@ -23,10 +23,10 @@ class WorkoutExerciseLogDetailsItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final finished = workoutExerciseLog.exerciseSeriesLogs
         .where((series) => series.isFinished);
-    return finished.isNotEmpty
-        ? Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: CustomCard(
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: finished.isNotEmpty
+          ? CustomCard(
               onTap: onTap,
               child: Column(
                 children: [
@@ -44,9 +44,9 @@ class WorkoutExerciseLogDetailsItem extends StatelessWidget {
                   ),
                 ],
               ),
-            ),
-          )
-        : header;
+            )
+          : header,
+    );
   }
 }
 

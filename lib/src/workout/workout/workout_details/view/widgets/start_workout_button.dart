@@ -27,6 +27,7 @@ class StartWorkoutButton extends StatelessWidget {
                 context
                     .read<CurrentWorkoutBloc>()
                     .add(CurrentWorkoutStartWorkout(id: state.workout!.id));
+              
                 context.goNamed(
                   HomePage.name,
                   params: {'homePageTab': CurrentWorkoutPage.name},

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/current_workout/current_workout.dart';
 import 'package:future_of_workout/src/home/home.dart';
 import 'package:future_of_workout/src/styles/app_colors.dart';
 import 'package:go_router/go_router.dart';
@@ -38,6 +39,8 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final currentWorkout = context.watch<CurrentWorkoutBloc>().state.workoutLog;
+
     return BlocListener<NavigationCubit, NavigationState>(
       listenWhen: (previous, current) => previous.item != current.item,
       listener: (context, state) {
@@ -47,8 +50,9 @@ class HomeView extends StatelessWidget {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         floatingActionButton: const CurrentWorkoutFab(),
-        floatingActionButtonLocation:
-            FloatingActionButtonLocation.miniStartDocked,
+        floatingActionButtonLocation: currentWorkout != null
+            ? FloatingActionButtonLocation.miniStartDocked
+            : null,
         backgroundColor: AppColors.background,
         bottomNavigationBar: const BottomNavigation(),
         body: BlocBuilder<NavigationCubit, NavigationState>(

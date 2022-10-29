@@ -13,35 +13,26 @@ class WorkoutList extends StatelessWidget {
       buildWhen: (previous, current) => previous.workouts != current.workouts,
       builder: (context, state) {
         final list = state.workouts;
-        return ListView.separated(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          separatorBuilder: (context, index) => const SizedBox(height: 8),
-          physics: const BouncingScrollPhysics(),
-          itemCount: list.length,
-          itemBuilder: (context, index) {
-            final workout = list[index];
-            return WorkoutItem(
-              workout: workout,
-              isReverse: index.isOdd,
-              onToggleFavorite: (isFavorite) =>
-                  context.read<WorkoutListBloc>().add(
-                        WorkoutListWorkoutFavoriteToggled(
-                          workout: workout,
-                          isFavorite: isFavorite,
-                        ),
-                      ),
-              onTap: () {
-                context.goNamed(
-                  WorkoutDetailsPage.name,
-                  params: {
-                    'homePageTab': WorkoutsPage.name,
-                    'workoutId': workout.id,
-                  },
-                );
-              },
+
+        return Column(
+          children: list.map<Widget>((workout) {
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: WorkoutItem(
+                workout: workout,
+                isReverse: list.indexOf(workout).isOdd,
+                onTap: () {
+                  context.goNamed(
+                    WorkoutDetailsPage.name,
+                    params: {
+                      'homePageTab': WorkoutsPage.name,
+                      'workoutId': workout.id,
+                    },
+                  );
+                },
+              ),
             );
-          },
-          // for (final workout in list)
+          }).toList(),
         );
       },
     );
