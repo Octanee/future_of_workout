@@ -87,7 +87,7 @@ class _WeightColumn extends StatelessWidget {
       isMiddle: true,
       header: const _ColumnHeader(
         name: 'Weight',
-        icon: AppIcon(iconData: AppIcons.scale),
+        icon: AppIcon(iconData: AppIcons.gym),
       ),
       items: items
           .map<Widget>(
@@ -142,7 +142,10 @@ class _ColumnHeader extends StatelessWidget {
           name,
           style: AppTextStyle.semiBold20,
         ),
-        icon,
+        Padding(
+          padding: const EdgeInsets.only(left: 8),
+          child: icon,
+        ),
       ],
     );
   }

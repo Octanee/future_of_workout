@@ -2,10 +2,13 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/app/bloc/app_bloc.dart';
 import 'package:future_of_workout/src/exercise/exercise.dart';
 
 import 'package:future_of_workout/src/shared/one_rep_max_calculator.dart';
+import 'package:future_of_workout/src/shared/unit_converter.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:user_repository/user_repository.dart';
 import 'package:workout_log_repository/workout_log_repository.dart';
 
 class WeightChart extends StatelessWidget {
@@ -18,7 +21,17 @@ class WeightChart extends StatelessWidget {
           previous.data != current.data ||
           previous.chartType != current.chartType,
       builder: (context, state) {
-        final data = _getData(data: state.data, chartType: state.chartType);
+        final unit = context.read<AppBloc>().state.user!.weightUnit;
+        final data = _getData(
+          data: state.data,
+          chartType: state.chartType,
+          unit: unit,
+        );
+
+        final goal = state.chartType == ChartType.weight && state.goal != null
+            ? UnitConverter.dispalyedWeight(unit: unit, value: state.goal!.goal)
+            : null;
+
         return Padding(
           padding: const EdgeInsets.only(bottom: 8),
           child: CustomCard(
@@ -31,9 +44,8 @@ class WeightChart extends StatelessWidget {
                   bottom: 8,
                 ),
                 child: DayliChart(
-                  goal: state.chartType == ChartType.weight
-                      ? state.goal?.goal
-                      : null,
+                  suffix: unit.sufix,
+                  goal: goal,
                   isCurved: false,
                   period: state.period.days,
                   data: data,
@@ -49,6 +61,7 @@ class WeightChart extends StatelessWidget {
   List<DayliData> _getData({
     required List<MapEntry<WorkoutExerciseLog, DateTime>> data,
     required ChartType chartType,
+    required WeightUnit unit,
   }) {
     return data.map<DayliData>((entry) {
       final finished =
@@ -80,7 +93,10 @@ class WeightChart extends StatelessWidget {
           break;
       }
 
-      return DayliData(value: value, date: entry.value);
+      return DayliData(
+        value: UnitConverter.dispalyedWeight(unit: unit, value: value),
+        date: entry.value,
+      );
     }).toList();
   }
 }

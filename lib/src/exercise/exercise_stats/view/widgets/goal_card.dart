@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/app/bloc/app_bloc.dart';
 import 'package:future_of_workout/src/exercise/exercise.dart';
+import 'package:future_of_workout/src/shared/unit_converter.dart';
 import 'package:future_of_workout/src/styles/styles.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 
@@ -18,6 +20,8 @@ class GoalCard extends StatelessWidget {
           return Container();
         }
 
+        final unit = context.read<AppBloc>().state.user!.weightUnit;
+
         return Padding(
           padding: const EdgeInsets.only(bottom: 8),
           child: CustomCard(
@@ -30,9 +34,25 @@ class GoalCard extends StatelessWidget {
                   return GoalDialog(
                     title: 'Update goal',
                     confirmButtonText: 'Save',
-                    value: goal.goal.toString(),
-                    onConfirm: (value) =>
-                        bloc.add(ExerciseStatsGoalChange(value: value)),
+                    value: UnitConverter.dispalyedWeight(
+                      unit: unit,
+                      value: goal.goal,
+                    ).toString(),
+                    suffix: unit.sufix,
+                    onConfirm: (value) {
+                      if (value != 0) {
+                        bloc.add(
+                          ExerciseStatsGoalChange(
+                            value: UnitConverter.dataWeight(
+                              unit: unit,
+                              value: value,
+                            ),
+                          ),
+                        );
+                      } else {
+                        bloc.add(const ExerciseStatsGoalDelete());
+                      }
+                    },
                     onDelete: () => bloc.add(const ExerciseStatsGoalDelete()),
                   );
                 },
@@ -51,8 +71,14 @@ class GoalCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.baseline,
                     textBaseline: TextBaseline.ideographic,
                     children: [
-                      Text(goal.goal.toString(), style: AppTextStyle.bold28),
-                      Text('kg', style: AppTextStyle.medium20),
+                      Text(
+                        UnitConverter.dispalyedWeight(
+                          unit: unit,
+                          value: goal.goal,
+                        ).toString(),
+                        style: AppTextStyle.bold28,
+                      ),
+                      Text(unit.sufix, style: AppTextStyle.medium20),
                     ],
                   ),
                   const Padding(

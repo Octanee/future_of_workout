@@ -11,10 +11,12 @@ class GoalDialog extends StatelessWidget {
     this.confirmButtonText = 'Add',
     this.onDelete,
     this.value,
+    this.suffix = 'kg',
     super.key,
   });
 
   final String? value;
+  final String suffix;
   final String title;
   final ValueChanged<double> onConfirm;
   final VoidCallback? onDelete;
@@ -39,9 +41,9 @@ class GoalDialog extends StatelessWidget {
             ],
             textAlign: TextAlign.center,
             style: AppTextStyle.bold28,
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               hintText: 'Weight',
-              suffixText: 'kg',
+              suffixText: suffix,
               counterText: '',
             ),
           ),
