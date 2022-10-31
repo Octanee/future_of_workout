@@ -1,35 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:future_of_workout/src/body/body_circuit/body_circuit/body_circuit.dart';
-import 'package:future_of_workout/src/body/body_recovery/body_recovery.dart';
-import 'package:future_of_workout/src/body/body_weight/body_weight.dart';
 import 'package:future_of_workout/src/home/home.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:future_of_workout/src/workout/workout/workout.dart';
+import 'package:future_of_workout/src/workout/workout_logs/workout_logs.dart';
 
-class BodyPage extends StatelessWidget {
-  const BodyPage({super.key});
+class WorkoutsPage extends StatelessWidget {
+  const WorkoutsPage({super.key});
 
-  static String name = HomeNavigationItem.body.name;
+  static String name = HomeNavigationItem.workouts.name;
+
+  static Map<String, String> params = {'homePageTab': name};
 
   @override
   Widget build(BuildContext context) {
     return HomeWrapper(
       body: DefaultTabController(
-        length: 3,
+        length: 2,
         child: Column(
           children: const [
             CustomTabBar(
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               tabs: [
-                Tab(text: 'Recovery'),
-                Tab(text: 'Weight'),
-                Tab(text: 'Circuit'),
+                Tab(text: 'Created'),
+                // Tab(text: 'Goals'),
+                Tab(text: 'Saved'),
               ],
             ),
             CustomTabBarView(
               children: [
-                BodyRecoveryTab(),
-                BodyWeightTab(),
-                BodyCircuitTab(),
+                WorkoutsListTab(),
+                // WorkoutGoalsTab(),
+                WorkoutsLogsTab(),
               ],
             )
           ],

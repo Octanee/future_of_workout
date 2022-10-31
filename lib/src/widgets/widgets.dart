@@ -10,5 +10,6 @@ export 'charts/charts.dart';
 export 'custom_tab_bar_view.dart';
 export 'dialogs/dialogs.dart';
 export 'header.dart';
+export 'home_wrapper.dart';
 export 'items/items.dart';
 export 'states/states.dart';

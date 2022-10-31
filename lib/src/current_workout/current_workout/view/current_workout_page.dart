@@ -12,48 +12,46 @@ class CurrentWorkoutPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<CurrentWorkoutBloc, CurrentWorkoutState>(
-      listenWhen: (previous, current) => previous != current,
-      listener: (context, state) {
-        if (state.workoutLog == null) {
-          context
-              .read<NavigationCubit>()
-              .changeDestination(item: HomeNavigationItem.workouts);
-        }
-        if (state.status == CurrentWorkoutStatus.finish) {
-          context.goNamed(
-            CurrentWorkoutSummaryPage.name,
-            params: {
-              'homePageTab': CurrentWorkoutPage.name,
-            },
-          );
-        }
-      },
-      buildWhen: (previous, current) =>
-          previous.status != current.status ||
-          previous.workoutLog != current.workoutLog,
-      builder: (context, state) {
-        if (state.workoutLog != null) {
-          final workout = state.workoutLog!;
-          return AppScaffold(
-            title: workout.name,
-            actions: const [WorkoutTime()],
-            leadingIcon: null,
-            body: ListView(
+    return HomeWrapper(
+      body: BlocConsumer<CurrentWorkoutBloc, CurrentWorkoutState>(
+        listenWhen: (previous, current) => previous != current,
+        listener: (context, state) {
+          if (state.workoutLog == null) {
+            context
+                .read<NavigationCubit>()
+                .changeDestination(item: HomeNavigationItem.workouts);
+          }
+          if (state.status == CurrentWorkoutStatus.finish) {
+            context.goNamed(
+              CurrentWorkoutSummaryPage.name,
+              params: {
+                'homePageTab': CurrentWorkoutPage.name,
+              },
+            );
+          }
+        },
+        buildWhen: (previous, current) =>
+            previous.status != current.status ||
+            previous.workoutLog != current.workoutLog,
+        builder: (context, state) {
+          if (state.workoutLog != null) {
+            return ListView(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               physics: const BouncingScrollPhysics(),
               children: const [
+                TitleCard(),
                 FinishButton(),
                 CurrentWorkoutContent(),
               ],
-            ),
-          );
-        }
-        if (state.status == CurrentWorkoutStatus.failure) {
-          return const AppScaffold(body: AppError());
-        }
-        return const AppScaffold(body: AppLoading());
-      },
+              //    ),
+            );
+          }
+          if (state.status == CurrentWorkoutStatus.failure) {
+            return const AppError();
+          }
+          return const AppLoading();
+        },
+      ),
     );
   }
 }

@@ -19,12 +19,9 @@ class WorkoutTime extends StatelessWidget {
         final minutes = twoDigits(time.inMinutes.remainder(60));
         final seconds = twoDigits(time.inSeconds.remainder(60));
 
-        return Padding(
-          padding: const EdgeInsets.all(16),
-          child: Text(
-            '$hours:$minutes:$seconds',
-            style: AppTextStyle.semiBold20,
-          ),
+        return Text(
+          '$hours:$minutes:$seconds',
+          style: AppTextStyle.semiBold20,
         );
       },
     );

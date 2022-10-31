@@ -28,35 +28,33 @@ class SettingsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppScaffold(
-      body: SafeArea(
-        child: BlocBuilder<SettingsBloc, SettingsState>(
-          buildWhen: (previous, current) => previous.status != current.status,
-          builder: (context, state) {
-            switch (state.status) {
-              case SettingsStatus.initial:
-              case SettingsStatus.loading:
-                return const AppLoading();
-              case SettingsStatus.failure:
-                return const AppError();
-              case SettingsStatus.success:
-                return ListView(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  physics: const BouncingScrollPhysics(),
-                  children: const [
-                    AgeCard(),
-                    HeightCard(),
-                    WeightCard(),
-                    GenderCard(),
-                    Header(text: 'Preferences'),
-                    LengthUnitCard(),
-                    WeightUnitCard(),
-                  ],
-                );
-            }
-          },
-        ),
+    return HomeWrapper(
+      body: BlocBuilder<SettingsBloc, SettingsState>(
+        buildWhen: (previous, current) => previous.status != current.status,
+        builder: (context, state) {
+          switch (state.status) {
+            case SettingsStatus.initial:
+            case SettingsStatus.loading:
+              return const AppLoading();
+            case SettingsStatus.failure:
+              return const AppError();
+            case SettingsStatus.success:
+              return ListView(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                physics: const BouncingScrollPhysics(),
+                children: const [
+                  AgeCard(),
+                  HeightCard(),
+                  WeightCard(),
+                  GenderCard(),
+                  Header(text: 'Preferences'),
+                  LengthUnitCard(),
+                  WeightUnitCard(),
+                ],
+              );
+          }
+        },
       ),
     );
   }
