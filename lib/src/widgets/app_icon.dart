@@ -58,6 +58,7 @@ enum AppIcons {
   settings('settings.svg'),
   starFilled('star_filled.svg'),
   star('star.svg'),
+  stats('stats.svg'),
   stop('stop.svg'),
   stopwatch('stopwatch.svg'),
   trash('trash.svg'),
