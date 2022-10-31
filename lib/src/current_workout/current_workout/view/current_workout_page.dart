@@ -3,22 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/current_workout/current_workout.dart';
 import 'package:future_of_workout/src/home/home.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
-import 'package:future_of_workout/src/workout/workouts/workouts.dart';
 import 'package:go_router/go_router.dart';
 
 class CurrentWorkoutPage extends StatelessWidget {
   const CurrentWorkoutPage({super.key});
 
   static String name = 'currentWorkout';
-
-  @override
-  Widget build(BuildContext context) {
-    return const CurrentWorkoutView();
-  }
-}
-
-class CurrentWorkoutView extends StatelessWidget {
-  const CurrentWorkoutView({super.key});
 
   @override
   Widget build(BuildContext context) {
