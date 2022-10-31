@@ -22,7 +22,7 @@ class NavigationItem extends StatelessWidget {
 
         return Flexible(
           fit: FlexFit.tight,
-          flex: 2,
+          flex: 3,
           child: Padding(
             padding: const EdgeInsets.only(bottom: 4),
             child: IconButton(

@@ -1,6 +1,10 @@
+import 'package:exercise_repository/exercise_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:future_of_workout/src/app/bloc/app_bloc.dart';
 import 'package:future_of_workout/src/exercise/exercise.dart';
+import 'package:future_of_workout/src/shared/unit_converter.dart';
 import 'package:future_of_workout/src/styles/app_text_style.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:go_router/go_router.dart';
@@ -16,20 +20,19 @@ class GoalItem extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final width = constraints.maxWidth;
+
         return Padding(
           padding: const EdgeInsets.only(bottom: 8),
           child: CustomCard(
             padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
             child: Column(
               children: [
-                _getImages(width / 4),
-                const SizedBox(height: 16),
-                Text(
-                  goal.exercise.name,
-                  style: AppTextStyle.bold20,
+                _GoalExercise(
+                  exercise: goal.exercise,
+                  width: width / 4,
                 ),
                 const SizedBox(height: 8),
-                _getText(),
+                _GoalValue(value: goal.goal),
               ],
             ),
             onTap: () {
@@ -43,8 +46,51 @@ class GoalItem extends StatelessWidget {
       },
     );
   }
+}
 
-  Widget _getText() {
+class _GoalExercise extends StatelessWidget {
+  const _GoalExercise({required this.exercise, required this.width});
+
+  final Exercise exercise;
+  final double width;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SvgPicture.asset(
+              exercise.imagePath,
+              width: width,
+            ),
+            const SizedBox(width: 8),
+            SvgPicture.asset(
+              exercise.imagePathSecondary,
+              width: width,
+            ),
+            const SizedBox(height: 16),
+          ],
+        ),
+        Text(
+          exercise.name,
+          style: AppTextStyle.bold20,
+        ),
+      ],
+    );
+  }
+}
+
+class _GoalValue extends StatelessWidget {
+  const _GoalValue({required this.value});
+
+  final double value;
+
+  @override
+  Widget build(BuildContext context) {
+    final unit = context.read<AppBloc>().state.user!.weightUnit;
+
     return Row(
       textBaseline: TextBaseline.ideographic,
       crossAxisAlignment: CrossAxisAlignment.baseline,
@@ -59,31 +105,14 @@ class GoalItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.baseline,
           children: [
             Text(
-              '${goal.goal}',
+              '${UnitConverter.dispalyedWeight(unit: unit, value: value)}',
               style: AppTextStyle.semiBold20,
             ),
             Text(
-              'kg',
+              unit.sufix,
               style: AppTextStyle.medium16,
             ),
           ],
-        ),
-      ],
-    );
-  }
-
-  Widget _getImages(double width) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SvgPicture.asset(
-          goal.exercise.imagePath,
-          width: width,
-        ),
-        const SizedBox(width: 8),
-        SvgPicture.asset(
-          goal.exercise.imagePathSecondary,
-          width: width,
         ),
       ],
     );

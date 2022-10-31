@@ -17,9 +17,11 @@ class BottomNavigation extends StatelessWidget {
         children: [
           Visibility(
             visible: currentWorkout != null,
-            child: const Flexible(fit: FlexFit.tight, child: SizedBox()),
+            child:
+                const Flexible(flex: 2, fit: FlexFit.tight, child: SizedBox()),
           ),
           const NavigationItem(item: HomeNavigationItem.workouts),
+          const NavigationItem(item: HomeNavigationItem.goals),
           const NavigationItem(item: HomeNavigationItem.body),
           const NavigationItem(item: HomeNavigationItem.settings),
         ],

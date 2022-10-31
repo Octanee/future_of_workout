@@ -4,6 +4,7 @@ import 'package:future_of_workout/src/current_workout/current_workout.dart';
 import 'package:future_of_workout/src/settings/view/settings_page.dart';
 import 'package:future_of_workout/src/widgets/app_icon.dart';
 import 'package:future_of_workout/src/workout/workouts/workouts.dart';
+import 'package:future_of_workout/src/workout_goals/workout_goals.dart';
 
 enum HomeNavigationItem {
   currentWorkout(
@@ -16,12 +17,16 @@ enum HomeNavigationItem {
     view: WorkoutsPage(),
     label: 'Plans',
   ),
+  goals(
+    icon: AppIcons.stats,
+    view: WorkoutGoalsTab(),
+    label: 'Progress',
+  ),
   body(
     icon: AppIcons.muscle,
     view: BodyPage(),
     label: 'Body',
   ),
-
   settings(
     icon: AppIcons.settings,
     view: SettingsPage(),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:future_of_workout/src/workout/workout_goals/workout_goals.dart';
+import 'package:future_of_workout/src/workout_goals/workout_goals.dart';
 
 class GoalsList extends StatelessWidget {
   const GoalsList({super.key});

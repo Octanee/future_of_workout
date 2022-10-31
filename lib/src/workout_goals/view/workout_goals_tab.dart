@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
-import 'package:future_of_workout/src/workout/workout_goals/workout_goals.dart';
+import 'package:future_of_workout/src/workout_goals/workout_goals.dart';
 import 'package:goal_repository/goal_repository.dart';
 
 class WorkoutGoalsTab extends StatelessWidget {
