@@ -45,3 +45,46 @@ class CurrentWorkoutAdd extends CurrentWorkoutEvent {
   @override
   List<Object?> get props => exercises;
 }
+
+class CurrentWorkoutRestStarted extends CurrentWorkoutEvent {
+  const CurrentWorkoutRestStarted({
+    required this.restDuration,
+    required this.workoutExerciseId,
+  });
+
+  final int restDuration;
+  final String workoutExerciseId;
+
+  @override
+  List<Object> get props => [restDuration, workoutExerciseId];
+}
+
+class CurrentWorkoutRestStop extends CurrentWorkoutEvent {
+  const CurrentWorkoutRestStop();
+}
+
+class CurrentWorkoutRestAdd extends CurrentWorkoutEvent {
+  const CurrentWorkoutRestAdd({required this.value});
+
+  final int value;
+
+  @override
+  List<Object?> get props => [value];
+}
+
+class CurrentWorkoutRestSubtract extends CurrentWorkoutEvent {
+  const CurrentWorkoutRestSubtract({required this.value});
+
+  final int value;
+
+  @override
+  List<Object?> get props => [value];
+}
+
+class CurrentWorkoutRestTicked extends CurrentWorkoutEvent {
+  const CurrentWorkoutRestTicked({required this.restDuration});
+  final int restDuration;
+
+  @override
+  List<Object> get props => [restDuration];
+}

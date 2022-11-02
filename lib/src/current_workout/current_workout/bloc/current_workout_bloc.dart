@@ -25,6 +25,11 @@ class CurrentWorkoutBloc
     on<CurrentWorkoutClear>(_onClear);
     on<CurrentWorkoutTicked>(_onTicked);
     on<CurrentWorkoutAdd>(_onAdd);
+    on<CurrentWorkoutRestStarted>(_onRestStarted);
+    on<CurrentWorkoutRestStop>(_onRestStop);
+    on<CurrentWorkoutRestTicked>(_onRestTicked);
+    on<CurrentWorkoutRestAdd>(_onRestAdd);
+    on<CurrentWorkoutRestSubtract>(_onRestSubtract);
   }
 
   final WorkoutRepository _workoutRepository;
@@ -32,10 +37,12 @@ class CurrentWorkoutBloc
 
   final Ticker _ticker;
   StreamSubscription<int>? _tickerSubscription;
+  StreamSubscription<int>? _restTickerSubscription;
 
   @override
   Future<void> close() {
     _tickerSubscription?.cancel();
+    _restTickerSubscription?.cancel();
     return super.close();
   }
 
@@ -95,20 +102,23 @@ class CurrentWorkoutBloc
   void _listenTickerSubscription({required DateTime startDate}) {
     _tickerSubscription?.cancel();
     final duration = DateTime.now().difference(startDate);
-    _tickerSubscription = _ticker
-        .tick(time: duration.inSeconds)
-        .listen((time) => add(CurrentWorkoutTicked(time: time)));
+    _tickerSubscription = _ticker.tick(time: duration.inSeconds).listen((time) {
+      add(CurrentWorkoutTicked(time: time));
+    });
   }
 
   Future<void> _onFinish(
     CurrentWorkoutFinish event,
     Emitter<CurrentWorkoutState> emit,
   ) async {
-    emit(state.copyWith(status: CurrentWorkoutStatus.updating));
-
     final workoutLog = state.workoutLog!.copyWith(endDate: DateTime.now());
 
-    await _workoutLogRepository.saveWorkoutLog(workoutLog: workoutLog);
+    if (workoutLog.workoutExerciseLogs.any(
+      (exercise) =>
+          exercise.exerciseSeriesLogs.any((series) => series.isFinished),
+    )) {
+      await _workoutLogRepository.saveWorkoutLog(workoutLog: workoutLog);
+    }
 
     await _tickerSubscription!.cancel();
 
@@ -138,8 +148,6 @@ class CurrentWorkoutBloc
     CurrentWorkoutAdd event,
     Emitter<CurrentWorkoutState> emit,
   ) async {
-    emit(state.copyWith(status: CurrentWorkoutStatus.updating));
-
     final log = state.workoutLog!;
 
     final exercises = List.of(log.workoutExerciseLogs);
@@ -158,8 +166,77 @@ class CurrentWorkoutBloc
 
     await _workoutLogRepository.saveWorkoutLog(workoutLog: workout);
 
+    emit(state.copyWith(workoutLog: workout));
+  }
+
+  void _onRestStarted(
+    CurrentWorkoutRestStarted event,
+    Emitter<CurrentWorkoutState> emit,
+  ) {
     emit(
-      state.copyWith(status: CurrentWorkoutStatus.updated, workoutLog: workout),
+      state.copyWith(
+        status: CurrentWorkoutStatus.rest,
+        restDuration: () => event.restDuration,
+        workoutExerciseId: event.workoutExerciseId,
+      ),
+    );
+
+    _restTickerSubscription?.cancel();
+    _restTickerSubscription =
+        _ticker.countdown(time: event.restDuration).listen((duration) {
+      add(CurrentWorkoutRestTicked(restDuration: duration));
+    });
+  }
+
+  FutureOr<void> _onRestStop(
+    CurrentWorkoutRestStop event,
+    Emitter<CurrentWorkoutState> emit,
+  ) {
+    _restTickerSubscription?.cancel();
+    emit(
+      state.copyWith(
+        restDuration: () => null,
+        status: CurrentWorkoutStatus.restComplete,
+      ),
+    );
+  }
+
+  void _onRestTicked(
+    CurrentWorkoutRestTicked event,
+    Emitter<CurrentWorkoutState> emit,
+  ) {
+    emit(
+      event.restDuration > 0
+          ? state.copyWith(restDuration: () => event.restDuration)
+          : state.copyWith(
+              restDuration: () => null,
+              status: CurrentWorkoutStatus.restComplete,
+            ),
+    );
+  }
+
+  FutureOr<void> _onRestAdd(
+    CurrentWorkoutRestAdd event,
+    Emitter<CurrentWorkoutState> emit,
+  ) {
+    add(
+      CurrentWorkoutRestStarted(
+        restDuration: state.restDuration! + 15,
+        workoutExerciseId: state.workoutExerciseId!,
+      ),
+    );
+  }
+
+  FutureOr<void> _onRestSubtract(
+    CurrentWorkoutRestSubtract event,
+    Emitter<CurrentWorkoutState> emit,
+  ) {
+    final duration = (state.restDuration! - 15).clamp(1, 999);
+    add(
+      CurrentWorkoutRestStarted(
+        restDuration: duration,
+        workoutExerciseId: state.workoutExerciseId!,
+      ),
     );
   }
 }

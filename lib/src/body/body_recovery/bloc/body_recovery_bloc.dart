@@ -27,15 +27,17 @@ class BodyRecoveryBloc extends Bloc<BodyRecoveryEvent, BodyRecoveryState> {
     await emit.forEach<List<WorkoutLog>>(
       _repository.getWorkoutLogs(),
       onData: (logs) {
-        const recoveryTime = 72;
+        const timeElapsed = 24 * 7;
 
         final list = logs.where(
           (log) =>
               log.endDate?.isAfter(
-                DateTime.now().subtract(const Duration(hours: recoveryTime)),
+                DateTime.now().subtract(const Duration(hours: timeElapsed)),
               ) ??
               false,
         );
+
+        const recoveryTime = 24 * 3;
 
         final body = _getBody(list, recoveryTime);
 

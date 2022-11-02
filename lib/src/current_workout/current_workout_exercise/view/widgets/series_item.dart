@@ -33,12 +33,13 @@ class SeriesItem extends StatelessWidget {
           child: ExerciseSeriesLogItem(
             series: series,
             onTap: () async {
+              final workoutBloc = context.read<CurrentWorkoutBloc>();
               final bloc = context.read<CurrentWorkoutExerciseBloc>();
               final unit = context.read<AppBloc>().state.user!.weightUnit;
 
               await showDialog<void>(
                 context: context,
-                builder: (builderContext) => SeriesLogDialog(
+                builder: (context) => SeriesLogDialog(
                   weight: UnitConverter.dispalyedWeight(
                     unit: unit,
                     value: series.weight,
@@ -63,13 +64,17 @@ class SeriesItem extends StatelessWidget {
                       ),
                     );
                     if (!series.isFinished) {
+                      workoutBloc.add(
+                        CurrentWorkoutRestStarted(
+                          restDuration: series.rest,
+                          workoutExerciseId: bloc.state.workoutExerciseLog!.id,
+                        ),
+                      );
                       context.goNamed(
                         CurrentWorkoutRestPage.name,
-                        params: {
-                          'homePageTab': CurrentWorkoutPage.name,
-                          'currentWorkoutExerciseId': series.id,
-                          'time': series.rest.toString(),
-                        },
+                        params: CurrentWorkoutRestPage.params(
+                          workoutExerciseId: bloc.state.workoutExerciseLog!.id,
+                        ),
                       );
                     }
                   },

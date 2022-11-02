@@ -189,12 +189,9 @@ class AppRouter {
     name: CurrentWorkoutRestPage.name,
     path: CurrentWorkoutRestPage.path,
     pageBuilder: (context, state) {
-      final time = int.tryParse(state.params['time']!) ?? 120;
       return _buildTransition(
         key: state.pageKey,
-        child: CurrentWorkoutRestPage(
-          duration: time,
-        ),
+        child: const CurrentWorkoutRestPage(),
       );
     },
   );

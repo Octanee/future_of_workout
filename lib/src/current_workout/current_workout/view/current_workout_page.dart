@@ -21,6 +21,7 @@ class CurrentWorkoutPage extends StatelessWidget {
                 .read<NavigationCubit>()
                 .changeDestination(item: HomeNavigationItem.workouts);
           }
+
           if (state.status == CurrentWorkoutStatus.finish) {
             context.goNamed(
               CurrentWorkoutSummaryPage.name,

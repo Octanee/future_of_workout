@@ -22,12 +22,15 @@ class ExerciseLogsList extends StatelessWidget {
                   child: WorkoutExerciseLogItem(
                     workoutExerciseLog: workoutExerciseLog,
                     onTap: () {
+                      if (state.workoutExerciseId == workoutExerciseLog.id) {
+                        ScaffoldMessenger.of(context)
+                            .hideCurrentMaterialBanner();
+                      }
                       context.goNamed(
                         CurrentWorkoutExercisePage.name,
-                        params: {
-                          'homePageTab': CurrentWorkoutPage.name,
-                          'currentWorkoutExerciseId': workoutExerciseLog.id
-                        },
+                        params: CurrentWorkoutExercisePage.params(
+                          workoutExerciseLog: workoutExerciseLog.id,
+                        ),
                       );
                     },
                   ),
