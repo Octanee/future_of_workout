@@ -2,6 +2,7 @@ import 'package:exercise_api/exercise_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/exercise/exercise.dart';
+import 'package:future_of_workout/src/exercise/exercise_details/view/widgets/widgets.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 
 class MusclesList extends StatelessWidget {
