@@ -1,8 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
-import 'package:future_of_workout/src/styles/styles.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:workout_api/workout_api.dart';
 
 class WorkoutExerciseItem extends StatelessWidget {
@@ -44,7 +41,8 @@ class WorkoutExerciseItem extends StatelessWidget {
                       style: AppTextStyle.bold20,
                     ),
                     Text(
-                      '${workoutExercise.exerciseSeries.length} series',
+                      context.local
+                          .seriesCount(workoutExercise.exerciseSeries.length),
                       style: AppTextStyle.medium16,
                     ),
                   ],

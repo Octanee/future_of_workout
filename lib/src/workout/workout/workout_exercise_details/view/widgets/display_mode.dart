@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/workout/workout/workout_exercise_details/workout_exercise_details.dart';
 
 class DisplayMode extends StatelessWidget {
@@ -17,7 +16,9 @@ class DisplayMode extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.only(bottom: 8),
           child: BarButton(
-            text: isAdvanced ? 'Simple mode' : 'Advanced mode',
+            text: isAdvanced
+                ? context.local.simpleMode
+                : context.local.advancedMode,
             icon: isAdvanced
                 ? const AppIcon(iconData: AppIcons.listLess)
                 : const AppIcon(iconData: AppIcons.listMore),

@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:future_of_workout/src/shared/shared.dart';
-import 'package:future_of_workout/src/shared/unit_converter.dart';
 import 'package:measurement_repository/measurement_repository.dart';
 import 'package:user_repository/user_repository.dart';
 

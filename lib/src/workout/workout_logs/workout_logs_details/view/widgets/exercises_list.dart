@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/workout/workout_logs/workout_logs.dart';
 
 class ExercisesList extends StatelessWidget {
@@ -18,7 +17,7 @@ class ExercisesList extends StatelessWidget {
           visible: logs.isNotEmpty,
           child: Column(
             children: [
-              const Header(text: 'Exercises'),
+              Header(text: context.local.exercises),
               ...logs.map<Widget>(
                 (exerciseLog) => ExerciseLogItem(
                   log: exerciseLog,

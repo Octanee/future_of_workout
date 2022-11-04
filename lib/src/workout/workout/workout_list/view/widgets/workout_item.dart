@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:future_of_workout/src/styles/styles.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:workout_api/workout_api.dart';
 
 class WorkoutItem extends StatelessWidget {
@@ -26,7 +24,7 @@ class WorkoutItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: _getContent(constraints.maxWidth / 2),
+              children: _getContent(constraints.maxWidth / 2, context),
             ),
           ),
         );
@@ -34,11 +32,11 @@ class WorkoutItem extends StatelessWidget {
     );
   }
 
-  List<Widget> _getContent(double size) {
+  List<Widget> _getContent(double size, BuildContext context) {
     final list = [
       Align(
         alignment: isReverse ? Alignment.topRight : Alignment.topLeft,
-        child: _getData(size),
+        child: _getData(size, context),
       ),
       _getBody(size * 0.8),
     ];
@@ -49,7 +47,7 @@ class WorkoutItem extends StatelessWidget {
     return list;
   }
 
-  Widget _getData(double size) {
+  Widget _getData(double size, BuildContext context) {
     return SizedBox(
       width: size,
       child: Padding(
@@ -64,7 +62,7 @@ class WorkoutItem extends StatelessWidget {
           children: [
             Text(workout.name, style: AppTextStyle.bold24),
             const SizedBox(height: 16),
-            _buildExercises(),
+            _buildExercises(context),
             const SizedBox(height: 8),
           ],
         ),
@@ -79,11 +77,11 @@ class WorkoutItem extends StatelessWidget {
     );
   }
 
-  Widget _buildExercises() {
+  Widget _buildExercises(BuildContext context) {
     final exercises = workout.workoutExercises.length;
     final text = _buildText(
       bold: '$exercises ',
-      medium: 'exercises',
+      medium: context.local.exercisesCount(exercises),
     );
     return _buildRow(
       text: text,

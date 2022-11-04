@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/workout/workout/workout.dart';
+import 'package:future_of_workout/src/workout/workout/workout_list/view/widgets/widgets.dart';
 import 'package:future_of_workout/src/workout/workouts/workouts.dart';
 import 'package:go_router/go_router.dart';
 import 'package:workout_repository/workout_repository.dart';
@@ -50,10 +50,10 @@ class WorkoutListView extends StatelessWidget {
               body: AppError(),
             );
           case WorkoutListStatus.empty:
-            return const AppScaffold(
-              floatingActionButton: AddWorkout(),
+            return AppScaffold(
+              floatingActionButton: const AddWorkout(),
               body: AppEmptyList(
-                text: 'No workout was found..',
+                text: context.local.workoutListEmpty,
               ),
             );
           case WorkoutListStatus.loaded:

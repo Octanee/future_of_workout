@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/workout/workout_logs/workout_logs.dart';
 import 'package:future_of_workout/src/workout/workouts/workouts.dart';
 import 'package:go_router/go_router.dart';
@@ -21,7 +21,7 @@ class WorkoutLogsList extends StatelessWidget {
             final item = state.logs[index];
 
             if (item.endDate == null) return Container();
-            
+
             return WorkoutLogItem(
               log: item,
               isReverse: index.isOdd,

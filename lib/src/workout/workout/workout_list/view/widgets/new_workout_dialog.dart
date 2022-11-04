@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:future_of_workout/src/styles/styles.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:future_of_workout/src/common.dart';
 
 class NewWorkoutDialog extends StatelessWidget {
   const NewWorkoutDialog({required this.onConfirm, super.key});
@@ -11,15 +9,15 @@ class NewWorkoutDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = TextEditingController();
     return CustomDialog(
-      title: 'New Workout',
+      title: context.local.newWorkout,
       content: TextField(
         controller: controller,
         style: AppTextStyle.bold28,
-        decoration: const InputDecoration(
-          hintText: 'Name',
+        decoration: InputDecoration(
+          hintText: context.local.name,
         ),
       ),
-      confirmButtonText: 'Add',
+      confirmButtonText: context.local.add,
       onConfirm: () {
         final name = controller.text;
 

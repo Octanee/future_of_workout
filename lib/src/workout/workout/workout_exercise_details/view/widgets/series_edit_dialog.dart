@@ -1,8 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:future_of_workout/src/shared/formatter.dart';
-import 'package:future_of_workout/src/styles/styles.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:future_of_workout/src/common.dart';
 
 class SeriesEditDialog extends StatelessWidget {
   const SeriesEditDialog({
@@ -10,7 +7,7 @@ class SeriesEditDialog extends StatelessWidget {
     required this.reps,
     required this.rest,
     required this.onConfirm,
-    this.title = 'Change Series',
+    required this.title,
     this.weightSuffix = 'kg',
     super.key,
   });
@@ -77,7 +74,7 @@ class _WeightRow extends StatelessWidget {
             textAlign: TextAlign.center,
             style: AppTextStyle.bold28,
             decoration: InputDecoration(
-              hintText: 'Weight',
+              hintText: context.local.weight,
               suffixText: suffix,
               counterText: '',
             ),
@@ -111,9 +108,9 @@ class _RepsRow extends StatelessWidget {
             ],
             textAlign: TextAlign.center,
             style: AppTextStyle.bold28,
-            decoration: const InputDecoration(
-              hintText: 'Reps',
-              suffixText: 'reps',
+            decoration: InputDecoration(
+              hintText: context.local.reps,
+              suffixText: context.local.reps,
               counterText: '',
             ),
           ),
@@ -146,8 +143,8 @@ class _RestRow extends StatelessWidget {
             ],
             textAlign: TextAlign.center,
             style: AppTextStyle.bold28,
-            decoration: const InputDecoration(
-              hintText: 'Rest time',
+            decoration: InputDecoration(
+              hintText: context.local.restTime,
               suffixText: 's',
               counterText: '',
             ),

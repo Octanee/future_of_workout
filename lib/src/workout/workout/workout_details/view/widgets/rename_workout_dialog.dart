@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:future_of_workout/src/styles/styles.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:future_of_workout/src/common.dart';
 
 class RenameWorkoutDialog extends StatelessWidget {
   const RenameWorkoutDialog({
@@ -16,12 +14,12 @@ class RenameWorkoutDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = TextEditingController(text: name);
     return CustomDialog(
-      title: 'Change name',
+      title: context.local.changeName,
       content: TextField(
         controller: controller,
         style: AppTextStyle.bold28,
-        decoration: const InputDecoration(
-          hintText: 'Name',
+        decoration: InputDecoration(
+          hintText: context.local.name,
         ),
       ),
       onConfirm: () {

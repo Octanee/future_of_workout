@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/workout/workout_logs/workout_logs.dart';
 import 'package:workout_log_repository/workout_log_repository.dart';
 
@@ -33,9 +32,9 @@ class WorkoutsLogsView extends StatelessWidget {
           case WorkoutLogsStatus.loaded:
             return const WorkoutLogsList();
           case WorkoutLogsStatus.empty:
-            return const AppScaffold(
+            return AppScaffold(
               body: AppEmptyList(
-                text: 'No workout has been done yet.',
+                text: context.local.workoutLogsListEmpty,
               ),
             );
           case WorkoutLogsStatus.failure:

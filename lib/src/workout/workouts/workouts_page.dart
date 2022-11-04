@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/home/home.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:future_of_workout/src/workout/workout/workout.dart';
 import 'package:future_of_workout/src/workout/workout_logs/workout_logs.dart';
 
@@ -17,19 +16,18 @@ class WorkoutsPage extends StatelessWidget {
       body: DefaultTabController(
         length: 2,
         child: Column(
-          children: const [
+          children: [
             CustomTabBar(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               tabs: [
-                Tab(text: 'Created'),
+                Tab(text: context.local.created),
                 // Tab(text: 'Goals'),
-                Tab(text: 'Saved'),
+                Tab(text: context.local.saved),
               ],
             ),
-            CustomTabBarView(
+            const CustomTabBarView(
               children: [
                 WorkoutsListTab(),
-                // WorkoutGoalsTab(),
                 WorkoutsLogsTab(),
               ],
             )

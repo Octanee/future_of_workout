@@ -1,9 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/app/bloc/app_bloc.dart';
-import 'package:future_of_workout/src/shared/unit_converter.dart';
-import 'package:future_of_workout/src/styles/styles.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/workout/workout/workout.dart';
 import 'package:workout_api/workout_api.dart';
 
@@ -43,7 +40,9 @@ class ExerciseSeriesItem extends StatelessWidget {
       context: context,
       builder: (context) {
         return SeriesEditDialog(
-          title: isMulti ? 'Change all series' : 'Change $value series',
+          title: isMulti
+              ? context.local.changeAllSeries
+              : context.local.changeSeries(value),
           reps: series.reps.toString(),
           weight: UnitConverter.dispalyedWeight(
             unit: unit,
@@ -115,7 +114,7 @@ class _SeriesData extends StatelessWidget {
                 ),
                 BoldText(
                   boldText: series.reps.toString(),
-                  mediumText: 'reps',
+                  mediumText: context.local.reps,
                   boldTextStyle: AppTextStyle.bold24,
                 ),
               ],
@@ -167,7 +166,6 @@ class _RestData extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 8),
             child: AppIcon(iconData: AppIcons.stopwatch),
           ),
-
           BoldText(
             boldText: series.rest.toString(),
             mediumText: 's',

@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:future_of_workout/src/styles/styles.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:intl/intl.dart';
 import 'package:workout_log_api/workout_log_api.dart';
 
@@ -26,7 +24,7 @@ class WorkoutLogItem extends StatelessWidget {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(16),
             child: Row(
-              children: _getContent(constraints.maxWidth / 2),
+              children: _getContent(constraints.maxWidth / 2, context),
             ),
           ),
         );
@@ -34,11 +32,11 @@ class WorkoutLogItem extends StatelessWidget {
     );
   }
 
-  List<Widget> _getContent(double size) {
+  List<Widget> _getContent(double size, BuildContext context) {
     final list = [
       Align(
         alignment: isReverse ? Alignment.topRight : Alignment.topLeft,
-        child: _getData(size),
+        child: _getData(size, context),
       ),
       _getBody(size),
     ];
@@ -49,7 +47,7 @@ class WorkoutLogItem extends StatelessWidget {
     return list;
   }
 
-  Widget _getData(double size) {
+  Widget _getData(double size, BuildContext context) {
     return SizedBox(
       width: size,
       child: Padding(
@@ -67,7 +65,7 @@ class WorkoutLogItem extends StatelessWidget {
             const SizedBox(height: 8),
             _buildTime(),
             const SizedBox(height: 8),
-            _buildExercises(),
+            _buildExercises(context),
             const SizedBox(height: 8),
           ],
         ),
@@ -107,14 +105,14 @@ class WorkoutLogItem extends StatelessWidget {
     );
   }
 
-  Widget _buildExercises() {
+  Widget _buildExercises(BuildContext context) {
     final exercises = log.workoutExerciseLogs
         .where((exercise) => exercise.isFinished)
         .toList()
         .length;
     final text = BoldText(
       boldText: '$exercises ',
-      mediumText: 'exercises',
+      mediumText: context.local.exercisesCount(exercises),
     );
     return _buildRow(
       text: text,

@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/exercise/exercise.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:future_of_workout/src/workout/workout/workout.dart';
 import 'package:go_router/go_router.dart';
 
@@ -15,7 +14,7 @@ class AddWorkoutExercise extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.only(bottom: 8),
           child: AddButton(
-            text: 'Add exercise',
+            text: context.local.addExercise,
             onTap: () {
               context.pushNamed(
                 ExerciseListPage.name,
