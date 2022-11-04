@@ -1,11 +1,10 @@
 import 'package:exercise_repository/exercise_repository.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/app/bloc/app_bloc.dart';
 import 'package:future_of_workout/src/app/router/app_router.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/current_workout/current_workout.dart';
 import 'package:future_of_workout/src/home/home.dart';
-import 'package:future_of_workout/src/styles/app_theme.dart';
 import 'package:go_router/go_router.dart';
 import 'package:goal_repository/goal_repository.dart';
 import 'package:measurement_repository/measurement_repository.dart';
@@ -88,6 +87,8 @@ class FutureOfWorkoutAppView extends StatelessWidget {
       routeInformationParser: router.routeInformationParser,
       routerDelegate: router.routerDelegate,
       routeInformationProvider: router.routeInformationProvider,
+      supportedLocales: AppLocalizations.supportedLocales,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
     );
   }
 }

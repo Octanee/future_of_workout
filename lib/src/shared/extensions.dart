@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:future_of_workout/src/common.dart';
 
 extension DarkenAndLighten on Color {
   Color darken({double amount = 0.1}) {
@@ -46,4 +46,8 @@ extension Precision on double {
   double toPrecision(int precision) {
     return double.parse(toStringAsFixed(precision));
   }
+}
+
+extension SimpleLocalization on BuildContext {
+  AppLocalizations get local => AppLocalizations.of(this)!;
 }

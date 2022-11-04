@@ -1,0 +1,10 @@
+{
+    "language": "English",
+    "@language": {
+        "description": "The current language"
+    },
+    "age": "Age",
+    "@age": {
+        "description": "The age of user"
+    }
+}
