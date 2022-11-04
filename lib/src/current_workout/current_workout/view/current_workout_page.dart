@@ -23,6 +23,7 @@ class CurrentWorkoutPage extends StatelessWidget {
           }
 
           if (state.status == CurrentWorkoutStatus.finish) {
+            ScaffoldMessenger.maybeOf(context)?.hideCurrentMaterialBanner();
             context.goNamed(
               CurrentWorkoutSummaryPage.name,
               params: {

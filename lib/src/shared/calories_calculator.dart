@@ -9,15 +9,15 @@ class CaloriesCalculator {
   }) {
     final finished = <ExerciseSeriesLog>[];
 
-    if (finished.isEmpty) {
-      return 0;
-    }
-
     for (final exercise in workout.workoutExerciseLogs) {
       final series =
           exercise.exerciseSeriesLogs.where((series) => series.isFinished);
 
       finished.addAll(series);
+    }
+
+    if (finished.isEmpty) {
+      return 0;
     }
 
     final intensity = finished

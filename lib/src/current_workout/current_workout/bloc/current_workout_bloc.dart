@@ -121,6 +121,7 @@ class CurrentWorkoutBloc
     }
 
     await _tickerSubscription!.cancel();
+    await _restTickerSubscription!.cancel();
 
     emit(
       state.copyWith(
