@@ -118,6 +118,8 @@ class CurrentWorkoutBloc
           exercise.exerciseSeriesLogs.any((series) => series.isFinished),
     )) {
       await _workoutLogRepository.saveWorkoutLog(workoutLog: workoutLog);
+    } else {
+      await _workoutLogRepository.deleteWorkoutLog(id: workoutLog.id);
     }
 
     await _tickerSubscription?.cancel();
