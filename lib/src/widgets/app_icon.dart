@@ -38,6 +38,8 @@ enum AppIcons {
   clock('clock.svg'),
   flame('flame.svg'),
   gym('gym.svg'),
+  heartFilled('heart_filled.svg'),
+  heart('heart.svg'),
   info('info.svg'),
   intensity('intensity.svg'),
   left('left.svg'),

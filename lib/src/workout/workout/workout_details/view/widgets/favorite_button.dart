@@ -13,16 +13,20 @@ class FavoriteButton extends StatelessWidget {
       buildWhen: (previous, current) =>
           previous.workout?.isFavorite != current.workout?.isFavorite,
       builder: (context, state) {
+        final isFavorite = state.workout!.isFavorite;
+        final iconData = isFavorite ? AppIcons.heartFilled : AppIcons.heart;
+        final color = isFavorite ? AppColors.yellow : null;
+
         return IconButton(
           onPressed: () => context
               .read<WorkoutDetailsBloc>()
               .add(const WorkoutDetailsFavoritToggled()),
-          icon: state.workout!.isFavorite
-              ? const AppIcon(
-                  iconData: AppIcons.starFilled,
-                  color: AppColors.yellow,
-                )
-              : const AppIcon(iconData: AppIcons.star),
+          icon: AppIcon(
+            iconData: iconData,
+            color: color,
+            height: 48,
+            widht: 48,
+          ),
         );
       },
     );
