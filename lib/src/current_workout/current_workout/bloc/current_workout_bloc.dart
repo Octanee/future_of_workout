@@ -120,8 +120,8 @@ class CurrentWorkoutBloc
       await _workoutLogRepository.saveWorkoutLog(workoutLog: workoutLog);
     }
 
-    await _tickerSubscription!.cancel();
-    await _restTickerSubscription!.cancel();
+    await _tickerSubscription?.cancel();
+    await _restTickerSubscription?.cancel();
 
     emit(
       state.copyWith(

@@ -13,7 +13,7 @@ class DefaultExerciseProvider {
 
   static Exercise _barbellBenchPress() {
     return Exercise(
-      id: '1',
+      id: DefaultExercise.barbellBenchPress.name,
       name: 'Barbell bench press',
       primaryMuscle: Muscle.chest,
       muscles: const {
@@ -30,7 +30,7 @@ class DefaultExerciseProvider {
 
   static Exercise _squat() {
     return Exercise(
-      id: '2',
+      id: DefaultExercise.squat.name,
       name: 'Squat',
       muscles: const {
         Muscle.quadriceps: MuscleInvolvement.primary,
@@ -45,7 +45,7 @@ class DefaultExerciseProvider {
 
   static Exercise _deadlift() {
     return Exercise(
-      id: '3',
+      id: DefaultExercise.deadlift.name,
       name: 'Deadlift',
       primaryMuscle: Muscle.quadriceps,
       muscles: const {
@@ -57,4 +57,16 @@ class DefaultExerciseProvider {
       imagePathSecondary: 'assets/exercises/deadlift/deadlift_end.svg',
     );
   }
+}
+
+///
+enum DefaultExercise {
+  /// Barbell Bench Press
+  barbellBenchPress,
+
+  /// Squat
+  squat,
+
+  /// Deadlift
+  deadlift,
 }

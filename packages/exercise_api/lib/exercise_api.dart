@@ -5,5 +5,6 @@ export 'package:body_api/body_api.dart' show Muscle;
 
 export 'src/exceptions/exceptions.dart';
 export 'src/exercise_api.dart';
+export 'src/instructions/instructions.dart';
 export 'src/models/models.dart';
 export 'src/provider/provider.dart';

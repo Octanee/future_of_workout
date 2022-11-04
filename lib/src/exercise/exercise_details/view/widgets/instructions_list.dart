@@ -1,5 +1,6 @@
 // ignore_for_file: lines_longer_than_80_chars
 
+import 'package:exercise_repository/exercise_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/exercise/exercise.dart';
@@ -17,22 +18,28 @@ class InststuctionsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ExerciseDetailsBloc, ExerciseDetailsState>(
+      buildWhen: (previous, current) => previous.exercise != current.exercise,
       builder: (context, state) {
-        final list = [
-          'Stand in an upright posture grabbing ahold of a barbell shoulder width apart with your palms facing away from your body just below waist height.',
-          'Brace your core by breathing into your stomach and flexing your abdominal muscles as you begin to flex your elbows to raise the bar.',
-          'Keep your elbows at your sides as you flex the barbell to shoulder height avoiding movement through your spine.',
-          'Exhale and lower the barbell back to the starting position.',
-        ];
+        final repository = context.read<ExerciseRepository>();
 
-        return Padding(
-          padding: padding,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Header(text: 'Instructions'),
-              ...list.map((text) => InstructionItem(text: text)).toList(),
-            ],
+        if (repository.instructions == null) {
+          final locale = Localizations.localeOf(context);
+          repository.initInstructions(languageCode: locale.languageCode);
+        }
+
+        final list = repository.getInstructions(id: state.exercise!.id);
+
+        return Visibility(
+          visible: list.isNotEmpty,
+          child: Padding(
+            padding: padding,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Header(text: 'Instructions'),
+                ...list.map((text) => InstructionItem(text: text)).toList(),
+              ],
+            ),
           ),
         );
       },
