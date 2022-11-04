@@ -14,6 +14,11 @@ class SeriesList extends StatelessWidget {
           previous.isAdvanced != current.isAdvanced,
       builder: (context, state) {
         final list = state.workoutExercise!.exerciseSeries;
+
+        if (list.isEmpty) {
+          return Container();
+        }
+
         // TODO(Animation): Animated list
         if (!state.isAdvanced) {
           return ExerciseSeriesItem(
