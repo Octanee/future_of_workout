@@ -61,7 +61,7 @@ class WorkoutLogItem extends StatelessWidget {
           children: [
             Text(log.name, style: AppTextStyle.bold24),
             const SizedBox(height: 16),
-            _buildDate(),
+            _buildDate(context),
             const SizedBox(height: 8),
             _buildTime(),
             const SizedBox(height: 8),
@@ -80,8 +80,11 @@ class WorkoutLogItem extends StatelessWidget {
     );
   }
 
-  Widget _buildDate() {
-    final formatter = DateFormat('dd MMM');
+  Widget _buildDate(BuildContext context) {
+    final formatter = DateFormat(
+      'dd MMM',
+      Localizations.localeOf(context).languageCode,
+    );
 
     final text = BoldText(
       boldText: formatter.format(log.startDate),

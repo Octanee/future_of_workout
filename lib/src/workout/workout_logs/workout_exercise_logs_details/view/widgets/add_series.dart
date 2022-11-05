@@ -1,4 +1,3 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/workout/workout_logs/workout_logs.dart';
 import 'package:workout_api/workout_api.dart';
@@ -33,6 +32,7 @@ class AddSeries extends StatelessWidget {
                 await showDialog<void>(
                   context: context,
                   builder: (builderContext) => SeriesLogDialog(
+                    title: context.local.completeSeries,
                     weight: last.weight.toString(),
                     reps: last.reps.toString(),
                     intensity: last.intensity,

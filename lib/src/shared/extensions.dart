@@ -21,14 +21,7 @@ extension DarkenAndLighten on Color {
   }
 }
 
-extension EmptyString on String {
-  String withDefault([String defaultValue = '']) {
-    final temp = isEmpty ? defaultValue : this;
-    return temp;
-  }
-}
-
-extension TodayDateTime on DateTime {
+extension DateTimeExtension on DateTime {
   DateTime toDay() {
     return DateTime(year, month, day);
   }
@@ -42,12 +35,23 @@ extension TodayDateTime on DateTime {
   }
 }
 
-extension Precision on double {
+extension DoubleExtension on double {
   double toPrecision(int precision) {
     return double.parse(toStringAsFixed(precision));
   }
 }
 
-extension SimpleLocalization on BuildContext {
+extension BuildContextExtension on BuildContext {
   AppLocalizations get local => AppLocalizations.of(this)!;
+}
+
+extension StringExtension on String {
+  String withDefault([String defaultValue = '']) {
+    final temp = isEmpty ? defaultValue : this;
+    return temp;
+  }
+
+  String capitalize() {
+    return '${this[0].toUpperCase()}${substring(1).toLowerCase()}';
+  }
 }

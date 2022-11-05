@@ -1,8 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
-import 'package:future_of_workout/src/styles/styles.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:workout_log_repository/workout_log_repository.dart';
 
 class WorkoutExerciseLogItem extends StatelessWidget {
@@ -82,7 +79,7 @@ class _ExerciseData extends StatelessWidget {
               style: AppTextStyle.medium16,
             ),
             Text(
-              '$series series',
+              context.local.seriesCount(series),
               style: AppTextStyle.medium16,
             ),
           ],
@@ -135,7 +132,9 @@ class _CompleteIcon extends StatelessWidget {
             borderRadius: BorderRadius.circular(64),
             color: AppColors.yellow,
           ),
-          child: const AppIcon(iconData: AppIcons.check,),
+          child: const AppIcon(
+            iconData: AppIcons.check,
+          ),
         ),
       ),
     );

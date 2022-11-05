@@ -1,9 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/app/bloc/app_bloc.dart';
-import 'package:future_of_workout/src/shared/unit_converter.dart';
-import 'package:future_of_workout/src/styles/styles.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:workout_log_api/workout_log_api.dart';
 
 class ExerciseSeriesLogItem extends StatelessWidget {
@@ -61,7 +57,7 @@ class _SeriesData extends StatelessWidget {
           ),
           BoldText(
             boldText: series.reps.toString(),
-            mediumText: 'reps',
+            mediumText: context.local.reps,
             boldTextStyle: AppTextStyle.bold24,
           ),
         ],

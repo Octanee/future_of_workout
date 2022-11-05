@@ -1,10 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/app/bloc/app_bloc.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/current_workout/current_workout.dart';
-import 'package:future_of_workout/src/shared/unit_converter.dart';
-import 'package:future_of_workout/src/styles/app_colors.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:workout_log_api/workout_log_api.dart';
 
@@ -40,6 +36,7 @@ class SeriesItem extends StatelessWidget {
               await showDialog<void>(
                 context: context,
                 builder: (context) => SeriesLogDialog(
+                  title: context.local.completeSeries,
                   weight: UnitConverter.dispalyedWeight(
                     unit: unit,
                     value: series.weight,

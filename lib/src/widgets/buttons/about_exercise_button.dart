@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/exercise/exercise.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:go_router/go_router.dart';
 
 class AboutExerciseButton extends StatelessWidget {
@@ -11,7 +10,7 @@ class AboutExerciseButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BarButton(
-      text: 'About exercise',
+      text: context.local.aboutExercise,
       icon: const AppIcon(iconData: AppIcons.info),
       onTap: () {
         context.pushNamed(

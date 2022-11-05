@@ -54,5 +54,11 @@
   },
   "reps": "Reps",
   "weight": "Weight",
-  "restTime":"Rest time"
+  "restTime": "Rest time",
+  "aboutExercise": "About exercise",
+  "completeSeries": "Complete series",
+  "updateSeries": "Update series",
+  "instructions": "Instructions",
+  "primaryMuscle": "Primary muscle",
+  "secondaryMuscle": "Secondary muscles"
 }

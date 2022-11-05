@@ -1,8 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/app/bloc/app_bloc.dart';
-import 'package:future_of_workout/src/shared/calories_calculator.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:intl/intl.dart';
 import 'package:workout_log_api/workout_log_api.dart';
 
@@ -24,7 +21,7 @@ class WorkoutSummaryCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _buildDate(),
+                _buildDate(context),
                 _buildTime(),
               ],
             ),
@@ -32,7 +29,7 @@ class WorkoutSummaryCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _buildExercises(),
+                _buildExercises(context),
                 _buildKcal(userWeight: userWeight),
               ],
             ),
@@ -42,8 +39,9 @@ class WorkoutSummaryCard extends StatelessWidget {
     );
   }
 
-  Widget _buildDate() {
-    final formatter = DateFormat('dd MMM');
+  Widget _buildDate(BuildContext context) {
+    final formatter =
+        DateFormat('dd MMM', Localizations.localeOf(context).languageCode);
 
     return _CardRow(
       boldText: formatter.format(workoutLog.startDate),
@@ -76,7 +74,7 @@ class WorkoutSummaryCard extends StatelessWidget {
     );
   }
 
-  Widget _buildExercises() {
+  Widget _buildExercises(BuildContext context) {
     final exercises = workoutLog.workoutExerciseLogs
         .where((exercise) {
           return exercise.exerciseSeriesLogs.any((series) => series.isFinished);
@@ -86,7 +84,7 @@ class WorkoutSummaryCard extends StatelessWidget {
 
     return _CardRow(
       boldText: '$exercises ',
-      mediumText: 'exercises',
+      mediumText: context.local.exercisesCount(exercises),
       icon: const AppIcon(iconData: AppIcons.gym),
     );
   }

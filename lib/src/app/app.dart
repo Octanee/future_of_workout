@@ -1,5 +1,4 @@
 import 'package:exercise_repository/exercise_repository.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/app/bloc/app_bloc.dart';
 import 'package:future_of_workout/src/app/router/app_router.dart';
 import 'package:future_of_workout/src/common.dart';

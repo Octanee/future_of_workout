@@ -26,5 +26,11 @@
   "changeSeries": "{count, plural, one{Zamień {count} serie} few{Zamień {count} serie} other{Zamień {count} serii}}",
   "reps": "Powt.",
   "weight": "Ciężar",
-  "restTime": "Przerwa"
+  "restTime": "Przerwa",
+  "aboutExercise": "Statystyki ćwiczenia",
+  "completeSeries": "Ukończ serie",
+  "updateSeries": "Aktualizuj serie",
+  "instructions": "Instrukcja",
+  "primaryMuscle": "Główne mięśnie",
+  "secondaryMuscle": "Dodatkowe mięśnie"
 }

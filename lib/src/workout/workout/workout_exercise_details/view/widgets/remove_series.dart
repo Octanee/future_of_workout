@@ -1,4 +1,3 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/workout/workout/workout.dart';
 

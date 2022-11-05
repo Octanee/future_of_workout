@@ -1,10 +1,7 @@
 import 'package:exercise_repository/exercise_repository.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/exercise/exercise.dart';
 import 'package:future_of_workout/src/exercise/exercise_details/view/widgets/widgets.dart';
-import 'package:future_of_workout/src/styles/styles.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
 
 class ExerciseDetailsPage extends StatelessWidget {
   const ExerciseDetailsPage({required this.exerciseId, super.key});
@@ -31,52 +28,35 @@ class ExerciseDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ExerciseDetailsBloc, ExerciseDetailsState>(
+      buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
-        if (state.status == ExerciseDetailsStatus.loading) {
-          return _buildLoading();
-        } else if (state.status == ExerciseDetailsStatus.success) {
-          return _buildContent(state, context);
+        switch (state.status) {
+          case ExerciseDetailsStatus.initial:
+          case ExerciseDetailsStatus.loading:
+            return const AppScaffold(body: AppLoading());
+          case ExerciseDetailsStatus.failure:
+            return const AppScaffold(body: AppError());
+          case ExerciseDetailsStatus.success:
+            final exercise = state.exercise!;
+            return AppScaffold(
+              title: state.exercise!.name,
+              body: ListView(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                physics: const BouncingScrollPhysics(),
+                children: [
+                  ExerciseImagesCard(
+                    imagePath: exercise.imagePath,
+                    imagePathSecondary: exercise.imagePathSecondary,
+                  ),
+                  const InststuctionsList(),
+                  const MusclesList(),
+                  //const EquipmentList(),
+                ],
+              ),
+            );
         }
-        return _buildFailure();
       },
-    );
-  }
-
-  Widget _buildContent(ExerciseDetailsState state, BuildContext context) {
-    final exercise = state.exercise!;
-
-    return AppScaffold(
-      title: state.exercise!.name,
-      body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        physics: const BouncingScrollPhysics(),
-        children: [
-          ExerciseImagesCard(
-            imagePath: exercise.imagePath,
-            imagePathSecondary: exercise.imagePathSecondary,
-          ),
-          const InststuctionsList(),
-          const MusclesList(),
-          //const EquipmentList(),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildFailure() {
-    return AppScaffold(
-      body: Center(
-        child: Text(
-          'Something gone wrong...',
-          style: AppTextStyle.semiBold20,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildLoading() {
-    return const AppScaffold(
-      body: AppLoading(),
     );
   }
 }
