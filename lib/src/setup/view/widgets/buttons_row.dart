@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/setup/view/widgets/widgets.dart';
 
 class ButtonsRow extends StatelessWidget {
@@ -29,7 +29,9 @@ class ButtonsRow extends StatelessWidget {
         ),
         ContinueButton(
           onPressed: isLastPage ? onFinish : nextPage,
-          text: isLastPage ? 'Finish Setup' : 'Continue',
+          text: isLastPage
+              ? context.locale.finishSetup
+              : context.locale.continueSetup,
         ),
       ],
     );

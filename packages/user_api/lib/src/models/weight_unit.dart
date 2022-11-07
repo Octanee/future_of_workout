@@ -3,19 +3,15 @@
 /// {@endtemplate}
 enum WeightUnit {
   /// Kilogram
-  kilogram(name: 'Kilogram', sufix: 'kg'),
+  kilogram(sufix: 'kg'),
 
   /// Inch
-  pounds(name: 'Pounds', sufix: 'lb');
+  pounds(sufix: 'lb');
 
   /// {@macro weight_unit}
   const WeightUnit({
-    required this.name,
     required this.sufix,
   });
-
-  /// Displayed name of unit.
-  final String name;
 
   /// Text displated after value.
   final String sufix;

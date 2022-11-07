@@ -1,9 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/settings/settings.dart';
-import 'package:future_of_workout/src/shared/logger.dart';
-import 'package:future_of_workout/src/styles/styles.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:user_repository/user_repository.dart';
 
 class WeightUnitCard extends StatelessWidget {
@@ -26,12 +22,12 @@ class WeightUnitCard extends StatelessWidget {
                 builder: (context) {
                   return EnumDialog<WeightUnit>(
                     values: {
-                      for (var unit in WeightUnit.values) unit: unit.name
+                      for (var unit in WeightUnit.values)
+                        unit: context.locale.weightUnitType(unit.name)
                     },
-                    title: 'Select weight unit',
+                    title: context.locale.selectWeightUnit,
                     selected: user.weightUnit,
                     onConfirm: (value) {
-                      logger.d('Select weight unit: $value');
                       bloc.add(
                         SettingsChangeData(
                           user: user.copyWith(weightUnit: value),
@@ -46,11 +42,11 @@ class WeightUnitCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Weight unit',
+                  context.locale.weightUnit,
                   style: AppTextStyle.bold24,
                 ),
                 Text(
-                  user.weightUnit.name,
+                  context.locale.weightUnitType(user.weightUnit.name),
                   style: AppTextStyle.semiBold20,
                 ),
               ],

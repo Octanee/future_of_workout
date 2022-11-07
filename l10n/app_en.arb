@@ -79,6 +79,7 @@
       "count": {}
     }
   },
+  "replace": "Replace",
   "replaceExercise": "Replace exercise",
   "seriesLogIntensity": "{item, select, veryLight{Very light} light{Light} moderate{Moderate} vigorous{Vigorous} maximum{Maximum} tooMuch{Too much}}",
   "@seriesLogIntensity": {
@@ -150,5 +151,55 @@
   },
   "first": "First",
   "last": "Last",
-  "change": "Change"
+  "change": "Change",
+  "age": "Age",
+  "changeAge": "Change age",
+  "settingsWeight": "Weight",
+  "changeSettingsWeight": "Change Weight",
+  "height": "Height",
+  "changeHeight": "Change height",
+  "gender": "Gender",
+  "selectGender": "Select gender",
+  "genderType": "{gender, select, male{Male} female{Female} other{Other}}",
+  "@genderType": {
+    "placeholders": {
+      "gender": {
+        "type": "String"
+      }
+    }
+  },
+  "lengthUnit": "Lenght unit",
+  "selectlengthUnit": "Select lenght unit",
+  "lengthUnitType": "{unit, select, centimeter{Centimeter} inch{Inch}}",
+  "@lengthUnitType": {
+    "placeholders": {
+      "unit": {
+        "type": "String"
+      }
+    }
+  },
+  "weightUnit": "Weight unit",
+  "selectWeightUnit": "Select weight unit",
+  "weightUnitType": "{unit, select, kilogram{Kilogram} pounds{Pounds}}",
+  "@weightUnitType": {
+    "placeholders": {
+      "unit": {
+        "type": "String"
+      }
+    }
+  },
+  "preferences": "Preferences",
+  "continueSetup": "Continue",
+  "finishSetup": "Finish setup",
+  "setupGenderTitle": "What's your gender?",
+  "setupGenderDescription": "This will help us set your goals more efficency.",
+  "setupGenderMale": "I'm a male",
+  "setupGenderFemale": "I'm a female",
+  "setupGenderOther": "I don't want to pass",
+  "setupAgeTitle": "What's your age?",
+  "setupAgeDescription": "We will customize your workout routines according to your age",
+  "setupHeightTitle": "What's your height?",
+  "setupHeightDescription": "This will help us calculate your calories and offer an appropriate dietary solution",
+  "setupWeightTitle": "What's your weight?",
+  "setupWeightDescription": "This will help us calculate your calories and offer an appropriate dietary solution"
 }

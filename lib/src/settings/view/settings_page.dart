@@ -1,8 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/home/home.dart';
 import 'package:future_of_workout/src/settings/settings.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:measurement_repository/measurement_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -43,14 +41,14 @@ class SettingsView extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 physics: const BouncingScrollPhysics(),
-                children: const [
-                  AgeCard(),
-                  HeightCard(),
-                  WeightCard(),
-                  GenderCard(),
-                  Header(text: 'Preferences'),
-                  LengthUnitCard(),
-                  WeightUnitCard(),
+                children: [
+                  const AgeCard(),
+                  const HeightCard(),
+                  const WeightCard(),
+                  const GenderCard(),
+                  Header(text: context.locale.preferences),
+                  const LengthUnitCard(),
+                  const WeightUnitCard(),
                 ],
               );
           }

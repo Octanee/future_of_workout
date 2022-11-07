@@ -1,8 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/settings/settings.dart';
-import 'package:future_of_workout/src/styles/styles.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:user_repository/user_repository.dart';
 
 class LengthUnitCard extends StatelessWidget {
@@ -27,7 +24,7 @@ class LengthUnitCard extends StatelessWidget {
                     values: {
                       for (var unit in LengthUnit.values) unit: unit.name
                     },
-                    title: 'Select lenght unit',
+                    title: context.locale.selectlengthUnit,
                     selected: user.lengthUnit,
                     onConfirm: (value) => bloc.add(
                       SettingsChangeData(
@@ -42,11 +39,11 @@ class LengthUnitCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Length unit',
+                  context.locale.lengthUnit,
                   style: AppTextStyle.bold24,
                 ),
                 Text(
-                  user.lengthUnit.name,
+                  context.locale.lengthUnitType(user.lengthUnit.name),
                   style: AppTextStyle.semiBold20,
                 ),
               ],

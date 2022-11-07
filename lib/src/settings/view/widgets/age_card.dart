@@ -1,8 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/settings/settings.dart';
-import 'package:future_of_workout/src/styles/styles.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
 
 class AgeCard extends StatelessWidget {
   const AgeCard({super.key});
@@ -23,10 +20,10 @@ class AgeCard extends StatelessWidget {
                 context: context,
                 builder: (context) {
                   return IntDialog(
-                    title: 'Change age',
+                    title: context.locale.age,
                     value: user.age,
-                    confirmButtonText: 'Save',
-                    hintText: 'Age',
+                    confirmButtonText: context.locale.save,
+                    hintText: context.locale.age,
                     maxValue: 99,
                     onConfirm: (value) => bloc.add(
                       SettingsChangeData(user: user.copyWith(age: value)),
@@ -39,7 +36,7 @@ class AgeCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Age',
+                  context.locale.age,
                   style: AppTextStyle.bold24,
                 ),
                 Text(

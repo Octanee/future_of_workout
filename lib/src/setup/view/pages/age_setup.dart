@@ -1,8 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/setup/setup.dart';
 import 'package:future_of_workout/src/setup/view/widgets/widgets.dart';
-import 'package:future_of_workout/src/styles/styles.dart';
 import 'package:numberpicker/numberpicker.dart';
 
 class AgeSetup extends StatefulWidget {
@@ -23,9 +21,8 @@ class _AgeSetupState extends State<AgeSetup> {
     const itemWidth = 128.0;
 
     return SetupContent(
-      title: "What's your age?",
-      description:
-          'We will customize your workout routines according to your age',
+      title: context.locale.setupAgeTitle,
+      description: context.locale.setupAgeDescription,
       children: [
         Center(
           child: NumberPicker(

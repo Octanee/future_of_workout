@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:future_of_workout/src/styles/styles.dart';
+import 'package:future_of_workout/src/common.dart';
 
 class ReturnButton extends StatelessWidget {
   const ReturnButton({
@@ -28,7 +27,7 @@ class ReturnButton extends StatelessWidget {
           padding: const EdgeInsets.all(16),
         ),
         onPressed: onPressed,
-        child: const Icon(Icons.keyboard_arrow_left_rounded),
+        child: const AppIcon(iconData: AppIcons.left),
       ),
     );
   }

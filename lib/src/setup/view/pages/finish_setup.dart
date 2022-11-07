@@ -1,11 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/setup/setup.dart';
 import 'package:future_of_workout/src/setup/view/widgets/widgets.dart';
-import 'package:future_of_workout/src/styles/app_text_style.dart';
-import 'package:future_of_workout/src/widgets/bold_text.dart';
-import 'package:future_of_workout/src/widgets/cards/cards.dart';
 
 class FinishSetup extends StatelessWidget {
   const FinishSetup({super.key});
@@ -17,7 +12,7 @@ class FinishSetup extends StatelessWidget {
       builder: (context, state) {
         final user = state.user;
         return SetupContent(
-          title: 'Finish',
+          title: context.locale.finishSetup,
           description: '',
           children: [
             GridView(
@@ -28,21 +23,22 @@ class FinishSetup extends StatelessWidget {
                 mainAxisSpacing: 8,
               ),
               children: [
-                _DataRow(
-                  text: 'Gender',
-                  value: user.gender.name,
+                // TODO(Function): onTap go to specific page
+                _DataCard(
+                  text: context.locale.gender,
+                  value: context.locale.genderType(user.gender.name),
                 ),
-                _DataRow(
-                  text: 'Age',
+                _DataCard(
+                  text: context.locale.age,
                   value: user.age.toString(),
                 ),
-                _DataRow(
-                  text: 'Height',
+                _DataCard(
+                  text: context.locale.height,
                   value: user.height.toString(),
                   suffix: user.lengthUnit.sufix,
                 ),
-                _DataRow(
-                  text: 'Weight',
+                _DataCard(
+                  text: context.locale.settingsWeight,
                   value: user.weight.toString(),
                   suffix: user.weightUnit.sufix,
                 ),
@@ -55,30 +51,30 @@ class FinishSetup extends StatelessWidget {
   }
 }
 
-class _DataRow extends StatelessWidget {
-  const _DataRow({
+class _DataCard extends StatelessWidget {
+  const _DataCard({
     required this.text,
     required this.value,
     this.suffix = '',
+    this.onTap,
   });
 
   final String text;
   final String value;
   final String suffix;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: CustomCard(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text(text, style: AppTextStyle.semiBold24),
-            BoldText(boldText: value, mediumText: suffix),
-          ],
-        ),
+    return CustomCard(
+      onTap: onTap,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Text(text, style: AppTextStyle.semiBold24),
+          BoldText(boldText: value, mediumText: suffix),
+        ],
       ),
     );
   }

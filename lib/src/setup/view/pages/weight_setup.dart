@@ -1,9 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/setup/setup.dart';
 import 'package:future_of_workout/src/setup/view/widgets/widgets.dart';
-import 'package:future_of_workout/src/styles/styles.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -13,10 +10,8 @@ class WeightSetup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SetupContent(
-      title: "What's your weight?",
-      description:
-          // ignore: lines_longer_than_80_chars
-          'This will help us calculate your calories and offer an appropriate dietary solution',
+      title: context.locale.setupWeightTitle,
+      description: context.locale.setupWeightDescription,
       children: [
         const _WeightUnitBar(),
         BlocBuilder<SetupBloc, SetupState>(
@@ -60,8 +55,16 @@ class _WeightUnitBar extends StatelessWidget {
               }
             },
             tabs: [
-              Tab(child: Text(WeightUnit.kilogram.name)),
-              Tab(child: Text(WeightUnit.pounds.name)),
+              Tab(
+                child: Text(
+                  context.locale.weightUnitType(WeightUnit.kilogram.name),
+                ),
+              ),
+              Tab(
+                child: Text(
+                  context.locale.weightUnitType(WeightUnit.pounds.name),
+                ),
+              ),
             ],
           ),
         );

@@ -1,9 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/settings/settings.dart';
-import 'package:future_of_workout/src/shared/unit_converter.dart';
-import 'package:future_of_workout/src/styles/styles.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
 
 class WeightCard extends StatelessWidget {
   const WeightCard({super.key});
@@ -28,13 +24,13 @@ class WeightCard extends StatelessWidget {
                 context: context,
                 builder: (context) {
                   return DoubleDialog(
-                    title: 'Change weight',
+                    title: context.locale.changeSettingsWeight,
                     value: UnitConverter.dispalyedWeight(
                       unit: user.weightUnit,
                       value: user.weight,
                     ),
-                    confirmButtonText: 'Save',
-                    hintText: 'Weight',
+                    confirmButtonText: context.locale.save,
+                    hintText: context.locale.settingsWeight,
                     suffixText: user.weightUnit.sufix,
                     onConfirm: (value) {
                       final weight = UnitConverter.dataWeight(
@@ -56,7 +52,7 @@ class WeightCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Weight',
+                  context.locale.settingsWeight,
                   style: AppTextStyle.bold24,
                 ),
                 BoldText(

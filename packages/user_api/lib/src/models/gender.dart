@@ -3,19 +3,11 @@
 /// {@endtemplate}
 enum Gender {
   /// Male
-  male(name: 'Male'),
+  male,
 
   /// Female
-  female(name: 'Female'),
+  female,
 
   /// Other
-  other(name: 'Other');
-
-  /// {@macro gender}
-  const Gender({
-    required this.name,
-  });
-
-  /// Displayed name of gender.
-  final String name;
+  other,
 }

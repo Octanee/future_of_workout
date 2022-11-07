@@ -3,19 +3,15 @@
 /// {@endtemplate}
 enum LengthUnit {
   /// Centimeter
-  centimeter(name: 'Centimeter', sufix: 'cm'),
+  centimeter(sufix: 'cm'),
 
   /// Inch
-  inch(name: 'Inch', sufix: '"');
+  inch(sufix: '"');
 
   /// {@macro length_unit}
   const LengthUnit({
-    required this.name,
     required this.sufix,
   });
-
-  /// Displayed name of unit.
-  final String name;
 
   /// Text displated after value.
   final String sufix;

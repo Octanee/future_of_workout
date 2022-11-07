@@ -1,8 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/settings/settings.dart';
-import 'package:future_of_workout/src/styles/styles.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:user_repository/user_repository.dart';
 
 class GenderCard extends StatelessWidget {
@@ -25,9 +22,10 @@ class GenderCard extends StatelessWidget {
                 builder: (context) {
                   return EnumDialog<Gender>(
                     values: {
-                      for (var gender in Gender.values) gender: gender.name
+                      for (var gender in Gender.values)
+                        gender: context.locale.genderType(gender.name)
                     },
-                    title: 'Select gender',
+                    title: context.locale.selectGender,
                     selected: user.gender,
                     onConfirm: (value) => bloc.add(
                       SettingsChangeData(user: user.copyWith(gender: value)),
@@ -40,11 +38,11 @@ class GenderCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Gender',
+                  context.locale.gender,
                   style: AppTextStyle.bold24,
                 ),
                 Text(
-                  user.gender.name,
+                  context.locale.genderType(user.gender.name),
                   style: AppTextStyle.semiBold20,
                 ),
               ],

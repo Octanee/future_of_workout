@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:future_of_workout/src/common.dart';
 
 class ContinueButton extends StatelessWidget {
   const ContinueButton({
@@ -16,7 +16,7 @@ class ContinueButton extends StatelessWidget {
       textDirection: TextDirection.rtl,
       child: ElevatedButton.icon(
         label: Text(text),
-        icon: const Icon(Icons.keyboard_arrow_right_rounded),
+        icon: const AppIcon(iconData: AppIcons.right),
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),

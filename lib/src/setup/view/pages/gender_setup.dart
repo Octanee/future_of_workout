@@ -1,11 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/setup/setup.dart';
-
 import 'package:future_of_workout/src/setup/view/widgets/widgets.dart';
-import 'package:future_of_workout/src/styles/app_colors.dart';
-import 'package:future_of_workout/src/styles/app_text_style.dart';
-import 'package:future_of_workout/src/widgets/cards/cards.dart';
 import 'package:user_repository/user_repository.dart';
 
 class GenderSetup extends StatelessWidget {
@@ -14,8 +9,8 @@ class GenderSetup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SetupContent(
-      title: "What's your gender?",
-      description: 'This will help us set your goals more efficency',
+      title: context.locale.setupGenderTitle,
+      description: context.locale.setupGenderDescription,
       children: [
         BlocBuilder<SetupBloc, SetupState>(
           buildWhen: (previous, current) =>
@@ -30,8 +25,9 @@ class GenderSetup extends StatelessWidget {
               ),
               children: [
                 _GenderCard(
+                  // TODO(Icon): Change icon
                   icon: Icons.male_rounded,
-                  text: "I'm a male",
+                  text: context.locale.setupGenderMale,
                   isSelected: state.user.gender == Gender.male,
                   onTap: () {
                     context
@@ -40,8 +36,9 @@ class GenderSetup extends StatelessWidget {
                   },
                 ),
                 _GenderCard(
+                  // TODO(Icon): Change icon
                   icon: Icons.female_rounded,
-                  text: "I'm a female",
+                  text: context.locale.setupGenderFemale,
                   isSelected: state.user.gender == Gender.female,
                   onTap: () {
                     context
@@ -50,8 +47,9 @@ class GenderSetup extends StatelessWidget {
                   },
                 ),
                 _GenderCard(
+                  // TODO(Icon): Change icon
                   icon: Icons.person,
-                  text: "I don't want to pass",
+                  text: context.locale.setupGenderOther,
                   isSelected: state.user.gender == Gender.other,
                   onTap: () {
                     context
@@ -84,10 +82,12 @@ class _GenderCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomCard(
+      padding: const EdgeInsets.all(8),
       onTap: onTap,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          // TODO(Icon): Change icon type
           Icon(
             icon,
             size: 96,

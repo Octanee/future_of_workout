@@ -1,9 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/settings/settings.dart';
-import 'package:future_of_workout/src/shared/unit_converter.dart';
-import 'package:future_of_workout/src/styles/styles.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:user_repository/user_repository.dart';
 
 class HeightCard extends StatelessWidget {
@@ -29,13 +25,13 @@ class HeightCard extends StatelessWidget {
                 context: context,
                 builder: (context) {
                   return DoubleDialog(
-                    title: 'Change height',
+                    title: context.locale.changeHeight,
                     value: UnitConverter.dispalyedLength(
                       unit: user.lengthUnit,
                       value: user.height,
                     ),
-                    confirmButtonText: 'Save',
-                    hintText: 'Height',
+                    confirmButtonText: context.locale.save,
+                    hintText: context.locale.height,
                     suffixText: user.lengthUnit.sufix,
                     decimalPoint:
                         user.lengthUnit == LengthUnit.centimeter ? 1 : 2,
@@ -57,7 +53,7 @@ class HeightCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Height',
+                  context.locale.height,
                   style: AppTextStyle.bold24,
                 ),
                 BoldText(

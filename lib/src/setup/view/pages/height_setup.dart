@@ -1,9 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/setup/setup.dart';
 import 'package:future_of_workout/src/setup/view/widgets/widgets.dart';
-import 'package:future_of_workout/src/styles/styles.dart';
-import 'package:future_of_workout/src/widgets/bars/bars.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -13,10 +10,8 @@ class HeightSetup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SetupContent(
-      title: "What's your height?",
-      description:
-          // ignore: lines_longer_than_80_chars
-          'This will help us calculate your calories and offer an appropriate dietary solution',
+      title: context.locale.setupHeightTitle,
+      description: context.locale.setupHeightDescription,
       children: [
         const _LengthUnitBar(),
         BlocBuilder<SetupBloc, SetupState>(
@@ -61,8 +56,16 @@ class _LengthUnitBar extends StatelessWidget {
               }
             },
             tabs: [
-              Tab(child: Text(LengthUnit.centimeter.name)),
-              Tab(child: Text(LengthUnit.inch.name)),
+              Tab(
+                child: Text(
+                  context.locale.lengthUnitType(LengthUnit.centimeter.name),
+                ),
+              ),
+              Tab(
+                child: Text(
+                  context.locale.lengthUnitType(LengthUnit.inch.name),
+                ),
+              ),
             ],
           ),
         );
