@@ -41,3 +41,13 @@ class WorkoutDetailsAddExercises extends WorkoutDetailsEvent {
   @override
   List<Object> get props => [exercises];
 }
+
+class WorkoutDetailsReorder extends WorkoutDetailsEvent {
+  const WorkoutDetailsReorder({required this.oldIndex, required this.newIndex});
+
+  final int oldIndex;
+  final int newIndex;
+
+  @override
+  List<Object> get props => [oldIndex, newIndex];
+}

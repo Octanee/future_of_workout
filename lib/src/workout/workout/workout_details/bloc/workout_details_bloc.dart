@@ -22,6 +22,7 @@ class WorkoutDetailsBloc
     on<WorkoutDetailsFavoritToggled>(_onFavoritToggled);
     on<WorkoutDetailsDelete>(_onDelete);
     on<WorkoutDetailsAddExercises>(_onAddExercises);
+    on<WorkoutDetailsReorder>(_onReorder);
   }
 
   final WorkoutRepository _workoutRepository;
@@ -112,5 +113,22 @@ class WorkoutDetailsBloc
     } catch (e) {
       emit(state.copyWith(status: WorkoutDetailsStatus.failure));
     }
+  }
+
+  Future<void> _onReorder(
+    WorkoutDetailsReorder event,
+    Emitter<WorkoutDetailsState> emit,
+  ) async {
+    final list = List.of(state.workout!.workoutExercises);
+    final exercise = list.removeAt(event.oldIndex);
+
+    final index =
+        event.newIndex > event.oldIndex ? event.newIndex - 1 : event.newIndex;
+
+    list.insert(index, exercise);
+
+    final workout = state.workout!.copyWith(workoutExercises: list);
+
+    await _updateWorkout(workout: workout, emit: emit);
   }
 }
