@@ -12,9 +12,9 @@ class DeleteExercise extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.only(bottom: 8),
           child: DeleteButton(
-            text: context.local.deleteExercise,
+            text: context.locale.deleteExercise,
             dialogText:
-                context.local.deleteText(state.exerciseLog!.exercise.name),
+                context.locale.deleteText(state.exerciseLog!.exercise.name),
             onConfirm: () => context.read<WorkoutExerciseLogsDetailsBloc>().add(
                   const WorkoutExerciseLogsDetailsDelete(),
                 ),

@@ -12,7 +12,7 @@ class ReplaceExercise extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: ReplaceButton(
-        text: context.local.replaceExercise,
+        text: context.locale.replaceExercise,
         onTap: () {
           context.pushNamed(
             ExerciseListPage.name,

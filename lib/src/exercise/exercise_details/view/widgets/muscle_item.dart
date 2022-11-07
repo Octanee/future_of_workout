@@ -22,7 +22,7 @@ class MuscleItem extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  context.local.muscle(muscle.name),
+                  context.locale.muscle(muscle.name),
                   style: AppTextStyle.medium16,
                 ),
               ),

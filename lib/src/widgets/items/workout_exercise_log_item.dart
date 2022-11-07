@@ -79,7 +79,7 @@ class _ExerciseData extends StatelessWidget {
               style: AppTextStyle.medium16,
             ),
             Text(
-              context.local.seriesCount(series),
+              context.locale.seriesCount(series),
               style: AppTextStyle.medium16,
             ),
           ],

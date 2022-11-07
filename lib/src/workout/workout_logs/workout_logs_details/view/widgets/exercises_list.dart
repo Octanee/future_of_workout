@@ -16,7 +16,7 @@ class ExercisesList extends StatelessWidget {
           visible: logs.isNotEmpty,
           child: Column(
             children: [
-              Header(text: context.local.exercises),
+              Header(text: context.locale.exercises),
               ...logs.map<Widget>(
                 (exerciseLog) => ExerciseLogItem(
                   log: exerciseLog,

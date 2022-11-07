@@ -21,7 +21,7 @@ class ConfirmDialog extends StatelessWidget {
       title: title,
       content: content,
       onConfirm: onConfirm,
-      confirmButtonText: confirmButtonText ?? context.local.yes,
+      confirmButtonText: confirmButtonText ?? context.locale.yes,
     );
   }
 }

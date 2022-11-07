@@ -30,7 +30,7 @@ class ConfirmFab extends StatelessWidget {
             return FloatingActionButton.extended(
               label: Text(
                 // 'Add $lenght exercises',
-                context.local.addExercisesCount(lenght),
+                context.locale.addExercisesCount(lenght),
                 style: AppTextStyle.semiBold16,
               ),
               onPressed: () {

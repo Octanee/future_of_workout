@@ -84,7 +84,7 @@ class WorkoutSummaryCard extends StatelessWidget {
 
     return _CardRow(
       boldText: '$exercises ',
-      mediumText: context.local.exercisesCount(exercises),
+      mediumText: context.locale.exercisesCount(exercises),
       icon: const AppIcon(iconData: AppIcons.gym),
     );
   }

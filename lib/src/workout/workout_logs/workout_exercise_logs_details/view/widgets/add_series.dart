@@ -18,7 +18,7 @@ class AddSeries extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(bottom: 8),
             child: ListAddButton(
-              text: context.local.addSeries,
+              text: context.locale.addSeries,
               onTap: () async {
                 final bloc = context.read<WorkoutExerciseLogsDetailsBloc>();
                 ExerciseSeriesLog last;
@@ -32,7 +32,7 @@ class AddSeries extends StatelessWidget {
                 await showDialog<void>(
                   context: context,
                   builder: (builderContext) => SeriesLogDialog(
-                    title: context.local.completeSeries,
+                    title: context.locale.completeSeries,
                     weight: last.weight.toString(),
                     reps: last.reps.toString(),
                     intensity: last.intensity,

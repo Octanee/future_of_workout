@@ -52,7 +52,7 @@ class WorkoutListView extends StatelessWidget {
             return AppScaffold(
               floatingActionButton: const AddWorkout(),
               body: AppEmptyList(
-                text: context.local.workoutListEmpty,
+                text: context.locale.workoutListEmpty,
               ),
             );
           case WorkoutListStatus.loaded:

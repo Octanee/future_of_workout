@@ -1,8 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/app/bloc/app_bloc.dart';
 import 'package:future_of_workout/src/body/body_circuit/body_circuit.dart';
-import 'package:future_of_workout/src/styles/styles.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:local_storage_measurement_api/local_storage_measurement_api.dart';
 
 class CircuitItem extends StatelessWidget {
@@ -13,7 +11,9 @@ class CircuitItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final valueText = value != null ? value!.toString() : '?';
+    final unit = context.read<AppBloc>().state.user!.lengthUnit;
+    final name = context.locale.measurementPlace(place.name);
+    final valueText = value?.toString();
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: CustomCard(
@@ -25,15 +25,20 @@ class CircuitItem extends StatelessWidget {
             context: context,
             builder: (context) {
               return CircuitDialog(
-                value: value,
-                title: place.name,
+                value: value != null
+                    ? UnitConverter.dispalyedLength(unit: unit, value: value!)
+                    : null,
+                title: name,
                 onConfirm: (value) {
-                  bloc.add(
-                    BodyCircuitAddMeasurementPlaceChange(
-                      place: place,
-                      value: value,
-                    ),
-                  );
+                  if (value != null) {
+                    bloc.add(
+                      BodyCircuitAddMeasurementPlaceChange(
+                        place: place,
+                        value:
+                            UnitConverter.dataLength(unit: unit, value: value),
+                      ),
+                    );
+                  }
                 },
               );
             },
@@ -43,13 +48,14 @@ class CircuitItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              place.name,
+              name,
               style: AppTextStyle.semiBold20,
             ),
-            BoldText(
-              boldText: valueText,
-              mediumText: ' cm',
-            )
+            if (valueText != null)
+              BoldText(
+                boldText: valueText,
+                mediumText: unit.sufix,
+              )
           ],
         ),
       ),

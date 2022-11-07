@@ -9,8 +9,8 @@ class DeleteWorkout extends StatelessWidget {
     return BlocBuilder<WorkoutDetailsBloc, WorkoutDetailsState>(
       builder: (context, state) {
         return DeleteButton(
-          text: context.local.deleteWorkout,
-          dialogText: context.local.deleteText(state.workout!.name),
+          text: context.locale.deleteWorkout,
+          dialogText: context.locale.deleteText(state.workout!.name),
           onConfirm: () => context
               .read<WorkoutDetailsBloc>()
               .add(const WorkoutDetailsDelete()),

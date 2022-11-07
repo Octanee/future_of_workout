@@ -74,7 +74,7 @@ class _WeightRow extends StatelessWidget {
             textAlign: TextAlign.center,
             style: AppTextStyle.bold28,
             decoration: InputDecoration(
-              hintText: context.local.weight,
+              hintText: context.locale.weight,
               suffixText: suffix,
               counterText: '',
             ),
@@ -109,8 +109,8 @@ class _RepsRow extends StatelessWidget {
             textAlign: TextAlign.center,
             style: AppTextStyle.bold28,
             decoration: InputDecoration(
-              hintText: context.local.reps,
-              suffixText: context.local.reps,
+              hintText: context.locale.reps,
+              suffixText: context.locale.reps,
               counterText: '',
             ),
           ),
@@ -144,7 +144,7 @@ class _RestRow extends StatelessWidget {
             textAlign: TextAlign.center,
             style: AppTextStyle.bold28,
             decoration: InputDecoration(
-              hintText: context.local.restTime,
+              hintText: context.locale.restTime,
               suffixText: 's',
               counterText: '',
             ),

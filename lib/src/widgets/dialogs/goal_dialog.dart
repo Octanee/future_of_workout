@@ -1,14 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:future_of_workout/src/shared/formatter.dart';
-import 'package:future_of_workout/src/styles/styles.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:future_of_workout/src/common.dart';
 
 class GoalDialog extends StatelessWidget {
   const GoalDialog({
     required this.onConfirm,
     required this.title,
-    this.confirmButtonText = 'Add',
+    this.confirmButtonText,
     this.onDelete,
     this.value,
     this.suffix = 'kg',
@@ -20,7 +17,7 @@ class GoalDialog extends StatelessWidget {
   final String title;
   final ValueChanged<double> onConfirm;
   final VoidCallback? onDelete;
-  final String confirmButtonText;
+  final String? confirmButtonText;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +39,7 @@ class GoalDialog extends StatelessWidget {
             textAlign: TextAlign.center,
             style: AppTextStyle.bold28,
             decoration: InputDecoration(
-              hintText: 'Weight',
+              hintText: context.locale.weight,
               suffixText: suffix,
               counterText: '',
             ),
@@ -53,7 +50,7 @@ class GoalDialog extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Delete?',
+                  context.locale.delete,
                   style: AppTextStyle.semiBold16,
                 ),
                 IconButton(
@@ -61,14 +58,14 @@ class GoalDialog extends StatelessWidget {
                     onDelete!();
                     Navigator.of(context).pop();
                   },
-                  icon: const Icon(Icons.delete),
+                  icon: const AppIcon(iconData: AppIcons.trash,),
                 ),
               ],
             ),
           ),
         ],
       ),
-      confirmButtonText: confirmButtonText,
+      confirmButtonText: confirmButtonText ?? context.locale.add,
       onConfirm: () {
         final value = double.tryParse(controller.text) ?? 0;
 

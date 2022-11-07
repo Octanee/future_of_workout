@@ -9,7 +9,7 @@ class FinishButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: BarButton(
-        text: context.local.finishWorkout,
+        text: context.locale.finishWorkout,
         icon: const AppIcon(iconData: AppIcons.stop),
         onTap: () async {
           final bloc = context.read<CurrentWorkoutBloc>();
@@ -17,9 +17,9 @@ class FinishButton extends StatelessWidget {
           await showDialog<bool>(
             context: context,
             builder: (builderContext) => ConfirmDialog(
-              title: context.local.finishWorkout,
+              title: context.locale.finishWorkout,
               content: Text(
-                context.local.finishWorkoutText,
+                context.locale.finishWorkoutText,
                 style: AppTextStyle.medium16,
               ),
               onConfirm: () => bloc.add(const CurrentWorkoutFinish()),

@@ -1,9 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/app/bloc/app_bloc.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/exercise/exercise.dart';
-import 'package:future_of_workout/src/shared/unit_converter.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
 
 class AddGoal extends StatelessWidget {
   const AddGoal({super.key});
@@ -18,7 +15,7 @@ class AddGoal extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(bottom: 8),
             child: AddButton(
-              text: 'Add goal',
+              text: context.locale.addGoal,
               onTap: () async {
                 final unit = context.read<AppBloc>().state.user!.weightUnit;
                 final bloc = context.read<ExerciseStatsBloc>();
@@ -27,7 +24,7 @@ class AddGoal extends StatelessWidget {
                   context: context,
                   builder: (_) {
                     return GoalDialog(
-                      title: 'Add goal',
+                      title: context.locale.addGoal,
                       suffix: unit.sufix,
                       onConfirm: (value) {
                         if (value != 0) {

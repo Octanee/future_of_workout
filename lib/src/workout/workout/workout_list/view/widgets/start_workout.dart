@@ -11,7 +11,7 @@ class StartWorkout extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: StartButton(
-        text: context.local.startWorkoutButtonText,
+        text: context.locale.startWorkoutButtonText,
         onTap: () {
           context
               .read<CurrentWorkoutBloc>()

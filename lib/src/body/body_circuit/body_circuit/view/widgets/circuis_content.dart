@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/body/body_circuit/body_circuit/body_circuit.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:future_of_workout/src/common.dart';
 
 class CircuitsContent extends StatelessWidget {
   const CircuitsContent({super.key});
@@ -14,8 +12,8 @@ class CircuitsContent extends StatelessWidget {
           previous.period != current.period,
       builder: (context, state) {
         if (state.data.isEmpty) {
-          return const AppEmptyList(
-            text: 'Circuit measurement has not yet been added.',
+          return AppEmptyList(
+            text: context.locale.circuitEmptyList,
           );
         }
 

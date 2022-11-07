@@ -9,15 +9,15 @@ class NewWorkoutDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = TextEditingController();
     return CustomDialog(
-      title: context.local.newWorkout,
+      title: context.locale.newWorkout,
       content: TextField(
         controller: controller,
         style: AppTextStyle.bold28,
         decoration: InputDecoration(
-          hintText: context.local.name,
+          hintText: context.locale.name,
         ),
       ),
-      confirmButtonText: context.local.add,
+      confirmButtonText: context.locale.add,
       onConfirm: () {
         final name = controller.text;
 

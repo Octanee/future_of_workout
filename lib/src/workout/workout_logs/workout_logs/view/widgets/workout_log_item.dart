@@ -83,7 +83,7 @@ class WorkoutLogItem extends StatelessWidget {
   Widget _buildDate(BuildContext context) {
     final formatter = DateFormat(
       'dd MMM',
-      Localizations.localeOf(context).languageCode,
+      context.languageCode,
     );
 
     final text = BoldText(
@@ -118,7 +118,7 @@ class WorkoutLogItem extends StatelessWidget {
         .length;
     final text = BoldText(
       boldText: '$exercises ',
-      mediumText: context.local.exercisesCount(exercises),
+      mediumText: context.locale.exercisesCount(exercises),
     );
     return _buildRow(
       text: text,

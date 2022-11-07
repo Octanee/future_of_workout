@@ -27,8 +27,8 @@ class SeriesItem extends StatelessWidget {
               final unit = context.read<AppBloc>().state.user!.weightUnit;
 
               final title = series.isFinished
-                  ? context.local.updateSeries
-                  : context.local.completeSeries;
+                  ? context.locale.updateSeries
+                  : context.locale.completeSeries;
 
               await showDialog<void>(
                 context: context,

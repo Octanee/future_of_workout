@@ -81,7 +81,7 @@ class WorkoutItem extends StatelessWidget {
     final exercises = workout.workoutExercises.length;
     final text = _buildText(
       bold: '$exercises ',
-      medium: context.local.exercisesCount(exercises),
+      medium: context.locale.exercisesCount(exercises),
     );
     return _buildRow(
       text: text,

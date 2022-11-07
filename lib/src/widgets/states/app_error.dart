@@ -15,7 +15,7 @@ class AppError extends StatelessWidget {
           LottieBuilder.asset('assets/lottie/error.json'),
           const SizedBox(height: 16),
           Text(
-            text ?? context.local.error,
+            text ?? context.locale.error,
             style: AppTextStyle.semiBold20,
             textAlign: TextAlign.center,
           ),

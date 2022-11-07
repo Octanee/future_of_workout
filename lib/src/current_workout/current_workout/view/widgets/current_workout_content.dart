@@ -23,7 +23,7 @@ class CurrentWorkoutContent extends StatelessWidget {
             Visibility(
               visible: isEmpty,
               child: AppEmptyList(
-                text: context.local.addExerciseText,
+                text: context.locale.addExerciseText,
               ),
             ),
           ],

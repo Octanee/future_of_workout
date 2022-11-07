@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:future_of_workout/src/styles/styles.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:intl/intl.dart';
 
 class WeightItem extends StatelessWidget {
@@ -19,7 +17,7 @@ class WeightItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formatter = DateFormat('EEE, d MMM');
+    final formatter = DateFormat('EEE, d MMM', context.languageCode);
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: CustomCard(

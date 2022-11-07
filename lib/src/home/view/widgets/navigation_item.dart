@@ -31,7 +31,7 @@ class NavigationItem extends StatelessWidget {
                     color: isSelected ? AppColors.yellow : AppColors.grey,
                   ),
                   Text(
-                    context.local.navigationItem(item.label),
+                    context.locale.navigationItem(item.label),
                     style: isSelected
                         ? AppTextStyle.regular16
                             .copyWith(color: AppColors.yellow)

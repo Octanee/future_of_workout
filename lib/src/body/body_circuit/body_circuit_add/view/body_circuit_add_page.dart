@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/body/body_circuit/body_circuit.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:local_storage_measurement_api/local_storage_measurement_api.dart';
 import 'package:measurement_repository/measurement_repository.dart';
 
@@ -31,13 +29,11 @@ class BodyCircuitAddView extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        context
-            .read<BodyCircuitAddBloc>()
-            .add(const BodyCircuitAddPop());
+        context.read<BodyCircuitAddBloc>().add(const BodyCircuitAddPop());
         return true;
       },
       child: AppScaffold(
-        title: 'Circuits',
+        title: context.locale.circuits,
         body: BlocBuilder<BodyCircuitAddBloc, BodyCircuitAddState>(
           buildWhen: (previous, current) => previous.status != current.status,
           builder: (context, state) {
@@ -52,10 +48,10 @@ class BodyCircuitAddView extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   physics: const BouncingScrollPhysics(),
-                  children: const [
-                    DateCard(),
-                    Header(text: 'Circuits'),
-                    CircuitsList(),
+                  children: [
+                    const DateCard(),
+                    Header(text: context.locale.circuits),
+                    const CircuitsList(),
                   ],
                 );
             }

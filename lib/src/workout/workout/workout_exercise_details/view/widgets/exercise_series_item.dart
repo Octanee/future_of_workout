@@ -40,8 +40,8 @@ class ExerciseSeriesItem extends StatelessWidget {
       builder: (context) {
         return SeriesEditDialog(
           title: isMulti
-              ? context.local.changeAllSeries
-              : context.local.changeSeries(value),
+              ? context.locale.changeAllSeries
+              : context.locale.changeSeries(value),
           reps: series.reps.toString(),
           weight: UnitConverter.dispalyedWeight(
             unit: unit,
@@ -113,7 +113,7 @@ class _SeriesData extends StatelessWidget {
                 ),
                 BoldText(
                   boldText: series.reps.toString(),
-                  mediumText: context.local.reps,
+                  mediumText: context.locale.reps,
                   boldTextStyle: AppTextStyle.bold24,
                 ),
               ],

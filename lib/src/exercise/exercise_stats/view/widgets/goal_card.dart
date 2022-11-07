@@ -1,10 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/app/bloc/app_bloc.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/exercise/exercise.dart';
-import 'package:future_of_workout/src/shared/unit_converter.dart';
-import 'package:future_of_workout/src/styles/styles.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
 
 class GoalCard extends StatelessWidget {
   const GoalCard({super.key});
@@ -32,8 +28,8 @@ class GoalCard extends StatelessWidget {
                 context: context,
                 builder: (_) {
                   return GoalDialog(
-                    title: 'Update goal',
-                    confirmButtonText: 'Save',
+                    title: context.locale.updateGoal,
+                    confirmButtonText: context.locale.save,
                     value: UnitConverter.dispalyedWeight(
                       unit: unit,
                       value: goal.goal,
@@ -64,7 +60,7 @@ class GoalCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Goal:',
+                    '${context.locale.goal}:',
                     style: AppTextStyle.semiBold20,
                   ),
                   Row(

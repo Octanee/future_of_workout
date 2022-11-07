@@ -14,12 +14,12 @@ class RenameWorkoutDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = TextEditingController(text: name);
     return CustomDialog(
-      title: context.local.changeName,
+      title: context.locale.changeName,
       content: TextField(
         controller: controller,
         style: AppTextStyle.bold28,
         decoration: InputDecoration(
-          hintText: context.local.name,
+          hintText: context.locale.name,
         ),
       ),
       onConfirm: () {

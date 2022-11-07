@@ -16,7 +16,7 @@ class RemoveSeries extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(bottom: 8),
             child: RemoveButton(
-              text: context.local.deleteSeries,
+              text: context.locale.deleteSeries,
               onConfirm: () => context
                   .read<WorkoutExerciseDetailsBloc>()
                   .add(const WorkoutExerciseDetailsRemovedSeries()),

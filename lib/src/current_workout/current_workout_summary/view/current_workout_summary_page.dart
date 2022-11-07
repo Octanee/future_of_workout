@@ -25,7 +25,7 @@ class CurrentWorkoutSummaryView extends StatelessWidget {
         return false;
       },
       child: AppScaffold(
-        title: context.local.summary,
+        title: context.locale.summary,
         body: BlocBuilder<CurrentWorkoutBloc, CurrentWorkoutState>(
           buildWhen: (previous, current) => previous.status != current.status,
           builder: (context, state) {
@@ -39,7 +39,7 @@ class CurrentWorkoutSummaryView extends StatelessWidget {
               physics: const BouncingScrollPhysics(),
               children: [
                 WorkoutSummaryCard(workoutLog: log),
-                Header(text: context.local.exercises),
+                Header(text: context.locale.exercises),
                 ...log.workoutExerciseLogs.map<Widget>(
                   (exerciseLog) => WorkoutExerciseLogDetailsItem(
                     header: WorkoutExerciseLogItem(

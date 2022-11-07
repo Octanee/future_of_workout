@@ -19,9 +19,9 @@ class BodyPage extends StatelessWidget {
             CustomTabBar(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               tabs: [
-                Tab(text: context.local.recoveryTab),
-                Tab(text: context.local.weightTab),
-                Tab(text: context.local.circuitTab),
+                Tab(text: context.locale.recoveryTab),
+                Tab(text: context.locale.weightTab),
+                Tab(text: context.locale.circuitTab),
               ],
             ),
             const CustomTabBarView(

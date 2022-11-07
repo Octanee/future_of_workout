@@ -19,8 +19,8 @@ class BodyPositionBar extends StatelessWidget {
                   .add(BodyRecoveryChangePosition(isFront: index == 0));
             },
             tabs: [
-              Tab(text: context.local.front),
-              Tab(text: context.local.back),
+              Tab(text: context.locale.front),
+              Tab(text: context.locale.back),
             ],
           ),
         );

@@ -91,7 +91,7 @@ class _SliderRow extends StatelessWidget {
           child: AppIcon(iconData: AppIcons.intensity),
         ),
         Slider(
-          label: context.local.seriesLogIntensity(
+          label: context.locale.seriesLogIntensity(
             SeriesLogIntensity.values[value.round()].name,
           ),
           max: 5,
@@ -128,8 +128,8 @@ class _RepsRow extends StatelessWidget {
             textAlign: TextAlign.center,
             style: AppTextStyle.bold28,
             decoration: InputDecoration(
-              hintText: context.local.reps,
-              suffixText: context.local.reps,
+              hintText: context.locale.reps,
+              suffixText: context.locale.reps,
               counterText: '',
             ),
           ),
@@ -166,7 +166,7 @@ class _WeightRow extends StatelessWidget {
             textAlign: TextAlign.center,
             style: AppTextStyle.bold28,
             decoration: InputDecoration(
-              hintText: context.local.weight,
+              hintText: context.locale.weight,
               suffixText: suffix,
               counterText: '',
             ),

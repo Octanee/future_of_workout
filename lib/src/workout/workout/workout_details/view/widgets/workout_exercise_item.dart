@@ -41,7 +41,7 @@ class WorkoutExerciseItem extends StatelessWidget {
                       style: AppTextStyle.bold20,
                     ),
                     Text(
-                      context.local
+                      context.locale
                           .seriesCount(workoutExercise.exerciseSeries.length),
                       style: AppTextStyle.medium16,
                     ),

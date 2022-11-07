@@ -10,7 +10,7 @@ class AboutExerciseButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BarButton(
-      text: context.local.aboutExercise,
+      text: context.locale.aboutExercise,
       icon: const AppIcon(iconData: AppIcons.info),
       onTap: () {
         context.pushNamed(

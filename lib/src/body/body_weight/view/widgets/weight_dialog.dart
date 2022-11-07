@@ -1,16 +1,13 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:future_of_workout/src/shared/formatter.dart';
-import 'package:future_of_workout/src/styles/styles.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:intl/intl.dart';
 
 class WeightDialog extends StatefulWidget {
   const WeightDialog({
     super.key,
     required this.onConfirm,
-    this.title = 'Add weight',
-    this.confirmButtonText = 'Add',
+    this.title,
+    this.confirmButtonText,
     this.onDelete,
     this.value,
     this.dateTime,
@@ -19,10 +16,10 @@ class WeightDialog extends StatefulWidget {
 
   final double? value;
   final DateTime? dateTime;
-  final String title;
+  final String? title;
   final void Function(double weight, DateTime dateTime) onConfirm;
   final VoidCallback? onDelete;
-  final String confirmButtonText;
+  final String? confirmButtonText;
   final String suffix;
 
   @override
@@ -43,9 +40,9 @@ class _WeightDialogState extends State<WeightDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final formatter = DateFormat('EEE, d MMM');
+    final formatter = DateFormat('EEE, d MMM', context.languageCode);
     return CustomDialog(
-      title: widget.title,
+      title: widget.title ?? context.locale.addSeries,
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -63,7 +60,7 @@ class _WeightDialogState extends State<WeightDialog> {
               textAlign: TextAlign.center,
               style: AppTextStyle.bold28,
               decoration: InputDecoration(
-                hintText: 'Weight',
+                hintText: context.locale.weight,
                 suffixText: widget.suffix,
                 counterText: '',
               ),
@@ -85,14 +82,13 @@ class _WeightDialogState extends State<WeightDialog> {
                     return Theme(
                       data: Theme.of(context).copyWith(
                         colorScheme: const ColorScheme.light(
-                          primary: AppColors.yellow, // <-- SEE HERE
-                          onPrimary: AppColors.grey, // <-- SEE HERE
-                          onSurface: AppColors.grey, // <-- SEE HERE
+                          primary: AppColors.yellow,
+                          onPrimary: AppColors.grey,
+                          onSurface: AppColors.grey,
                         ),
                         textButtonTheme: TextButtonThemeData(
                           style: TextButton.styleFrom(
-                            foregroundColor:
-                                AppColors.yellow, // button text color
+                            foregroundColor: AppColors.yellow,
                           ),
                         ),
                         dialogTheme: DialogTheme(
@@ -132,7 +128,7 @@ class _WeightDialogState extends State<WeightDialog> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Delete?',
+                  context.locale.delete,
                   style: AppTextStyle.semiBold16,
                 ),
                 IconButton(

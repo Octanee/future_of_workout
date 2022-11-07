@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/body/body_weight/body_weight.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:future_of_workout/src/common.dart';
 
 class WeightContent extends StatelessWidget {
   const WeightContent({super.key});
@@ -14,8 +12,8 @@ class WeightContent extends StatelessWidget {
           previous.measurements != current.measurements,
       builder: (context, state) {
         if (state.data.isEmpty) {
-          return const AppEmptyList(
-            text: 'Weight measurement has not yet been added.',
+          return AppEmptyList(
+            text: context.locale.weightEmptyList,
           );
         }
 

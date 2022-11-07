@@ -1,20 +1,19 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:future_of_workout/src/shared/formatter.dart';
-import 'package:future_of_workout/src/styles/styles.dart';
-import 'package:future_of_workout/src/widgets/dialogs/custom_dialog.dart';
+import 'package:future_of_workout/src/common.dart';
 
 class CircuitDialog extends StatelessWidget {
   const CircuitDialog({
     required this.title,
     required this.onConfirm,
     this.value,
+    this.suffix = 'cm',
     super.key,
   });
 
   final double? value;
   final String title;
   final ValueChanged<double?> onConfirm;
+  final String suffix;
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +31,9 @@ class CircuitDialog extends StatelessWidget {
         ],
         textAlign: TextAlign.center,
         style: AppTextStyle.bold28,
-        decoration: const InputDecoration(
-          hintText: 'Circuit',
-          suffixText: 'cm',
+        decoration: InputDecoration(
+          hintText: context.locale.circuit,
+          suffixText: suffix,
           counterText: '',
         ),
       ),

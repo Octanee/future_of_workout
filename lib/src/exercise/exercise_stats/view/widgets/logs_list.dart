@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/exercise/exercise.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
 
 class LogsList extends StatelessWidget {
   const LogsList({super.key});
@@ -17,7 +15,7 @@ class LogsList extends StatelessWidget {
           shrinkWrap: true,
           physics: const BouncingScrollPhysics(),
           children: [
-            Header(text: 'Logs (${list.length})'),
+            Header(text: context.locale.logs(list.length)),
             ...list
                 .map<Widget>(
                   (entry) => LogItem(

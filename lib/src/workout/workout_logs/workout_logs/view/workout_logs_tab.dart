@@ -33,7 +33,7 @@ class WorkoutsLogsView extends StatelessWidget {
           case WorkoutLogsStatus.empty:
             return AppScaffold(
               body: AppEmptyList(
-                text: context.local.workoutLogsListEmpty,
+                text: context.locale.workoutLogsListEmpty,
               ),
             );
           case WorkoutLogsStatus.failure:

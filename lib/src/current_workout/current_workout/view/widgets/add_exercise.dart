@@ -9,7 +9,7 @@ class AddExercise extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListAddButton(
-      text: context.local.addExercise,
+      text: context.locale.addExercise,
       onTap: () {
         context.pushNamed(
           ExerciseListPage.name,

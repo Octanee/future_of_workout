@@ -32,7 +32,7 @@ class InststuctionsList extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Header(text: context.local.instructions),
+                Header(text: context.locale.instructions),
                 ...list.map((text) => InstructionItem(text: text)).toList(),
               ],
             ),

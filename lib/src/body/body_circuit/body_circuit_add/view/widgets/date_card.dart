@@ -1,8 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/body/body_circuit/body_circuit.dart';
-import 'package:future_of_workout/src/styles/styles.dart';
-import 'package:future_of_workout/src/widgets/cards/cards.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:intl/intl.dart';
 
 class DateCard extends StatelessWidget {
@@ -10,7 +7,7 @@ class DateCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formatter = DateFormat('EEE, d MMM');
+    final formatter = DateFormat('EEEEE d MMMM', context.languageCode);
 
     return BlocBuilder<BodyCircuitAddBloc, BodyCircuitAddState>(
       buildWhen: (previous, current) =>

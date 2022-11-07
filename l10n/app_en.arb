@@ -113,5 +113,42 @@
         "type": "String"
       }
     }
-  }
+  },
+  "addGoal": "Add goal",
+  "updateGoal": "Update goal",
+  "goal": "Goal",
+  "chartType": "{type, select, weight{Weight} volume{Volume} oneRepMax{1RM}}",
+  "@chartType": {
+    "placeholders": {
+      "type": {
+        "type": "String"
+      }
+    }
+  },
+  "exerciseStatsEmptyList": "The exercise has not yet been performed.",
+  "logs": "Logs ({count})",
+  "@logs": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "weightEmptyList": "Weight measurement has not yet been added.",
+  "circuitEmptyList": "Circuit measurement has not yet been added.",
+  "addWeight": "Add weight",
+  "editWeight": "Edit weight",
+  "circuits": "Circuits",
+  "circuit": "Circuit",
+  "measurementPlace": "{place, select, neck{Neck} chest{Chest} biceps{Biceps} waist{Waist} belly{Belly} hip{Hip} thigh{Thigh} calf{Calf}}",
+  "@measurementPlace": {
+    "placeholders": {
+      "place": {
+        "type": "String"
+      }
+    }
+  },
+  "first": "First",
+  "last": "Last",
+  "change": "Change"
 }

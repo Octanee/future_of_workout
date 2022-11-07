@@ -20,9 +20,9 @@ class WorkoutsPage extends StatelessWidget {
             CustomTabBar(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               tabs: [
-                Tab(text: context.local.created),
+                Tab(text: context.locale.created),
                 // Tab(text: 'Goals'),
-                Tab(text: context.local.saved),
+                Tab(text: context.locale.saved),
               ],
             ),
             const CustomTabBarView(

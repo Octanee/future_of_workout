@@ -52,5 +52,21 @@
   "weightTab": "Waga",
   "front": "Przód",
   "back": "Tył",
-  "period": "{period, select, week{Tydzień} oneMounth{1 Miesiąc} threeMounth{3 Miesiące} sixMounth{6 Miesięcy} year{Rok}}"
+  "period": "{period, select, week{Tydzień} oneMounth{1 Miesiąc} threeMounth{3 Miesiące} sixMounth{6 Miesięcy} year{Rok}}",
+  "addGoal": "Dodaj cel",
+  "updateGoal": "Zmień cel",
+  "goal": "Cel",
+  "chartType": "{type, select, weight{Ciężar} volume{Objęctość} oneRepMax{1RM}}",
+  "exerciseStatsEmptyList": "To ćwiczenie nie było jeszcze wykonywane",
+  "logs": "Zapisane ({count})",
+  "weightEmptyList": "Nie dodany jeszcze pomiaru wagi.",
+  "circuitEmptyList": "Nie dodany jeszcze pomiaru obwodów.",
+  "addWeight": "Dodaj wagę",
+  "editWeight": "Edytuj wagę",
+  "circuits": "Obwody",
+  "circuit": "Obwód",
+  "measurementPlace": "{place, select, neck{Szyja} chest{Klatka piersiowa} biceps{Biceps} waist{Talia} belly{Brzuch} hip{Biodro} thigh{Udo} calf{Łydka}}",
+  "first": "Pierwszy",
+  "last": "Ostatni",
+  "change": "Zmiana"
 }

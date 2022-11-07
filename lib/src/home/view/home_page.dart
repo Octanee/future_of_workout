@@ -1,9 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/current_workout/current_workout.dart';
 import 'package:future_of_workout/src/home/home.dart';
-import 'package:future_of_workout/src/styles/app_colors.dart';
 import 'package:go_router/go_router.dart';
 
 class HomePage extends StatelessWidget {
@@ -55,7 +52,7 @@ class HomeView extends StatelessWidget {
             buildWhen: (previous, current) => previous.item != current.item,
             builder: (context, state) {
               return Text(
-                context.local.navigationItem(state.item.label),
+                context.locale.navigationItem(state.item.label),
                 style: AppTextStyle.bold28,
               );
             },

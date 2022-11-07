@@ -46,7 +46,7 @@ class ExerciseListView extends StatelessWidget {
           case ExerciseListStatus.confirm:
           case ExerciseListStatus.success:
             return AppScaffold(
-              title: context.local.exercises,
+              title: context.locale.exercises,
               floatingActionButton: const ConfirmFab(),
               body: const ExerciseList(),
             );

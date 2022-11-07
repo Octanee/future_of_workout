@@ -26,7 +26,7 @@ class PeriodBar extends StatelessWidget {
       tabs: periods
           .map<Tab>(
             (period) => Tab(
-              text: context.local.period(period.name),
+              text: context.locale.period(period.name),
             ),
           )
           .toList(),

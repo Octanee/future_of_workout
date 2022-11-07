@@ -28,14 +28,14 @@ class CustomDialog extends StatelessWidget {
       actions: [
         OutlinedButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: Text(negativeButtonText ?? context.local.cancel),
+          child: Text(negativeButtonText ?? context.locale.cancel),
         ),
         ElevatedButton(
           onPressed: () {
             onConfirm();
             Navigator.of(context).pop();
           },
-          child: Text(confirmButtonText?? context.local.save),
+          child: Text(confirmButtonText?? context.locale.save),
         ),
       ],
     );

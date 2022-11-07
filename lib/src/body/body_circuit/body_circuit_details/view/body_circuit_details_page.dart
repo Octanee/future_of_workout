@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/body/body_circuit/body_circuit.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:measurement_repository/measurement_repository.dart';
 
@@ -39,7 +40,8 @@ class BodyCircuitDetailsView extends StatelessWidget {
             return const AppScaffold(body: AppError());
           case BodyCircuitDetailsStatus.success:
             return AppScaffold(
-              title: state.measurementPlace!.name,
+              title:
+                  context.locale.measurementPlace(state.measurementPlace!.name),
               body: ListView(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 8),

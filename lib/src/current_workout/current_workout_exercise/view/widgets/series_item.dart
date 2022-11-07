@@ -36,7 +36,7 @@ class SeriesItem extends StatelessWidget {
               await showDialog<void>(
                 context: context,
                 builder: (context) => SeriesLogDialog(
-                  title: context.local.completeSeries,
+                  title: context.locale.completeSeries,
                   weight: UnitConverter.dispalyedWeight(
                     unit: unit,
                     value: series.weight,

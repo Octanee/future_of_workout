@@ -19,7 +19,7 @@ class StartWorkoutButton extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(bottom: 8),
             child: BarButton(
-              text: context.local.startWorkoutButtonText,
+              text: context.locale.startWorkoutButtonText,
               icon: const AppIcon(iconData: AppIcons.play),
               onTap: () {
                 context

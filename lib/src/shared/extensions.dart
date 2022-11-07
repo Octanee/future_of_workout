@@ -42,7 +42,9 @@ extension DoubleExtension on double {
 }
 
 extension BuildContextExtension on BuildContext {
-  AppLocalizations get local => AppLocalizations.of(this)!;
+  AppLocalizations get locale => AppLocalizations.of(this)!;
+
+  String? get languageCode => Localizations.localeOf(this).languageCode;
 }
 
 extension StringExtension on String {

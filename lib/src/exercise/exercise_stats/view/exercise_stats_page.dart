@@ -1,8 +1,6 @@
 import 'package:exercise_repository/exercise_repository.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/exercise/exercise.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:goal_repository/goal_repository.dart';
 import 'package:workout_log_repository/workout_log_repository.dart';
 
@@ -47,7 +45,7 @@ class ExerciseStatsView extends StatelessWidget {
           case ExerciseStatsStatus.loaded:
             final exercise = state.exercise;
             return AppScaffold(
-              title: exercise?.name ?? 'Exercise',
+              title: exercise?.name ?? context.locale.exercises,
               body: ListView(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 8),

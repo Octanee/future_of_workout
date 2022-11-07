@@ -13,7 +13,7 @@ class AddWorkoutExercise extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.only(bottom: 8),
           child: AddButton(
-            text: context.local.addExercise,
+            text: context.locale.addExercise,
             onTap: () {
               context.pushNamed(
                 ExerciseListPage.name,

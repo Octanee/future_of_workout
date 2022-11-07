@@ -3,32 +3,26 @@
 /// {@endtemplate}
 enum MeasurementPlace {
   /// Neck
-  neck(name: 'Neck'),
+  neck,
 
   /// Chest
-  chest(name: 'Chest'),
+  chest,
 
   /// Biceps
-  biceps(name: 'Biceps'),
+  biceps,
 
   /// Waist
-  waist(name: 'Waist'),
+  waist,
 
   /// Belly
-  belly(name: 'Belly'),
+  belly,
 
   /// Hip
-  hip(name: 'Hip'),
+  hip,
 
   /// Thigh
-  thigh(name: 'Thigh'),
+  thigh,
 
   /// Calf
-  calf(name: 'Calf');
-
-  /// {@macro measurement_place}
-  const MeasurementPlace({required this.name});
-
-  /// The displayed name of measurement place.
-  final String name;
+  calf,
 }

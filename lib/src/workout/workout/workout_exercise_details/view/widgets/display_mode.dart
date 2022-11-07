@@ -16,8 +16,8 @@ class DisplayMode extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 8),
           child: BarButton(
             text: isAdvanced
-                ? context.local.simpleMode
-                : context.local.advancedMode,
+                ? context.locale.simpleMode
+                : context.locale.advancedMode,
             icon: isAdvanced
                 ? const AppIcon(iconData: AppIcons.listLess)
                 : const AppIcon(iconData: AppIcons.listMore),

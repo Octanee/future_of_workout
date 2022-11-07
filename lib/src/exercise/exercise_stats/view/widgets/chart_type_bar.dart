@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/exercise/exercise.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
 
 class ChartTypeBar extends StatelessWidget {
   const ChartTypeBar({super.key});
@@ -19,7 +17,9 @@ class ChartTypeBar extends StatelessWidget {
               );
         },
         tabs: ChartType.values
-            .map<Tab>((period) => Tab(text: period.name))
+            .map<Tab>(
+              (period) => Tab(text: context.locale.chartType(period.name)),
+            )
             .toList(),
       ),
     );

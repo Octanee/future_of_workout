@@ -1,12 +1,8 @@
 import 'package:exercise_repository/exercise_repository.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:future_of_workout/src/app/bloc/app_bloc.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/exercise/exercise.dart';
-import 'package:future_of_workout/src/shared/unit_converter.dart';
-import 'package:future_of_workout/src/styles/app_text_style.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:goal_repository/goal_repository.dart';
 
@@ -97,7 +93,7 @@ class _GoalValue extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Text(
-          'Goal:',
+          '${context.locale.goal}:',
           style: AppTextStyle.medium16,
         ),
         Row(

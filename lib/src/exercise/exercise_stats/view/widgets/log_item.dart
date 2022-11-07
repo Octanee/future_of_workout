@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:future_of_workout/src/styles/app_text_style.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:intl/intl.dart';
 import 'package:workout_log_repository/workout_log_repository.dart';
 
@@ -16,7 +14,7 @@ class LogItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formatter = DateFormat('EEE, dd MMM');
+    final formatter = DateFormat('EEEEE, dd MMMM', context.languageCode);
 
     return WorkoutExerciseLogDetailsItem(
       workoutExerciseLog: workoutExerciseLog,

@@ -33,7 +33,7 @@ class WorkoutGoalsView extends StatelessWidget {
             case WorkoutGoalsStatus.failure:
               return const AppScaffold(body: AppError());
             case WorkoutGoalsStatus.empty:
-              return AppEmptyList(text: context.local.goalsEmptyList);
+              return AppEmptyList(text: context.locale.goalsEmptyList);
             case WorkoutGoalsStatus.loaded:
             case WorkoutGoalsStatus.add:
               return const GoalsList();

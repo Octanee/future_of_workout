@@ -23,7 +23,7 @@ class RecoveryStatsItem extends StatelessWidget {
             Flexible(
               fit: FlexFit.tight,
               child: Text(
-                context.local.muscle(muscle.name),
+                context.locale.muscle(muscle.name),
                 style: AppTextStyle.semiBold20,
                 textAlign: TextAlign.center,
               ),

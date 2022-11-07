@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:future_of_workout/src/styles/styles.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:future_of_workout/src/app/bloc/app_bloc.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:intl/intl.dart';
 
 class CircuitPlaceItem extends StatelessWidget {
@@ -15,7 +14,8 @@ class CircuitPlaceItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formatter = DateFormat('EEE, d MMM');
+    final unit = context.read<AppBloc>().state.user!.lengthUnit;
+    final formatter = DateFormat('EEE, d MMM', context.languageCode);
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: CustomCard(
@@ -34,8 +34,10 @@ class CircuitPlaceItem extends StatelessWidget {
             Flexible(
               fit: FlexFit.tight,
               child: BoldText(
-                boldText: '$value',
-                mediumText: 'cm',
+                boldText:
+                    UnitConverter.dispalyedLength(unit: unit, value: value)
+                        .toString(),
+                mediumText: unit.sufix,
                 textAlign: TextAlign.center,
               ),
             )

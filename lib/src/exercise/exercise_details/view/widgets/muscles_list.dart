@@ -24,12 +24,12 @@ class MusclesList extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ..._buildSection(
-                title: context.local.primaryMuscle,
+                title: context.locale.primaryMuscle,
                 muscles: [primary],
               ),
               if (secondary.isNotEmpty)
                 ..._buildSection(
-                  title: context.local.secondaryMuscle,
+                  title: context.locale.secondaryMuscle,
                   muscles: secondary,
                 ),
             ],

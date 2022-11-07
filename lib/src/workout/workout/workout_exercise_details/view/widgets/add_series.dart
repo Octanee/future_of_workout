@@ -9,7 +9,7 @@ class AddSeries extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: AddButton(
-        text: context.local.addSeries,
+        text: context.locale.addSeries,
         onTap: () => context
             .read<WorkoutExerciseDetailsBloc>()
             .add(const WorkoutExerciseDetailsAddingSeries()),

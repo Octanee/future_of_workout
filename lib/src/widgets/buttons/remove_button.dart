@@ -15,15 +15,15 @@ class RemoveButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BarButton(
-      text: text ?? context.local.delete,
+      text: text ?? context.locale.delete,
       icon: const AppIcon(iconData: AppIcons.minus),
       onTap: () async {
         await showDialog<void>(
           context: context,
           builder: (builderContext) => ConfirmDialog(
-            title: text ?? context.local.delete,
+            title: text ?? context.locale.delete,
             content: Text(
-              dialogText ?? context.local.deleteText(''),
+              dialogText ?? context.locale.deleteText(''),
               style: AppTextStyle.medium16,
             ),
             onConfirm: onConfirm,

@@ -13,7 +13,7 @@ class RenameWorkout extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.only(bottom: 8),
           child: EditButton(
-            text: context.local.rename,
+            text: context.locale.rename,
             onTap: () async {
               final bloc = context.read<WorkoutDetailsBloc>();
 

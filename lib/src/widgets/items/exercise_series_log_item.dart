@@ -57,7 +57,7 @@ class _SeriesData extends StatelessWidget {
           ),
           BoldText(
             boldText: series.reps.toString(),
-            mediumText: context.local.reps,
+            mediumText: context.locale.reps,
             boldTextStyle: AppTextStyle.bold24,
           ),
         ],

@@ -1,10 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/app/bloc/app_bloc.dart';
-import 'package:future_of_workout/src/shared/unit_converter.dart';
-import 'package:future_of_workout/src/styles/app_colors.dart';
-import 'package:future_of_workout/src/styles/app_text_style.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:workout_log_api/workout_log_api.dart';
 
 class WorkoutExerciseLogDetailsItem extends StatelessWidget {
@@ -58,9 +53,9 @@ class _RestColumn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return _SeriesColumn(
-      header: const _ColumnHeader(
-        name: 'Rest',
-        icon: AppIcon(iconData: AppIcons.stopwatch),
+      header: _ColumnHeader(
+        name: context.locale.restTime,
+        icon: const AppIcon(iconData: AppIcons.stopwatch),
       ),
       items: items
           .map<Widget>(
@@ -85,9 +80,9 @@ class _WeightColumn extends StatelessWidget {
 
     return _SeriesColumn(
       isMiddle: true,
-      header: const _ColumnHeader(
-        name: 'Weight',
-        icon: AppIcon(iconData: AppIcons.gym),
+      header: _ColumnHeader(
+        name: context.locale.weight,
+        icon: const AppIcon(iconData: AppIcons.gym),
       ),
       items: items
           .map<Widget>(
@@ -112,9 +107,9 @@ class _RepsColumn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return _SeriesColumn(
-      header: const _ColumnHeader(
-        name: 'Reps',
-        icon: AppIcon(iconData: AppIcons.repeat),
+      header: _ColumnHeader(
+        name: context.locale.reps,
+        icon: const AppIcon(iconData: AppIcons.repeat),
       ),
       items: items
           .map<Widget>(

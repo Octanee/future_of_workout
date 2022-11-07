@@ -32,7 +32,7 @@ class WeightsList extends StatelessWidget {
                     await showDialog<String>(
                       context: context,
                       builder: (context) => WeightDialog(
-                        title: 'Edit weight',
+                        title: context.locale.editWeight,
                         value: UnitConverter.dispalyedWeight(
                           unit: unit,
                           value: e.value,
