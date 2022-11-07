@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/body/body_recovery/body_recovery.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:future_of_workout/src/common.dart';
 
 class BodyPositionBar extends StatelessWidget {
   const BodyPositionBar({super.key});
@@ -20,9 +18,9 @@ class BodyPositionBar extends StatelessWidget {
                   .read<BodyRecoveryBloc>()
                   .add(BodyRecoveryChangePosition(isFront: index == 0));
             },
-            tabs: const [
-              Tab(text: 'Front'),
-              Tab(text: 'Back'),
+            tabs: [
+              Tab(text: context.local.front),
+              Tab(text: context.local.back),
             ],
           ),
         );

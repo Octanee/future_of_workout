@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/current_workout/current_workout.dart';
 import 'package:future_of_workout/src/home/home.dart';
 import 'package:future_of_workout/src/styles/app_colors.dart';
@@ -48,6 +49,19 @@ class HomeView extends StatelessWidget {
         context.goNamed(HomePage.name, params: {'homePageTab': name});
       },
       child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: BlocBuilder<NavigationCubit, NavigationState>(
+            buildWhen: (previous, current) => previous.item != current.item,
+            builder: (context, state) {
+              return Text(
+                context.local.navigationItem(state.item.label),
+                style: AppTextStyle.bold28,
+              );
+            },
+          ),
+          elevation: 1,
+        ),
         resizeToAvoidBottomInset: false,
         floatingActionButton: const CurrentWorkoutFab(),
         floatingActionButtonLocation: currentWorkout != null

@@ -68,7 +68,7 @@ class WorkoutSummaryCard extends StatelessWidget {
 
     return _CardRow(
       boldText: '$kcal ',
-      mediumText: 'kcal',
+      mediumText: 'kCal',
       icon: const AppIcon(iconData: AppIcons.flame),
       isReverse: true,
     );

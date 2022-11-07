@@ -21,17 +21,18 @@ class ExerciseImagesCard extends StatelessWidget {
         padding: const EdgeInsets.all(8),
         child: LayoutBuilder(
           builder: (context, constraints) {
+            final size = constraints.maxWidth / 2;
             return Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SvgPicture.asset(
                   imagePath,
-                  width: constraints.maxWidth * 0.49,
+                  width: size,
                 ),
                 SvgPicture.asset(
                   imagePathSecondary,
-                  width: constraints.maxWidth * 0.49,
+                  width: size,
                 ),
               ],
             );

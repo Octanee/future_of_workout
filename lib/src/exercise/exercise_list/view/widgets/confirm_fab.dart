@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/exercise/exercise.dart';
-import 'package:future_of_workout/src/styles/styles.dart';
 
 class ConfirmFab extends StatelessWidget {
   const ConfirmFab({super.key});
@@ -31,7 +29,8 @@ class ConfirmFab extends StatelessWidget {
           case SelectionType.multiple:
             return FloatingActionButton.extended(
               label: Text(
-                'Add $lenght exercises',
+                // 'Add $lenght exercises',
+                context.local.addExercisesCount(lenght),
                 style: AppTextStyle.semiBold16,
               ),
               onPressed: () {

@@ -1,8 +1,6 @@
 import 'package:exercise_repository/exercise_repository.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/exercise/exercise.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:go_router/go_router.dart';
 
 class ExerciseListPage extends StatelessWidget {
@@ -47,10 +45,10 @@ class ExerciseListView extends StatelessWidget {
             return const AppScaffold(body: AppLoading());
           case ExerciseListStatus.confirm:
           case ExerciseListStatus.success:
-            return const AppScaffold(
-              title: 'Exercises',
-              floatingActionButton: ConfirmFab(),
-              body: ExerciseList(),
+            return AppScaffold(
+              title: context.local.exercises,
+              floatingActionButton: const ConfirmFab(),
+              body: const ExerciseList(),
             );
         }
       },

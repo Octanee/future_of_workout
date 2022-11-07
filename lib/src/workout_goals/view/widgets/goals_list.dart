@@ -12,6 +12,7 @@ class GoalsList extends StatelessWidget {
       builder: (context, state) {
         final list = state.goals;
         return ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           shrinkWrap: true,
           physics: const BouncingScrollPhysics(),
           children: list.map<Widget>((goal) => GoalItem(goal: goal)).toList(),

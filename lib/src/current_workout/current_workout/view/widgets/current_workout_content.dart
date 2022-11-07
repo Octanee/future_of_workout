@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/current_workout/current_workout.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
 
 class CurrentWorkoutContent extends StatelessWidget {
   const CurrentWorkoutContent({super.key});
@@ -24,8 +22,8 @@ class CurrentWorkoutContent extends StatelessWidget {
             const AddExercise(),
             Visibility(
               visible: isEmpty,
-              child: const AppEmptyList(
-                text: 'Add some exercises.',
+              child: AppEmptyList(
+                text: context.local.addExerciseText,
               ),
             ),
           ],

@@ -1,7 +1,5 @@
 import 'package:body_api/body_api.dart';
-import 'package:flutter/material.dart';
-import 'package:future_of_workout/src/styles/styles.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:future_of_workout/src/common.dart';
 
 class RecoveryStatsItem extends StatelessWidget {
   const RecoveryStatsItem({
@@ -25,7 +23,7 @@ class RecoveryStatsItem extends StatelessWidget {
             Flexible(
               fit: FlexFit.tight,
               child: Text(
-                muscle.name,
+                context.local.muscle(muscle.name),
                 style: AppTextStyle.semiBold20,
                 textAlign: TextAlign.center,
               ),

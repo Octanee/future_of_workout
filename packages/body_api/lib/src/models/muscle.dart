@@ -6,27 +6,23 @@
 enum Muscle {
   /// Neck
   neck(
-    name: 'Neck',
     imagePathFront: 'assets/body/front/neck.svg',
     imagePathBack: 'assets/body/back/neck.svg',
   ),
 
   /// Chest
   chest(
-    name: 'Chest',
     imagePathFront: 'assets/body/front/chest.svg',
     maximumRecoverableVolume: 22,
   ),
 
   /// Serratus
   serratus(
-    name: 'Serratus',
     imagePathFront: 'assets/body/front/serratus.svg',
   ),
 
   /// Shoulders
   shoulders(
-    name: 'Shoulders',
     imagePathFront: 'assets/body/front/shoulders.svg',
     imagePathBack: 'assets/body/back/shoulders.svg',
     maximumRecoverableVolume: 26,
@@ -34,14 +30,12 @@ enum Muscle {
 
   /// Biceps
   biceps(
-    name: 'Biceps',
     imagePathFront: 'assets/body/front/biceps.svg',
     maximumRecoverableVolume: 26,
   ),
 
   /// Triceps
   triceps(
-    name: 'Triceps',
     imagePathFront: 'assets/body/front/triceps.svg',
     imagePathBack: 'assets/body/back/triceps.svg',
     maximumRecoverableVolume: 18,
@@ -49,28 +43,24 @@ enum Muscle {
 
   /// Forearm
   forearm(
-    name: 'Forearm',
     imagePathFront: 'assets/body/front/forearm.svg',
     imagePathBack: 'assets/body/back/forearm.svg',
   ),
 
   /// Abs
   abs(
-    name: 'Abs',
     imagePathFront: 'assets/body/front/abs.svg',
     maximumRecoverableVolume: 25,
   ),
 
   /// Obliques
   obliques(
-    name: 'Obliques',
     imagePathFront: 'assets/body/front/obliques.svg',
     imagePathBack: 'assets/body/back/obliques.svg',
   ),
 
   /// Trapezius
   trapezius(
-    name: 'Trapezius',
     imagePathFront: 'assets/body/front/trapezius.svg',
     imagePathBack: 'assets/body/back/trapezius.svg',
     maximumRecoverableVolume: 26,
@@ -78,61 +68,56 @@ enum Muscle {
 
   /// Lattisimus
   lattisimus(
-    name: 'Lattisimus',
     imagePathBack: 'assets/body/back/latisimus.svg',
     maximumRecoverableVolume: 22,
   ),
 
   /// Teres Major
   teresMajor(
-    name: 'Teres Major',
     imagePathBack: 'assets/body/back/teres_major.svg',
   ),
 
   /// Erector spinae
   erectorSpinae(
-    name: 'Erector Spinae',
     imagePathBack: 'assets/body/back/erector_spinae.svg',
   ),
 
   /// Adductors
   adductors(
-    name: 'Adductors',
+
     imagePathFront: 'assets/body/front/adductors.svg',
     imagePathBack: 'assets/body/back/adductors.svg',
   ),
 
   /// Abductors
   abductors(
-    name: 'Abductors',
+
     imagePathFront: 'assets/body/front/abductors.svg',
     imagePathBack: 'assets/body/back/abductors.svg',
   ),
 
   /// Glutes
   glutes(
-    name: 'Glutes',
+
     imagePathBack: 'assets/body/back/glutes.svg',
     maximumRecoverableVolume: 16,
   ),
 
   /// Quadriceps
   quadriceps(
-    name: 'Quadriceps',
+
     imagePathFront: 'assets/body/front/quadriceps.svg',
     maximumRecoverableVolume: 20,
   ),
 
   /// Hamstering
   hamstering(
-    name: 'Hamstering',
     imagePathBack: 'assets/body/back/hamstering.svg',
     maximumRecoverableVolume: 20,
   ),
 
   /// Calf
   calf(
-    name: 'Calf',
     imagePathFront: 'assets/body/front/calf.svg',
     imagePathBack: 'assets/body/back/calf.svg',
     maximumRecoverableVolume: 18,
@@ -140,16 +125,16 @@ enum Muscle {
 
   /// {@macro muscle}
   const Muscle({
-    required this.name,
+    //   required this.name,
     this.maximumRecoverableVolume = 10,
     this.imagePathFront,
     this.imagePathBack,
   });
 
-  /// The name of the Muscle
-  ///
-  /// Cannot be empty.
-  final String name;
+  // /// The name of the Muscle
+  // ///
+  // /// Cannot be empty.
+  // final String name;
 
   /// Path to SVG from assets,
   /// showing the muscle appearance from the

@@ -1,9 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:future_of_workout/src/body/body_circuit/body_circuit/body_circuit.dart';
 import 'package:future_of_workout/src/body/body_recovery/body_recovery.dart';
 import 'package:future_of_workout/src/body/body_weight/body_weight.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/home/home.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
 
 class BodyPage extends StatelessWidget {
   const BodyPage({super.key});
@@ -16,16 +15,16 @@ class BodyPage extends StatelessWidget {
       body: DefaultTabController(
         length: 3,
         child: Column(
-          children: const [
+          children: [
             CustomTabBar(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               tabs: [
-                Tab(text: 'Recovery'),
-                Tab(text: 'Weight'),
-                Tab(text: 'Circuit'),
+                Tab(text: context.local.recoveryTab),
+                Tab(text: context.local.weightTab),
+                Tab(text: context.local.circuitTab),
               ],
             ),
-            CustomTabBarView(
+            const CustomTabBarView(
               children: [
                 BodyRecoveryTab(),
                 BodyWeightTab(),

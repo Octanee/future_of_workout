@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:future_of_workout/src/shared/period.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:future_of_workout/src/common.dart';
 
 class PeriodBar extends StatelessWidget {
   const PeriodBar({
@@ -25,7 +23,13 @@ class PeriodBar extends StatelessWidget {
       onChange: (index) {
         onChange(periods[index]);
       },
-      tabs: periods.map<Tab>((period) => Tab(text: period.name)).toList(),
+      tabs: periods
+          .map<Tab>(
+            (period) => Tab(
+              text: context.local.period(period.name),
+            ),
+          )
+          .toList(),
       initialIndex: initialIndex,
     );
   }

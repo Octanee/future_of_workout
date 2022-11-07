@@ -1,0 +1,139 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "future_of_workout",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "future_of_workout (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "future_of_workout (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "body_api",
+            "cwd": "packages\\body_api",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "exercise_api",
+            "cwd": "packages\\exercise_api",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "exercise_repository",
+            "cwd": "packages\\exercise_repository",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "goal_api",
+            "cwd": "packages\\goal_api",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "goal_repository",
+            "cwd": "packages\\goal_repository",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "local_storage_exercise_api",
+            "cwd": "packages\\local_storage_exercise_api",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "local_storage_goal_api",
+            "cwd": "packages\\local_storage_goal_api",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "local_storage_measurement_api",
+            "cwd": "packages\\local_storage_measurement_api",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "local_storage_user_api",
+            "cwd": "packages\\local_storage_user_api",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "local_storage_workout_api",
+            "cwd": "packages\\local_storage_workout_api",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "local_storage_workout_log_api",
+            "cwd": "packages\\local_storage_workout_log_api",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "measurement_api",
+            "cwd": "packages\\measurement_api",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "measurement_repository",
+            "cwd": "packages\\measurement_repository",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "user_api",
+            "cwd": "packages\\user_api",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "user_repository",
+            "cwd": "packages\\user_repository",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "workout_api",
+            "cwd": "packages\\workout_api",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "workout_log_api",
+            "cwd": "packages\\workout_log_api",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "workout_log_repository",
+            "cwd": "packages\\workout_log_repository",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "workout_repository",
+            "cwd": "packages\\workout_repository",
+            "request": "launch",
+            "type": "dart"
+        }
+    ]
+}

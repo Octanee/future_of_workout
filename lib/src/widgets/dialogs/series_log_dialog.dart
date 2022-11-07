@@ -91,7 +91,9 @@ class _SliderRow extends StatelessWidget {
           child: AppIcon(iconData: AppIcons.intensity),
         ),
         Slider(
-          label: SeriesLogIntensity.values[value.round()].name,
+          label: context.local.seriesLogIntensity(
+            SeriesLogIntensity.values[value.round()].name,
+          ),
           max: 5,
           divisions: 5,
           value: value,

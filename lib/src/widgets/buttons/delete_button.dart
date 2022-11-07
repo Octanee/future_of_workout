@@ -1,31 +1,29 @@
-import 'package:flutter/material.dart';
-import 'package:future_of_workout/src/styles/styles.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:future_of_workout/src/common.dart';
 
 class DeleteButton extends StatelessWidget {
   const DeleteButton({
     required this.onConfirm,
-    this.text = 'Delete',
-    this.dialogText = 'Are you sure you want to delete?',
+    this.text,
+    this.dialogText,
     super.key,
   });
 
   final VoidCallback onConfirm;
-  final String text;
-  final String dialogText;
+  final String? text;
+  final String? dialogText;
 
   @override
   Widget build(BuildContext context) {
     return BarButton(
-      text: text,
+      text: text ?? context.local.delete,
       icon: const AppIcon(iconData: AppIcons.trash),
       onTap: () async {
         await showDialog<void>(
           context: context,
           builder: (builderContext) => ConfirmDialog(
-            title: text,
+            title: text ?? context.local.delete,
             content: Text(
-              dialogText,
+              dialogText ?? context.local.deleteText(''),
               style: AppTextStyle.medium16,
             ),
             onConfirm: onConfirm,

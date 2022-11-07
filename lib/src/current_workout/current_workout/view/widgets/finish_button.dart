@@ -1,8 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/current_workout/current_workout.dart';
-import 'package:future_of_workout/src/styles/styles.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
 
 class FinishButton extends StatelessWidget {
   const FinishButton({super.key});
@@ -12,7 +9,7 @@ class FinishButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: BarButton(
-        text: 'Finish workout',
+        text: context.local.finishWorkout,
         icon: const AppIcon(iconData: AppIcons.stop),
         onTap: () async {
           final bloc = context.read<CurrentWorkoutBloc>();
@@ -20,9 +17,9 @@ class FinishButton extends StatelessWidget {
           await showDialog<bool>(
             context: context,
             builder: (builderContext) => ConfirmDialog(
-              title: 'Finish workout?',
+              title: context.local.finishWorkout,
               content: Text(
-                'Do you want to end your workout?',
+                context.local.finishWorkoutText,
                 style: AppTextStyle.medium16,
               ),
               onConfirm: () => bloc.add(const CurrentWorkoutFinish()),

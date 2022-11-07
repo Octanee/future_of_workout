@@ -1,7 +1,5 @@
 import 'package:exercise_api/exercise_api.dart';
-import 'package:flutter/material.dart';
-import 'package:future_of_workout/src/styles/styles.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:future_of_workout/src/common.dart';
 
 class MuscleItem extends StatelessWidget {
   const MuscleItem({
@@ -24,7 +22,7 @@ class MuscleItem extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  muscle.name,
+                  context.local.muscle(muscle.name),
                   style: AppTextStyle.medium16,
                 ),
               ),

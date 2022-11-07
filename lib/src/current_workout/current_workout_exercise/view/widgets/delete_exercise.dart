@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/current_workout/current_workout.dart';
-import 'package:future_of_workout/src/widgets/buttons/buttons.dart';
 
 class DeleteExercise extends StatelessWidget {
   const DeleteExercise({super.key});
@@ -19,6 +17,8 @@ class DeleteExercise extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(bottom: 8),
             child: DeleteButton(
+              dialogText: context.local
+                  .deleteText(state.workoutExerciseLog!.exercise.name),
               onConfirm: () {
                 context
                     .read<CurrentWorkoutExerciseBloc>()

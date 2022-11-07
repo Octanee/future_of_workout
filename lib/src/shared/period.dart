@@ -1,15 +1,11 @@
 enum Period {
-  week(days: 7, name: 'Week'),
-  oneMounth(days: 30, name: '1 Mounth'),
-  threeMounth(days: 90, name: '3 Mounth'),
-  sixMounth(days: 180, name: '6 Mounth'),
-  year(days: 365, name: 'Year');
+  week(days: 7),
+  oneMounth(days: 30),
+  threeMounth(days: 90),
+  sixMounth(days: 180),
+  year(days: 365);
 
-  const Period({
-    required this.days,
-    required this.name,
-  });
+  const Period({required this.days});
 
   final int days;
-  final String name;
 }

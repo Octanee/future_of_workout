@@ -10,27 +10,27 @@ enum HomeNavigationItem {
   currentWorkout(
     icon: AppIcons.play,
     view: CurrentWorkoutPage(),
-    label: 'Workout',
+    label: 'workout',
   ),
   workouts(
     icon: AppIcons.list,
     view: WorkoutsPage(),
-    label: 'Plans',
+    label: 'plans',
   ),
   goals(
     icon: AppIcons.stats,
     view: WorkoutGoalsTab(),
-    label: 'Progress',
+    label: 'progress',
   ),
   body(
     icon: AppIcons.muscle,
     view: BodyPage(),
-    label: 'Body',
+    label: 'body',
   ),
   settings(
     icon: AppIcons.settings,
     view: SettingsPage(),
-    label: 'Settings',
+    label: 'settings',
   );
 
   const HomeNavigationItem({

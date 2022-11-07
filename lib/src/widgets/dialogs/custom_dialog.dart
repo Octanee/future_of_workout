@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-
-import 'package:future_of_workout/src/styles/app_text_style.dart';
+import 'package:future_of_workout/src/common.dart';
 
 class CustomDialog extends StatelessWidget {
   const CustomDialog({
@@ -8,16 +6,16 @@ class CustomDialog extends StatelessWidget {
     required this.title,
     required this.content,
     required this.onConfirm,
-    this.negativeButtonText = 'Cancel',
-    this.confirmButtonText = 'Save',
+    this.negativeButtonText,
+    this.confirmButtonText,
   });
 
   final String title;
   final Widget content;
 
   final VoidCallback onConfirm;
-  final String negativeButtonText;
-  final String confirmButtonText;
+  final String? negativeButtonText;
+  final String? confirmButtonText;
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +28,14 @@ class CustomDialog extends StatelessWidget {
       actions: [
         OutlinedButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: Text(negativeButtonText),
+          child: Text(negativeButtonText ?? context.local.cancel),
         ),
         ElevatedButton(
           onPressed: () {
             onConfirm();
             Navigator.of(context).pop();
           },
-          child: Text(confirmButtonText),
+          child: Text(confirmButtonText?? context.local.save),
         ),
       ],
     );

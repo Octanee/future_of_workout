@@ -110,7 +110,10 @@ class WorkoutLogItem extends StatelessWidget {
 
   Widget _buildExercises(BuildContext context) {
     final exercises = log.workoutExerciseLogs
-        .where((exercise) => exercise.isFinished)
+        .where(
+          (exercise) =>
+              exercise.exerciseSeriesLogs.any((series) => series.isFinished),
+        )
         .toList()
         .length;
     final text = BoldText(

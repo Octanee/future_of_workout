@@ -1,9 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/home/home.dart';
-import 'package:future_of_workout/src/styles/app_colors.dart';
-import 'package:future_of_workout/src/styles/app_text_style.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
 
 class NavigationItem extends StatelessWidget {
   const NavigationItem({
@@ -35,7 +31,7 @@ class NavigationItem extends StatelessWidget {
                     color: isSelected ? AppColors.yellow : AppColors.grey,
                   ),
                   Text(
-                    item.label,
+                    context.local.navigationItem(item.label),
                     style: isSelected
                         ? AppTextStyle.regular16
                             .copyWith(color: AppColors.yellow)

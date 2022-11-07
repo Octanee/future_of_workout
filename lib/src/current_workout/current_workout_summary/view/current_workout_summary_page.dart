@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/current_workout/current_workout.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
 
 class CurrentWorkoutSummaryPage extends StatelessWidget {
   const CurrentWorkoutSummaryPage({super.key});
@@ -27,7 +25,7 @@ class CurrentWorkoutSummaryView extends StatelessWidget {
         return false;
       },
       child: AppScaffold(
-        title: 'Summary',
+        title: context.local.summary,
         body: BlocBuilder<CurrentWorkoutBloc, CurrentWorkoutState>(
           buildWhen: (previous, current) => previous.status != current.status,
           builder: (context, state) {
@@ -41,7 +39,7 @@ class CurrentWorkoutSummaryView extends StatelessWidget {
               physics: const BouncingScrollPhysics(),
               children: [
                 WorkoutSummaryCard(workoutLog: log),
-                const Header(text: 'Exercises'),
+                Header(text: context.local.exercises),
                 ...log.workoutExerciseLogs.map<Widget>(
                   (exerciseLog) => WorkoutExerciseLogDetailsItem(
                     header: WorkoutExerciseLogItem(

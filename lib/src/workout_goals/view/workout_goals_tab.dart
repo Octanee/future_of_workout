@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/workout_goals/workout_goals.dart';
 import 'package:goal_repository/goal_repository.dart';
 
@@ -23,33 +21,25 @@ class WorkoutGoalsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<WorkoutGoalsBloc, WorkoutGoalsState>(
-      buildWhen: (previous, current) => previous.status != current.status,
-      builder: (context, state) {
-        switch (state.status) {
-          case WorkoutGoalsStatus.initial:
-          case WorkoutGoalsStatus.loading:
-            return const AppScaffold(body: AppLoading());
-          case WorkoutGoalsStatus.failure:
-            return const AppScaffold(body: AppError());
-          case WorkoutGoalsStatus.empty:
-            return const HomeWrapper(
-              floatingActionButton: SearchFab(),
-              body: AppEmptyList(
-                text: 'No one goals has been set yet.',
-              ),
-            );
-          case WorkoutGoalsStatus.loaded:
-          case WorkoutGoalsStatus.add:
-            return const HomeWrapper(
-              floatingActionButton: SearchFab(),
-              body: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: GoalsList(),
-              ),
-            );
-        }
-      },
+    return HomeWrapper(
+      floatingActionButton: const SearchFab(),
+      body: BlocBuilder<WorkoutGoalsBloc, WorkoutGoalsState>(
+        buildWhen: (previous, current) => previous.status != current.status,
+        builder: (context, state) {
+          switch (state.status) {
+            case WorkoutGoalsStatus.initial:
+            case WorkoutGoalsStatus.loading:
+              return const AppLoading();
+            case WorkoutGoalsStatus.failure:
+              return const AppScaffold(body: AppError());
+            case WorkoutGoalsStatus.empty:
+              return AppEmptyList(text: context.local.goalsEmptyList);
+            case WorkoutGoalsStatus.loaded:
+            case WorkoutGoalsStatus.add:
+              return const GoalsList();
+          }
+        },
+      ),
     );
   }
 }

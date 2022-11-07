@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/current_workout/current_workout.dart';
-import 'package:future_of_workout/src/widgets/buttons/buttons.dart';
 
 class RemoveSeries extends StatelessWidget {
   const RemoveSeries({super.key});
@@ -19,7 +17,8 @@ class RemoveSeries extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(bottom: 8),
             child: RemoveButton(
-              text: 'Remove series',
+              text: context.local.deleteSeries,
+              dialogText: context.local.deleteSeriesText,
               onConfirm: () {
                 context
                     .read<CurrentWorkoutExerciseBloc>()
