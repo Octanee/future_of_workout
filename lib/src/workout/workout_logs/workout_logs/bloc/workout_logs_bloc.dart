@@ -25,6 +25,8 @@ class WorkoutLogsBloc extends Bloc<WorkoutLogsEvent, WorkoutLogsState> {
     await emit.forEach<List<WorkoutLog>>(
       _repository.getWorkoutLogs(),
       onData: (logs) {
+        logs.removeWhere((element) => element.endDate == null);
+
         if (logs.isEmpty) {
           return state.copyWith(status: WorkoutLogsStatus.empty);
         }
