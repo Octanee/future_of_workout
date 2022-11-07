@@ -65,10 +65,7 @@ flutter:
   generate: true
 
   assets:
-    - assets/body/back/
-    - assets/body/front/
-    - assets/exercises/barbel_bench_press/
-    - assets/exercises/squat/
-    - assets/exercises/deadlift/
+    - assets/body/
+    - assets/exercises/
     - assets/lottie/
     - assets/icons/

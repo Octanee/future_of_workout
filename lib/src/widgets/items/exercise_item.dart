@@ -1,8 +1,7 @@
 import 'package:exercise_api/exercise_api.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:future_of_workout/src/styles/styles.dart';
-import 'package:future_of_workout/src/widgets/widgets.dart';
+import 'package:future_of_workout/src/common.dart';
+
 
 class ExerciseItem extends StatelessWidget {
   const ExerciseItem({
@@ -25,39 +24,46 @@ class ExerciseItem extends StatelessWidget {
       child: CustomCard(
         onTap: onTap,
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              children: [
-                Stack(
-                  alignment: Alignment.bottomRight,
-                  children: [
-                    SizedBox(
-                      width: 80,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: SvgPicture.asset(
-                          exercise.imagePath,
-                          height: 64,
+            Flexible(
+              child: Row(
+                children: [
+                  Stack(
+                    alignment: Alignment.bottomRight,
+                    children: [
+                      SizedBox(
+                        width: 80,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: SvgPicture.asset(
+                            exercise.imagePath,
+                            height: 64,
+                          ),
                         ),
                       ),
+                      if (isSelected)
+                        const Padding(
+                          padding: EdgeInsets.all(4),
+                          child: AppIcon(
+                            iconData: AppIcons.checkBox,
+                            color: AppColors.yellow,
+                          ),
+                        ),
+                    ],
+                  ),
+                  Flexible(
+                    child: Text(
+                      exercise.name,
+                      style: AppTextStyle.bold20,
+
+                      //   overflow: TextOverflow.ellipsis,
                     ),
-                    if (isSelected)
-                      const Padding(
-                        padding: EdgeInsets.all(4),
-                        child: AppIcon(
-                          iconData: AppIcons.checkBox,
-                          color: AppColors.yellow,
-                        ),
-                      ),
-                  ],
-                ),
-                Text(
-                  exercise.name,
-                  style: AppTextStyle.bold20,
-                ),
-              ],
+                  ),
+                ],
+              ),
             ),
-            const Spacer(),
+            //const Spacer(),
             Padding(
               padding: const EdgeInsets.all(8),
               child: IconButton(

@@ -1,6 +1,6 @@
 part of 'instructions.dart';
 
-/// The translations for English (`en`).
+/// The translations for Polish (`pl`).
 class InstructionsPl extends Instructions {
   @override
   List<String> get _barbellBenchPress => [

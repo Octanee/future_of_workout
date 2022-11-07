@@ -29,8 +29,8 @@ class Exercise extends Equatable {
     required this.name,
     required this.primaryMuscle,
     required this.muscles,
-    this.imagePath = 'assets/exercises/default.svg',
-    this.imagePathSecondary = 'assets/exercises/default.svg',
+    this.imagePath = 'assets/exercises/placeholder.svg',
+    this.imagePathSecondary = 'assets/exercises/placeholder.svg',
   })  : assert(
           id == null || id.isNotEmpty,
           '"id" can not be null and should be empty.',
