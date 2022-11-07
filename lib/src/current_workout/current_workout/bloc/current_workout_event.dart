@@ -88,3 +88,13 @@ class CurrentWorkoutRestTicked extends CurrentWorkoutEvent {
   @override
   List<Object> get props => [restDuration];
 }
+
+class CurrentWorkoutReorder extends CurrentWorkoutEvent {
+  const CurrentWorkoutReorder({required this.oldIndex, required this.newIndex});
+
+  final int oldIndex;
+  final int newIndex;
+
+  @override
+  List<Object?> get props => [oldIndex, newIndex];
+}

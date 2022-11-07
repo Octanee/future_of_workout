@@ -30,6 +30,7 @@ class CurrentWorkoutBloc
     on<CurrentWorkoutRestTicked>(_onRestTicked);
     on<CurrentWorkoutRestAdd>(_onRestAdd);
     on<CurrentWorkoutRestSubtract>(_onRestSubtract);
+    on<CurrentWorkoutReorder>(_onReorder);
   }
 
   final WorkoutRepository _workoutRepository;
@@ -241,5 +242,23 @@ class CurrentWorkoutBloc
         workoutExerciseId: state.workoutExerciseId!,
       ),
     );
+  }
+
+  Future<void> _onReorder(
+    CurrentWorkoutReorder event,
+    Emitter<CurrentWorkoutState> emit,
+  ) async {
+    final log = state.workoutLog!;
+    final list = List.of(log.workoutExerciseLogs);
+
+    final exercise = list.removeAt(event.oldIndex);
+    final index =
+        event.newIndex > event.oldIndex ? event.newIndex - 1 : event.newIndex;
+
+    list.insert(index, exercise);
+
+    final workout = log.copyWith(workoutExerciseLogs: list);
+    await _workoutLogRepository.saveWorkoutLog(workoutLog: workout);
+    emit(state.copyWith(workoutLog: workout));
   }
 }

@@ -16,28 +16,31 @@ class WorkoutExerciseLogItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return CustomCard(
-          onTap: onTap,
-          child: Row(
-            children: [
-              Row(
-                children: [
-                  _buildIcon(constraints.maxWidth * 0.25),
-                  _ExerciseData(workoutExerciseLog: workoutExerciseLog),
-                ],
-              ),
-              const Spacer(),
-              if (onTap != null)
-                const Padding(
-                  padding: EdgeInsets.all(8),
-                  child: AppIcon(iconData: AppIcons.right),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          return CustomCard(
+            onTap: onTap,
+            child: Row(
+              children: [
+                Row(
+                  children: [
+                    _buildIcon(constraints.maxWidth * 0.25),
+                    _ExerciseData(workoutExerciseLog: workoutExerciseLog),
+                  ],
                 ),
-            ],
-          ),
-        );
-      },
+                const Spacer(),
+                if (onTap != null)
+                  const Padding(
+                    padding: EdgeInsets.all(8),
+                    child: AppIcon(iconData: AppIcons.right),
+                  ),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 
