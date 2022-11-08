@@ -6,8 +6,8 @@ A GymLogger App for all your needs!
 
 ## Translations
 
-- [English :en:]()
-- [Polish :pl:]()
+- English en
+- Polish pl
 
 ## Features
 
