@@ -41,7 +41,7 @@ class CurrentWorkoutPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               physics: const BouncingScrollPhysics(),
               children: const [
-                TitleCard(),
+                //TitleCard(),
                 FinishButton(),
                 CurrentWorkoutContent(),
               ],

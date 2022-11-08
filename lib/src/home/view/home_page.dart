@@ -48,16 +48,9 @@ class HomeView extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: BlocBuilder<NavigationCubit, NavigationState>(
-            buildWhen: (previous, current) => previous.item != current.item,
-            builder: (context, state) {
-              return Text(
-                context.locale.navigationItem(state.item.label),
-                style: AppTextStyle.bold28,
-              );
-            },
-          ),
+          title: const _AppBarTitle(),
           elevation: 1,
+          actions: const [_WorkoutTime()],
         ),
         resizeToAvoidBottomInset: false,
         floatingActionButton: const CurrentWorkoutFab(),
@@ -71,6 +64,61 @@ class HomeView extends StatelessWidget {
           builder: (context, state) => state.item.view,
         ),
       ),
+    );
+  }
+}
+
+class _AppBarTitle extends StatelessWidget {
+  const _AppBarTitle();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<NavigationCubit, NavigationState>(
+      buildWhen: (previous, current) => previous.item != current.item,
+      builder: (context, state) {
+        return Text(
+          context.locale.navigationItem(state.item.label),
+          style: AppTextStyle.bold28,
+        );
+      },
+    );
+  }
+}
+
+class _WorkoutTime extends StatelessWidget {
+  const _WorkoutTime();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<NavigationCubit, NavigationState>(
+      buildWhen: (previous, current) => previous.item != current.item,
+      builder: (context, state) {
+        return Visibility(
+          visible: state.item == HomeNavigationItem.currentWorkout,
+          child: BlocBuilder<CurrentWorkoutBloc, CurrentWorkoutState>(
+            buildWhen: (previous, current) => previous.time != current.time,
+            builder: (context, state) {
+              final time = Duration(seconds: state.time);
+
+              String twoDigits(int n) => n.toString().padLeft(2, '0');
+
+              final hours = twoDigits(time.inHours.remainder(24));
+              final minutes = twoDigits(time.inMinutes.remainder(60));
+              final seconds = twoDigits(time.inSeconds.remainder(60));
+
+              return Padding(
+                padding: const EdgeInsets.only(right: 16),
+                child: Center(
+                  child: Text(
+                    '${hours != '00' ? '$hours:' : ''}$minutes:$seconds',
+                    style: AppTextStyle.semiBold20,
+                  ),
+                ),
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }
