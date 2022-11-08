@@ -1,16 +1,22 @@
-# future_of_workout
+# Feature Of Workout
 
-A new Flutter project.
+A GymLogger App for all your needs!
 
-## Getting Started
+[![made-with-flutter](https://img.shields.io/badge/Made%20with-Flutter-1f425f.svg)](https://flutter.dev/)
 
-This project is a starting point for a Flutter application.
+## Translations
 
-A few resources to get you started if this is your first Flutter project:
+- [English :en:]()
+- [Polish :pl:]()
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Features
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Make your own plans
+- Track your exercise progres
+- Check used muscles in workout
+- Calculation of body recovery
+- Save weight and circuits measurements
+- Set your length and weight unit preferences
+- Set your exercise weight goal
+- No ads
+- No subscription
