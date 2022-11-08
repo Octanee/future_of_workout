@@ -31,10 +31,12 @@ class LocalStorageExerciseApi extends ExerciseApi {
 
     _exerciseBox = await Hive.openBox<Exercise>(kExercisesBoxName);
 
-    _addExercisesToStreamController();
+    final exercises = _exerciseBox.values.toList();
+    _exercisesStreamController.add(exercises);
 
     _exerciseBox.watch().listen((event) {
-      _addExercisesToStreamController();
+      final exercises = _exerciseBox.values.toList();
+      _exercisesStreamController.add(exercises);
     });
   }
 
@@ -43,24 +45,6 @@ class LocalStorageExerciseApi extends ExerciseApi {
       ..registerAdapter<Muscle>(MuscleAdapter())
       ..registerAdapter<MuscleInvolvement>(MuscleInvolvementAdapter())
       ..registerAdapter<Exercise>(ExerciseAdapter());
-  }
-
-  void _addExercisesToStreamController() {
-    var exercises = _exerciseBox.values.toList();
-    if (exercises.isEmpty ||
-        !exercises.contains(DefaultExerciseProvider.defaultExercises.last)) {
-      _populateBox();
-    }
-    exercises = _exerciseBox.values.toList();
-    _exercisesStreamController.add(exercises);
-  }
-
-  void _populateBox() {
-    final defaultExercises = DefaultExerciseProvider.defaultExercises;
-    final entries = <String, Exercise>{
-      for (final exercise in defaultExercises) exercise.id: exercise,
-    };
-    _exerciseBox.putAll(entries);
   }
 
   void _checkInit() {

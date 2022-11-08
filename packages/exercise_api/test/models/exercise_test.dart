@@ -13,7 +13,6 @@ void main() {
       return Exercise(
         id: id,
         name: name,
-        primaryMuscle: primaryMuscle,
         muscles: {primaryMuscle: MuscleInvolvement.primary},
         imagePath: imagePath,
         imagePathSecondary: imagePathSecondary,
@@ -64,7 +63,7 @@ void main() {
           createSubject().copyWith(
             id: '2',
             name: 'new name',
-            primaryMuscle: Muscle.abs,
+            muscles: {Muscle.abs: MuscleInvolvement.primary},
             imagePath: 'new imagePath',
             imagePathSecondary: 'new imagePathSecondary',
           ),

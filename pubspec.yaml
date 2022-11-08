@@ -65,7 +65,8 @@ flutter:
   generate: true
 
   assets:
-    - assets/body/
-    - assets/exercises/
+    - assets/body/back/
+    - assets/body/front/
     - assets/lottie/
     - assets/icons/
+    - assets/exercises/

@@ -9,7 +9,6 @@ part of 'exercise.dart';
 Exercise _$ExerciseFromJson(Map<String, dynamic> json) => Exercise(
       id: json['id'] as String?,
       name: json['name'] as String,
-      primaryMuscle: $enumDecode(_$MuscleEnumMap, json['primaryMuscle']),
       muscles: (json['muscles'] as Map<String, dynamic>).map(
         (k, e) => MapEntry($enumDecode(_$MuscleEnumMap, k),
             $enumDecode(_$MuscleInvolvementEnumMap, e)),
@@ -24,10 +23,15 @@ Map<String, dynamic> _$ExerciseToJson(Exercise instance) => <String, dynamic>{
       'name': instance.name,
       'imagePath': instance.imagePath,
       'imagePathSecondary': instance.imagePathSecondary,
-      'primaryMuscle': _$MuscleEnumMap[instance.primaryMuscle]!,
       'muscles': instance.muscles.map((k, e) =>
           MapEntry(_$MuscleEnumMap[k]!, _$MuscleInvolvementEnumMap[e]!)),
     };
+
+const _$MuscleInvolvementEnumMap = {
+  MuscleInvolvement.primary: 'primary',
+  MuscleInvolvement.secondary: 'secondary',
+  MuscleInvolvement.additional: 'additional',
+};
 
 const _$MuscleEnumMap = {
   Muscle.neck: 'neck',
@@ -49,10 +53,4 @@ const _$MuscleEnumMap = {
   Muscle.quadriceps: 'quadriceps',
   Muscle.hamstering: 'hamstering',
   Muscle.calf: 'calf',
-};
-
-const _$MuscleInvolvementEnumMap = {
-  MuscleInvolvement.primary: 'primary',
-  MuscleInvolvement.secondary: 'secondary',
-  MuscleInvolvement.additional: 'additional',
 };

@@ -1,4 +1,5 @@
 import 'package:exercise_api/exercise_api.dart';
+import 'package:rxdart/rxdart.dart';
 
 /// {@template exercise_repository}
 /// A repository that handles exercise related requests.
@@ -21,7 +22,17 @@ class ExerciseRepository {
   }
 
   /// Provides a [Stream] of all exercises
-  Stream<List<Exercise>> getExercises() => _exerciseApi.getExercises();
+  Stream<List<Exercise>> getExercises() {
+    final defaultExercises =
+        Stream.value(DefaultExerciseProvider.defaultExercises);
+    final createdExercises = _exerciseApi.getExercises();
+
+    return Rx.combineLatest2<List<Exercise>, List<Exercise>, List<Exercise>>(
+      defaultExercises,
+      createdExercises,
+      (List<Exercise> a, List<Exercise> b) => a + b,
+    );
+  }
 
   /// Get the exercise with the given `id`.
   ///

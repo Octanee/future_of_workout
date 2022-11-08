@@ -1,6 +1,7 @@
-/// Default Exercise
+import 'package:exercise_api/exercise_api.dart';
 // ignore_for_file: public_member_api_docs
 
+/// Default Exercise
 enum DefaultExercise {
   // Barbell
   benchPress,
@@ -13,21 +14,19 @@ enum DefaultExercise {
   inclineBenchPress,
   powerClean,
   hexBarDeadlift,
-  militaryPress,
   sumoDeadlift,
   hipThrust,
   romanianDeadlift,
-  cleanandJerk,
+  cleanAndJerk,
   snatch,
   clean,
-  pushPress,
   barbellShrug,
   closeGripBenchPress,
   declineBenchPress,
-  cleanandPress,
+  cleanAndPress,
   tBarRow,
   eZBarCurl,
-  lyingTricepExtension,
+  lyingTricepsExtension,
   seatedShoulderPress,
   preacherCurl,
   rackPull,
@@ -39,7 +38,6 @@ enum DefaultExercise {
   floorPress,
   smithMachineBenchPress,
   goodMorning,
-  hangClean,
   stiffLegDeadlift,
   barbellLunge,
   zercherSquat,
@@ -298,4 +296,28 @@ enum DefaultExercise {
   squatThrust,
   scissorKicks,
   floorHipExtension,
+}
+
+extension ToExercise on DefaultExercise {
+  Exercise exercise({
+    Map<Muscle, MuscleInvolvement> muscles = const {},
+    String imagePath = 'assets/exercises/default.svg',
+    String imagePathSecondary = 'assets/exercises/default.svg',
+  }) =>
+      Exercise(
+        id: name,
+        name: displayName,
+        muscles: muscles,
+        imagePath: imagePath,
+        imagePathSecondary: imagePathSecondary,
+      );
+
+  String get displayName {
+    final value = name.replaceAllMapped(
+      RegExp('([A-Z])'),
+      (match) => ' ${match.group(1)}',
+    );
+
+    return '${value[0].toUpperCase()}${value.substring(1).toLowerCase()}';
+  }
 }

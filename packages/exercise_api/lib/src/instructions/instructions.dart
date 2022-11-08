@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:collection/collection.dart';
 import 'package:exercise_api/exercise_api.dart';
 
@@ -34,7 +32,7 @@ abstract class Instructions {
       case null:
         return [];
       case DefaultExercise.benchPress:
-        return _barbellBenchPress;
+        return _benchPress;
       case DefaultExercise.squat:
         return _squat;
       case DefaultExercise.deadlift:
@@ -53,21 +51,15 @@ abstract class Instructions {
 
       case DefaultExercise.hexBarDeadlift:
 
-      case DefaultExercise.militaryPress:
-
       case DefaultExercise.sumoDeadlift:
 
       case DefaultExercise.hipThrust:
 
       case DefaultExercise.romanianDeadlift:
 
-      case DefaultExercise.cleanandJerk:
-
       case DefaultExercise.snatch:
 
       case DefaultExercise.clean:
-
-      case DefaultExercise.pushPress:
 
       case DefaultExercise.barbellShrug:
 
@@ -75,17 +67,17 @@ abstract class Instructions {
 
       case DefaultExercise.declineBenchPress:
 
-      case DefaultExercise.cleanandPress:
-
       case DefaultExercise.tBarRow:
 
       case DefaultExercise.eZBarCurl:
 
-      case DefaultExercise.lyingTricepExtension:
+      case DefaultExercise.lyingTricepsExtension:
 
       case DefaultExercise.seatedShoulderPress:
 
       case DefaultExercise.preacherCurl:
+      case DefaultExercise.cleanAndJerk:
+      case DefaultExercise.cleanAndPress:
 
       case DefaultExercise.rackPull:
 
@@ -104,8 +96,6 @@ abstract class Instructions {
       case DefaultExercise.smithMachineBenchPress:
 
       case DefaultExercise.goodMorning:
-
-      case DefaultExercise.hangClean:
 
       case DefaultExercise.stiffLegDeadlift:
 
@@ -606,12 +596,12 @@ abstract class Instructions {
       case DefaultExercise.scissorKicks:
 
       case DefaultExercise.floorHipExtension:
-        // TODO: Handle this case.
+        // TODO(Exercise): Create instructions for exercises
         return [];
     }
   }
 
-  List<String> get _barbellBenchPress;
+  List<String> get _benchPress;
 
   List<String> get _deadlift;
 

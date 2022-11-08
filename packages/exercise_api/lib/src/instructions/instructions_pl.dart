@@ -3,12 +3,12 @@ part of 'instructions.dart';
 /// The translations for Polish (`pl`).
 class InstructionsPl extends Instructions {
   @override
-  List<String> get _barbellBenchPress => [
-        '_barbellBenchPress 1 PL',
-        '_barbellBenchPress 2 PL',
-        '_barbellBenchPress 3 PL',
-        '_barbellBenchPress 4 PL',
-        '_barbellBenchPress 5 PL',
+  List<String> get _benchPress => [
+        'Połóż się na ławce płaskiej',
+        'Chwyć sztangę obiema rękami',
+        'Zdejmij sztangę ze stojaka i trzymaj ją bezpośrednio na barkami',
+        'Powoli opuść sztangę do klatki piersiowej',
+        'Wyciśnij sztangę z powrotem do punktu startowego',
       ];
 
   @override

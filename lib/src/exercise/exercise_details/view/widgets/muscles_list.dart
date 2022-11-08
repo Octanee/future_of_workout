@@ -15,8 +15,11 @@ class MusclesList extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ExerciseDetailsBloc, ExerciseDetailsState>(
       builder: (context, state) {
-        final primary = state.exercise!.primaryMuscle;
-        final secondary = <Muscle>[];
+        final muscles = state.exercise!.muscles;
+        final primary = muscles.keys
+            .where((element) => muscles[element] == MuscleInvolvement.primary)
+            .toList();
+        final secondary = List.of(muscles.keys)..remove(primary);
 
         return Padding(
           padding: padding,
@@ -25,7 +28,7 @@ class MusclesList extends StatelessWidget {
             children: [
               ..._buildSection(
                 title: context.locale.primaryMuscle,
-                muscles: [primary],
+                muscles: primary,
               ),
               if (secondary.isNotEmpty)
                 ..._buildSection(
