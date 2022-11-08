@@ -19,7 +19,9 @@ class MusclesList extends StatelessWidget {
         final primary = muscles.keys
             .where((element) => muscles[element] == MuscleInvolvement.primary)
             .toList();
-        final secondary = List.of(muscles.keys)..remove(primary);
+        final secondary = muscles.keys
+            .where((element) => muscles[element] != MuscleInvolvement.primary)
+            .toList();
 
         return Padding(
           padding: padding,

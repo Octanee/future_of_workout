@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:exercise_api/exercise_api.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -38,7 +39,17 @@ class ExerciseRepository {
   ///
   /// If no exercise with the given `id` exists,
   /// a [ExerciseNotFoundException] error is thrown.
-  Exercise get({required String id}) => _exerciseApi.get(id: id);
+  Exercise get({required String id}) {
+    try {
+      final exercise = DefaultExerciseProvider.defaultExercises.firstWhere(
+        (element) => element.id == id,
+        orElse: () => _exerciseApi.get(id: id),
+      );
+      return exercise;
+    } catch (_) {
+      throw ExerciseNotFoundException();
+    }
+  }
 
   /// Get instructions of exercise with the given `id`
   ///

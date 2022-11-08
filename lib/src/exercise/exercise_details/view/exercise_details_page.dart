@@ -51,7 +51,9 @@ class ExerciseDetailsView extends StatelessWidget {
                   ),
                   const InststuctionsList(),
                   const MusclesList(),
+                  // TODO(Feature): Equipment
                   //const EquipmentList(),
+                  // TODO(Feature): Note
                 ],
               ),
             );

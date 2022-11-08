@@ -24,7 +24,7 @@ class ExerciseAdapter extends TypeAdapter<Exercise> {
   @override
   void write(BinaryWriter writer, Exercise obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(5)
       ..writeByte(1)
       ..write(obj.id)
       ..writeByte(2)

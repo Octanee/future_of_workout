@@ -4,17 +4,15 @@ import 'package:future_of_workout/src/common.dart';
 class MuscleItem extends StatelessWidget {
   const MuscleItem({
     required this.muscle,
-    this.padding = const EdgeInsets.symmetric(vertical: 8),
     super.key,
   });
 
   final Muscle muscle;
-  final EdgeInsets padding;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: padding,
+      padding: const EdgeInsets.only(bottom: 8),
       child: CustomCard(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
