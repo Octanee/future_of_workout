@@ -18,6 +18,7 @@ class ExerciseAdapter extends TypeAdapter<Exercise> {
       imagePath: fields[3] as String,
       imagePathSecondary: fields[4] as String,
       muscles: (fields[5] as Map).cast<Muscle, MuscleInvolvement>(),
+      equipment: fields[6] as List<Equipment>,
     );
   }
 
@@ -34,6 +35,8 @@ class ExerciseAdapter extends TypeAdapter<Exercise> {
       ..writeByte(4)
       ..write(obj.imagePathSecondary)
       ..writeByte(5)
-      ..write(obj.muscles);
+      ..write(obj.muscles)
+      ..writeByte(6)
+      ..write(obj.equipment);
   }
 }

@@ -10,7 +10,7 @@ part 'exercise.g.dart';
 /// A single exercise item.
 ///
 /// Contains a [id], [name], [imagePath] and [imagePathSecondary],
-/// in addtion to a list [muscles].
+/// in addtion to a list [muscles] and [].
 ///
 /// If a [id] is provided, it cannot be empty. If no [id] is provided,
 /// one will be generated.
@@ -30,6 +30,7 @@ class Exercise extends Equatable {
     required this.muscles,
     this.imagePath = 'assets/exercises/default.svg',
     this.imagePathSecondary = 'assets/exercises/default.svg',
+    this.equipment = const [],
   })  : assert(
           id == null || id.isNotEmpty,
           '"id" can not be null and should be empty.',
@@ -65,6 +66,9 @@ class Exercise extends Equatable {
   /// Map of muscle with involvement.
   final Map<Muscle, MuscleInvolvement> muscles;
 
+  /// Equipment required to exercise
+  final List<Equipment> equipment;
+
   @override
   List<Object?> get props => [
         id,
@@ -72,6 +76,7 @@ class Exercise extends Equatable {
         muscles,
         imagePath,
         imagePathSecondary,
+        equipment,
       ];
 
   /// Return a copy of this [Exercise] with the given values updated.
@@ -83,6 +88,7 @@ class Exercise extends Equatable {
     String? imagePath,
     String? imagePathSecondary,
     Map<Muscle, MuscleInvolvement>? muscles,
+    List<Equipment>? equipment,
   }) {
     return Exercise(
       id: id ?? this.id,
@@ -90,6 +96,7 @@ class Exercise extends Equatable {
       muscles: muscles ?? this.muscles,
       imagePath: imagePath ?? this.imagePath,
       imagePathSecondary: imagePathSecondary ?? this.imagePathSecondary,
+      equipment: equipment ?? this.equipment,
     );
   }
 
