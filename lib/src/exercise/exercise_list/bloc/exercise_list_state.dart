@@ -17,6 +17,7 @@ class ExerciseListState extends Equatable {
     this.filter = '',
     this.isSearching = false,
     this.muscle,
+    this.category,
   });
 
   final ExerciseListStatus status;
@@ -24,6 +25,7 @@ class ExerciseListState extends Equatable {
   final Map<Exercise, bool> selected;
   final String filter;
   final Muscle? muscle;
+  final ExerciseCategory? category;
   final bool isSearching;
 
   final ExerciseListExtra extra;
@@ -32,20 +34,50 @@ class ExerciseListState extends Equatable {
     var list = exercises;
 
     if (muscle != null) {
-      list = list
-          .where((exercise) => exercise.muscles.containsKey(muscle))
-          .toList();
+      list = _applyMuscle(list);
     }
+    if (category != null) {
+      list = _applyCategory(list);
+    }
+
     if (filter.isNotEmpty) {
-      list = list
-          .where(
-            (exercise) =>
-                exercise.name.toLowerCase().contains(filter.toLowerCase()),
-          )
-          .toList();
+      list = _applyName(list);
     }
-    list.sort((a, b) => a.name.compareTo(b.name),);
+    list.sort(
+      (a, b) => a.name.compareTo(b.name),
+    );
     return list;
+  }
+
+  List<Exercise> _applyName(List<Exercise> list) {
+    return list
+        .where(
+          (exercise) =>
+              exercise.name.toLowerCase().contains(filter.toLowerCase()),
+        )
+        .toList();
+  }
+
+  List<Exercise> _applyCategory(List<Exercise> list) {
+    return list.where((exercise) {
+      switch (category!) {
+        case ExerciseCategory.bodyweight:
+          return exercise.equipment.isEmpty;
+        case ExerciseCategory.weight:
+          return exercise.equipment.contains(Equipment.barbell) ||
+              exercise.equipment.contains(Equipment.dumbell);
+        case ExerciseCategory.machine:
+          return exercise.equipment.contains(Equipment.machine);
+        case ExerciseCategory.cable:
+          return exercise.equipment.contains(Equipment.cable);
+      }
+    }).toList();
+  }
+
+  List<Exercise> _applyMuscle(List<Exercise> list) {
+    return list
+        .where((exercise) => exercise.muscles.containsKey(muscle))
+        .toList();
   }
 
   @override
@@ -57,6 +89,7 @@ class ExerciseListState extends Equatable {
         filter,
         isSearching,
         muscle,
+        category,
       ];
 
   ExerciseListState copyWith({
@@ -67,6 +100,7 @@ class ExerciseListState extends Equatable {
     String? filter,
     bool? isSearching,
     Muscle? Function()? muscle,
+    ExerciseCategory? Function()? category,
   }) {
     return ExerciseListState(
       status: status ?? this.status,
@@ -76,6 +110,7 @@ class ExerciseListState extends Equatable {
       filter: filter ?? this.filter,
       isSearching: isSearching ?? this.isSearching,
       muscle: muscle != null ? muscle() : this.muscle,
+      category: category != null ? category() : this.category,
     );
   }
 }

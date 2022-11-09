@@ -80,7 +80,7 @@ class _SettingsRow extends StatelessWidget {
         children: const [
           _MuscleButton(),
           SizedBox(width: 8),
-          _EquipmentButton(),
+          _CategoryButton(),
         ],
       ),
     );
@@ -96,7 +96,7 @@ class _MuscleButton extends StatelessWidget {
       buildWhen: (previous, current) => previous.muscle != current.muscle,
       builder: (context, state) {
         final muscle = state.muscle;
-        final text = muscle?.name ?? 'All muscles';
+        final text = muscle?.name ?? 'Any muscles';
         return Flexible(
           fit: FlexFit.tight,
           child: CustomBar(
@@ -149,56 +149,139 @@ class _MuscleDialogState extends State<_MuscleDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomDialog(
-      title: 'Muscle',
-      content: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _buildTile(text: 'All', value: null),
-            ...Muscle.values.map<Widget>(
-              (m) => _buildTile(
-                text: context.locale.muscle(m.name),
-                value: m,
-              ),
-            )
-          ],
+    return FractionallySizedBox(
+      heightFactor: 0.5,
+      widthFactor: 1,
+      child: CustomDialog(
+        title: 'Pick muscle',
+        content: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _buildTile(text: 'All', value: null),
+              ...Muscle.values.map<Widget>(
+                (m) => _buildTile(
+                  text: context.locale.muscle(m.name),
+                  value: m,
+                ),
+              )
+            ],
+          ),
         ),
+        onConfirm: () => widget.onConfirm(muscle),
       ),
-      onConfirm: () => widget.onConfirm(muscle),
     );
   }
 
   Widget _buildTile({required String text, required Muscle? value}) {
-    return ListTile(
+    return RadioListTile<Muscle?>(
       title: Text(text),
-      leading: Radio<Muscle?>(
-        value: value,
-        groupValue: muscle,
-        onChanged: (value) => setState(() {
-          muscle = value;
-        }),
-      ),
+      value: value,
+      groupValue: muscle,
+      onChanged: (value) => setState(() {
+        muscle = value;
+      }),
     );
   }
 }
 
-class _EquipmentButton extends StatelessWidget {
-  const _EquipmentButton();
+class _CategoryButton extends StatelessWidget {
+  const _CategoryButton();
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      fit: FlexFit.tight,
-      child: CustomBar(
-        child: Center(
-          child: Text(
-            'All types',
-            style: AppTextStyle.semiBold20,
+    return BlocBuilder<ExerciseListBloc, ExerciseListState>(
+      buildWhen: (previous, current) => previous.category != current.category,
+      builder: (context, state) {
+        final category = state.category;
+        final text = category?.name ?? 'Any category';
+        return Flexible(
+          fit: FlexFit.tight,
+          child: CustomBar(
+            onTap: () async {
+              final bloc = context.read<ExerciseListBloc>();
+
+              await showDialog<String>(
+                context: context,
+                builder: (context) => _CategoryDialog(
+                  category: category,
+                  onConfirm: (category) =>
+                      bloc.add(ExerciseListCategory(category: category)),
+                ),
+              );
+            },
+            child: Center(
+              child: Text(
+                text.capitalize(),
+                style: AppTextStyle.semiBold20,
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _CategoryDialog extends StatefulWidget {
+  const _CategoryDialog({
+    required this.onConfirm,
+    this.category,
+  });
+
+  final ExerciseCategory? category;
+  final ValueChanged<ExerciseCategory?> onConfirm;
+
+  @override
+  State<_CategoryDialog> createState() => _CategoryDialogState();
+}
+
+class _CategoryDialogState extends State<_CategoryDialog> {
+  ExerciseCategory? category;
+
+  @override
+  void initState() {
+    category = widget.category;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FractionallySizedBox(
+      heightFactor: 0.5,
+      widthFactor: 1,
+      child: CustomDialog(
+        title: 'Pick category',
+        content: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _buildTile(text: 'All', value: null),
+              ...ExerciseCategory.values.map<Widget>(
+                (c) => _buildTile(
+                  // TODO(intl): Translate category
+                  text: c.name,
+                  value: c,
+                ),
+              )
+            ],
           ),
         ),
+        onConfirm: () => widget.onConfirm(category),
       ),
+    );
+  }
+
+  Widget _buildTile({required String text, required ExerciseCategory? value}) {
+    return RadioListTile<ExerciseCategory?>(
+      title: Text(text),
+      value: value,
+      groupValue: category,
+      onChanged: (value) => setState(() {
+        category = value;
+      }),
     );
   }
 }

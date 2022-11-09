@@ -38,10 +38,19 @@ class ExerciseListFilterCancel extends ExerciseListEvent {
 }
 
 class ExerciseListMuscle extends ExerciseListEvent {
-  const ExerciseListMuscle({ this.muscle});
+  const ExerciseListMuscle({this.muscle});
 
   final Muscle? muscle;
 
   @override
   List<Object?> get props => [muscle];
+}
+
+class ExerciseListCategory extends ExerciseListEvent {
+  const ExerciseListCategory({this.category});
+
+  final ExerciseCategory? category;
+
+  @override
+  List<Object?> get props => [category];
 }

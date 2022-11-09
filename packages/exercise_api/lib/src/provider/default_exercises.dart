@@ -300,6 +300,7 @@ extension ToExercise on DefaultExercise {
     Map<Muscle, MuscleInvolvement> muscles = const {},
     String imagePath = 'assets/exercises/default.svg',
     String imagePathSecondary = 'assets/exercises/default.svg',
+    List<Equipment> equipment = const [],
   }) =>
       Exercise(
         id: name,
@@ -307,6 +308,7 @@ extension ToExercise on DefaultExercise {
         muscles: muscles,
         imagePath: imagePath,
         imagePathSecondary: imagePathSecondary,
+        equipment: equipment,
       );
 
   String get displayName {

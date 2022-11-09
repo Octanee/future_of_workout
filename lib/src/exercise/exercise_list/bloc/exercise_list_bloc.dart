@@ -21,6 +21,7 @@ class ExerciseListBloc extends Bloc<ExerciseListEvent, ExerciseListState> {
     on<ExerciseListFilter>(_onFilter);
     on<ExerciseListFilterCancel>(_onFilterCancel);
     on<ExerciseListMuscle>(_onMuscle);
+    on<ExerciseListCategory>(_onCategory);
   }
 
   final ExerciseRepository _repository;
@@ -99,5 +100,12 @@ class ExerciseListBloc extends Bloc<ExerciseListEvent, ExerciseListState> {
     Emitter<ExerciseListState> emit,
   ) {
     emit(state.copyWith(muscle: () => event.muscle));
+  }
+
+  void _onCategory(
+    ExerciseListCategory event,
+    Emitter<ExerciseListState> emit,
+  ) {
+    emit(state.copyWith(category: () => event.category));
   }
 }
