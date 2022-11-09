@@ -23,3 +23,16 @@ class ExerciseListSelect extends ExerciseListEvent {
 class ExerciseListConfirm extends ExerciseListEvent {
   const ExerciseListConfirm();
 }
+
+class ExerciseListFilter extends ExerciseListEvent {
+  const ExerciseListFilter({required this.filter});
+
+  final String filter;
+
+  @override
+  List<Object> get props => [filter];
+}
+
+class ExerciseListFilterCancel extends ExerciseListEvent {
+  const ExerciseListFilterCancel();
+}

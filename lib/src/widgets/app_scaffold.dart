@@ -7,6 +7,7 @@ class AppScaffold extends StatelessWidget {
   const AppScaffold({
     required this.body,
     this.title,
+    this.customTitle,
     this.actions,
     this.leadingIcon = const AppIcon(iconData: AppIcons.left),
     this.floatingActionButton,
@@ -14,6 +15,7 @@ class AppScaffold extends StatelessWidget {
   });
 
   final String? title;
+  final Widget? customTitle;
   final Widget? body;
   final List<Widget>? actions;
   final Widget? leadingIcon;
@@ -31,7 +33,7 @@ class AppScaffold extends StatelessWidget {
   }
 
   AppBar? _getAppBar(BuildContext context) {
-    if (title?.isNotEmpty ?? false) {
+    if (title?.isNotEmpty ?? false || customTitle != null) {
       return AppBar(
         actions: actions,
         leading: leadingIcon != null
@@ -43,10 +45,11 @@ class AppScaffold extends StatelessWidget {
         iconTheme: const IconThemeData(color: AppColors.grey),
         elevation: 1,
         backgroundColor: AppColors.white,
-        title: Text(
-          title ?? '',
-          style: AppTextStyle.bold28,
-        ),
+        title: customTitle ??
+            Text(
+              title ?? '',
+              style: AppTextStyle.bold28,
+            ),
         centerTitle: true,
       );
     }

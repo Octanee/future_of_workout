@@ -35,7 +35,9 @@ class ExerciseListView extends StatelessWidget {
           context.pop();
         }
       },
-      buildWhen: (previous, current) => previous.status != current.status,
+      buildWhen: (previous, current) =>
+          previous.status != current.status ||
+          previous.isSearching != current.isSearching,
       builder: (context, state) {
         switch (state.status) {
           case ExerciseListStatus.failure:
@@ -47,9 +49,158 @@ class ExerciseListView extends StatelessWidget {
           case ExerciseListStatus.success:
             return AppScaffold(
               title: context.locale.exercises,
-              floatingActionButton: const ConfirmFab(),
-              body: const ExerciseList(),
+              customTitle: state.isSearching ? const _SearchBar() : null,
+              floatingActionButton: const _ConfirmFab(),
+              actions: const [_SearchButton()],
+              body: const _ExerciseList(),
             );
+        }
+      },
+    );
+  }
+}
+
+class _ConfirmFab extends StatelessWidget {
+  const _ConfirmFab();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<ExerciseListBloc, ExerciseListState>(
+      builder: (context, state) {
+        final lenght = state.selected.values.where((element) => element).length;
+
+        if (lenght < 1) {
+          return Container();
+        }
+
+        switch (state.extra.selectionType) {
+          case SelectionType.none:
+            return Container();
+          case SelectionType.single:
+            return FloatingActionButton(
+              child: state.extra.icon,
+              onPressed: () {
+                context
+                    .read<ExerciseListBloc>()
+                    .add(const ExerciseListConfirm());
+              },
+            );
+          case SelectionType.multiple:
+            return FloatingActionButton.extended(
+              label: Text(
+                // 'Add $lenght exercises',
+                context.locale.addExercisesCount(lenght),
+                style: AppTextStyle.semiBold16,
+              ),
+              onPressed: () {
+                context
+                    .read<ExerciseListBloc>()
+                    .add(const ExerciseListConfirm());
+              },
+            );
+        }
+      },
+    );
+  }
+}
+
+class _ExerciseList extends StatelessWidget {
+  const _ExerciseList();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<ExerciseListBloc, ExerciseListState>(
+      builder: (context, state) {
+        final list = state.data;
+        // TODO(UI): Animated list
+        return ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          physics: const BouncingScrollPhysics(),
+          children: list.map<Widget>((exercise) {
+            final isSelected = state.selected[exercise] ?? false;
+            return ExerciseItem(
+              exercise: exercise,
+              isSelected: isSelected,
+              onTap: () {
+                if (state.extra.selectionType == SelectionType.none) {
+                  context.pushNamed(
+                    ExerciseStatsPage.name,
+                    params: {'exerciseId': exercise.id},
+                  );
+                } else {
+                  context
+                      .read<ExerciseListBloc>()
+                      .add(ExerciseListSelect(exercise: exercise));
+                }
+              },
+              onIconPressed: () {
+                context.pushNamed(
+                  ExerciseDetailsPage.name,
+                  params: {'exerciseId': exercise.id},
+                );
+              },
+            );
+          }).toList(),
+        );
+      },
+    );
+  }
+}
+
+class _SearchButton extends StatelessWidget {
+  const _SearchButton();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<ExerciseListBloc, ExerciseListState>(
+      buildWhen: (previous, current) =>
+          previous.isSearching != current.isSearching,
+      builder: (context, state) {
+        return Visibility(
+          visible: !state.isSearching,
+          child: IconButton(
+            onPressed: () {
+              context
+                  .read<ExerciseListBloc>()
+                  .add(const ExerciseListFilter(filter: ''));
+            },
+            icon: const AppIcon(iconData: AppIcons.search),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _SearchBar extends StatelessWidget {
+  const _SearchBar();
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      decoration: InputDecoration(
+        floatingLabelStyle: AppTextStyle.semiBold16,
+        // TODO(Intl): Translate
+        labelText: 'Search',
+        prefixIcon: const AppIcon(iconData: AppIcons.search),
+        suffixIcon: IconButton(
+          onPressed: () {
+            context
+                .read<ExerciseListBloc>()
+                .add(const ExerciseListFilterCancel());
+          },
+          // TODO(Icon): Cancel searching icon
+          icon: const AppIcon(iconData: AppIcons.stop),
+        ),
+      ),
+      onChanged: (value) => context
+          .read<ExerciseListBloc>()
+          .add(ExerciseListFilter(filter: value)),
+      onSubmitted: (value) {
+        if (value.isEmpty) {
+          context
+              .read<ExerciseListBloc>()
+              .add(const ExerciseListFilterCancel());
         }
       },
     );

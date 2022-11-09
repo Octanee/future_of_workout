@@ -17,6 +17,8 @@ class ExerciseListBloc extends Bloc<ExerciseListEvent, ExerciseListState> {
     on<ExerciseListSubscriptionRequested>(_onSubscriptionRequested);
     on<ExerciseListSelect>(_onSelect);
     on<ExerciseListConfirm>(_onConfirm);
+    on<ExerciseListFilter>(_onFilter);
+    on<ExerciseListFilterCancel>(_onFilterCancel);
   }
 
   final ExerciseRepository _repository;
@@ -74,5 +76,19 @@ class ExerciseListBloc extends Bloc<ExerciseListEvent, ExerciseListState> {
     }
 
     emit(state.copyWith(status: ExerciseListStatus.confirm));
+  }
+
+  void _onFilter(
+    ExerciseListFilter event,
+    Emitter<ExerciseListState> emit,
+  ) {
+    emit(state.copyWith(filter: event.filter, isSearching: true));
+  }
+
+  void _onFilterCancel(
+    ExerciseListFilterCancel event,
+    Emitter<ExerciseListState> emit,
+  ) {
+    emit(state.copyWith(isSearching: false));
   }
 }
