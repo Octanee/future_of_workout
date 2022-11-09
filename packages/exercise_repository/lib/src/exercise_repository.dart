@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 import 'package:exercise_api/exercise_api.dart';
 import 'package:rxdart/rxdart.dart';
 
