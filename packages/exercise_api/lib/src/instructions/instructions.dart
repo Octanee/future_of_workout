@@ -76,7 +76,9 @@ abstract class Instructions {
       case DefaultExercise.seatedShoulderPress:
 
       case DefaultExercise.preacherCurl:
+
       case DefaultExercise.cleanAndJerk:
+
       case DefaultExercise.cleanAndPress:
 
       case DefaultExercise.rackPull:
@@ -259,7 +261,7 @@ abstract class Instructions {
 
       case DefaultExercise.dumbbellBulgarianSplitSquat:
 
-      case DefaultExercise.dumbbellTricepExtension:
+      case DefaultExercise.dumbbellTricepsExtension:
 
       case DefaultExercise.dumbbellFrontRaise:
 
@@ -273,7 +275,7 @@ abstract class Instructions {
 
       case DefaultExercise.inclineDumbbellCurl:
 
-      case DefaultExercise.lyingDumbbellTricepExtension:
+      case DefaultExercise.lyingDumbbellTricepsExtension:
 
       case DefaultExercise.dumbbellPullover:
 
@@ -283,7 +285,7 @@ abstract class Instructions {
 
       case DefaultExercise.chestSupportedDumbbellRow:
 
-      case DefaultExercise.dumbbellTricepKickback:
+      case DefaultExercise.dumbbellTricepsKickback:
 
       case DefaultExercise.declineDumbbellBenchPress:
 
@@ -321,7 +323,7 @@ abstract class Instructions {
 
       case DefaultExercise.bentOverDumbbellRow:
 
-      case DefaultExercise.seatedDumbbellTricepExtension:
+      case DefaultExercise.seatedDumbbellTricepsExtension:
 
       case DefaultExercise.seatedDumbbellCurl:
 
@@ -333,8 +335,6 @@ abstract class Instructions {
 
       case DefaultExercise.dumbbellSplitSquat:
 
-      case DefaultExercise.dumbbellExternalRotation:
-
       case DefaultExercise.dumbbellFacePull:
 
       case DefaultExercise.dumbbellReverseCurl:
@@ -343,7 +343,7 @@ abstract class Instructions {
 
       case DefaultExercise.singleLegDumbbellDeadlift:
 
-      case DefaultExercise.dumbbellCleanandPress:
+      case DefaultExercise.dumbbellCleanAndPress:
 
       case DefaultExercise.declineDumbbellFly:
 
@@ -391,9 +391,9 @@ abstract class Instructions {
 
       case DefaultExercise.standingLegCurl:
 
-      case DefaultExercise.machineTricepExtension:
+      case DefaultExercise.machineTricepsExtension:
 
-      case DefaultExercise.machineBicepCurl:
+      case DefaultExercise.machineBicepsCurl:
 
       case DefaultExercise.machineReverseFly:
 
@@ -413,13 +413,13 @@ abstract class Instructions {
 
       case DefaultExercise.latPulldown:
 
-      case DefaultExercise.tricepPushdown:
+      case DefaultExercise.tricepsPushdown:
 
       case DefaultExercise.seatedCableRow:
 
-      case DefaultExercise.tricepRopePushdown:
+      case DefaultExercise.tricepsRopePushdown:
 
-      case DefaultExercise.cableBicepCurl:
+      case DefaultExercise.cableBicepsCurl:
 
       case DefaultExercise.cableLateralRaise:
 
@@ -431,11 +431,11 @@ abstract class Instructions {
 
       case DefaultExercise.cablePullThrough:
 
-      case DefaultExercise.oneArmCableBicepCurl:
+      case DefaultExercise.oneArmCableBicepsCurl:
 
       case DefaultExercise.closeGripLatPulldown:
 
-      case DefaultExercise.cableOverheadTricepExtension:
+      case DefaultExercise.cableOverheadTricepsExtension:
 
       case DefaultExercise.cableReverseFly:
 
@@ -445,7 +445,7 @@ abstract class Instructions {
 
       case DefaultExercise.cableWoodchopper:
 
-      case DefaultExercise.reverseGripTricepPushdown:
+      case DefaultExercise.reverseGripTricepsPushdown:
 
       case DefaultExercise.cableKickback:
 
@@ -462,8 +462,6 @@ abstract class Instructions {
       case DefaultExercise.cableShrug:
 
       case DefaultExercise.oneArmPulldown:
-
-      case DefaultExercise.cableExternalRotation:
 
       case DefaultExercise.overheadCableCurl:
 
@@ -531,7 +529,7 @@ abstract class Instructions {
 
       case DefaultExercise.toesToBar:
 
-      case DefaultExercise.abWheelRollout:
+      case DefaultExercise.absWheelRollout:
 
       case DefaultExercise.reverseLunge:
 
@@ -548,8 +546,6 @@ abstract class Instructions {
       case DefaultExercise.closeGripPushUp:
 
       case DefaultExercise.gluteHamRaise:
-
-      case DefaultExercise.jumpingJack:
 
       case DefaultExercise.inclinePushUp:
 
