@@ -4,7 +4,7 @@ abstract class ExerciseListEvent extends Equatable {
   const ExerciseListEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class ExerciseListSubscriptionRequested extends ExerciseListEvent {
@@ -35,4 +35,13 @@ class ExerciseListFilter extends ExerciseListEvent {
 
 class ExerciseListFilterCancel extends ExerciseListEvent {
   const ExerciseListFilterCancel();
+}
+
+class ExerciseListMuscle extends ExerciseListEvent {
+  const ExerciseListMuscle({ this.muscle});
+
+  final Muscle? muscle;
+
+  @override
+  List<Object?> get props => [muscle];
 }

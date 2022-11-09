@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:body_api/body_api.dart';
 import 'package:equatable/equatable.dart';
 import 'package:exercise_repository/exercise_repository.dart';
 import 'package:future_of_workout/src/exercise/exercise.dart';
@@ -19,6 +20,7 @@ class ExerciseListBloc extends Bloc<ExerciseListEvent, ExerciseListState> {
     on<ExerciseListConfirm>(_onConfirm);
     on<ExerciseListFilter>(_onFilter);
     on<ExerciseListFilterCancel>(_onFilterCancel);
+    on<ExerciseListMuscle>(_onMuscle);
   }
 
   final ExerciseRepository _repository;
@@ -90,5 +92,12 @@ class ExerciseListBloc extends Bloc<ExerciseListEvent, ExerciseListState> {
     Emitter<ExerciseListState> emit,
   ) {
     emit(state.copyWith(isSearching: false));
+  }
+
+  void _onMuscle(
+    ExerciseListMuscle event,
+    Emitter<ExerciseListState> emit,
+  ) {
+    emit(state.copyWith(muscle: () => event.muscle));
   }
 }

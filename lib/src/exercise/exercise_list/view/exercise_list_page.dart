@@ -1,3 +1,4 @@
+import 'package:body_api/body_api.dart';
 import 'package:exercise_repository/exercise_repository.dart';
 import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/exercise/exercise.dart';
@@ -52,10 +53,152 @@ class ExerciseListView extends StatelessWidget {
               customTitle: state.isSearching ? const _SearchBar() : null,
               floatingActionButton: const _ConfirmFab(),
               actions: const [_SearchButton()],
-              body: const _ExerciseList(),
+              body: Column(
+                children: const [
+                  _SettingsRow(),
+                  _ExerciseList(),
+                ],
+              ),
             );
         }
       },
+    );
+  }
+}
+
+class _SettingsRow extends StatelessWidget {
+  const _SettingsRow();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 16,
+        vertical: 8,
+      ),
+      child: Row(
+        children: const [
+          _MuscleButton(),
+          SizedBox(width: 8),
+          _EquipmentButton(),
+        ],
+      ),
+    );
+  }
+}
+
+class _MuscleButton extends StatelessWidget {
+  const _MuscleButton();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<ExerciseListBloc, ExerciseListState>(
+      buildWhen: (previous, current) => previous.muscle != current.muscle,
+      builder: (context, state) {
+        final muscle = state.muscle;
+        final text = muscle?.name ?? 'All muscles';
+        return Flexible(
+          fit: FlexFit.tight,
+          child: CustomBar(
+            onTap: () async {
+              final bloc = context.read<ExerciseListBloc>();
+
+              await showDialog<String>(
+                context: context,
+                builder: (context) => _MuscleDialog(
+                  muscle: muscle,
+                  onConfirm: (muscle) =>
+                      bloc.add(ExerciseListMuscle(muscle: muscle)),
+                ),
+              );
+            },
+            child: Center(
+              child: Text(
+                text.capitalize(),
+                style: AppTextStyle.semiBold20,
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _MuscleDialog extends StatefulWidget {
+  const _MuscleDialog({
+    required this.onConfirm,
+    this.muscle,
+  });
+
+  final Muscle? muscle;
+  final ValueChanged<Muscle?> onConfirm;
+
+  @override
+  State<_MuscleDialog> createState() => _MuscleDialogState();
+}
+
+class _MuscleDialogState extends State<_MuscleDialog> {
+  Muscle? muscle;
+
+  @override
+  void initState() {
+    muscle = widget.muscle;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomDialog(
+      title: 'Muscle',
+      content: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _buildTile(text: 'All', value: null),
+            ...Muscle.values.map<Widget>(
+              (m) => _buildTile(
+                text: context.locale.muscle(m.name),
+                value: m,
+              ),
+            )
+          ],
+        ),
+      ),
+      onConfirm: () => widget.onConfirm(muscle),
+    );
+  }
+
+  Widget _buildTile({required String text, required Muscle? value}) {
+    return ListTile(
+      title: Text(text),
+      leading: Radio<Muscle?>(
+        value: value,
+        groupValue: muscle,
+        onChanged: (value) => setState(() {
+          muscle = value;
+        }),
+      ),
+    );
+  }
+}
+
+class _EquipmentButton extends StatelessWidget {
+  const _EquipmentButton();
+
+  @override
+  Widget build(BuildContext context) {
+    return Flexible(
+      fit: FlexFit.tight,
+      child: CustomBar(
+        child: Center(
+          child: Text(
+            'All types',
+            style: AppTextStyle.semiBold20,
+          ),
+        ),
+      ),
     );
   }
 }
@@ -113,34 +256,37 @@ class _ExerciseList extends StatelessWidget {
       builder: (context, state) {
         final list = state.data;
         // TODO(UI): Animated list
-        return ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          physics: const BouncingScrollPhysics(),
-          children: list.map<Widget>((exercise) {
-            final isSelected = state.selected[exercise] ?? false;
-            return ExerciseItem(
-              exercise: exercise,
-              isSelected: isSelected,
-              onTap: () {
-                if (state.extra.selectionType == SelectionType.none) {
+        return Expanded(
+          child: ListView(
+            shrinkWrap: true,
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            physics: const BouncingScrollPhysics(),
+            children: list.map<Widget>((exercise) {
+              final isSelected = state.selected[exercise] ?? false;
+              return ExerciseItem(
+                exercise: exercise,
+                isSelected: isSelected,
+                onTap: () {
+                  if (state.extra.selectionType == SelectionType.none) {
+                    context.pushNamed(
+                      ExerciseStatsPage.name,
+                      params: {'exerciseId': exercise.id},
+                    );
+                  } else {
+                    context
+                        .read<ExerciseListBloc>()
+                        .add(ExerciseListSelect(exercise: exercise));
+                  }
+                },
+                onIconPressed: () {
                   context.pushNamed(
-                    ExerciseStatsPage.name,
+                    ExerciseDetailsPage.name,
                     params: {'exerciseId': exercise.id},
                   );
-                } else {
-                  context
-                      .read<ExerciseListBloc>()
-                      .add(ExerciseListSelect(exercise: exercise));
-                }
-              },
-              onIconPressed: () {
-                context.pushNamed(
-                  ExerciseDetailsPage.name,
-                  params: {'exerciseId': exercise.id},
-                );
-              },
-            );
-          }).toList(),
+                },
+              );
+            }).toList(),
+          ),
         );
       },
     );
@@ -179,7 +325,7 @@ class _SearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       decoration: InputDecoration(
-        floatingLabelStyle: AppTextStyle.semiBold16,
+        floatingLabelBehavior: FloatingLabelBehavior.never,
         // TODO(Intl): Translate
         labelText: 'Search',
         prefixIcon: const AppIcon(iconData: AppIcons.search),
