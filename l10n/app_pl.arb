@@ -42,7 +42,7 @@
   "replace": "Wymień",
   "replaceExercise": "Wymień ćwiczenie",
   "seriesLogIntensity": "{item, select, veryLight{Bardzo lekko} light{Lekko} moderate{Umiarkowanie} vigorous{Ciężko} maximum{Maksimum} tooMuch{Za ciężko}}",
-  "muscle": "{muscle, select, neck{Szuja} chest{Klatka piersiowa} serratus{Zębaty} shoulders{Naramienny} biceps{Biceps} triceps{Triceps} forearm{Przedramię} abs{Prosty brzucha} obliques{Skośne brzucha} trapezius{Czworoboczny} lattisimus{Najszerszy grzbietu} teresMajor{Obły większy} erectorSpinae{Prostownik grzbietu} adductors{Przywodziciele} abductors{Odwodziciele} glutes{Pośladki} quadriceps{Czworogłowy uda} hamstering{Długłowy uda} calf{Łydka}}",
+  "muscle": "{muscle, select, other{Wszystkie mięśnie}  neck{Szuja} chest{Klatka piersiowa} serratus{Zębaty} shoulders{Naramienny} biceps{Biceps} triceps{Triceps} forearm{Przedramię} abs{Prosty brzucha} obliques{Skośne brzucha} trapezius{Czworoboczny} lattisimus{Najszerszy grzbietu} teresMajor{Obły większy} erectorSpinae{Prostownik grzbietu} adductors{Przywodziciele} abductors{Odwodziciele} glutes{Pośladki} quadriceps{Czworogłowy uda} hamstering{Długłowy uda} calf{Łydka}}",
   "save": "Zapisz",
   "yes": "Tak",
   "cancel": "Anuluj",
@@ -98,5 +98,9 @@
   "setupHeightTitle": "Ile masz wzrostu?",
   "setupHeightDescription": "Pomoże nam to obliczyć Twoje zapotrzebowanie kaloryczne i zaproponować odpowiedią dietę",
   "setupWeightTitle": "Ile ważysz?",
-  "setupWeightDescription": "Pomoże nam to obliczyć Twoje zapotrzebowanie kaloryczne i zaproponować odpowiedią dietę"
+  "setupWeightDescription": "Pomoże nam to obliczyć Twoje zapotrzebowanie kaloryczne i zaproponować odpowiedią dietę",
+  "search": "Szukaj",
+  "exerciseCategory": "{category, select, other{Dowolna kategoria} bodyweight{Masa ciała} weight{Wolne obciążenie} machine{Maszyny} cable{Wyciąg}}",
+  "pickCategory": "Wybierz kategorię",
+  "pickMuscle": "Wybierz mięśnie"
 }

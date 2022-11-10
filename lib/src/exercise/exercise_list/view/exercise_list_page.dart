@@ -96,7 +96,6 @@ class _MuscleButton extends StatelessWidget {
       buildWhen: (previous, current) => previous.muscle != current.muscle,
       builder: (context, state) {
         final muscle = state.muscle;
-        final text = muscle?.name ?? 'Any muscles';
         return Flexible(
           fit: FlexFit.tight,
           child: CustomBar(
@@ -114,7 +113,7 @@ class _MuscleButton extends StatelessWidget {
             },
             child: Center(
               child: Text(
-                text.capitalize(),
+                context.locale.muscle(muscle?.name ?? ''),
                 style: AppTextStyle.semiBold20,
               ),
             ),
@@ -139,11 +138,11 @@ class _MuscleDialog extends StatefulWidget {
 }
 
 class _MuscleDialogState extends State<_MuscleDialog> {
-  Muscle? muscle;
+  Muscle? selectedMuscle;
 
   @override
   void initState() {
-    muscle = widget.muscle;
+    selectedMuscle = widget.muscle;
     super.initState();
   }
 
@@ -153,34 +152,31 @@ class _MuscleDialogState extends State<_MuscleDialog> {
       heightFactor: 0.5,
       widthFactor: 1,
       child: CustomDialog(
-        title: 'Pick muscle',
+        title: context.locale.pickMuscle,
         content: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              _buildTile(text: 'All', value: null),
+              _buildTile(muscle: null),
               ...Muscle.values.map<Widget>(
-                (m) => _buildTile(
-                  text: context.locale.muscle(m.name),
-                  value: m,
-                ),
+                (m) => _buildTile(muscle: m),
               )
             ],
           ),
         ),
-        onConfirm: () => widget.onConfirm(muscle),
+        onConfirm: () => widget.onConfirm(selectedMuscle),
       ),
     );
   }
 
-  Widget _buildTile({required String text, required Muscle? value}) {
+  Widget _buildTile({required Muscle? muscle}) {
     return RadioListTile<Muscle?>(
-      title: Text(text),
-      value: value,
-      groupValue: muscle,
+      title: Text(context.locale.muscle(muscle?.name ?? '')),
+      value: muscle,
+      groupValue: selectedMuscle,
       onChanged: (value) => setState(() {
-        muscle = value;
+        selectedMuscle = value;
       }),
     );
   }
@@ -195,7 +191,7 @@ class _CategoryButton extends StatelessWidget {
       buildWhen: (previous, current) => previous.category != current.category,
       builder: (context, state) {
         final category = state.category;
-        final text = category?.name ?? 'Any category';
+
         return Flexible(
           fit: FlexFit.tight,
           child: CustomBar(
@@ -213,7 +209,7 @@ class _CategoryButton extends StatelessWidget {
             },
             child: Center(
               child: Text(
-                text.capitalize(),
+                context.locale.exerciseCategory(category?.name ?? ''),
                 style: AppTextStyle.semiBold20,
               ),
             ),
@@ -252,19 +248,15 @@ class _CategoryDialogState extends State<_CategoryDialog> {
       heightFactor: 0.5,
       widthFactor: 1,
       child: CustomDialog(
-        title: 'Pick category',
+        title: context.locale.pickCategory,
         content: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              _buildTile(text: 'All', value: null),
+              _buildTile(value: null),
               ...ExerciseCategory.values.map<Widget>(
-                (c) => _buildTile(
-                  // TODO(intl): Translate category
-                  text: c.name,
-                  value: c,
-                ),
+                (c) => _buildTile(value: c),
               )
             ],
           ),
@@ -274,9 +266,9 @@ class _CategoryDialogState extends State<_CategoryDialog> {
     );
   }
 
-  Widget _buildTile({required String text, required ExerciseCategory? value}) {
+  Widget _buildTile({required ExerciseCategory? value}) {
     return RadioListTile<ExerciseCategory?>(
-      title: Text(text),
+      title: Text(context.locale.exerciseCategory(value?.name ?? '')),
       value: value,
       groupValue: category,
       onChanged: (value) => setState(() {
@@ -409,8 +401,7 @@ class _SearchBar extends StatelessWidget {
     return TextField(
       decoration: InputDecoration(
         floatingLabelBehavior: FloatingLabelBehavior.never,
-        // TODO(Intl): Translate
-        labelText: 'Search',
+        labelText: context.locale.search,
         prefixIcon: const AppIcon(iconData: AppIcons.search),
         suffixIcon: IconButton(
           onPressed: () {
