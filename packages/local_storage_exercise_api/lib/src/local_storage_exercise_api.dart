@@ -44,6 +44,7 @@ class LocalStorageExerciseApi extends ExerciseApi {
     Hive
       ..registerAdapter<Muscle>(MuscleAdapter())
       ..registerAdapter<MuscleInvolvement>(MuscleInvolvementAdapter())
+      ..registerAdapter<Equipment>(EquipmentAdapter())
       ..registerAdapter<Exercise>(ExerciseAdapter());
   }
 
