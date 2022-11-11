@@ -18,7 +18,7 @@ class ExerciseAdapter extends TypeAdapter<Exercise> {
       imagePath: fields[3] as String,
       imagePathSecondary: fields[4] as String,
       muscles: (fields[5] as Map).cast<Muscle, MuscleInvolvement>(),
-      equipment: fields[6] as List<Equipment>,
+      equipment: (fields[6] as List).cast<Equipment>(),
     );
   }
 
