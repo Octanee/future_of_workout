@@ -16,6 +16,8 @@ class MuscleInvolvementAdapter extends TypeAdapter<MuscleInvolvement> {
         return MuscleInvolvement.secondary;
       case 3:
         return MuscleInvolvement.additional;
+      case 4:
+        return MuscleInvolvement.another;
       default:
         return MuscleInvolvement.primary;
     }
@@ -33,6 +35,8 @@ class MuscleInvolvementAdapter extends TypeAdapter<MuscleInvolvement> {
       case MuscleInvolvement.additional:
         writer.writeByte(3);
         break;
+      case MuscleInvolvement.another:
+        writer.writeByte(4);
     }
   }
 }

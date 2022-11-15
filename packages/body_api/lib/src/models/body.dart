@@ -10,7 +10,9 @@ class Body extends Equatable {
     int neckInvolvement = 0,
     int chestInvolvement = 0,
     int serratusInvolvement = 0,
-    int shouldersInvolvement = 0,
+    int frontShouldersInvolvement = 0,
+    int midShouldersInvolvement = 0,
+    int backShouldersInvolvement = 0,
     int bicepsInvolvement = 0,
     int tricepsInvolvement = 0,
     int forearmInvolvement = 0,
@@ -30,7 +32,9 @@ class Body extends Equatable {
           Muscle.neck: neckInvolvement,
           Muscle.chest: chestInvolvement,
           Muscle.serratus: serratusInvolvement,
-          Muscle.shoulders: shouldersInvolvement,
+          Muscle.frontShoulders: frontShouldersInvolvement,
+          Muscle.midShoulders: midShouldersInvolvement,
+          Muscle.backShoulders: backShouldersInvolvement,
           Muscle.biceps: bicepsInvolvement,
           Muscle.triceps: tricepsInvolvement,
           Muscle.forearm: forearmInvolvement,
@@ -68,7 +72,9 @@ class Body extends Equatable {
     int Function()? neckInvolvement,
     int Function()? chestInvolvement,
     int Function()? serratusInvolvement,
-    int Function()? shouldersInvolvement,
+    int Function()? frontShouldersInvolvement,
+    int Function()? midShouldersInvolvement,
+    int Function()? backShouldersInvolvement,
     int Function()? bicepsInvolvement,
     int Function()? tricepsInvolvement,
     int Function()? forearmInvolvement,
@@ -95,9 +101,15 @@ class Body extends Equatable {
       serratusInvolvement: serratusInvolvement != null
           ? serratusInvolvement()
           : involvement(muscle: Muscle.serratus),
-      shouldersInvolvement: shouldersInvolvement != null
-          ? shouldersInvolvement()
-          : involvement(muscle: Muscle.shoulders),
+      frontShouldersInvolvement: frontShouldersInvolvement != null
+          ? frontShouldersInvolvement()
+          : involvement(muscle: Muscle.frontShoulders),
+      midShouldersInvolvement: midShouldersInvolvement != null
+          ? midShouldersInvolvement()
+          : involvement(muscle: Muscle.midShoulders),
+      backShouldersInvolvement: backShouldersInvolvement != null
+          ? backShouldersInvolvement()
+          : involvement(muscle: Muscle.backShoulders),
       bicepsInvolvement: bicepsInvolvement != null
           ? bicepsInvolvement()
           : involvement(muscle: Muscle.biceps),
@@ -168,7 +180,9 @@ class Body extends Equatable {
       neckInvolvement: calculate(muscle: Muscle.neck),
       chestInvolvement: calculate(muscle: Muscle.chest),
       serratusInvolvement: calculate(muscle: Muscle.serratus),
-      shouldersInvolvement: calculate(muscle: Muscle.shoulders),
+      frontShouldersInvolvement: calculate(muscle: Muscle.frontShoulders),
+      midShouldersInvolvement: calculate(muscle: Muscle.midShoulders),
+      backShouldersInvolvement: calculate(muscle: Muscle.backShoulders),
       bicepsInvolvement: calculate(muscle: Muscle.biceps),
       tricepsInvolvement: calculate(muscle: Muscle.triceps),
       forearmInvolvement: calculate(muscle: Muscle.forearm),

@@ -11,7 +11,10 @@ enum MuscleInvolvement {
   secondary(value: 0.75),
 
   /// ADDITIONAL: `0.5`
-  additional(value: 0.5);
+  additional(value: 0.5),
+
+  /// ANOTHE: `0.1`
+  another(value: 0.1);
 
   ///{@macro muscle_involvement}
   const MuscleInvolvement({required this.value});

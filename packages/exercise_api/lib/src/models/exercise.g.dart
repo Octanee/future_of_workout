@@ -16,6 +16,10 @@ Exercise _$ExerciseFromJson(Map<String, dynamic> json) => Exercise(
       imagePath: json['imagePath'] as String? ?? 'assets/exercises/default.svg',
       imagePathSecondary: json['imagePathSecondary'] as String? ??
           'assets/exercises/default.svg',
+      equipment: (json['equipment'] as List<dynamic>?)
+              ?.map((e) => $enumDecode(_$EquipmentEnumMap, e))
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$ExerciseToJson(Exercise instance) => <String, dynamic>{
@@ -25,19 +29,24 @@ Map<String, dynamic> _$ExerciseToJson(Exercise instance) => <String, dynamic>{
       'imagePathSecondary': instance.imagePathSecondary,
       'muscles': instance.muscles.map((k, e) =>
           MapEntry(_$MuscleEnumMap[k]!, _$MuscleInvolvementEnumMap[e]!)),
+      'equipment':
+          instance.equipment.map((e) => _$EquipmentEnumMap[e]!).toList(),
     };
 
 const _$MuscleInvolvementEnumMap = {
   MuscleInvolvement.primary: 'primary',
   MuscleInvolvement.secondary: 'secondary',
   MuscleInvolvement.additional: 'additional',
+  MuscleInvolvement.another: 'another',
 };
 
 const _$MuscleEnumMap = {
   Muscle.neck: 'neck',
   Muscle.chest: 'chest',
   Muscle.serratus: 'serratus',
-  Muscle.shoulders: 'shoulders',
+  Muscle.frontShoulders: 'frontShoulders',
+  Muscle.midShoulders: 'midShoulders',
+  Muscle.backShoulders: 'backShoulders',
   Muscle.biceps: 'biceps',
   Muscle.triceps: 'triceps',
   Muscle.forearm: 'forearm',
@@ -53,4 +62,11 @@ const _$MuscleEnumMap = {
   Muscle.quadriceps: 'quadriceps',
   Muscle.hamstering: 'hamstering',
   Muscle.calf: 'calf',
+};
+
+const _$EquipmentEnumMap = {
+  Equipment.barbell: 'barbell',
+  Equipment.dumbell: 'dumbell',
+  Equipment.machine: 'machine',
+  Equipment.cable: 'cable',
 };

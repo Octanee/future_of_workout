@@ -16,36 +16,40 @@ class MuscleAdapter extends TypeAdapter<Muscle> {
       case 3:
         return Muscle.serratus;
       case 4:
-        return Muscle.shoulders;
+        return Muscle.frontShoulders;
       case 5:
-        return Muscle.biceps;
+        return Muscle.midShoulders;
       case 6:
-        return Muscle.triceps;
+        return Muscle.backShoulders;
       case 7:
-        return Muscle.forearm;
+        return Muscle.biceps;
       case 8:
-        return Muscle.abs;
+        return Muscle.triceps;
       case 9:
-        return Muscle.obliques;
+        return Muscle.forearm;
       case 10:
-        return Muscle.trapezius;
+        return Muscle.abs;
       case 11:
-        return Muscle.lattisimus;
+        return Muscle.obliques;
       case 12:
-        return Muscle.teresMajor;
+        return Muscle.trapezius;
       case 13:
-        return Muscle.erectorSpinae;
+        return Muscle.lattisimus;
       case 14:
-        return Muscle.adductors;
+        return Muscle.teresMajor;
       case 15:
-        return Muscle.abductors;
+        return Muscle.erectorSpinae;
       case 16:
-        return Muscle.glutes;
+        return Muscle.adductors;
       case 17:
-        return Muscle.quadriceps;
+        return Muscle.abductors;
       case 18:
-        return Muscle.hamstering;
+        return Muscle.glutes;
       case 19:
+        return Muscle.quadriceps;
+      case 20:
+        return Muscle.hamstering;
+      case 21:
         return Muscle.calf;
       default:
         return Muscle.neck;
@@ -64,53 +68,59 @@ class MuscleAdapter extends TypeAdapter<Muscle> {
       case Muscle.serratus:
         writer.writeByte(3);
         break;
-      case Muscle.shoulders:
+      case Muscle.frontShoulders:
         writer.writeByte(4);
         break;
-      case Muscle.biceps:
+      case Muscle.midShoulders:
         writer.writeByte(5);
         break;
-      case Muscle.triceps:
+      case Muscle.backShoulders:
         writer.writeByte(6);
         break;
-      case Muscle.forearm:
+      case Muscle.biceps:
         writer.writeByte(7);
         break;
-      case Muscle.abs:
+      case Muscle.triceps:
         writer.writeByte(8);
         break;
-      case Muscle.obliques:
+      case Muscle.forearm:
         writer.writeByte(9);
         break;
-      case Muscle.trapezius:
+      case Muscle.abs:
         writer.writeByte(10);
         break;
-      case Muscle.lattisimus:
+      case Muscle.obliques:
         writer.writeByte(11);
         break;
-      case Muscle.teresMajor:
+      case Muscle.trapezius:
         writer.writeByte(12);
         break;
-      case Muscle.erectorSpinae:
+      case Muscle.lattisimus:
         writer.writeByte(13);
         break;
-      case Muscle.adductors:
+      case Muscle.teresMajor:
         writer.writeByte(14);
         break;
-      case Muscle.abductors:
+      case Muscle.erectorSpinae:
         writer.writeByte(15);
         break;
-      case Muscle.glutes:
+      case Muscle.adductors:
         writer.writeByte(16);
         break;
-      case Muscle.quadriceps:
+      case Muscle.abductors:
         writer.writeByte(17);
         break;
-      case Muscle.hamstering:
+      case Muscle.glutes:
         writer.writeByte(18);
         break;
-      case Muscle.calf:
+      case Muscle.quadriceps:
         writer.writeByte(19);
+        break;
+      case Muscle.hamstering:
+        writer.writeByte(20);
+        break;
+      case Muscle.calf:
+        writer.writeByte(21);
         break;
     }
   }

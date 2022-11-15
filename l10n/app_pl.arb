@@ -42,7 +42,7 @@
   "replace": "Wymień",
   "replaceExercise": "Wymień ćwiczenie",
   "seriesLogIntensity": "{item, select, veryLight{Bardzo lekko} light{Lekko} moderate{Umiarkowanie} vigorous{Ciężko} maximum{Maksimum} tooMuch{Za ciężko}}",
-  "muscle": "{muscle, select, other{Wszystkie mięśnie}  neck{Szuja} chest{Klatka piersiowa} serratus{Zębaty} shoulders{Naramienny} biceps{Biceps} triceps{Triceps} forearm{Przedramię} abs{Prosty brzucha} obliques{Skośne brzucha} trapezius{Czworoboczny} lattisimus{Najszerszy grzbietu} teresMajor{Obły większy} erectorSpinae{Prostownik grzbietu} adductors{Przywodziciele} abductors{Odwodziciele} glutes{Pośladki} quadriceps{Czworogłowy uda} hamstering{Długłowy uda} calf{Łydka}}",
+  "muscle": "{muscle, select, other{Wszystkie mięśnie}  neck{Szuja} chest{Klatka piersiowa} serratus{Zębaty} frontShoulders{Przód barku} midShoulders{Bok barku} backShoulders{Tył barku} biceps{Biceps} triceps{Triceps} forearm{Przedramię} abs{Prosty brzucha} obliques{Skośne brzucha} trapezius{Czworoboczny} lattisimus{Najszerszy grzbietu} teresMajor{Obły większy} erectorSpinae{Prostownik grzbietu} adductors{Przywodziciele} abductors{Odwodziciele} glutes{Pośladki} quadriceps{Czworogłowy uda} hamstering{Długłowy uda} calf{Łydka}}",
   "save": "Zapisz",
   "yes": "Tak",
   "cancel": "Anuluj",

@@ -89,7 +89,7 @@
       }
     }
   },
-  "muscle": "{muscle, select, other{Any muscle}  neck{Neck} chest{Chest} serratus{Serratus} shoulders{Shoulders} biceps{Biceps} triceps{Triceps} forearm{Forearm} abs{Abs} obliques{Obliques} trapezius{Trapezius} lattisimus{Lattisimus} teresMajor{Teres major} erectorSpinae{Erector spinae} adductors{Adductors} abductors{Abductors} glutes{Glutes} quadriceps{Quadriceps} hamstering{Hamstering} calf{Calf}}",
+  "muscle": "{muscle, select, other{Any muscle}  neck{Neck} chest{Chest} serratus{Serratus} frontShoulders{Front shoulders} midShoulders{Mid shoulders} backShoulders{Back shoulders} biceps{Biceps} triceps{Triceps} forearm{Forearm} abs{Abs} obliques{Obliques} trapezius{Trapezius} lattisimus{Lattisimus} teresMajor{Teres major} erectorSpinae{Erector spinae} adductors{Adductors} abductors{Abductors} glutes{Glutes} quadriceps{Quadriceps} hamstering{Hamstering} calf{Calf}}",
   "@muscle": {
     "placeholders": {
       "muscle": {

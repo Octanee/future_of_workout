@@ -21,11 +21,23 @@ enum Muscle {
     imagePathFront: 'assets/body/front/serratus.svg',
   ),
 
-  /// Shoulders
-  shoulders(
-    imagePathFront: 'assets/body/front/shoulders.svg',
-    imagePathBack: 'assets/body/back/shoulders.svg',
+  /// Front Shoulders
+  frontShoulders(
+    imagePathFront: 'assets/body/front/front_shoulders.svg',
     maximumRecoverableVolume: 26,
+  ),
+
+  /// Mid Shoulders
+  midShoulders(
+    imagePathFront: 'assets/body/front/mid_shoulders.svg',
+    imagePathBack: 'assets/body/back/mid_shoulders.svg',
+    maximumRecoverableVolume: 22,
+  ),
+
+  /// Back Shoulders
+  backShoulders(
+    imagePathBack: 'assets/body/back/back_shoulders.svg',
+    maximumRecoverableVolume: 16,
   ),
 
   /// Biceps
@@ -84,28 +96,24 @@ enum Muscle {
 
   /// Adductors
   adductors(
-
     imagePathFront: 'assets/body/front/adductors.svg',
     imagePathBack: 'assets/body/back/adductors.svg',
   ),
 
   /// Abductors
   abductors(
-
     imagePathFront: 'assets/body/front/abductors.svg',
     imagePathBack: 'assets/body/back/abductors.svg',
   ),
 
   /// Glutes
   glutes(
-
     imagePathBack: 'assets/body/back/glutes.svg',
     maximumRecoverableVolume: 16,
   ),
 
   /// Quadriceps
   quadriceps(
-
     imagePathFront: 'assets/body/front/quadriceps.svg',
     maximumRecoverableVolume: 20,
   ),
