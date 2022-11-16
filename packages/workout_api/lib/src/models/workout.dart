@@ -10,8 +10,7 @@ part 'workout.g.dart';
 /// {@template workout}
 /// A single item of workout.
 ///
-/// Contains a [id], [name] and [workoutExercises],
-/// in addition to a [isFavorite] flag.
+/// Contains a [id], [name] and [workoutExercises].
 ///
 /// [Workout]s are immutable and can be copied using [copyWith],
 /// in addition to being serialized and deserialized using [toJson]
@@ -25,7 +24,6 @@ class Workout extends Equatable {
     String? id,
     this.name = 'Workout',
     this.workoutExercises = const [],
-    this.isFavorite = false,
   })  : assert(
           id == null || id.isNotEmpty,
           '"id" can not be null and should be empty.',
@@ -48,11 +46,6 @@ class Workout extends Equatable {
   ///
   /// Defaults to empty list.
   final List<WorkoutExercise> workoutExercises;
-
-  /// Whether the workout is favorite.
-  ///
-  /// Defaults to `false`.
-  final bool isFavorite;
 
   /// Return a body with muscle involcement in this workout
   Body body() {
@@ -89,7 +82,7 @@ class Workout extends Equatable {
   }
 
   @override
-  List<Object?> get props => [id, name, workoutExercises, isFavorite];
+  List<Object?> get props => [id, name, workoutExercises];
 
   /// Deserializes the given [JsonMap] into a [Workout].
   factory Workout.fromJson(JsonMap json) => _$WorkoutFromJson(json);
@@ -104,13 +97,11 @@ class Workout extends Equatable {
     String? id,
     String? name,
     List<WorkoutExercise>? workoutExercises,
-    bool? isFavorite,
   }) {
     return Workout(
       id: id ?? this.id,
       name: name ?? this.name,
       workoutExercises: workoutExercises ?? this.workoutExercises,
-      isFavorite: isFavorite ?? this.isFavorite,
     );
   }
 }

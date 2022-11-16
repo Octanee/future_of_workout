@@ -19,7 +19,7 @@ class WorkoutDetailsBloc
       _onWorkoutSubscriptionRequested,
     );
     on<WorkoutDetailsRenameWorkout>(_onRenameWorkout);
-    on<WorkoutDetailsFavoritToggled>(_onFavoritToggled);
+    //on<WorkoutDetailsFavoritToggled>(_onFavoritToggled);
     on<WorkoutDetailsDelete>(_onDelete);
     on<WorkoutDetailsAddExercises>(_onAddExercises);
     on<WorkoutDetailsReorder>(_onReorder);
@@ -56,15 +56,15 @@ class WorkoutDetailsBloc
     );
   }
 
-  Future<void> _onFavoritToggled(
-    WorkoutDetailsFavoritToggled event,
-    Emitter<WorkoutDetailsState> emit,
-  ) async {
-    await _updateWorkout(
-      workout: state.workout!.copyWith(isFavorite: !state.workout!.isFavorite),
-      emit: emit,
-    );
-  }
+  // Future<void> _onFavoritToggled(
+  //   WorkoutDetailsFavoritToggled event,
+  //   Emitter<WorkoutDetailsState> emit,
+  // ) async {
+  //   await _updateWorkout(
+  //     workout: state.workout!.copyWith(isFavorite: !state.workout!.isFavorite),
+  //     emit: emit,
+  //   );
+  // }
 
   Future<void> _onDelete(
     WorkoutDetailsDelete event,

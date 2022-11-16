@@ -57,7 +57,7 @@ class WorkoutDetailsView extends StatelessWidget {
             final workout = state.workout!;
             return AppScaffold(
               title: workout.name,
-              actions: const [FavoriteButton()],
+             // actions: const [FavoriteButton()],
               body: ListView(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 8),

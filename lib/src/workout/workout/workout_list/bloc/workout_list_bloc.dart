@@ -13,7 +13,7 @@ class WorkoutListBloc extends Bloc<WorkoutListEvent, WorkoutListState> {
       : _workoutRepository = workoutRepository,
         super(const WorkoutListState()) {
     on<WorkoutListSubcriptionRequested>(_onSubscriptionRequested);
-    on<WorkoutListWorkoutFavoriteToggled>(_onWorkoutFavoriteToggled);
+    //on<WorkoutListWorkoutFavoriteToggled>(_onWorkoutFavoriteToggled);
     on<WorkoutListNewWorkoutAdding>(_onNewWorkoutAdding);
   }
 
@@ -32,20 +32,22 @@ class WorkoutListBloc extends Bloc<WorkoutListEvent, WorkoutListState> {
           return state.copyWith(status: WorkoutListStatus.empty);
         }
 
-        final favoriteWorkouts = workouts
-            .where((element) => element.isFavorite)
-            .toList()
-          ..sort((a, b) => a.name.compareTo(b.name));
-        final otherWorkouts = workouts
-            .where((element) => !element.isFavorite)
-            .toList()
-          ..sort((a, b) => a.name.compareTo(b.name));
+        // final favoriteWorkouts = workouts
+        //     .where((element) => element.isFavorite)
+        //     .toList()
+        //   ..sort((a, b) => a.name.compareTo(b.name));
+        // final otherWorkouts = workouts
+        //     .where((element) => !element.isFavorite)
+        //     .toList()
+        //   ..sort((a, b) => a.name.compareTo(b.name));
 
-        final sortedList = favoriteWorkouts + otherWorkouts;
+        // final sortedList = favoriteWorkouts + otherWorkouts;
+
+        workouts.sort((a, b) => a.name.compareTo(b.name));
 
         return state.copyWith(
           status: WorkoutListStatus.loaded,
-          workouts: sortedList,
+          workouts: workouts,
         );
       },
       onError: (_, __) => state.copyWith(
@@ -54,13 +56,13 @@ class WorkoutListBloc extends Bloc<WorkoutListEvent, WorkoutListState> {
     );
   }
 
-  Future<void> _onWorkoutFavoriteToggled(
-    WorkoutListWorkoutFavoriteToggled event,
-    Emitter<WorkoutListState> emit,
-  ) async {
-    final newWorkout = event.workout.copyWith(isFavorite: event.isFavorite);
-    await _workoutRepository.saveWorkout(newWorkout);
-  }
+  // Future<void> _onWorkoutFavoriteToggled(
+  //   WorkoutListWorkoutFavoriteToggled event,
+  //   Emitter<WorkoutListState> emit,
+  // ) async {
+  //   final newWorkout = event.workout.copyWith(isFavorite: event.isFavorite);
+  //   await _workoutRepository.saveWorkout(newWorkout);
+  // }
 
   Future<void> _onNewWorkoutAdding(
     WorkoutListNewWorkoutAdding event,

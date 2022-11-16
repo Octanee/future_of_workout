@@ -21,7 +21,6 @@ class WorkoutAdapter extends TypeAdapter<Workout> {
       id: fields[1] as String?,
       name: fields[2] as String,
       workoutExercises: (fields[3] as List).cast<WorkoutExercise>(),
-      isFavorite: fields[4] as bool,
     );
   }
 
@@ -34,8 +33,6 @@ class WorkoutAdapter extends TypeAdapter<Workout> {
       ..writeByte(2)
       ..write(obj.name)
       ..writeByte(3)
-      ..write(obj.workoutExercises)
-      ..writeByte(4)
-      ..write(obj.isFavorite);
+      ..write(obj.workoutExercises);
   }
 }
