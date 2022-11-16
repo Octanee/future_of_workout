@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:exercise_api/exercise_api.dart';
 import 'package:future_of_workout/src/shared/extensions.dart';
 import 'package:workout_repository/workout_repository.dart';
 
@@ -19,7 +18,6 @@ class WorkoutDetailsBloc
       _onWorkoutSubscriptionRequested,
     );
     on<WorkoutDetailsRenameWorkout>(_onRenameWorkout);
-    //on<WorkoutDetailsFavoritToggled>(_onFavoritToggled);
     on<WorkoutDetailsDelete>(_onDelete);
     on<WorkoutDetailsAddExercises>(_onAddExercises);
     on<WorkoutDetailsReorder>(_onReorder);
@@ -33,11 +31,15 @@ class WorkoutDetailsBloc
   ) async {
     emit(state.copyWith(status: WorkoutDetailsStatus.loading));
 
-    await emit.forEach<Workout?>(
-      _workoutRepository.getWorkout(id: event.id),
-      onData: (workout) {
+    await emit.forEach<Plan>(
+      _workoutRepository.getPlanStream(id: event.planId),
+      onData: (plan) {
+        final workout =
+            plan.workouts.firstWhere((element) => element.id == event.id);
+
         return state.copyWith(
           status: WorkoutDetailsStatus.loaded,
+          plan: plan,
           workout: workout,
         );
       },
@@ -56,22 +58,15 @@ class WorkoutDetailsBloc
     );
   }
 
-  // Future<void> _onFavoritToggled(
-  //   WorkoutDetailsFavoritToggled event,
-  //   Emitter<WorkoutDetailsState> emit,
-  // ) async {
-  //   await _updateWorkout(
-  //     workout: state.workout!.copyWith(isFavorite: !state.workout!.isFavorite),
-  //     emit: emit,
-  //   );
-  // }
-
   Future<void> _onDelete(
     WorkoutDetailsDelete event,
     Emitter<WorkoutDetailsState> emit,
   ) async {
     try {
-      await _workoutRepository.deleteWorkout(state.workout!.id);
+      final plan = state.plan!;
+      final workouts = List.of(plan.workouts)..remove(state.workout);
+
+      await _workoutRepository.savePlan(plan.copyWith(workouts: workouts));
       emit(state.copyWith(status: WorkoutDetailsStatus.delete));
     } catch (e) {
       emit(state.copyWith(status: WorkoutDetailsStatus.failure));
@@ -103,7 +98,14 @@ class WorkoutDetailsBloc
   }) async {
     try {
       emit(state.copyWith(status: WorkoutDetailsStatus.updating));
-      await _workoutRepository.saveWorkout(workout);
+      final plan = state.plan!;
+
+      final workouts = List.of(plan.workouts);
+      final index = workouts.indexWhere((element) => element.id == workout.id);
+
+      workouts[index] = workout;
+
+      await _workoutRepository.savePlan(plan.copyWith(workouts: workouts));
       emit(
         state.copyWith(
           status: WorkoutDetailsStatus.updated,

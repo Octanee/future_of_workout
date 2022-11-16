@@ -13,10 +13,9 @@ class AddWorkout extends StatelessWidget {
       overlayOpacity: 0.4,
       children: [
         _addWorkout(context),
-        _addPlan(context),
         _selectPlan(context),
       ],
-     spacing: 4,
+      spacing: 4,
       activeChild: const AppIcon(iconData: AppIcons.minus),
       child: const AppIcon(iconData: AppIcons.plus),
     );
@@ -40,17 +39,10 @@ class AddWorkout extends StatelessWidget {
     );
   }
 
-  SpeedDialChild _addPlan(BuildContext context) {
-    return SpeedDialChild(
-      label: 'Add plan',
-      child: const AppIcon(iconData: AppIcons.listAdd),
-    );
-  }
-
   SpeedDialChild _selectPlan(BuildContext context) {
     return SpeedDialChild(
       label: 'Select plan',
-      child: const AppIcon(iconData: AppIcons.list),
+      child: const AppIcon(iconData: AppIcons.listAdd),
     );
   }
 }

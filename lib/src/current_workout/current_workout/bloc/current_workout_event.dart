@@ -8,12 +8,13 @@ abstract class CurrentWorkoutEvent extends Equatable {
 }
 
 class CurrentWorkoutStartWorkout extends CurrentWorkoutEvent {
-  const CurrentWorkoutStartWorkout({this.id});
+  const CurrentWorkoutStartWorkout({this.id, this.workoutId});
 
   final String? id;
+  final String? workoutId;
 
   @override
-  List<Object?> get props => [id];
+  List<Object?> get props => [id, workoutId];
 }
 
 class CurrentWorkoutSubscriptionRequested extends CurrentWorkoutEvent {

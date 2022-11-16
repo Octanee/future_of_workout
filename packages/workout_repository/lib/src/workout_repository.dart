@@ -1,7 +1,7 @@
 import 'package:workout_api/workout_api.dart';
 
 /// {@template workout_repository}
-/// A repository that handles exercise related requests.
+/// A repository that handles plans related requests.
 /// {@endtemplate}
 class WorkoutRepository {
   /// {@macro workout_repository}
@@ -10,28 +10,28 @@ class WorkoutRepository {
 
   final WorkoutApi _workoutApi;
 
-  /// Provides a [Stream] of all workouts
-  Stream<List<Workout>> getWorkouts() => _workoutApi.getWorkouts();
+  /// Provides a [Stream] of all plans
+  Stream<List<Plan>> getPlans() => _workoutApi.getPlans();
 
-  /// Provides a [Stream] of specific workout
-  Stream<Workout?> getWorkout({required String id}) =>
-      _workoutApi.getWorkout(id: id);
+  /// Provides a [Stream] of specific plan
+  Stream<Plan> getPlanStream({required String id}) =>
+      _workoutApi.getPlanStream(id: id);
 
-  /// Get the exercise with the given `id`.
+  /// Get the plan with the given `id`.
   ///
-  /// If no exercise with the given `id` exists,
-  /// a [WorkoutNotFoundException] error is thrown.
-  Workout get({required String id}) => _workoutApi.get(id: id);
+  /// If no [Plan] with the given `id` exists,
+  /// a [PlanNotFoundException] error is thrown.
+  Plan getPlan({required String id}) => _workoutApi.getPlan(id: id);
 
-  /// Saves a [workout].
+  /// Saves a `plan`.
   ///
-  /// If a [workout] with the same `id` already exists,
+  /// If a `plan` with the same `id` already exists,
   /// it will be replaced.
-  Future<void> saveWorkout(Workout workout) => _workoutApi.saveWorkout(workout);
+  Future<void> savePlan(Plan plan) => _workoutApi.savePlan(plan);
 
-  /// Deletes the `workout` with the given [id].
+  /// Deletes the [Plan] with the given `id`.
   ///
-  /// If no workout with the given [id] exists,
-  /// a [WorkoutNotFoundException] erros is thrown.
-  Future<void> deleteWorkout(String id) => _workoutApi.deleteWorkout(id);
+  /// If no [Plan] with the given `id` exists,
+  /// a [PlanNotFoundException] erros is thrown.
+  Future<void> deletePlan(String id) => _workoutApi.deletePlan(id);
 }

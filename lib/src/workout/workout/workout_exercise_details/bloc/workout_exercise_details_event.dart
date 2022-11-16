@@ -9,15 +9,17 @@ abstract class WorkoutExerciseDetailsEvent extends Equatable {
 
 class WorkoutExerciseDetailsLoading extends WorkoutExerciseDetailsEvent {
   const WorkoutExerciseDetailsLoading({
+    required this.planId,
     required this.workoutId,
     required this.workoutExerciseId,
   });
 
+  final String planId;
   final String workoutId;
   final String workoutExerciseId;
 
   @override
-  List<Object> get props => [workoutId, workoutExerciseId];
+  List<Object> get props => [planId, workoutId, workoutExerciseId];
 }
 
 class WorkoutExerciseDetailsExerciseSeriesChanged
@@ -70,7 +72,7 @@ class WorkoutExerciseDetailsChangeDisplayMode
 
 class WorkoutExerciseDetailsReplace extends WorkoutExerciseDetailsEvent {
   const WorkoutExerciseDetailsReplace({required this.exercise});
-  
+
   final Exercise exercise;
 
   @override

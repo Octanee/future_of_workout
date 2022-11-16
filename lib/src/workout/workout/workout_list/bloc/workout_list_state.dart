@@ -4,6 +4,7 @@ enum WorkoutListStatus {
   initial,
   loading,
   loaded,
+  noSelectedPlan,
   empty,
   added,
   failure,
@@ -12,25 +13,25 @@ enum WorkoutListStatus {
 class WorkoutListState extends Equatable {
   const WorkoutListState({
     this.status = WorkoutListStatus.initial,
-    this.workouts = const [],
+    this.plan,
     this.newWorkoutId = '',
   });
 
   final WorkoutListStatus status;
-  final List<Workout> workouts;
+  final Plan? plan;
   final String newWorkoutId;
 
   @override
-  List<Object> get props => [status, workouts, newWorkoutId];
+  List<Object?> get props => [status, plan, newWorkoutId];
 
   WorkoutListState copyWith({
     WorkoutListStatus? status,
-    List<Workout>? workouts,
+    Plan? plan,
     String? newWorkoutId,
   }) {
     return WorkoutListState(
       status: status ?? this.status,
-      workouts: workouts ?? this.workouts,
+      plan: plan ?? this.plan,
       newWorkoutId: newWorkoutId ?? this.newWorkoutId,
     );
   }

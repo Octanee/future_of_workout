@@ -25,11 +25,16 @@ class WorkoutListBloc extends Bloc<WorkoutListEvent, WorkoutListState> {
   ) async {
     emit(state.copyWith(status: WorkoutListStatus.loading));
 
-    await emit.forEach<List<Workout>>(
-      _workoutRepository.getWorkouts(),
-      onData: (workouts) {
-        if (workouts.isEmpty) {
-          return state.copyWith(status: WorkoutListStatus.empty);
+    if (event.currentPlanId == null) {
+      emit(state.copyWith(status: WorkoutListStatus.noSelectedPlan));
+      return;
+    }
+
+    await emit.forEach<Plan?>(
+      _workoutRepository.getPlanStream(id: event.currentPlanId!),
+      onData: (plan) {
+        if (plan!.workouts.isEmpty) {
+          return state.copyWith(plan: plan, status: WorkoutListStatus.empty);
         }
 
         // final favoriteWorkouts = workouts
@@ -43,16 +48,21 @@ class WorkoutListBloc extends Bloc<WorkoutListEvent, WorkoutListState> {
 
         // final sortedList = favoriteWorkouts + otherWorkouts;
 
-        workouts.sort((a, b) => a.name.compareTo(b.name));
+        // workouts.sort((a, b) => a.name.compareTo(b.name));
 
         return state.copyWith(
           status: WorkoutListStatus.loaded,
-          workouts: workouts,
+          plan: plan,
         );
       },
-      onError: (_, __) => state.copyWith(
-        status: WorkoutListStatus.failure,
-      ),
+      onError: (error, __) {
+        if (error is PlanNotFoundException) {
+          emit(state.copyWith(status: WorkoutListStatus.noSelectedPlan));
+        }
+        return state.copyWith(
+          status: WorkoutListStatus.failure,
+        );
+      },
     );
   }
 
@@ -68,18 +78,22 @@ class WorkoutListBloc extends Bloc<WorkoutListEvent, WorkoutListState> {
     WorkoutListNewWorkoutAdding event,
     Emitter<WorkoutListState> emit,
   ) async {
-    final name = event.name.withDefault('Workout');
-    final workout = Workout(name: name);
-
     try {
-      await _workoutRepository.saveWorkout(workout);
+      final name = event.name.withDefault('Workout');
+      final workout = Workout(name: name);
+
+      final workouts = List.of(state.plan!.workouts)..add(workout);
+      final plan = state.plan!.copyWith(workouts: workouts);
+
+      await _workoutRepository.savePlan(plan);
       emit(
         state.copyWith(
           status: WorkoutListStatus.added,
+          plan: plan,
           newWorkoutId: workout.id,
         ),
       );
-    } catch (e) {
+    } catch (_) {
       state.copyWith(status: WorkoutListStatus.failure);
     }
   }

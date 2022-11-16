@@ -13,7 +13,6 @@ import 'package:goal_api/goal_api.dart';
 import 'package:goal_repository/goal_repository.dart';
 import 'package:measurement_repository/measurement_repository.dart';
 import 'package:user_repository/user_repository.dart';
-import 'package:workout_api/workout_api.dart';
 import 'package:workout_log_api/workout_log_api.dart';
 import 'package:workout_log_repository/workout_log_repository.dart';
 import 'package:workout_repository/workout_repository.dart';

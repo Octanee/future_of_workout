@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:exercise_api/exercise_api.dart';
 import 'package:future_of_workout/src/shared/shared.dart';
 import 'package:workout_log_repository/workout_log_repository.dart';
 import 'package:workout_repository/workout_repository.dart';
@@ -52,13 +51,15 @@ class CurrentWorkoutBloc
     Emitter<CurrentWorkoutState> emit,
   ) async {
     emit(state.copyWith(status: CurrentWorkoutStatus.start));
-
     WorkoutLog workoutLog;
-
     if (event.id == null) {
       workoutLog = WorkoutLog();
     } else {
-      final workout = _workoutRepository.get(id: event.id!);
+      final plan = _workoutRepository.getPlan(id: event.id!);
+
+      final workout =
+          plan.workouts.firstWhere((element) => element.id == event.workoutId);
+
       workoutLog = state.workoutLog == null
           ? WorkoutLog.fromWorkout(workout)
           : state.workoutLog!.copyWith(

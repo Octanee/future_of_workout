@@ -47,11 +47,25 @@ class Plan extends Equatable {
   @override
   List<Object?> get props => [id, name, workouts];
 
+  /// Deserializes the givem `json` into a [Plan]
   factory Plan.fromJson(JsonMap json) => _$PlanFromJson(json);
 
+  /// Converts this [Workout] into a [JsonMap]
   JsonMap toJson() => _$PlanToJson(this);
 
-  Plan copyWith() {
-    return Plan();
+  /// Returns a copy of this [Plan]
+  /// with the given values updated.
+  ///
+  /// {@macro plan}
+  Plan copyWith({
+    String? id,
+    String? name,
+    List<Workout>? workouts,
+  }) {
+    return Plan(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      workouts: workouts ?? this.workouts,
+    );
   }
 }

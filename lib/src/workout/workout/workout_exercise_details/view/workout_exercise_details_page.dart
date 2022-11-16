@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/widgets/widgets.dart';
 import 'package:future_of_workout/src/workout/workout/workout.dart';
 import 'package:go_router/go_router.dart';
+import 'package:user_repository/user_repository.dart';
 import 'package:workout_repository/workout_repository.dart';
 
 class WorkoutExerciseDetailsPage extends StatelessWidget {
@@ -21,14 +22,19 @@ class WorkoutExerciseDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => WorkoutExerciseDetailsBloc(
-        workoutRepository: context.read<WorkoutRepository>(),
-      )..add(
-          WorkoutExerciseDetailsLoading(
-            workoutId: workoutId,
-            workoutExerciseId: workoutExerciseId,
-          ),
-        ),
+      create: (context) {
+        final planId = context.read<UserRepository>().get().currentPlanId!;
+
+        return WorkoutExerciseDetailsBloc(
+          workoutRepository: context.read<WorkoutRepository>(),
+        )..add(
+            WorkoutExerciseDetailsLoading(
+              workoutId: workoutId,
+              workoutExerciseId: workoutExerciseId,
+              planId: planId,
+            ),
+          );
+      },
       child: const WorkoutExerciseDetailsView(),
     );
   }

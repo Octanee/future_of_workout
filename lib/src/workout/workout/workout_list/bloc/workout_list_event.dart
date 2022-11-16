@@ -8,7 +8,12 @@ abstract class WorkoutListEvent extends Equatable {
 }
 
 class WorkoutListSubcriptionRequested extends WorkoutListEvent {
-  const WorkoutListSubcriptionRequested();
+  const WorkoutListSubcriptionRequested({this.currentPlanId});
+
+  final String? currentPlanId;
+
+  @override
+  List<Object?> get props => [currentPlanId];
 }
 
 class WorkoutListWorkoutFavoriteToggled extends WorkoutListEvent {

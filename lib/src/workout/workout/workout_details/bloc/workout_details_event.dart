@@ -8,12 +8,16 @@ abstract class WorkoutDetailsEvent extends Equatable {
 }
 
 class WorkoutDetailsWorkoutSubscriptionRequested extends WorkoutDetailsEvent {
-  const WorkoutDetailsWorkoutSubscriptionRequested({required this.id});
+  const WorkoutDetailsWorkoutSubscriptionRequested({
+    required this.id,
+    required this.planId,
+  });
 
+  final String planId;
   final String id;
 
   @override
-  List<Object> get props => [id];
+  List<Object> get props => [id, planId];
 }
 
 class WorkoutDetailsRenameWorkout extends WorkoutDetailsEvent {

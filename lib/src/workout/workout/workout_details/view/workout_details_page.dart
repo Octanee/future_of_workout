@@ -1,6 +1,7 @@
 import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/workout/workout/workout.dart';
 import 'package:go_router/go_router.dart';
+import 'package:user_repository/user_repository.dart';
 import 'package:workout_repository/workout_repository.dart';
 
 class WorkoutDetailsPage extends StatelessWidget {
@@ -19,10 +20,16 @@ class WorkoutDetailsPage extends StatelessWidget {
     return BlocProvider<WorkoutDetailsBloc>(
       create: (context) {
         final repository = context.read<WorkoutRepository>();
+        final userRepository = context.read<UserRepository>();
 
         return WorkoutDetailsBloc(
           workoutRepository: repository,
-        )..add(WorkoutDetailsWorkoutSubscriptionRequested(id: workoutId));
+        )..add(
+            WorkoutDetailsWorkoutSubscriptionRequested(
+              id: workoutId,
+              planId: userRepository.get().currentPlanId!,
+            ),
+          );
       },
       child: const WorkoutDetailsView(),
     );
@@ -57,7 +64,7 @@ class WorkoutDetailsView extends StatelessWidget {
             final workout = state.workout!;
             return AppScaffold(
               title: workout.name,
-             // actions: const [FavoriteButton()],
+              // actions: const [FavoriteButton()],
               body: ListView(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 8),

@@ -16,6 +16,7 @@ class WorkoutExerciseDetailsState extends Equatable {
     this.isAdvanced = false,
     this.workoutExercise,
     this.workout,
+    this.plan,
   });
 
   final WorkoutExerciseDetailsStatus status;
@@ -23,28 +24,30 @@ class WorkoutExerciseDetailsState extends Equatable {
   final bool isAdvanced;
 
   final Workout? workout;
+  final Plan? plan;
 
   @override
-  List<Object?> get props {
-    return [
-      status,
-      workoutExercise,
-      isAdvanced,
-      workout,
-    ];
-  }
+  List<Object?> get props => [
+        status,
+        workoutExercise,
+        isAdvanced,
+        workout,
+        plan,
+      ];
 
   WorkoutExerciseDetailsState copyWith({
     WorkoutExerciseDetailsStatus? status,
     WorkoutExercise? workoutExercise,
     bool? isAdvanced,
     Workout? workout,
+    Plan? plan,
   }) {
     return WorkoutExerciseDetailsState(
       status: status ?? this.status,
       workoutExercise: workoutExercise ?? this.workoutExercise,
       isAdvanced: isAdvanced ?? this.isAdvanced,
       workout: workout ?? this.workout,
+      plan: plan ?? this.plan,
     );
   }
 }

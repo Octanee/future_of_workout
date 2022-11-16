@@ -14,19 +14,23 @@ enum WorkoutDetailsStatus {
 class WorkoutDetailsState extends Equatable {
   const WorkoutDetailsState({
     this.workout,
+    this.plan,
     this.status = WorkoutDetailsStatus.init,
   });
 
   final WorkoutDetailsStatus status;
   final Workout? workout;
+  final Plan? plan;
 
   WorkoutDetailsState copyWith({
     WorkoutDetailsStatus? status,
     Workout? workout,
+    Plan? plan,
   }) {
     return WorkoutDetailsState(
       status: status ?? this.status,
       workout: workout ?? this.workout,
+      plan: plan ?? this.plan,
     );
   }
 
@@ -34,5 +38,6 @@ class WorkoutDetailsState extends Equatable {
   List<Object?> get props => [
         status,
         workout,
+        plan,
       ];
 }

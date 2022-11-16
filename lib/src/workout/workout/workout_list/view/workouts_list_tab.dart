@@ -3,6 +3,7 @@ import 'package:future_of_workout/src/workout/workout/workout.dart';
 import 'package:future_of_workout/src/workout/workout/workout_list/view/widgets/widgets.dart';
 import 'package:future_of_workout/src/workout/workouts/workouts.dart';
 import 'package:go_router/go_router.dart';
+import 'package:user_repository/user_repository.dart';
 import 'package:workout_repository/workout_repository.dart';
 
 class WorkoutsListTab extends StatelessWidget {
@@ -11,9 +12,17 @@ class WorkoutsListTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => WorkoutListBloc(
-        workoutRepository: context.read<WorkoutRepository>(),
-      )..add(const WorkoutListSubcriptionRequested()),
+      create: (context) {
+        final currentPlanId =
+            context.read<UserRepository>().get().currentPlanId;
+        return WorkoutListBloc(
+          workoutRepository: context.read<WorkoutRepository>(),
+        )..add(
+            WorkoutListSubcriptionRequested(
+              currentPlanId: currentPlanId,
+            ),
+          );
+      },
       child: const WorkoutListView(),
     );
   }
@@ -61,6 +70,11 @@ class WorkoutListView extends StatelessWidget {
                   StartWorkout(),
                   WorkoutList(),
                 ],
+              );
+            case WorkoutListStatus.noSelectedPlan:
+              return const AppEmptyList(
+                // TODO(intl): Translate
+                text: 'No plan selected',
               );
           }
         },

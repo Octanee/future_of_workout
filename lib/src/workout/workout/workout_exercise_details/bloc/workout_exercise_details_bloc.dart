@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:workout_api/workout_api.dart';
 import 'package:workout_repository/workout_repository.dart';
 
 part 'workout_exercise_details_event.dart';
@@ -32,33 +31,41 @@ class WorkoutExerciseDetailsBloc
   ) async {
     emit(state.copyWith(status: WorkoutExerciseDetailsStatus.loading));
 
-    try {
-      final workout = _workoutRepository.get(id: event.workoutId);
-      final workoutExercise = workout.workoutExercises
-          .firstWhere((element) => element.id == event.workoutExerciseId);
+    await emit.forEach<Plan>(
+      _workoutRepository.getPlanStream(id: event.planId),
+      onData: (plan) {
+        final workout = plan.workouts
+            .firstWhere((element) => element.id == event.workoutId);
+        final workoutExercise = workout.workoutExercises
+            .firstWhere((element) => element.id == event.workoutExerciseId);
 
-      var isAdvanced = false;
-      if (workoutExercise.exerciseSeries.isNotEmpty) {
-        final first = workoutExercise.exerciseSeries.first;
-        isAdvanced = workoutExercise.exerciseSeries.any(
-          (element) =>
-              element.reps != first.reps ||
-              element.weight != first.weight ||
-              element.rest != first.rest,
-        );
-      }
-
-      emit(
-        state.copyWith(
+        return state.copyWith(
           status: WorkoutExerciseDetailsStatus.loaded,
+          plan: plan,
           workout: workout,
           workoutExercise: workoutExercise,
-          isAdvanced: isAdvanced,
-        ),
+          isAdvanced: _getAdvanced(series: workoutExercise.exerciseSeries),
+        );
+      },
+      onError: (_, __) =>
+          state.copyWith(status: WorkoutExerciseDetailsStatus.failure),
+    );
+  }
+
+  bool _getAdvanced({required List<ExerciseSeries> series}) {
+    var isAdvanced = false;
+
+    if (series.isNotEmpty) {
+      final first = series.first;
+      isAdvanced = series.any(
+        (element) =>
+            element.reps != first.reps ||
+            element.weight != first.weight ||
+            element.rest != first.rest,
       );
-    } on WorkoutNotFoundException catch (_) {
-      emit(state.copyWith(status: WorkoutExerciseDetailsStatus.failure));
     }
+
+    return isAdvanced;
   }
 
   void _onExerciseSeriesChanged(
@@ -105,7 +112,14 @@ class WorkoutExerciseDetailsBloc
       final workout =
           state.workout!.copyWith(workoutExercises: workoutExercises);
 
-      await _workoutRepository.saveWorkout(workout);
+      final plan = state.plan!;
+      final workouts = List.of(plan.workouts);
+      final workoutIndex =
+          workouts.indexWhere((element) => element.id == workout.id);
+
+      workouts[workoutIndex] = workout;
+
+      await _workoutRepository.savePlan(plan.copyWith(workouts: workouts));
       emit(state.copyWith(status: WorkoutExerciseDetailsStatus.delete));
     } catch (e) {
       emit(state.copyWith(status: WorkoutExerciseDetailsStatus.failure));
@@ -198,7 +212,14 @@ class WorkoutExerciseDetailsBloc
       final workout =
           state.workout!.copyWith(workoutExercises: workoutExercises);
 
-      await _workoutRepository.saveWorkout(workout);
+      final plan = state.plan!;
+      final workouts = List.of(plan.workouts);
+      final workoutIndex =
+          workouts.indexWhere((element) => element.id == workout.id);
+
+      workouts[workoutIndex] = workout;
+
+      await _workoutRepository.savePlan(plan.copyWith(workouts: workouts));
       emit(state.copyWith(status: WorkoutExerciseDetailsStatus.updated));
     } catch (e) {
       emit(state.copyWith(status: WorkoutExerciseDetailsStatus.failure));

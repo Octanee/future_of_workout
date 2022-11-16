@@ -11,9 +11,10 @@ class WorkoutList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<WorkoutListBloc, WorkoutListState>(
-      buildWhen: (previous, current) => previous.workouts != current.workouts,
+      buildWhen: (previous, current) =>
+          previous.plan?.workouts != current.plan?.workouts,
       builder: (context, state) {
-        final list = state.workouts;
+        final list = state.plan!.workouts;
 
         return Column(
           children: list.map<Widget>((workout) {
