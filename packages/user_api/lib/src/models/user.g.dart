@@ -18,6 +18,7 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       weightUnit:
           $enumDecodeNullable(_$WeightUnitEnumMap, json['weightUnit']) ??
               WeightUnit.kilogram,
+      currentPlanId: json['currentPlanId'] as String?,
     );
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
@@ -27,6 +28,7 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'gender': _$GenderEnumMap[instance.gender]!,
       'lengthUnit': _$LengthUnitEnumMap[instance.lengthUnit]!,
       'weightUnit': _$WeightUnitEnumMap[instance.weightUnit]!,
+      'currentPlanId': instance.currentPlanId,
     };
 
 const _$GenderEnumMap = {

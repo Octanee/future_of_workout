@@ -8,7 +8,8 @@ part 'user.g.dart';
 /// {@template user}
 /// Object of user.
 ///
-/// Contains user [age], [height], [weight] and [gender].
+/// Contains user [age], [currentPlanId], [height], [weight] and [gender].
+///
 /// [height] should be saved in centimeters.
 /// [weight] should be saved in kilograms.
 ///
@@ -29,6 +30,7 @@ class User extends Equatable {
     this.gender = Gender.male,
     this.lengthUnit = LengthUnit.centimeter,
     this.weightUnit = WeightUnit.kilogram,
+    this.currentPlanId,
   });
 
   /// Height of user.
@@ -53,6 +55,9 @@ class User extends Equatable {
   /// The preferred unit of weight
   final WeightUnit weightUnit;
 
+  /// The id of current plan
+  final String? currentPlanId;
+
   /// Copy instance of object with given values.
   ///
   /// {@macro user}
@@ -63,6 +68,7 @@ class User extends Equatable {
     Gender? gender,
     LengthUnit? lengthUnit,
     WeightUnit? weightUnit,
+    String? Function()? currentPlanId,
   }) {
     return User(
       height: height ?? this.height,
@@ -71,6 +77,8 @@ class User extends Equatable {
       gender: gender ?? this.gender,
       lengthUnit: lengthUnit ?? this.lengthUnit,
       weightUnit: weightUnit ?? this.weightUnit,
+      currentPlanId:
+          currentPlanId != null ? currentPlanId() : this.currentPlanId,
     );
   }
 
@@ -88,5 +96,6 @@ class User extends Equatable {
         gender,
         lengthUnit,
         weightUnit,
+        currentPlanId,
       ];
 }
