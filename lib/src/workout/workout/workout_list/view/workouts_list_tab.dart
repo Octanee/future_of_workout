@@ -24,42 +24,36 @@ class WorkoutListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<WorkoutListBloc, WorkoutListState>(
-      listenWhen: (previous, current) => previous.status != current.status,
-      listener: (context, state) {
-        if (state.status == WorkoutListStatus.added) {
-          context.goNamed(
-            WorkoutDetailsPage.name,
-            params: {
-              'homePageTab': WorkoutsPage.name,
-              'workoutId': state.newWorkoutId,
-            },
-          );
-        }
-      },
-      builder: (context, state) {
-        switch (state.status) {
-          case WorkoutListStatus.initial:
-          case WorkoutListStatus.loading:
-            return const AppScaffold(
-              body: AppLoading(),
+    return AppScaffold(
+      floatingActionButton: const AddWorkout(),
+      body: BlocConsumer<WorkoutListBloc, WorkoutListState>(
+        listenWhen: (previous, current) => previous.status != current.status,
+        listener: (context, state) {
+          if (state.status == WorkoutListStatus.added) {
+            context.goNamed(
+              WorkoutDetailsPage.name,
+              params: {
+                'homePageTab': WorkoutsPage.name,
+                'workoutId': state.newWorkoutId,
+              },
             );
-          case WorkoutListStatus.failure:
-            return const AppScaffold(
-              body: AppError(),
-            );
-          case WorkoutListStatus.empty:
-            return AppScaffold(
-              floatingActionButton: const AddWorkout(),
-              body: AppEmptyList(
+          }
+        },
+        builder: (context, state) {
+          switch (state.status) {
+            case WorkoutListStatus.initial:
+            case WorkoutListStatus.loading:
+              return const AppLoading();
+
+            case WorkoutListStatus.failure:
+              return const AppError();
+            case WorkoutListStatus.empty:
+              return AppEmptyList(
                 text: context.locale.workoutListEmpty,
-              ),
-            );
-          case WorkoutListStatus.loaded:
-          case WorkoutListStatus.added:
-            return AppScaffold(
-              floatingActionButton: const AddWorkout(),
-              body: ListView(
+              );
+            case WorkoutListStatus.loaded:
+            case WorkoutListStatus.added:
+              return ListView(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 physics: const BouncingScrollPhysics(),
@@ -67,10 +61,10 @@ class WorkoutListView extends StatelessWidget {
                   StartWorkout(),
                   WorkoutList(),
                 ],
-              ),
-            );
-        }
-      },
+              );
+          }
+        },
+      ),
     );
   }
 }
