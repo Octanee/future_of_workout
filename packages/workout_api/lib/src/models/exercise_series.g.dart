@@ -15,7 +15,7 @@ ExerciseSeries _$ExerciseSeriesFromJson(Map<String, dynamic> json) =>
       rest: json['rest'] as int? ?? 120,
       intensity:
           $enumDecodeNullable(_$SeriesIntensityEnumMap, json['intensity']) ??
-              SeriesIntensity.moderate,
+              SeriesIntensity.vigorous,
     );
 
 Map<String, dynamic> _$ExerciseSeriesToJson(ExerciseSeries instance) =>
