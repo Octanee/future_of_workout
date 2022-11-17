@@ -2,77 +2,76 @@ import 'dart:async';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_of_workout/src/common.dart';
 import 'package:future_of_workout/src/shared/extensions.dart';
+import 'package:user_repository/user_repository.dart';
 import 'package:workout_repository/workout_repository.dart';
 
 part 'workout_list_state.dart';
 part 'workout_list_event.dart';
 
 class WorkoutListBloc extends Bloc<WorkoutListEvent, WorkoutListState> {
-  WorkoutListBloc({required WorkoutRepository workoutRepository})
-      : _workoutRepository = workoutRepository,
+  WorkoutListBloc({
+    required WorkoutRepository workoutRepository,
+    required UserRepository userRepository,
+  })  : _workoutRepository = workoutRepository,
+        _userRepository = userRepository,
         super(const WorkoutListState()) {
-    on<WorkoutListSubcriptionRequested>(_onSubscriptionRequested);
-    //on<WorkoutListWorkoutFavoriteToggled>(_onWorkoutFavoriteToggled);
+    on<WorkoutListCurrentPlan>(_onCurrentPlan);
+    on<WorkoutListLoading>(_onLoading);
     on<WorkoutListNewWorkoutAdding>(_onNewWorkoutAdding);
   }
 
   final WorkoutRepository _workoutRepository;
+  final UserRepository _userRepository;
 
-  Future<void> _onSubscriptionRequested(
-    WorkoutListSubcriptionRequested event,
+  Future<void> _onCurrentPlan(
+    WorkoutListCurrentPlan event,
     Emitter<WorkoutListState> emit,
   ) async {
     emit(state.copyWith(status: WorkoutListStatus.loading));
 
-    if (event.currentPlanId == null) {
-      emit(state.copyWith(status: WorkoutListStatus.noSelectedPlan));
-      return;
-    }
+    await emit.forEach<User?>(
+      _userRepository.getUser(),
+      onData: (user) {
+        final id = user!.currentPlanId;
+
+        if (id != null) {
+          return state.copyWith(
+            status: WorkoutListStatus.hasPlan,
+            currentPlanId: () => id,
+          );
+        }
+        return state.copyWith(
+          status: WorkoutListStatus.noSelectedPlan,
+          currentPlanId: () => null,
+        );
+      },
+      onError: (_, __) => state.copyWith(status: WorkoutListStatus.failure),
+    );
+  }
+
+  Future<void> _onLoading(
+    WorkoutListLoading event,
+    Emitter<WorkoutListState> emit,
+  ) async {
+    emit(state.copyWith(status: WorkoutListStatus.loading));
 
     await emit.forEach<Plan?>(
-      _workoutRepository.getPlanStream(id: event.currentPlanId!),
+      _workoutRepository.getPlanStream(id: state.currentPlanId!),
       onData: (plan) {
         if (plan!.workouts.isEmpty) {
           return state.copyWith(plan: plan, status: WorkoutListStatus.empty);
         }
-
-        // final favoriteWorkouts = workouts
-        //     .where((element) => element.isFavorite)
-        //     .toList()
-        //   ..sort((a, b) => a.name.compareTo(b.name));
-        // final otherWorkouts = workouts
-        //     .where((element) => !element.isFavorite)
-        //     .toList()
-        //   ..sort((a, b) => a.name.compareTo(b.name));
-
-        // final sortedList = favoriteWorkouts + otherWorkouts;
-
-        // workouts.sort((a, b) => a.name.compareTo(b.name));
 
         return state.copyWith(
           status: WorkoutListStatus.loaded,
           plan: plan,
         );
       },
-      onError: (error, __) {
-        if (error is PlanNotFoundException) {
-          emit(state.copyWith(status: WorkoutListStatus.noSelectedPlan));
-        }
-        return state.copyWith(
-          status: WorkoutListStatus.failure,
-        );
-      },
+      onError: (_, __) => state.copyWith(status: WorkoutListStatus.failure),
     );
   }
-
-  // Future<void> _onWorkoutFavoriteToggled(
-  //   WorkoutListWorkoutFavoriteToggled event,
-  //   Emitter<WorkoutListState> emit,
-  // ) async {
-  //   final newWorkout = event.workout.copyWith(isFavorite: event.isFavorite);
-  //   await _workoutRepository.saveWorkout(newWorkout);
-  // }
 
   Future<void> _onNewWorkoutAdding(
     WorkoutListNewWorkoutAdding event,

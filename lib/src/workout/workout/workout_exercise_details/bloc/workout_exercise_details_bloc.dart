@@ -31,10 +31,10 @@ class WorkoutExerciseDetailsBloc
   ) async {
     emit(state.copyWith(status: WorkoutExerciseDetailsStatus.loading));
 
-    await emit.forEach<Plan>(
+    await emit.forEach<Plan?>(
       _workoutRepository.getPlanStream(id: event.planId),
       onData: (plan) {
-        final workout = plan.workouts
+        final workout = plan!.workouts
             .firstWhere((element) => element.id == event.workoutId);
         final workoutExercise = workout.workoutExercises
             .firstWhere((element) => element.id == event.workoutExerciseId);

@@ -13,71 +13,69 @@ class WorkoutsListTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) {
-        final currentPlanId =
-            context.read<UserRepository>().get().currentPlanId;
         return WorkoutListBloc(
           workoutRepository: context.read<WorkoutRepository>(),
-        )..add(
-            WorkoutListSubcriptionRequested(
-              currentPlanId: currentPlanId,
-            ),
-          );
+          userRepository: context.read<UserRepository>(),
+        )..add(const WorkoutListCurrentPlan());
       },
-      child: const WorkoutListView(),
+      child: const _WorkoutListView(),
     );
   }
 }
 
-class WorkoutListView extends StatelessWidget {
-  const WorkoutListView({super.key});
+class _WorkoutListView extends StatelessWidget {
+  const _WorkoutListView();
 
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
       floatingActionButton: const AddWorkout(),
-      body: BlocConsumer<WorkoutListBloc, WorkoutListState>(
-        listenWhen: (previous, current) => previous.status != current.status,
-        listener: (context, state) {
-          if (state.status == WorkoutListStatus.added) {
-            context.goNamed(
-              WorkoutDetailsPage.name,
-              params: {
-                'homePageTab': WorkoutsPage.name,
-                'workoutId': state.newWorkoutId,
-              },
-            );
-          }
-        },
-        builder: (context, state) {
-          switch (state.status) {
-            case WorkoutListStatus.initial:
-            case WorkoutListStatus.loading:
-              return const AppLoading();
-
-            case WorkoutListStatus.failure:
-              return const AppError();
-            case WorkoutListStatus.empty:
-              return AppEmptyList(
-                text: context.locale.workoutListEmpty,
-              );
-            case WorkoutListStatus.loaded:
-            case WorkoutListStatus.added:
-              return ListView(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                physics: const BouncingScrollPhysics(),
-                children: const [
-                  StartWorkout(),
-                  WorkoutList(),
-                ],
-              );
-            case WorkoutListStatus.noSelectedPlan:
-              return const AppEmptyList(
-                // TODO(intl): Translate
-                text: 'No plan selected',
-              );
-          }
-        },
+      body: ListView(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        physics: const BouncingScrollPhysics(),
+        children: [
+          const StartWorkout(),
+          BlocConsumer<WorkoutListBloc, WorkoutListState>(
+            listenWhen: (previous, current) =>
+                previous.status != current.status,
+            listener: (context, state) {
+              if (state.status == WorkoutListStatus.hasPlan) {
+                context.read<WorkoutListBloc>().add(const WorkoutListLoading());
+              }
+              if (state.status == WorkoutListStatus.added) {
+                context.goNamed(
+                  WorkoutDetailsPage.name,
+                  params: {
+                    'homePageTab': WorkoutsPage.name,
+                    'workoutId': state.newWorkoutId,
+                  },
+                );
+              }
+            },
+            builder: (context, state) {
+              switch (state.status) {
+                case WorkoutListStatus.initial:
+                case WorkoutListStatus.loading:
+                case WorkoutListStatus.hasPlan:
+                  return const AppLoading();
+                case WorkoutListStatus.failure:
+                  return const AppError();
+                case WorkoutListStatus.empty:
+                  return AppEmptyList(
+                    text: context.locale.workoutListEmpty,
+                  );
+                case WorkoutListStatus.noSelectedPlan:
+                  return const AppEmptyList(
+                    // TODO(intl): Translate
+                    text: 'No plan selected',
+                  );
+                case WorkoutListStatus.loaded:
+                case WorkoutListStatus.added:
+                  return const WorkoutList();
+              }
+            },
+          ),
+        ],
       ),
     );
   }

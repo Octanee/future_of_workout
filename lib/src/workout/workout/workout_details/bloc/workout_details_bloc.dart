@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:future_of_workout/src/shared/extensions.dart';
 import 'package:workout_repository/workout_repository.dart';
@@ -31,11 +32,11 @@ class WorkoutDetailsBloc
   ) async {
     emit(state.copyWith(status: WorkoutDetailsStatus.loading));
 
-    await emit.forEach<Plan>(
+    await emit.forEach<Plan?>(
       _workoutRepository.getPlanStream(id: event.planId),
       onData: (plan) {
-        final workout =
-            plan.workouts.firstWhere((element) => element.id == event.id);
+        final workout = plan!.workouts
+            .firstWhereOrNull((element) => element.id == event.id);
 
         return state.copyWith(
           status: WorkoutDetailsStatus.loaded,

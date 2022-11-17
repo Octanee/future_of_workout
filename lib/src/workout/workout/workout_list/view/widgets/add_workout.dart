@@ -1,7 +1,10 @@
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:future_of_workout/src/common.dart';
+import 'package:future_of_workout/src/workout/plan_selection/plan_selection_page.dart';
 import 'package:future_of_workout/src/workout/workout/workout.dart';
 import 'package:future_of_workout/src/workout/workout/workout_list/view/widgets/widgets.dart';
+import 'package:go_router/go_router.dart';
+import 'package:user_repository/user_repository.dart';
 
 class AddWorkout extends StatelessWidget {
   const AddWorkout({super.key});
@@ -23,6 +26,7 @@ class AddWorkout extends StatelessWidget {
 
   SpeedDialChild _addWorkout(BuildContext context) {
     return SpeedDialChild(
+      visible: context.read<UserRepository>().get().currentPlanId != null,
       label: 'Add workout',
       child: const AppIcon(iconData: AppIcons.plus),
       onTap: () async {
@@ -43,6 +47,12 @@ class AddWorkout extends StatelessWidget {
     return SpeedDialChild(
       label: 'Select plan',
       child: const AppIcon(iconData: AppIcons.listAdd),
+      onTap: () {
+        context.goNamed(
+          PlanSelectionPage.name,
+          params: PlanSelectionPage.params,
+        );
+      },
     );
   }
 }

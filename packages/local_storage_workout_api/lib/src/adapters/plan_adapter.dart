@@ -27,7 +27,7 @@ class PlanAdapter extends TypeAdapter<Plan> {
   @override
   void write(BinaryWriter writer, Plan obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(3)
       ..writeByte(1)
       ..write(obj.id)
       ..writeByte(2)

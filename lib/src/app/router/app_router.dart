@@ -6,6 +6,7 @@ import 'package:future_of_workout/src/exercise/exercise.dart';
 import 'package:future_of_workout/src/home/home.dart';
 import 'package:future_of_workout/src/setup/setup.dart';
 import 'package:future_of_workout/src/shared/shared.dart';
+import 'package:future_of_workout/src/workout/plan_selection/plan_selection_page.dart';
 import 'package:future_of_workout/src/workout/workout/workout.dart';
 import 'package:future_of_workout/src/workout/workout_logs/workout_logs.dart';
 import 'package:future_of_workout/src/workout/workouts/workouts.dart';
@@ -103,6 +104,7 @@ class AppRouter {
       return HomePage(item: item);
     },
     routes: [
+      _planSelectionRoute,
       _workoutDetailsRoute,
       _workoutLogDetailsRoute,
       _currentWorkoutExerciseRoute,
@@ -110,6 +112,17 @@ class AppRouter {
       _bodyCircuitAddRoute,
       _bodyCircuitDetailsRoute
     ],
+  );
+
+  static final GoRoute _planSelectionRoute = GoRoute(
+    name: PlanSelectionPage.name,
+    path: PlanSelectionPage.path,
+    pageBuilder: (_, state) {
+      return _buildTransition(
+        key: state.pageKey,
+        child: const PlanSelectionPage(),
+      );
+    },
   );
 
   static final GoRoute _bodyCircuitAddRoute = GoRoute(

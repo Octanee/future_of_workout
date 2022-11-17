@@ -14,7 +14,7 @@ class WorkoutRepository {
   Stream<List<Plan>> getPlans() => _workoutApi.getPlans();
 
   /// Provides a [Stream] of specific plan
-  Stream<Plan> getPlanStream({required String id}) =>
+  Stream<Plan?> getPlanStream({required String id}) =>
       _workoutApi.getPlanStream(id: id);
 
   /// Get the plan with the given `id`.

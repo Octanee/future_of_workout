@@ -17,18 +17,7 @@ class LocalStorageWorkoutApi extends WorkoutApi {
 
   final _plansStreamController = BehaviorSubject<List<Plan>>.seeded(const []);
 
-  final _planStreamController = BehaviorSubject<Plan>();
-
-  // final _workoutsStreamController =
-  //     BehaviorSubject<List<Workout>>.seeded(const []);
-
-  // final _workoutStreamController = BehaviorSubject<Workout?>();
-
-  // /// The name used for storing the workout locally.
-  // ///
-  // /// This is only exposed for testing
-  // /// and shouldn't be used for consumers of this library.
-  // static const kWorkoutBoxName = 'workout_box_name';
+  final _planStreamController = BehaviorSubject<Plan?>();
 
   /// The name used for storing the plan locally.
   ///
@@ -60,62 +49,6 @@ class LocalStorageWorkoutApi extends WorkoutApi {
     // );
     assert(_planBox.isOpen, 'Local Storage of plans has not been initialized.');
   }
-
-  // @override
-  // Stream<List<Workout>> getWorkouts() {
-  //   _checkInit();
-
-  //   final workouts = _workoutBox.values.toList();
-  //   _workoutsStreamController.add(workouts);
-
-  //   _workoutBox.watch().listen((_) {
-  //     final workouts = _workoutBox.values.toList();
-  //     _workoutsStreamController.add(workouts);
-  //   });
-
-  //   return _workoutsStreamController.asBroadcastStream();
-  // }
-
-  // @override
-  // Stream<Workout?> getWorkout({required String id}) {
-  //   _checkInit();
-
-  //   final workout = _workoutBox.get(id);
-  //   _workoutStreamController.add(workout);
-
-  //   _workoutBox.watch(key: id).listen((_) {
-  //     final workout = _workoutBox.get(id);
-  //     _workoutStreamController.add(workout);
-  //   });
-
-  //   return _workoutStreamController.asBroadcastStream();
-  // }
-
-  // @override
-  // Workout get({required String id}) {
-  //   _checkInit();
-  //   final workout = _workoutBox.get(id);
-  //   if (workout == null) {
-  //     throw WorkoutNotFoundException();
-  //   }
-  //   return workout;
-  // }
-
-  // @override
-  // Future<void> deleteWorkout(String id) async {
-  //   _checkInit();
-  //   if (!_workoutBox.containsKey(id)) {
-  //     throw WorkoutNotFoundException();
-  //   }
-
-  //   await _workoutBox.delete(id);
-  // }
-
-  // @override
-  // Future<void> saveWorkout(Workout workout) async {
-  //   _checkInit();
-  //   await _workoutBox.put(workout.id, workout);
-  // }
 
   @override
   Future<void> deletePlan(String id) async {
@@ -162,13 +95,14 @@ class LocalStorageWorkoutApi extends WorkoutApi {
   }
 
   @override
-  Stream<Plan> getPlanStream({required String id}) {
+  Stream<Plan?> getPlanStream({required String id}) {
     _checkInit();
-
-    _planStreamController.add(getPlan(id: id));
+    final plan = _planBox.get(id);
+    _planStreamController.add(plan);
 
     _planBox.watch().listen((_) {
-      _planStreamController.add(getPlan(id: id));
+      final plan = _planBox.get(id);
+      _planStreamController.add(plan);
     });
 
     return _planStreamController.asBroadcastStream();

@@ -12,7 +12,7 @@ abstract class WorkoutApi {
   Stream<List<Plan>> getPlans();
 
   /// Provides a [Stream] of specific plan.
-  Stream<Plan> getPlanStream({required String id});
+  Stream<Plan?> getPlanStream({required String id});
 
   /// Get the plan with the given `id`.
   ///
