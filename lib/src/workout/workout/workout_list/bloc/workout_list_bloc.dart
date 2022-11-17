@@ -1,9 +1,7 @@
 import 'dart:async';
 
 import 'package:equatable/equatable.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_of_workout/src/common.dart';
-import 'package:future_of_workout/src/shared/extensions.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:workout_repository/workout_repository.dart';
 

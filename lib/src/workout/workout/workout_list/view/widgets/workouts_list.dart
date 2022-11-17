@@ -16,6 +16,7 @@ class WorkoutList extends StatelessWidget {
       builder: (context, state) {
         final list = state.plan!.workouts;
 
+        // TODO(UI): Draggable list
         return Column(
           children: list.map<Widget>((workout) {
             return Padding(
