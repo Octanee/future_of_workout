@@ -65,9 +65,8 @@ class _WorkoutListView extends StatelessWidget {
                     text: context.locale.workoutListEmpty,
                   );
                 case WorkoutListStatus.noSelectedPlan:
-                  return const AppEmptyList(
-                    // TODO(intl): Translate
-                    text: 'No plan selected',
+                  return AppEmptyList(
+                    text: context.locale.noSelectedPlan,
                   );
                 case WorkoutListStatus.loaded:
                 case WorkoutListStatus.added:

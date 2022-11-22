@@ -27,6 +27,7 @@ class AddWorkout extends StatelessWidget {
   SpeedDialChild _addWorkout(BuildContext context) {
     return SpeedDialChild(
       visible: context.read<UserRepository>().get().currentPlanId != null,
+      // TODO(intl): Translate
       label: 'Add workout',
       child: const AppIcon(iconData: AppIcons.plus),
       onTap: () async {
@@ -45,6 +46,7 @@ class AddWorkout extends StatelessWidget {
 
   SpeedDialChild _selectPlan(BuildContext context) {
     return SpeedDialChild(
+      // TODO(intl): Translate
       label: 'Select plan',
       child: const AppIcon(iconData: AppIcons.listAdd),
       onTap: () {

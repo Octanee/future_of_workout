@@ -138,7 +138,7 @@ class _ColumnHeader extends StatelessWidget {
           style: AppTextStyle.semiBold20,
         ),
         Padding(
-          padding: const EdgeInsets.only(left: 8),
+          padding: const EdgeInsets.only(left: 4),
           child: icon,
         ),
       ],

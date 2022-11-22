@@ -19,6 +19,7 @@
   "seriesCount": "{count, plural, =0{Brak serii} =1{{count} seria} few{{count} serie} other{{count} serii}}",
   "exercisesCount": "{count, plural, =1{ćwiczenie} few{ćwiczenia} other{ćwiczeń}}",
   "workoutListEmpty": "Nie znaleziono żadnego plany..",
+  "noSelectedPlan": "Nie wybrano planu..",
   "workoutLogsListEmpty": "Nie wykonano jeszcze treningu..",
   "simpleMode": "Widok uproszczony",
   "advancedMode": "Widok zaawansowany",
