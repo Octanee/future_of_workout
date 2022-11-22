@@ -58,7 +58,7 @@ class WorkoutListBloc extends Bloc<WorkoutListEvent, WorkoutListState> {
     await emit.forEach<Plan?>(
       _workoutRepository.getPlanStream(id: state.currentPlanId!),
       onData: (plan) {
-        if (plan!.workouts.isEmpty) {
+        if (plan != null && plan.workouts.isEmpty) {
           return state.copyWith(plan: plan, status: WorkoutListStatus.empty);
         }
 
