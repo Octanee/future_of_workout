@@ -20,13 +20,14 @@ class UserAdapter extends TypeAdapter<User> {
       gender: fields[4] as Gender,
       lengthUnit: fields[5] as LengthUnit,
       weightUnit: fields[6] as WeightUnit,
+      currentPlanId: fields[7] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, User obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(1)
       ..write(obj.height)
       ..writeByte(2)
@@ -38,6 +39,8 @@ class UserAdapter extends TypeAdapter<User> {
       ..writeByte(5)
       ..write(obj.lengthUnit)
       ..writeByte(6)
-      ..write(obj.weightUnit);
+      ..write(obj.weightUnit)
+      ..writeByte(7)
+      ..write(obj.currentPlanId);
   }
 }
