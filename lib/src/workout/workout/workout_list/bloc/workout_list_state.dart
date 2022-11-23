@@ -2,10 +2,11 @@ part of 'workout_list_bloc.dart';
 
 enum WorkoutListStatus {
   initial,
+  loadingUser,
+  loadedUser,
+  loadingPlan,
+  loadedPlan,
   noSelectedPlan,
-  hasPlan,
-  loading,
-  loaded,
   empty,
   added,
   failure,
@@ -30,15 +31,25 @@ class WorkoutListState extends Equatable {
   WorkoutListState copyWith({
     WorkoutListStatus? status,
     String? Function()? currentPlanId,
-    Plan? plan,
+    Plan? Function()? plan,
     String? newWorkoutId,
   }) {
     return WorkoutListState(
       status: status ?? this.status,
-      plan: plan ?? this.plan,
+      plan: plan != null ? plan() : this.plan,
       newWorkoutId: newWorkoutId ?? this.newWorkoutId,
       currentPlanId:
           currentPlanId != null ? currentPlanId() : this.currentPlanId,
     );
+  }
+
+  @override
+  String toString() {
+    final map = {
+      'status': status,
+      'currentPlanId': currentPlanId,
+      'plan': plan?.id,
+    };
+    return map.toString();
   }
 }

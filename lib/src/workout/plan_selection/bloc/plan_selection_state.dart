@@ -37,4 +37,14 @@ class PlanSelectionState extends Equatable {
         plans,
         currentPlan,
       ];
+
+  @override
+  String toString() {
+    final map = {
+      'status': status,
+      'plansCount': plans.length,
+      'currentPlan': currentPlan?.id
+    };
+    return map.toString();
+  }
 }

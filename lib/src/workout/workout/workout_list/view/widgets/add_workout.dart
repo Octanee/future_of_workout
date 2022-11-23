@@ -4,29 +4,34 @@ import 'package:future_of_workout/src/workout/plan_selection/plan_selection_page
 import 'package:future_of_workout/src/workout/workout/workout.dart';
 import 'package:future_of_workout/src/workout/workout/workout_list/view/widgets/widgets.dart';
 import 'package:go_router/go_router.dart';
-import 'package:user_repository/user_repository.dart';
 
 class AddWorkout extends StatelessWidget {
   const AddWorkout({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SpeedDial(
-      overlayColor: AppColors.grey,
-      overlayOpacity: 0.4,
-      children: [
-        _addWorkout(context),
-        _selectPlan(context),
-      ],
-      spacing: 4,
-      activeChild: const AppIcon(iconData: AppIcons.minus),
-      child: const AppIcon(iconData: AppIcons.plus),
+    return BlocBuilder<WorkoutListBloc, WorkoutListState>(
+      buildWhen: (previous, current) =>
+          previous.currentPlanId != current.currentPlanId,
+      builder: (context, state) {
+        return SpeedDial(
+          overlayColor: AppColors.grey,
+          overlayOpacity: 0.4,
+          children: [
+            _addWorkout(context, isVisible: state.currentPlanId != null),
+            _selectPlan(context),
+          ],
+          spacing: 4,
+          activeChild: const AppIcon(iconData: AppIcons.minus),
+          child: const AppIcon(iconData: AppIcons.plus),
+        );
+      },
     );
   }
 
-  SpeedDialChild _addWorkout(BuildContext context) {
+  SpeedDialChild _addWorkout(BuildContext context, {required bool isVisible}) {
     return SpeedDialChild(
-      visible: context.read<UserRepository>().get().currentPlanId != null,
+      visible: isVisible,
       // TODO(intl): Translate
       label: 'Add workout',
       child: const AppIcon(iconData: AppIcons.plus),

@@ -7,25 +7,12 @@ abstract class WorkoutListEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class WorkoutListCurrentPlan extends WorkoutListEvent {
-  const WorkoutListCurrentPlan();
+class WorkoutListLoadingUser extends WorkoutListEvent {
+  const WorkoutListLoadingUser();
 }
 
 class WorkoutListLoading extends WorkoutListEvent {
   const WorkoutListLoading();
-}
-
-class WorkoutListWorkoutFavoriteToggled extends WorkoutListEvent {
-  const WorkoutListWorkoutFavoriteToggled({
-    required this.workout,
-    required this.isFavorite,
-  });
-
-  final Workout workout;
-  final bool isFavorite;
-
-  @override
-  List<Object?> get props => [workout, isFavorite];
 }
 
 class WorkoutListNewWorkoutAdding extends WorkoutListEvent {

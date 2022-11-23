@@ -15,7 +15,7 @@ class WorkoutListBloc extends Bloc<WorkoutListEvent, WorkoutListState> {
   })  : _workoutRepository = workoutRepository,
         _userRepository = userRepository,
         super(const WorkoutListState()) {
-    on<WorkoutListCurrentPlan>(_onCurrentPlan);
+    on<WorkoutListLoadingUser>(_onLoadingUser);
     on<WorkoutListLoading>(_onLoading);
     on<WorkoutListNewWorkoutAdding>(_onNewWorkoutAdding);
   }
@@ -23,26 +23,25 @@ class WorkoutListBloc extends Bloc<WorkoutListEvent, WorkoutListState> {
   final WorkoutRepository _workoutRepository;
   final UserRepository _userRepository;
 
-  Future<void> _onCurrentPlan(
-    WorkoutListCurrentPlan event,
+  Future<void> _onLoadingUser(
+    WorkoutListLoadingUser event,
     Emitter<WorkoutListState> emit,
   ) async {
-    emit(state.copyWith(status: WorkoutListStatus.loading));
+    emit(state.copyWith(status: WorkoutListStatus.loadingUser));
 
     await emit.forEach<User?>(
       _userRepository.getUser(),
       onData: (user) {
-        final id = user!.currentPlanId;
-
-        if (id != null) {
+        if (user?.currentPlanId == null) {
           return state.copyWith(
-            status: WorkoutListStatus.hasPlan,
-            currentPlanId: () => id,
+            status: WorkoutListStatus.noSelectedPlan,
+            plan: () => null,
           );
         }
+
         return state.copyWith(
-          status: WorkoutListStatus.noSelectedPlan,
-          currentPlanId: () => null,
+          status: WorkoutListStatus.loadedUser,
+          currentPlanId: () => user?.currentPlanId,
         );
       },
       onError: (_, __) => state.copyWith(status: WorkoutListStatus.failure),
@@ -53,18 +52,34 @@ class WorkoutListBloc extends Bloc<WorkoutListEvent, WorkoutListState> {
     WorkoutListLoading event,
     Emitter<WorkoutListState> emit,
   ) async {
-    emit(state.copyWith(status: WorkoutListStatus.loading));
+    emit(state.copyWith(status: WorkoutListStatus.loadingPlan));
+
+    final planId = state.currentPlanId;
+    if (planId == null) {
+      emit(state.copyWith(status: WorkoutListStatus.failure));
+      return;
+    }
 
     await emit.forEach<Plan?>(
       _workoutRepository.getPlanStream(id: state.currentPlanId!),
       onData: (plan) {
-        if (plan != null && plan.workouts.isEmpty) {
-          return state.copyWith(plan: plan, status: WorkoutListStatus.empty);
+        if (plan == null) {
+          return state.copyWith(
+            status: WorkoutListStatus.noSelectedPlan,
+            plan: () => null,
+          );
+        }
+
+        if (plan.workouts.isEmpty) {
+          return state.copyWith(
+            status: WorkoutListStatus.empty,
+            plan: () => plan,
+          );
         }
 
         return state.copyWith(
-          status: WorkoutListStatus.loaded,
-          plan: plan,
+          status: WorkoutListStatus.loadedPlan,
+          plan: () => plan,
         );
       },
       onError: (_, __) => state.copyWith(status: WorkoutListStatus.failure),
@@ -86,7 +101,7 @@ class WorkoutListBloc extends Bloc<WorkoutListEvent, WorkoutListState> {
       emit(
         state.copyWith(
           status: WorkoutListStatus.added,
-          plan: plan,
+          plan: () => plan,
           newWorkoutId: workout.id,
         ),
       );

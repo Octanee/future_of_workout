@@ -16,7 +16,7 @@ class WorkoutsListTab extends StatelessWidget {
         return WorkoutListBloc(
           workoutRepository: context.read<WorkoutRepository>(),
           userRepository: context.read<UserRepository>(),
-        )..add(const WorkoutListCurrentPlan());
+        )..add(const WorkoutListLoadingUser());
       },
       child: const _WorkoutListView(),
     );
@@ -39,7 +39,7 @@ class _WorkoutListView extends StatelessWidget {
             listenWhen: (previous, current) =>
                 previous.status != current.status,
             listener: (context, state) {
-              if (state.status == WorkoutListStatus.hasPlan) {
+              if (state.status == WorkoutListStatus.loadedUser) {
                 context.read<WorkoutListBloc>().add(const WorkoutListLoading());
               }
               if (state.status == WorkoutListStatus.added) {
@@ -55,8 +55,9 @@ class _WorkoutListView extends StatelessWidget {
             builder: (context, state) {
               switch (state.status) {
                 case WorkoutListStatus.initial:
-                case WorkoutListStatus.loading:
-                case WorkoutListStatus.hasPlan:
+                case WorkoutListStatus.loadingUser:
+                case WorkoutListStatus.loadedUser:
+                case WorkoutListStatus.loadingPlan:
                   return const AppLoading();
                 case WorkoutListStatus.failure:
                   return const AppError();
@@ -68,8 +69,8 @@ class _WorkoutListView extends StatelessWidget {
                   return AppEmptyList(
                     text: context.locale.noSelectedPlan,
                   );
-                case WorkoutListStatus.loaded:
                 case WorkoutListStatus.added:
+                case WorkoutListStatus.loadedPlan:
                   return const WorkoutList();
               }
             },
